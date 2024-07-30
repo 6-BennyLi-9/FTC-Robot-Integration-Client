@@ -22,8 +22,17 @@ public class Robot {
 		structure=new Structure(motors,servos);
 	}
 
+	public void InitInAutonomous(){
+		structure.closeClips();
+	}
+	public void InitInTeleOps(){
+		structure.openClips();
+	}
+
 	public void update(){
 		motors.update();
+		servos.update();
+		sensors.update();
 	}
 	public void prepareForNewCommands(){
 		motors.clearDriveOptions();
