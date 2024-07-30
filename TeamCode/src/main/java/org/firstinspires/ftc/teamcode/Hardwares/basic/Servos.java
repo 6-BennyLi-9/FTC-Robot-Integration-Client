@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardwares.basic;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.hardware;
+import org.firstinspires.ftc.teamcode.Hardwares.hardware;
 import org.firstinspires.ftc.teamcode.namespace;
 
 public class Servos {

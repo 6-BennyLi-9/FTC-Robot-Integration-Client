@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.teamcode.Hardwares.hardware;
+
 import java.util.HashMap;
 
 public class namespace {
-	public final HashMap< hardware , String > Hardware=new HashMap<>();
+	public final HashMap<hardware, String > Hardware=new HashMap<>();
 
 	public namespace(){
 		//TODO:根据实际情况修改名称，这里的名称是根据我们的机器得到的
