@@ -38,34 +38,34 @@ public class Classic {
 	public void drive(@NonNull simpleDirection simpleDirection, double power) {
 		switch (simpleDirection) {
 			case forward:
-				motors.LeftFront.setPower(power);
-				motors.LeftRear.setPower(power);
-				motors.RightFront.setPower(power);
-				motors.RightRear.setPower(power);
+				motors.LeftFrontPower+=power;
+				motors.LeftRearPower+=power;
+				motors.RightFrontPower+=power;
+				motors.RightRearPower+=power;
 				break;
 			case back:
-				motors.LeftFront.setPower(-power);
-				motors.LeftRear.setPower(-power);
-				motors.RightFront.setPower(-power);
-				motors.RightRear.setPower(-power);
+				motors.LeftFrontPower -= power;
+				motors.LeftRearPower -= power;
+				motors.RightFrontPower -= power;
+				motors.RightRearPower -= power;
 				break;
 			case left:
-				motors.LeftFront.setPower(-power);
-				motors.LeftRear.setPower(power);
-				motors.RightFront.setPower(power);
-				motors.RightRear.setPower(-power);
+				motors.LeftFrontPower -= power;
+				motors.LeftRearPower+=power;
+				motors.RightFrontPower+=power;
+				motors.RightRearPower -= power;
 				break;
 			case right:
-				motors.LeftFront.setPower(power);
-				motors.LeftRear.setPower(-power);
-				motors.RightFront.setPower(-power);
-				motors.RightRear.setPower(power);
+				motors.LeftFrontPower+=power;
+				motors.LeftRearPower -= power;
+				motors.RightFrontPower -= power;
+				motors.RightRearPower+=power;
 				break;
 			case turn:
-				motors.LeftFront.setPower(power);
-				motors.LeftRear.setPower(power);
-				motors.RightFront.setPower(-power);
-				motors.RightRear.setPower(-power);
+				motors.LeftFrontPower+=power;
+				motors.LeftRearPower+=power;
+				motors.RightFrontPower -= power;
+				motors.RightRearPower -= power;
 				break;
 			case slant:
 				Log.e("UnExpectingCode","ErrorCode#1");
@@ -101,10 +101,10 @@ public class Classic {
 						y = -Math.sin(angle) * power;
 						break;
 				}
-				motors.LeftFront.setPower(y + x);
-				motors.LeftRear.setPower(y - x);
-				motors.RightFront.setPower(y - x);
-				motors.RightRear.setPower(y + x);
+				motors.LeftFrontPower+=y + x;
+				motors.LeftRearPower+=y - x;
+				motors.RightFrontPower+=y - x;
+				motors.RightRearPower+=y + x;
 				break;
 		}
 	}

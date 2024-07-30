@@ -11,7 +11,7 @@ public class Sensors {
 	 */
 	public BNO055IMU imu;
 
-	Sensors(HardwareMap hardwareMap){
+	public Sensors(HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace=new namespace();
 		imu=hardwareMap.get(BNO055IMU.class,namespace.Hardware.get(hardware.imu));
 	}

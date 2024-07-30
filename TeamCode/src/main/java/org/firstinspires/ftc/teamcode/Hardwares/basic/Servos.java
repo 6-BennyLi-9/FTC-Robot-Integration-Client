@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.namespace;
 public class Servos {
 	public Servo FrontClip,RearClip;
 
-	Servos(HardwareMap hardwareMap){
+	public Servos(HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace=new namespace();
 
 		FrontClip=hardwareMap.get(Servo.class, namespace.Hardware.get(hardware.FrontClip));
