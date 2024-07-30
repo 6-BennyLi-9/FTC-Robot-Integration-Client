@@ -1,9 +1,8 @@
-## FTC 集成化机器控制端(Demo)
-# FTC Robot Integration Client(Demo)
+# FTC 集成化机器控制端(Demo)
+## FTC Robot Integration Client(Demo)
 
-# Warn:I'm a Chinese so most of the code and other things won't be fully translated.
+### Warn:I'm a Chinese so most of the code and other things won't be fully translated.
 
---
 
 # 关于本项目：
 
