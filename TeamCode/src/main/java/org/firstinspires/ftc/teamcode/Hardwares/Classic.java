@@ -70,6 +70,10 @@ public class Classic {
 			case slant:
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
+
+		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+			motors.update();
+		}
 	}
 
 	/**
@@ -107,6 +111,10 @@ public class Classic {
 				motors.RightRearPower+=y + x;
 				break;
 		}
+
+		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+			motors.update();
+		}
 	}
 
 	/**
@@ -134,6 +142,10 @@ public class Classic {
 			drive(simpleDirection.slant,place.B,power,90+angle);
 		}else if(angle>-180&&angle<0){//第三象限
 			drive(simpleDirection.slant,place.C,power,-90-angle);
+		}
+
+		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+			motors.update();
 		}
 	}
 }

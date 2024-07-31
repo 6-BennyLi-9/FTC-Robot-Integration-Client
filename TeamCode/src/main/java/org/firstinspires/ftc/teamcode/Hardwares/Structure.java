@@ -28,9 +28,17 @@ public class Structure {
 	public void openClips(){
 		OpenFrontClip();
 		OpenRearClip();
+
+		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+			servos.update();
+		}
 	}
 	public void closeClips(){
 		CloseFrontClip();
 		CloseRearClip();
+
+		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+			servos.update();
+		}
 	}
 }
