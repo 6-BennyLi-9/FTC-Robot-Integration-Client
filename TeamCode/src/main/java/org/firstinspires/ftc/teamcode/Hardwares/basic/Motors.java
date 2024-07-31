@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -13,7 +15,7 @@ public class Motors {
 	public DcMotorEx PlacementArm,SuspensionArm,Intake;
 	public double PlacementArmPower,SuspensionArmPower,IntakePower;
 
-	public Motors(HardwareMap hardwareMap){
+	public Motors(@NonNull HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace = new namespace();
 		LeftFrontPower=0;
 		RightFrontPower=0;

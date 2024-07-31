@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -16,7 +18,7 @@ public class Sensors {
 	public BNO055IMU imu;
 	public double FirstAngle,XMoved,YMoved;
 
-	public Sensors(HardwareMap hardwareMap){
+	public Sensors(@NonNull HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace=new namespace();
 		imu=hardwareMap.get(BNO055IMU.class,namespace.Hardware.get(hardware.imu));
 

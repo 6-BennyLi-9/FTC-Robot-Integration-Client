@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,7 +15,7 @@ public class Servos {
 	private final static double AllowErrorPosition=0.1;
 	private boolean PositionInPlace;
 
-	public Servos(HardwareMap hardwareMap){
+	public Servos(@NonNull HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace=new namespace();
 
 		FrontClip=hardwareMap.get(Servo.class, namespace.Hardware.get(hardware.FrontClip));

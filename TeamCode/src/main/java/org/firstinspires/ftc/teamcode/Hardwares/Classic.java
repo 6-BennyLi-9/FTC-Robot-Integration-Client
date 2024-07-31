@@ -143,9 +143,5 @@ public class Classic {
 		}else if(angle>-180&&angle<0){//第三象限
 			drive(simpleDirection.slant,place.C,power,-90-angle);
 		}
-
-		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
-			motors.update();
-		}
 	}
 }

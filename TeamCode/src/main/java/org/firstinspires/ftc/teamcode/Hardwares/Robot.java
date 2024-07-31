@@ -11,11 +11,13 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import java.util.Objects;
 
 public class Robot {
+	/**
+	 * 要修改其中的值请勿直接在这里修改，而是在Robot()中修改
+	 */
 	public static final class RuntimeOption{
-		public final static boolean autoPrepareForNextOptionWhenUpdate=true;
-		public final static boolean clearAllOptionsWhenUpdate=false;
-		public final static boolean runUpdateWhenAnyNewOptionsAdded=false;
-		public final static boolean waitForServoUntilThePositionIsInPlace=false;
+		public static boolean autoPrepareForNextOptionWhenUpdate=true;
+		public static boolean runUpdateWhenAnyNewOptionsAdded=false;
+		public static boolean waitForServoUntilThePositionIsInPlace=false;
 	}
 
 	public enum runningState{
@@ -38,9 +40,13 @@ public class Robot {
 		classic=new Classic(motors);
 		structure=new Structure(motors,servos);
 
+		//TODO:如果需要，在这里修改RuntimeOption中的值
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {
+
 			InitInAutonomous();
 		} else if (state == runningState.TeleOps) {
+			RuntimeOption.runUpdateWhenAnyNewOptionsAdded=true;
+
 			InitInTeleOps();
 		} else {
 			throw new NullPointerException("HOW COULD THE STATE EVER BE NULL OR BEEN CHANGED???");
