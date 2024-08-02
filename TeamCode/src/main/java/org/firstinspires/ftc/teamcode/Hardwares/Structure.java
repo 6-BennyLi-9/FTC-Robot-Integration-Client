@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardwares;
 
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.RuntimeOption;
 
 public class Structure {
 	Motors motors;

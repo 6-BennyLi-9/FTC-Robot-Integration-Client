@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares;
+package org.firstinspires.ftc.teamcode;
 
 /**
  * 要修改其中的值请勿直接在这里修改，而是在Robot()中修改
