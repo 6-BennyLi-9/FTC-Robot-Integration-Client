@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import org.firstinspires.ftc.teamcode.Hardwares.hardware;
+import org.firstinspires.ftc.teamcode.utils.enums.hardware;
 
 import java.util.HashMap;
 

@@ -7,32 +7,18 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 import java.util.Objects;
 
 public class Robot {
-	/**
-	 * 要修改其中的值请勿直接在这里修改，而是在Robot()中修改
-	 */
-	public static final class RuntimeOption{
-		public static boolean autoPrepareForNextOptionWhenUpdate=true;
-		public static boolean runUpdateWhenAnyNewOptionsAdded=false;
-		public static boolean waitForServoUntilThePositionIsInPlace=false;
-	}
-
-	public enum runningState{
-		Autonomous,
-		TeleOps
-	}
-
-
 	private final Motors motors;
 	private final Sensors sensors;
 	private final Servos servos;
 
 	public Classic classic;
 	public Structure structure;
-	public Robot(HardwareMap hardwareMap,runningState state){
+	public Robot(HardwareMap hardwareMap, runningState state){
 		motors=new Motors(hardwareMap);
 		sensors=new Sensors(hardwareMap);
 		servos=new Servos(hardwareMap);

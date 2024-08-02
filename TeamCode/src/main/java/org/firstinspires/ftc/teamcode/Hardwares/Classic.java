@@ -5,38 +5,18 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.utils.enums.place;
+import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 
 public class Classic {
-	public enum simpleDirection {
-		back,
-		forward,
-		left,
-		right,
-		slant,
-		turn
-	}
-
-	public enum place {
-		/**
-		 * <p>A:第一象限</p>
-		 * <p>B:第二象限</p>
-		 * <p>C:第三象限</p>
-		 * <p>D:第四象限</p>
-		 */
-		A,
-		B,
-		C,
-		D
-	}
-
 	protected Motors motors;
 
 	public Classic(Motors motors) {
 		this.motors = motors;
 	}
 
-	public void drive(@NonNull simpleDirection simpleDirection, double power) {
-		switch (simpleDirection) {
+	public void drive(@NonNull driveDirection driveDirection, double power) {
+		switch ( driveDirection ) {
 			case forward:
 				motors.LeftFrontPower+=power;
 				motors.LeftRearPower+=power;
@@ -71,7 +51,7 @@ public class Classic {
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
 			motors.update();
 		}
 	}
@@ -79,11 +59,11 @@ public class Classic {
 	/**
 	 * @param angle 是较于x轴的度数
 	 */
-	public void drive(@NonNull simpleDirection simpleDirection,@NonNull place place, double power, double angle) {
-		switch (simpleDirection) {
+	public void drive(@NonNull driveDirection driveDirection, @NonNull place place, double power, double angle) {
+		switch ( driveDirection ) {
 			case forward:case back:case left:case right:
 			case turn:
-				drive(simpleDirection, power);
+				drive(driveDirection, power);
 				break;
 			case slant:
 				double x=0,y=0;
@@ -112,7 +92,7 @@ public class Classic {
 				break;
 		}
 
-		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
 			motors.update();
 		}
 	}
@@ -125,23 +105,23 @@ public class Classic {
 		while (angle>180)angle-=360;
 
 		if(angle==0){
-			drive(simpleDirection.forward,power);
+			drive(driveDirection.forward,power);
 		}else if(angle==90){
-			drive(simpleDirection.right,power);
+			drive(driveDirection.right,power);
 		}else if(angle==-90){
-			drive(simpleDirection.left,power);
+			drive(driveDirection.left,power);
 		}else if(angle==180){
-			drive(simpleDirection.back,power);
+			drive(driveDirection.back,power);
 		}
 
 		if(angle>0&&angle<90){//第一象限
-			drive(simpleDirection.slant,place.A,power,90-angle);
+			drive(driveDirection.slant,place.A,power,90-angle);
 		}else if(angle>90&&angle<180){//第四象限
-			drive(simpleDirection.slant,place.D,power,angle-90);
+			drive(driveDirection.slant,place.D,power,angle-90);
 		}else if(angle>-90&angle<0){//第二象限
-			drive(simpleDirection.slant,place.B,power,90+angle);
+			drive(driveDirection.slant,place.B,power,90+angle);
 		}else if(angle>-180&&angle<0){//第三象限
-			drive(simpleDirection.slant,place.C,power,-90-angle);
+			drive(driveDirection.slant,place.C,power,-90-angle);
 		}
 	}
 }

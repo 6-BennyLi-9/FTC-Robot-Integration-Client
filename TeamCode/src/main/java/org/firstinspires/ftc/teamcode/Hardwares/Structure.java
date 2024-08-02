@@ -29,7 +29,7 @@ public class Structure {
 		OpenFrontClip();
 		OpenRearClip();
 
-		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}
@@ -37,7 +37,7 @@ public class Structure {
 		CloseFrontClip();
 		CloseRearClip();
 
-		if( Robot.RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}

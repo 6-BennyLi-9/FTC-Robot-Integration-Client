@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares;
+package org.firstinspires.ftc.teamcode.utils.enums;
 
 public enum hardware {
 	LeftFront,RightFront,LeftRear,RightRear,

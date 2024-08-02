@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Hardwares.hardware;
+import org.firstinspires.ftc.teamcode.utils.enums.hardware;
 import org.firstinspires.ftc.teamcode.namespace;
 
 public class Motors {

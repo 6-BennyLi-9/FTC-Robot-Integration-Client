@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.Hardwares.hardware;
+import org.firstinspires.ftc.teamcode.utils.enums.hardware;
 import org.firstinspires.ftc.teamcode.namespace;
 
 public class Sensors {
