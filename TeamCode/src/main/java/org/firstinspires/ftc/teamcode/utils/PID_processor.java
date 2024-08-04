@@ -29,11 +29,8 @@ public class PID_processor {
 	public void ModifyPID(long runTime,int ID){
 		P[ID]=inaccuracies[ID]*kP[ID];
 		I[ID]+=inaccuracies[ID]*kI[ID]*runTime;
-		if(I[ID]>MAX_I[ID]){
-			I[ID]=MAX_I[ID];
-		}else if(I[ID]<-MAX_I[ID]){
-			I[ID]=-MAX_I[ID];
-		}
+
+		I[ID]=Mathematics.intervalClip(I[ID],-MAX_I[ID],MAX_I[ID]);
 
 		D[ID]=(inaccuracies[ID]-lastInaccuracies[ID])*kD[ID]/runTime;
 		lastInaccuracies[ID]=inaccuracies[ID];
