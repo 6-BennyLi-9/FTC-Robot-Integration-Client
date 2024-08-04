@@ -12,7 +12,7 @@ public class Client {
 	private Telemetry.Item itemCache;
 	private Telemetry.Line lineCache;
 
-	Client(Telemetry telemetry){
+	public Client(Telemetry telemetry){
 		this.telemetry=telemetry;
 		items=new HashMap<>();
 		lines=new HashMap<>();
@@ -28,6 +28,7 @@ public class Client {
 	}
 	public void clear(){
 		clearInfo();
+		clearLines();
 	}
 
 	/**
