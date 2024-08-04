@@ -30,12 +30,11 @@ public class Robot {
 
 		//TODO:如果需要，在这里修改RuntimeOption中的值
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {
-
 			InitInAutonomous();
-		} else if (state == runningState.TeleOps) {
+		} else if (state == runningState.ManualDrive) {
 			RuntimeOption.runUpdateWhenAnyNewOptionsAdded=true;
 
-			InitInTeleOps();
+			InitInManualDrive();
 		} else {
 			throw new NullPointerException("HOW COULD THE STATE EVER BE NULL OR BEEN CHANGED???");
 		}
@@ -44,7 +43,7 @@ public class Robot {
 	private void InitInAutonomous(){
 		structure.closeClips();
 	}
-	private void InitInTeleOps(){
+	private void InitInManualDrive(){
 		structure.openClips();
 	}
 
