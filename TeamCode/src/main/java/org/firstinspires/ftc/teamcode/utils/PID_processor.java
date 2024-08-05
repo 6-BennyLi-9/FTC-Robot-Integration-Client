@@ -21,6 +21,14 @@ public class PID_processor {
 		Arrays.fill(timeFlags, TimeNow);
 	}
 
+	private void I_processor(int ID){
+		if(ID==2){//TODO:列出所有与角度有关的ID
+			I[ID]=Mathematics.angleRationalize(I[ID]);
+		}else{
+			I[ID]=Mathematics.intervalClip(I[ID],-MAX_I[ID],MAX_I[ID]);
+		}
+	}
+
 	/**
 	 * 不要更改，不要更改，不要更改
 	 * @param runTime 在上一次调用ModifyPID距离本次的时间差
@@ -30,7 +38,7 @@ public class PID_processor {
 		P[ID]=inaccuracies[ID]*kP[ID];
 		I[ID]+=inaccuracies[ID]*kI[ID]*runTime;
 
-		I[ID]=Mathematics.intervalClip(I[ID],-MAX_I[ID],MAX_I[ID]);
+		I_processor(ID);
 
 		D[ID]=(inaccuracies[ID]-lastInaccuracies[ID])*kD[ID]/runTime;
 		lastInaccuracies[ID]=inaccuracies[ID];
@@ -45,5 +53,14 @@ public class PID_processor {
 		long now=System.currentTimeMillis();
 		ModifyPID(now-timeFlags[ID],ID);
 		timeFlags[ID]=now;
+	}
+
+	/**
+	 * 刷新所有PID
+	 */
+	public void update(){
+		for(int i=0;i<kP.length;++i){
+			simplePID(i);
+		}
 	}
 }
