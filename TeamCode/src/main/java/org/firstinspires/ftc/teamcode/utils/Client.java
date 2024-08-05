@@ -5,6 +5,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @see org.firstinspires.ftc.teamcode.RIC_samples.ClientUsage
+ */
 public class Client {
 	Telemetry telemetry;
 	private final Map < String , Telemetry.Item > items;

@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 import java.util.Objects;
@@ -20,13 +21,18 @@ public class Robot {
 
 	public Classic classic;
 	public Structure structure;
-	public Robot(HardwareMap hardwareMap, runningState state){
+
+	public Client client;
+
+	public Robot(HardwareMap hardwareMap, runningState state,Client client){
 		motors=new Motors(hardwareMap);
 		sensors=new Sensors(hardwareMap);
 		servos=new Servos(hardwareMap);
 
 		classic=new Classic(motors);
 		structure=new Structure(motors,servos);
+
+		this.client=client;
 
 		//TODO:如果需要，在这里修改RuntimeOption中的值
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {

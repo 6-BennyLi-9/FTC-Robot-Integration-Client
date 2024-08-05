@@ -14,7 +14,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Autonomous(name = "CameraDetection",group = "sample")
 public class CameraDetection extends LinearOpMode {
 	OpenCvCamera webcam;
-	Camera detector;
+	Camera detector=new Camera(telemetry);
 
 
 	@Override
