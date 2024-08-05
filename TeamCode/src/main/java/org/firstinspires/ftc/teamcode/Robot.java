@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
+import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
@@ -21,6 +22,7 @@ public class Robot {
 
 	public Classic classic;
 	public Structure structure;
+	public Webcam webcam;
 
 	public Client client;
 
@@ -31,6 +33,7 @@ public class Robot {
 
 		classic=new Classic(motors);
 		structure=new Structure(motors,servos);
+		webcam=new Webcam();
 
 		this.client=client;
 
