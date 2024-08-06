@@ -19,10 +19,10 @@ public class Complex {
 	}
 	public imaginaryNumber ImaginaryPart;
 	public double RealPart;
-	Complex(Vector2d position){
+	public Complex(Vector2d position){
 		this(position.x,position.y);
 	}
-	Complex(double degree){
+	public Complex(double degree){
 		this(Math.cos(degree),Math.sin(degree));
 	}
 	Complex(double RealPart,double ImaginaryPartFactor){
@@ -63,5 +63,12 @@ public class Complex {
 				(this.ImaginaryPart.factor*val.RealPart-this.RealPart*val.ImaginaryPart.factor)
 				/(val.RealPart* val.RealPart+val.ImaginaryPart.factor*val.ImaginaryPart.factor)
 		);
+	}
+	public Complex divide(double val){
+		return new Complex(this.RealPart/val,this.ImaginaryPart.factor/val);
+	}
+
+	public Vector2d toVector2d(){
+		return new Vector2d(this.RealPart,this.ImaginaryPart.factor);
 	}
 }
