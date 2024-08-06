@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControls;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
@@ -24,8 +26,13 @@ public class SimpleMecanumDrive {
 		localizer=new ImuLocalizer(sensors);
 	}
 	public class DriveCommands{
+		public abstract class commandRunningNode{
+			public void runCommand() {}
+		}
+
 		private double BufPower=SimpleMecanumDrive.this.BufPower;
 		private Pose2d DeltaTrajectory,pose;
+		public commandRunningNode MEAN;
 
 		DriveCommands(){}
 		DriveCommands(double BufPower,Pose2d pose){
@@ -34,14 +41,29 @@ public class SimpleMecanumDrive {
 		}
 
 		public void SetPower(double power){
-			BufPower=power;
+			MEAN=new commandRunningNode() {
+				@Override
+				public void runCommand() {
+					BufPower=power;
+				}
+			};
 		}
 		public void Turn(double radians){
-			classic.drive(driveDirection.turn,BufPower);
+			MEAN=new commandRunningNode() {
+				@Override
+				public void runCommand() {
+					classic.drive(driveDirection.turn,BufPower);
+				}
+			};
 			DeltaTrajectory=new Pose2d(new Vector2d(0,0),radians);
 		}
 		public void StrafeInDistance(double radians,double distance){
-			classic.SimpleRadiansDrive(BufPower,radians);
+			MEAN=new commandRunningNode() {
+				@Override
+				public void runCommand() {
+					classic.SimpleRadiansDrive(BufPower,radians);
+				}
+			};
 			DeltaTrajectory=new Pose2d(
 					(new Complex(new Vector2d(distance,0))).times(new Complex(Math.toDegrees(radians)))
 							.divide(new Complex(Math.toDegrees(radians)).magnitude())
@@ -50,8 +72,16 @@ public class SimpleMecanumDrive {
 		}
 		public void StrafeTo(Vector2d pose){
 			Complex cache=new Complex(this.pose.position.minus(pose));
-			classic.SimpleRadiansDrive(BufPower,Math.toRadians(cache.toDegree()));
+			MEAN=new commandRunningNode() {
+				@Override
+				public void runCommand() {
+					classic.SimpleRadiansDrive(BufPower,Math.toRadians(cache.toDegree()));
+				}
+			};
 			DeltaTrajectory=new Pose2d(cache.toVector2d(),this.pose.heading);
+		}
+		public void RUN(){
+			MEAN.runCommand();
 		}
 	}
 	public class drivingCommandsBuilder{
@@ -62,13 +92,13 @@ public class SimpleMecanumDrive {
 			this.commands=commands;
 		}
 		public drivingCommandsBuilder SetPower(double power){
-			cache=commands.getLast();
+			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().pose);
 			cache.SetPower(power);
 			commands.add(cache);
 			return new drivingCommandsBuilder(commands);
 		}
 		public drivingCommandsBuilder TurnAngle(double angle){
-			cache=commands.getLast();
+			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().pose);
 			cache.Turn(angle);
 			commands.add(cache);
 			return new drivingCommandsBuilder(commands);
@@ -77,13 +107,13 @@ public class SimpleMecanumDrive {
 			return TurnAngle(Math.toDegrees(radians));
 		}
 		public drivingCommandsBuilder StrafeInDistance(double radians,double distance){
-			cache=commands.getLast();
+			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().pose);
 			cache.StrafeInDistance(radians,distance);
 			commands.add(cache);
 			return new drivingCommandsBuilder(commands);
 		}
 		public drivingCommandsBuilder StrafeTo(Vector2d pose){
-			cache=commands.getLast();
+			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().pose);
 			cache.StrafeTo(pose);
 			commands.add(cache);
 			return new drivingCommandsBuilder(commands);
@@ -92,7 +122,9 @@ public class SimpleMecanumDrive {
 			return commands;
 		}
 	}
-	public void runDriveCommand(LinkedList < DriveCommands > commands){
-
+	public void runDriveCommand(@NonNull LinkedList < DriveCommands > commands){
+		for ( DriveCommands singleCommand : commands ) {
+			singleCommand.RUN();
+		}
 	}
 }
