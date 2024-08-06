@@ -4,9 +4,11 @@ import android.util.Pair;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Vector;
 
 /**
  * @see org.firstinspires.ftc.teamcode.RIC_samples.ClientUsage
@@ -21,17 +23,21 @@ public class Client {
 		this.telemetry=telemetry;
 		data =new HashMap<>();
 		lines=new HashMap<>();
+		update();
 	}
 
 	public void clearInfo(){
 		data.clear();
+		update();
 	}
 	public void clearLines(){
 		lines.clear();
+		update();
 	}
 	public void clear(){
 		clearInfo();
 		clearLines();
+		update();
 	}
 
 	/**
@@ -39,6 +45,7 @@ public class Client {
 	 */
 	public void addData(String key,String val){
 		data.put(key,new Pair<>(val, ++ ID));
+		update();
 	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
@@ -49,6 +56,7 @@ public class Client {
 		}else{
 			throw new RuntimeException("can't find the key \""+key+"\".");
 		}
+		update();
 	}
 
 	/**
@@ -60,10 +68,12 @@ public class Client {
 		}else{
 			addData(key, val);
 		}
+		update();
 	}
 
 	public void addLine(String key){
 		lines.put(key,++ID);
+		update();
 	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
@@ -74,6 +84,7 @@ public class Client {
 		}else{
 			throw new RuntimeException("can't find the key \""+key+"\".");
 		}
+		update();
 	}
 
 	/**
@@ -89,9 +100,25 @@ public class Client {
 		}else{
 			addLine(newData);
 		}
+		update();
 	}
 
 	public void update(){
-
+		Vector<Pair<Integer, String>> outputData = new Vector<>();
+		for (Map.Entry<String, Pair<String, Integer>> i : data.entrySet() ) {
+			String key = i.getKey(),val=i.getValue().first;
+			Integer IDCache=i.getValue().second;
+			outputData.add(new Pair<>(IDCache,key+val));
+		}
+		for ( Map.Entry<String, Integer> entry : lines.entrySet() ) {
+			String key = entry.getKey();
+			Integer val = entry.getValue();
+			outputData.add(new Pair<>(val, key));
+		}
+		outputData.sort(Comparator.comparingInt(x -> x.first));
+		for ( Pair<Integer, String> outputDatum : outputData ) {
+			telemetry.addLine(outputDatum.second);
+		}
+		telemetry.update();
 	}
 }
