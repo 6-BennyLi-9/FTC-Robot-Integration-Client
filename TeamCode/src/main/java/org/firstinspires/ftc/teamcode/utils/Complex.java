@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.utils;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.Vector2d;
+
 /**
  * 但凡Java支持重载运算符，都不至于写得这么复杂
  */
@@ -17,6 +19,12 @@ public class Complex {
 	}
 	public imaginaryNumber ImaginaryPart;
 	public double RealPart;
+	Complex(Vector2d position){
+		this(position.x,position.y);
+	}
+	Complex(double degree){
+		this(Math.cos(degree),Math.sin(degree));
+	}
 	Complex(double RealPart,double ImaginaryPartFactor){
 		this(RealPart,new imaginaryNumber(ImaginaryPartFactor));
 	}
