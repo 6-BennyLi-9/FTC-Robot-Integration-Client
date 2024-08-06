@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -26,7 +28,10 @@ public class Robot {
 
 	public Client client;
 
-	public Robot(HardwareMap hardwareMap, runningState state,Client client){
+	public Robot(HardwareMap hardwareMap, @NonNull runningState state, Client client){
+		if(hardwareMap==null||client==null){
+			throw new NullPointerException();
+		}
 		motors=new Motors(hardwareMap);
 		sensors=new Sensors(hardwareMap);
 		servos=new Servos(hardwareMap);
