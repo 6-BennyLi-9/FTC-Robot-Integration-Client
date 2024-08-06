@@ -48,7 +48,7 @@ public class ClientUsage extends OpMode {
 				break;
 			case 6:
 				client.changeLine("第五次按下","第六次按下");
-				client.addData("按下次数","6");
+				client.changeDate("按下次数","6");
 				break;
 			case 7:
 				client.clear();

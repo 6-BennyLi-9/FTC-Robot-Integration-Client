@@ -13,18 +13,18 @@ import java.util.Objects;
  */
 public class Client {
 	Telemetry telemetry;
-	private final Map < String , Pair < String , Integer > > datas;
+	private final Map < String , Pair < String , Integer > > data;
 	private final Map < String , Integer > lines;
 	private int ID=0;
 
 	public Client(Telemetry telemetry){
 		this.telemetry=telemetry;
-		datas =new HashMap<>();
+		data =new HashMap<>();
 		lines=new HashMap<>();
 	}
 
 	public void clearInfo(){
-		datas.clear();
+		data.clear();
 	}
 	public void clearLines(){
 		lines.clear();
@@ -38,14 +38,14 @@ public class Client {
 	 * 注意：这是新的Data
 	 */
 	public void addData(String key,String val){
-		datas.put(key,new Pair<>(val, ++ ID));
+		data.put(key,new Pair<>(val, ++ ID));
 	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	public void deleteDate(String key){
-		if( datas.containsKey(key)){
-			datas.remove(key);
+		if( data.containsKey(key)){
+			data.remove(key);
 		}else{
 			throw new RuntimeException("can't find the key \""+key+"\".");
 		}
@@ -55,23 +55,10 @@ public class Client {
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
 	public void changeDate(String key,String val){
-		if( datas.containsKey(key)){
-			datas.replace(key,new Pair<>(val, ++ ID));
+		if( data.containsKey(key)){
+			data.replace(key,new Pair<>(val, ++ ID));
 		}else{
 			addData(key, val);
-		}
-	}
-	/**
-	 * 自动创建新的行如果key所指向的值不存在
-	 */
-	public void changeDate(String key,String oldVal,String newVal){
-		if( datas.containsKey(key)){
-			//AS认为items.get可能为null，所以必须先保证其不为null（神经）
-			datas.replace(key,
-					new Pair<>(oldVal, Objects.requireNonNull(datas.get(key)).second)
-					,new Pair<>(newVal, Objects.requireNonNull(datas.get(key)).second));
-		}else{
-			addData(key,newVal);
 		}
 	}
 
@@ -83,7 +70,7 @@ public class Client {
 	 */
 	public void deleteLine(String key){
 		if(lines.containsKey(key)){
-			datas.remove(key);
+			data.remove(key);
 		}else{
 			throw new RuntimeException("can't find the key \""+key+"\".");
 		}
