@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RIC_samples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -10,9 +11,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Disabled
+@Autonomous(name = "CameraDetection",group = "sample")
 public class CameraDetection extends LinearOpMode {
 	OpenCvCamera webcam;
-	Camera detector;
+	Camera detector=new Camera(telemetry);
 
 
 	@Override
