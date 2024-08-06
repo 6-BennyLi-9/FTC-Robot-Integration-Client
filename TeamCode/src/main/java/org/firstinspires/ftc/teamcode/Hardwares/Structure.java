@@ -12,18 +12,18 @@ public class Structure {
 		this.motors=motors;
 		this.servos=servos;
 	}
-
+//TODO:测量这些值
 	public void OpenFrontClip(){
-		servos.FrontClipPosition=0.84;
+		servos.FrontClipPosition=0;
 	}
 	public void OpenRearClip(){
 		servos.FrontClipPosition=0;
 	}
 	public void CloseFrontClip(){
-		servos.FrontClipPosition=0.46;
+		servos.FrontClipPosition=0;
 	}
 	public void CloseRearClip(){
-		servos.FrontClipPosition=0.4;
+		servos.FrontClipPosition=0;
 	}
 
 	public void openClips(){
