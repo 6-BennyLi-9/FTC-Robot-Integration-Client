@@ -24,12 +24,14 @@ public class SimpleMecanumDrive {
 
 		localizer=new ImuLocalizer(sensors);
 	}
-	private class DriveCommands{
+	public class DriveCommands{
+		private double BufPower=SimpleMecanumDrive.this.BufPower;
 		private LinkedList<Pose2d> trajectory=new LinkedList<>();
 
 		DriveCommands(){}
-		DriveCommands(LinkedList<Pose2d> trajectory){
+		DriveCommands(LinkedList<Pose2d> trajectory,double BufPower){
 			this.trajectory=trajectory;
+			this.BufPower=BufPower;
 		}
 
 		public void SetPower(double power){
@@ -50,9 +52,45 @@ public class SimpleMecanumDrive {
 		}
 		public void StrafeTo(Vector2d pose){
 			Complex cache=new Complex(trajectory.getLast().position.minus(pose));
+			classic.SimpleRadiansDrive(BufPower,Math.toRadians(cache.toDegree()));
+			trajectory.add(new Pose2d(pose,trajectory.getLast().heading));
 		}
 	}
 	public class drivingCommandsBuilder{
+		private final LinkedList < DriveCommands > commands;
+		private DriveCommands cache;
+		drivingCommandsBuilder(){commands=new LinkedList<>();}
+		drivingCommandsBuilder(LinkedList<DriveCommands> commands){
+			this.commands=commands;
+		}
+		public drivingCommandsBuilder SetPower(double power){
+			cache=commands;
+			cache.SetPower(power);
+			return new drivingCommandsBuilder(cache);
+		}
+		public drivingCommandsBuilder TurnAngle(double angle){
+			cache=commands;
+			cache.Turn(angle);
+			return new drivingCommandsBuilder(cache);
+		}
+		public drivingCommandsBuilder turn(double radians){
+			return TurnAngle(Math.toDegrees(radians));
+		}
+		public drivingCommandsBuilder StrafeInDistance(double radians,double distance){
+			cache=commands;
+			cache.StrafeInDistance(radians,distance);
+			return new drivingCommandsBuilder(cache);
+		}
+		public drivingCommandsBuilder StrafeTo(Vector2d pose){
+			cache=commands;
+			cache.StrafeTo(pose);
+			return new drivingCommandsBuilder(cache);
+		}
+		public DriveCommands END(){
+			return commands;
+		}
+	}
+	public void runDriveCommand(drivingCommandsBuilder command){
 
 	}
 }

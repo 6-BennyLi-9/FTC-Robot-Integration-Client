@@ -71,4 +71,7 @@ public class Complex {
 	public Vector2d toVector2d(){
 		return new Vector2d(this.RealPart,this.ImaginaryPart.factor);
 	}
+	public double toDegree(){
+		return Math.atan2(this.ImaginaryPart.factor,this.RealPart);
+	}
 }
