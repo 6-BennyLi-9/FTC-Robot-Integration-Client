@@ -1,32 +1,32 @@
 package org.firstinspires.ftc.teamcode.utils;
 
+import android.util.Pair;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @see org.firstinspires.ftc.teamcode.RIC_samples.ClientUsage
  */
 public class Client {
 	Telemetry telemetry;
-	private final Map < String , Telemetry.Item > items;
-	private final Map < String , Telemetry.Line > lines;
-	private Telemetry.Item itemCache;
-	private Telemetry.Line lineCache;
+	private final Map < String , Pair < String , Integer > > datas;
+	private final Map < String , Integer > lines;
+	private int ID=0;
 
 	public Client(Telemetry telemetry){
 		this.telemetry=telemetry;
-		items=new HashMap<>();
+		datas =new HashMap<>();
 		lines=new HashMap<>();
 	}
 
 	public void clearInfo(){
-		items.forEach((key,val)->telemetry.removeItem(val));
-		items.clear();
+		datas.clear();
 	}
 	public void clearLines(){
-		lines.forEach((key,val)->telemetry.removeLine(val));
 		lines.clear();
 	}
 	public void clear(){
@@ -38,17 +38,14 @@ public class Client {
 	 * 注意：这是新的Data
 	 */
 	public void addData(String key,String val){
-		itemCache =telemetry.addData(key,val);
-		items.put(key, itemCache);
+		datas.put(key,new Pair<>(val, ++ ID));
 	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	public void deleteDate(String key){
-		if(items.containsKey(key)){
-			itemCache =items.get(key);
-			telemetry.removeItem(itemCache);
-			items.remove(key);
+		if( datas.containsKey(key)){
+			datas.remove(key);
 		}else{
 			throw new RuntimeException("can't find the key \""+key+"\".");
 		}
@@ -58,27 +55,35 @@ public class Client {
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
 	public void changeDate(String key,String val){
-		if(items.containsKey(key)){
-			itemCache =items.get(key);
-			assert itemCache != null;//这只是为了安抚AS的过于严格的代码检查而已，实际并无作用
-			itemCache.setValue(val);
+		if( datas.containsKey(key)){
+			datas.replace(key,new Pair<>(val, ++ ID));
 		}else{
 			addData(key, val);
 		}
 	}
+	/**
+	 * 自动创建新的行如果key所指向的值不存在
+	 */
+	public void changeDate(String key,String oldVal,String newVal){
+		if( datas.containsKey(key)){
+			//AS认为items.get可能为null，所以必须先保证其不为null（神经）
+			datas.replace(key,
+					new Pair<>(oldVal, Objects.requireNonNull(datas.get(key)).second)
+					,new Pair<>(newVal, Objects.requireNonNull(datas.get(key)).second));
+		}else{
+			addData(key,newVal);
+		}
+	}
 
 	public void addLine(String key){
-		lineCache=telemetry.addLine(key);
-		lines.put(key,lineCache);
+		lines.put(key,++ID);
 	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	public void deleteLine(String key){
 		if(lines.containsKey(key)){
-			lineCache=lines.get(key);
-			telemetry.removeLine(lineCache);
-			items.remove(key);
+			datas.remove(key);
 		}else{
 			throw new RuntimeException("can't find the key \""+key+"\".");
 		}
@@ -86,15 +91,20 @@ public class Client {
 
 	/**
 	 * 将key行替代为val，自动创建新的行如果key所指向的值不存在
-	 * @param key 目标行
-	 * @param val 替换行
+	 * @param oldDate 目标行
+	 * @param newData 替换行
 	 */
-	public void changeLine(String key,String val){
-		if(lines.containsKey(key)){
-			deleteLine(key);
-			addLine(val);
+	public void changeLine(String oldDate, String newData){
+		if(lines.containsKey(oldDate)){
+			int cache=Objects.requireNonNull(lines.get(oldDate));
+			lines.remove(oldDate);
+			lines.put(newData,cache);
 		}else{
-			addLine(key);
+			addLine(newData);
 		}
+	}
+
+	public void update(){
+
 	}
 }
