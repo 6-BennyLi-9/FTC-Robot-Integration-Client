@@ -189,6 +189,7 @@ public class SimpleMecanumDrive {
 					Arrays.copyOf(xList,i+1),
 					Arrays.copyOf(yList,i+1)
 			);
+
 			this.BufPower= singleCommand.BufPower;
 			final double distance=Math.sqrt(
 					Math.abs(xList[i+1]-xList[i])*Math.abs(xList[i+1]-xList[i])+
@@ -242,7 +243,14 @@ public class SimpleMecanumDrive {
 						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
 					}
 				}
+
+				motors.updateDriveOptions();
 			}
+
+			client.deleteDate("distance");
+			client.deleteDate("estimatedTime");
+			client.deleteDate("progress");
+			client.deleteDate("DELTA");
 		}
 
 		classic.STOP();
@@ -254,7 +262,7 @@ public class SimpleMecanumDrive {
 				end.position.x-from.position.x,
 				end.position.y-from.position.y
 		));
-		cache.times(progress);
+		cache=cache.times(progress);
 		return new Pose2d(
 				cache.toVector2d(),
 				from.heading.toDouble()+(end.heading.toDouble()-from.heading.toDouble())*progress
@@ -277,9 +285,5 @@ public class SimpleMecanumDrive {
 		Drawing.drawRobot(c,position);
 
 		poseHistory.add(position);
-	}
-
-	public double getBufPower() {
-		return BufPower;
 	}
 }
