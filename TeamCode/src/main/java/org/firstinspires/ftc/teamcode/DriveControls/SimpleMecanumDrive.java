@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.jetbrains.annotations.Contract;
@@ -71,6 +72,7 @@ public class SimpleMecanumDrive {
 				@Override
 				public void runCommand() {
 					BufPower=power;
+					BufPower= Mathematics.intervalClip(BufPower,-1f,1f);
 				}
 			};
 		}
@@ -131,6 +133,7 @@ public class SimpleMecanumDrive {
 			this.commands=commands;
 		}
 		public drivingCommandsBuilder SetPower(double power){
+			power=Mathematics.intervalClip(power,-1f,1f);
 			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
 			cache.SetPower(power);
 			commands.add(cache);
