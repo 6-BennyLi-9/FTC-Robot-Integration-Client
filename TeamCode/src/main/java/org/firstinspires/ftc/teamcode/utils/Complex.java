@@ -19,7 +19,7 @@ public class Complex {
 	}
 	public imaginaryNumber ImaginaryPart;
 	public double RealPart;
-	public Complex(Vector2d position){
+	public Complex(@NonNull Vector2d position){
 		this(position.x,position.y);
 	}
 	public Complex(double degree){
@@ -42,13 +42,19 @@ public class Complex {
 	public Complex negative(){
 		return new Complex(-this.RealPart,-this.ImaginaryPart.factor);
 	}
-	public Complex minus(Complex val){
+	public Complex minus(@NonNull Complex val){
 		return plus(val.negative());
 	}
-	public Complex times(Complex val){
+	public Complex times(@NonNull Complex val){
 		return new Complex(
 				this.RealPart* val.RealPart-this.ImaginaryPart.factor*val.ImaginaryPart.factor,
 				this.RealPart*val.ImaginaryPart.factor+this.ImaginaryPart.factor*this.RealPart
+		);
+	}
+	public Complex times(double val){
+		return new Complex(
+				this.RealPart*val,
+				this.ImaginaryPart.factor*val
 		);
 	}
 
@@ -56,7 +62,7 @@ public class Complex {
 	 * (a+bi)/(c+di)
 	 * (ac+bd)/(cc+dd)+(bc-ad)/(cc+dd)i
 	 */
-	public Complex divide(Complex val){
+	public Complex divide(@NonNull Complex val){
 		return new Complex(
 				(this.RealPart*val.RealPart+this.ImaginaryPart.factor*val.ImaginaryPart.factor)
 				/(val.RealPart* val.RealPart+val.ImaginaryPart.factor*val.ImaginaryPart.factor),

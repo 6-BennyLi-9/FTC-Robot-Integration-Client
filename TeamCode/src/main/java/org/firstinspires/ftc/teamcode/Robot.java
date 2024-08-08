@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.utils.Client;
+import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 import java.util.Objects;
@@ -27,6 +28,7 @@ public class Robot {
 	public Webcam webcam;
 
 	public Client client;
+	public PID_processor pidProcessor;
 
 	public Robot(HardwareMap hardwareMap, @NonNull runningState state, Client client){
 		if(hardwareMap==null||client==null){
@@ -41,6 +43,7 @@ public class Robot {
 		webcam=new Webcam();
 
 		this.client=client;
+		pidProcessor=new PID_processor();
 
 		//TODO:如果需要，在这里修改RuntimeOption中的值
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {

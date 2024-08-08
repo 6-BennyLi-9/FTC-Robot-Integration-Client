@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.place;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 
 public class Classic {
-	protected Motors motors;
+	public Motors motors;
 
 	public Classic(Motors motors) {
 		this.motors = motors;
@@ -129,24 +129,14 @@ public class Classic {
 	public void SimpleRadiansDrive(double power,double radians){
 		radians=Mathematics.radiansRationalize(radians);
 
-		if(radians==0){
-			drive(driveDirection.forward,power);
-		}else if(radians==Math.PI/2){
-			drive(driveDirection.right,power);
-		}else if(radians==-Math.PI/2){
-			drive(driveDirection.left,power);
-		}else if(radians==Math.PI){
-			drive(driveDirection.back,power);
-		}
+		SimpleDrive(power,Math.toDegrees(radians));
+	}
 
-		if(radians>0&&radians<Math.PI/2){//第一象限
-			drive(driveDirection.slant,place.A,power,Math.toRadians(Math.PI/2-radians));
-		}else if(radians>Math.PI/2&&radians<Math.PI){//第四象限
-			drive(driveDirection.slant,place.D,power,Math.toRadians(radians-Math.PI/2));
-		}else if(radians>-Math.PI/2&radians<0){//第二象限
-			drive(driveDirection.slant,place.B,power,Math.toRadians(Math.PI/2+radians));
-		}else if(radians>-Math.PI&&radians<0){//第三象限
-			drive(driveDirection.slant,place.C,power,Math.toRadians(-Math.PI/2-radians));
-		}
+	/**
+	 * 停止机器的移动程序，updateDriveOptions
+	 */
+	public void STOP(){
+		motors.clearDriveOptions();
+		motors.updateDriveOptions();
 	}
 }

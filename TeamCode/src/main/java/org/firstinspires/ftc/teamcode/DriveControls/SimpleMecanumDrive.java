@@ -10,37 +10,46 @@ import com.acmerobotics.roadrunner.Twist2dDual;
 import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
+import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
 public class SimpleMecanumDrive {
 	public static final class Params{
-		public static double vP=0;//用1f的力，在1s后所前行的距离，单位：inch
+		public static double vP=0;//用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 //		public static double kP=vP;//kP的斜率，如果您在测试中发现这两者不相等，或这kP不是恒定的，请联系我们
 		public static double pem=0.5; //positionErrorMargin，单位：inch
 		public static double aem=1;   //angleErrorMargin，单位：度
 	}
 
-	public Classic classic;
+	private final Classic classic;
+	private final Motors motors;
 	private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	private Pose2d position;
 	private final ImuLocalizer localizer;
 	private double BufPower=1f;
 	private final TelemetryPacket telemetryPacket;
 	private final Client client;
+	private final PID_processor pidProcessor;
 
-	public SimpleMecanumDrive(Classic classic,Pose2d position,Sensors sensors,Client client){
+	public SimpleMecanumDrive(@NonNull Classic classic, Pose2d position, Sensors sensors, Client client,
+	                          PID_processor pidProcessor){
 		this.classic=classic;
 		this.position=position;
 		this.client=client;
+		motors=classic.motors;
 
 		localizer=new ImuLocalizer(sensors);
 		telemetryPacket=new TelemetryPacket();
+		this.pidProcessor=pidProcessor;
 	}
 	public class DriveCommands{
 		public abstract class commandRunningNode{
@@ -114,7 +123,10 @@ public class SimpleMecanumDrive {
 	public class drivingCommandsBuilder{
 		private final LinkedList < DriveCommands > commands;
 		private DriveCommands cache;
-		drivingCommandsBuilder(){commands=new LinkedList<>();}
+		drivingCommandsBuilder(){
+			commands=new LinkedList<>();
+			commands.add(new DriveCommands(BufPower,poseHistory.getLast()));
+		}
 		drivingCommandsBuilder(LinkedList<DriveCommands> commands){
 			this.commands=commands;
 		}
@@ -150,7 +162,6 @@ public class SimpleMecanumDrive {
 		}
 	}
 	public void runDriveCommand(@NonNull LinkedList < DriveCommands > commands){
-		Pose2d aim=position;
 		DriveCommands[] commandLists=new DriveCommands[commands.size()];
 		commands.toArray(commandLists);
 		double[] xList,yList;
@@ -163,7 +174,8 @@ public class SimpleMecanumDrive {
 			DriveCommands singleCommand = commandLists[i];
 			singleCommand.RUN();
 			update();
-			aim=singleCommand.pose;
+			motors.updateDriveOptions();
+
 			Canvas c = telemetryPacket.fieldOverlay();
 			c.setStroke("#4CAF50");
 
@@ -190,9 +202,60 @@ public class SimpleMecanumDrive {
 				&& (Math.abs(position.position.y-yList[i+1])>Params.pem)
 				&& (Math.abs(position.heading.toDouble()-singleCommand.NEXT().heading.toDouble())>Params.aem)){
 				et=System.currentTimeMillis();
-				client.changeDate("progress", ((et - st) / 1000.0) / estimatedTime * 100 +"%");
+				double progress=((et - st) / 1000.0) / estimatedTime * 100;
+				client.changeDate("progress", progress +"%");
+				Pose2d aim=getAimPositionThroughTrajectory(singleCommand.pose,singleCommand.NEXT(),progress);
+				if(RuntimeOption.usePIDInAutonomous){
+					if(Math.abs(aim.position.x-position.position.x)>Params.pem
+							|| Math.abs(aim.position.y-position.position.y)>Params.pem
+							|| Math.abs(aim.heading.toDouble()-position.heading.toDouble())>Params.aem
+							|| RuntimeOption.alwaysRunPIDInAutonomous ){
+						//间断地调用pid可能会导致pid的效果不佳
+						pidProcessor.inaccuracies[0]=aim.position.x-position.position.x;
+						pidProcessor.inaccuracies[1]=aim.position.y-position.position.y;
+						pidProcessor.inaccuracies[2]=aim.heading.toDouble()-position.heading.toDouble();
+						pidProcessor.update();
+
+						double[] fulfillment=pidProcessor.fulfillment;
+
+						motors.LeftFrontPower+= fulfillment[1]+fulfillment[0]-fulfillment[2];
+						motors.LeftRearPower+=  fulfillment[1]-fulfillment[0]-fulfillment[2];
+						motors.RightFrontPower+=fulfillment[1]-fulfillment[0]+fulfillment[2];
+						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
+					}
+				}else{
+					if(Math.abs(aim.position.x-position.position.x)>Params.pem
+							|| Math.abs(aim.position.y-position.position.y)>Params.pem
+							|| Math.abs(aim.heading.toDouble()-position.heading.toDouble())>Params.aem){
+						double[] fulfillment=new double[]{
+								(aim.position.x-position.position.x)*(Params.vP)*BufPower/2,
+								(aim.position.y-position.position.y)*(Params.vP)*BufPower/2,
+								(aim.heading.toDouble()>position.heading.toDouble()? BufPower/2:-BufPower/2)
+						};
+
+						motors.LeftFrontPower+= fulfillment[1]+fulfillment[0]-fulfillment[2];
+						motors.LeftRearPower+=  fulfillment[1]-fulfillment[0]-fulfillment[2];
+						motors.RightFrontPower+=fulfillment[1]-fulfillment[0]+fulfillment[2];
+						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
+					}
+				}
 			}
 		}
+
+		classic.STOP();
+	}
+	@NonNull
+	@Contract ("_, _, _ -> new")
+	private Pose2d getAimPositionThroughTrajectory(@NonNull Pose2d from, @NonNull Pose2d end, double progress){
+		Complex cache=new Complex(new Vector2d(
+				end.position.x-from.position.x,
+				end.position.y-from.position.y
+		));
+		cache.times(progress);
+		return new Pose2d(
+				cache.toVector2d(),
+				from.heading.toDouble()+(end.heading.toDouble()-from.heading.toDouble())*progress
+		);
 	}
 	public drivingCommandsBuilder drivingCommandsBuilder(){
 		return new drivingCommandsBuilder();
@@ -209,6 +272,8 @@ public class SimpleMecanumDrive {
 		Canvas c=telemetryPacket.fieldOverlay();
 		c.setStroke("#3F51B5");
 		Drawing.drawRobot(c,position);
+
+		poseHistory.add(position);
 	}
 
 	public double getBufPower() {
