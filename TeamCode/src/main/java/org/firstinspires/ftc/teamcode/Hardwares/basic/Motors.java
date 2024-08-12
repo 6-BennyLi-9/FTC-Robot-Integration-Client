@@ -5,12 +5,16 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.utils.enums.hardware;
+import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.namespace;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.utils.enums.hardware;
 
 public class Motors {
 	public DcMotorEx LeftFront,RightFront,LeftRear,RightRear;
+	//除非在手动程序中，不建议直接更改下列数值
 	public double LeftFrontPower,RightFrontPower,LeftRearPower,RightRearPower;
+	public double xAxisPower,yAxisPower,headingPower/*Degree*/;
 
 	public DcMotorEx PlacementArm,SuspensionArm,Intake;
 	public double PlacementArmPower,SuspensionArmPower,IntakePower;
@@ -52,19 +56,77 @@ public class Motors {
 		LeftRearPower=0;
 		RightRearPower=0;
 	}
-	public void updateDriveOptions(){
-		LeftFront.setPower(LeftFrontPower);
-		LeftRear.setPower(LeftRearPower);
-		RightFront.setPower(RightFrontPower);
-		RightRear.setPower(RightRearPower);
+
+	/**
+	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
+	 * @see org.firstinspires.ftc.teamcode.RuntimeOption
+	 */
+	public void updateDriveOptions(double headingDeg){
+		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
+			double currentXPower,currentYPower,currentHeadingPower=headingPower;
+			headingDeg= Mathematics.angleRationalize(headingDeg);
+			if(headingDeg>=0&&headingDeg<90){
+				if(xAxisPower>=0&&yAxisPower>=0){
+
+				}else if(xAxisPower<0&&yAxisPower>=0){
+
+				}else if(xAxisPower>=0&&yAxisPower<0){
+
+				}else if(xAxisPower<0&&yAxisPower<0){
+
+				}
+			}else if(headingDeg>=90&&headingDeg<=180){
+				if(xAxisPower>=0&&yAxisPower>=0){
+
+				}else if(xAxisPower<0&&yAxisPower>=0){
+
+				}else if(xAxisPower>=0&&yAxisPower<0){
+
+				}else if(xAxisPower<0&&yAxisPower<0){
+
+				}
+
+			}else if(headingDeg>=-90&&headingDeg<0){
+				if(xAxisPower>=0&&yAxisPower>=0){
+
+				}else if(xAxisPower<0&&yAxisPower>=0){
+
+				}else if(xAxisPower>=0&&yAxisPower<0){
+
+				}else if(xAxisPower<0&&yAxisPower<0){
+
+				}
+
+			}else if(headingDeg>-180&&headingDeg<-90){
+				if(xAxisPower>=0&&yAxisPower>=0){
+
+				}else if(xAxisPower<0&&yAxisPower>=0){
+
+				}else if(xAxisPower>=0&&yAxisPower<0){
+
+				}else if(xAxisPower<0&&yAxisPower<0){
+
+				}
+
+			}
+		}else {
+			LeftFront.setPower(LeftFrontPower);
+			LeftRear.setPower(LeftRearPower);
+			RightFront.setPower(RightFrontPower);
+			RightRear.setPower(RightRearPower);
+		}
 	}
 	public void updateStructureOptions(){
 		PlacementArm.setPower(PlacementArmPower);
 		Intake.setPower(IntakePower);
 		SuspensionArm.setPower(SuspensionArmPower);
 	}
-	public void update(){
-		updateDriveOptions();
+	/**
+	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
+	 * @see org.firstinspires.ftc.teamcode.RuntimeOption
+	 */
+	public void update(double headingDeg){
+		updateDriveOptions(headingDeg);
 		updateStructureOptions();
 	}
 }

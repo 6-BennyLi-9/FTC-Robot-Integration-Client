@@ -177,7 +177,7 @@ public class SimpleMecanumDrive {
 			DriveCommands singleCommand = commandLists[i];
 			singleCommand.RUN();
 			update();
-			motors.updateDriveOptions();
+			motors.updateDriveOptions(position.heading.toDouble());
 
 			Canvas c = telemetryPacket.fieldOverlay();
 			c.setStroke("#4CAF50");
@@ -244,7 +244,7 @@ public class SimpleMecanumDrive {
 					}
 				}
 
-				motors.updateDriveOptions();
+				motors.updateDriveOptions(position.heading.toDouble());
 			}
 
 			client.deleteDate("distance");

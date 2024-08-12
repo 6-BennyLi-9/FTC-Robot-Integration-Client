@@ -38,7 +38,7 @@ public class Robot {
 		sensors=new Sensors(hardwareMap);
 		servos=new Servos(hardwareMap);
 
-		classic=new Classic(motors);
+		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);
 		webcam=new Webcam();
 
@@ -50,10 +50,11 @@ public class Robot {
 			InitInAutonomous();
 		} else if (state == runningState.ManualDrive) {
 			RuntimeOption.runUpdateWhenAnyNewOptionsAdded=true;
+			RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
 			InitInManualDrive();
 		} else {
-			throw new NullPointerException("HOW COULD THE STATE EVER BE NULL OR BEEN CHANGED???");
+			throw new NullPointerException("Unexpected runningState value???");
 		}
 	}
 
@@ -65,9 +66,9 @@ public class Robot {
 	}
 
 	public void update() throws InterruptedException {
-		motors.update();
 		servos.update();
 		sensors.update();
+		motors.update(sensors.FirstAngle);
 
 		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
 			prepareForNewCommands();

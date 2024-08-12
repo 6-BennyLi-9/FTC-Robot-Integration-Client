@@ -5,16 +5,19 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.enums.place;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.enums.place;
 
 public class Classic {
 	public Motors motors;
+	public Sensors sensors;
 
-	public Classic(Motors motors) {
+	public Classic(Motors motors,Sensors sensors) {
 		this.motors = motors;
+		this.sensors=sensors;
 	}
 
 	public void drive(@NonNull driveDirection driveDirection, double power) {
@@ -54,7 +57,8 @@ public class Classic {
 		}
 
 		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
-			motors.update();
+			sensors.update();
+			motors.update(sensors.FirstAngle);
 		}
 	}
 
@@ -95,7 +99,8 @@ public class Classic {
 		}
 
 		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
-			motors.update();
+			sensors.update();
+			motors.update(sensors.FirstAngle);
 		}
 	}
 
@@ -137,6 +142,7 @@ public class Classic {
 	 */
 	public void STOP(){
 		motors.clearDriveOptions();
-		motors.updateDriveOptions();
+		sensors.update();
+		motors.updateDriveOptions(sensors.FirstAngle);
 	}
 }
