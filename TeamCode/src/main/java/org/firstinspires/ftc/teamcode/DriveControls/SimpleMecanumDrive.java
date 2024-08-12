@@ -221,11 +221,10 @@ public class SimpleMecanumDrive {
 						pidProcessor.update();
 
 						double[] fulfillment=pidProcessor.fulfillment;
-
-						motors.LeftFrontPower+= fulfillment[1]+fulfillment[0]-fulfillment[2];
-						motors.LeftRearPower+=  fulfillment[1]-fulfillment[0]-fulfillment[2];
-						motors.RightFrontPower+=fulfillment[1]-fulfillment[0]+fulfillment[2];
-						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
+						
+						motors.xAxisPower+=fulfillment[0];
+						motors.yAxisPower+=fulfillment[1];
+						motors.headingPower+=fulfillment[2];
 					}
 				}else{
 					if(Math.abs(aim.position.x-position.position.x)>Params.pem
@@ -237,10 +236,9 @@ public class SimpleMecanumDrive {
 								(aim.heading.toDouble()>position.heading.toDouble()? BufPower/2:-BufPower/2)
 						};
 
-						motors.LeftFrontPower+= fulfillment[1]+fulfillment[0]-fulfillment[2];
-						motors.LeftRearPower+=  fulfillment[1]-fulfillment[0]-fulfillment[2];
-						motors.RightFrontPower+=fulfillment[1]-fulfillment[0]+fulfillment[2];
-						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
+						motors.xAxisPower+=fulfillment[0];
+						motors.yAxisPower+=fulfillment[1];
+						motors.headingPower+=fulfillment[2];
 					}
 				}
 

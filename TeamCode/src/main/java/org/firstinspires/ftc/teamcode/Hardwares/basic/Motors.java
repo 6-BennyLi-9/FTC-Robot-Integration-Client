@@ -65,49 +65,46 @@ public class Motors {
 		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower,currentYPower,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);
-			if(headingDeg>=0&&headingDeg<90){
-				if(xAxisPower>=0&&yAxisPower>=0){
+			if(headingDeg>=0&&headingDeg<90){//机器朝向：第一象限
+				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
 
-				}else if(xAxisPower<0&&yAxisPower>=0){
+				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
 
-				}else if(xAxisPower>=0&&yAxisPower<0){
+				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
 
-				}else if(xAxisPower<0&&yAxisPower<0){
-
-				}
-			}else if(headingDeg>=90&&headingDeg<=180){
-				if(xAxisPower>=0&&yAxisPower>=0){
-
-				}else if(xAxisPower<0&&yAxisPower>=0){
-
-				}else if(xAxisPower>=0&&yAxisPower<0){
-
-				}else if(xAxisPower<0&&yAxisPower<0){
+				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
 
 				}
-
-			}else if(headingDeg>=-90&&headingDeg<0){
-				if(xAxisPower>=0&&yAxisPower>=0){
-
-				}else if(xAxisPower<0&&yAxisPower>=0){
-
-				}else if(xAxisPower>=0&&yAxisPower<0){
-
-				}else if(xAxisPower<0&&yAxisPower<0){
-
+			}else if(headingDeg>=90&&headingDeg<=180){//机器朝向：第四象限
+				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
+				
+				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
+				
+				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
+				
+				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
+				
 				}
-
-			}else if(headingDeg>-180&&headingDeg<-90){
-				if(xAxisPower>=0&&yAxisPower>=0){
-
-				}else if(xAxisPower<0&&yAxisPower>=0){
-
-				}else if(xAxisPower>=0&&yAxisPower<0){
-
-				}else if(xAxisPower<0&&yAxisPower<0){
-
+			}else if(headingDeg>=-90&&headingDeg<0){//机器朝向：第二象限
+				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
+				
+				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
+				
+				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
+				
+				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
+				
 				}
-
+			}else if(headingDeg>-180&&headingDeg<-90){//机器朝向：第三象限
+				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
+				
+				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
+				
+				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
+				
+				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
+				
+				}
 			}
 		}else {
 			LeftFront.setPower(LeftFrontPower);

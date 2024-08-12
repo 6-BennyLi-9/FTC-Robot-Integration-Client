@@ -23,34 +23,19 @@ public class Classic {
 	public void drive(@NonNull driveDirection driveDirection, double power) {
 		switch ( driveDirection ) {
 			case forward:
-				motors.LeftFrontPower+=power;
-				motors.LeftRearPower+=power;
-				motors.RightFrontPower+=power;
-				motors.RightRearPower+=power;
+				motors.yAxisPower+=power;
 				break;
 			case back:
-				motors.LeftFrontPower -= power;
-				motors.LeftRearPower -= power;
-				motors.RightFrontPower -= power;
-				motors.RightRearPower -= power;
+				motors.yAxisPower-=power;
 				break;
 			case left:
-				motors.LeftFrontPower -= power;
-				motors.LeftRearPower+=power;
-				motors.RightFrontPower+=power;
-				motors.RightRearPower -= power;
+				motors.xAxisPower-=power;
 				break;
 			case right:
-				motors.LeftFrontPower+=power;
-				motors.LeftRearPower -= power;
-				motors.RightFrontPower -= power;
-				motors.RightRearPower+=power;
+				motors.xAxisPower+=power;
 				break;
 			case turn:
-				motors.LeftFrontPower+=power;
-				motors.LeftRearPower+=power;
-				motors.RightFrontPower -= power;
-				motors.RightRearPower -= power;
+				motors.headingPower+=power;
 				break;
 			case slant:
 				Log.e("UnExpectingCode","ErrorCode#1");
@@ -91,10 +76,8 @@ public class Classic {
 						y = -Math.sin(angle) * power;
 						break;
 				}
-				motors.LeftFrontPower+=y + x;
-				motors.LeftRearPower+=y - x;
-				motors.RightFrontPower+=y - x;
-				motors.RightRearPower+=y + x;
+				motors.xAxisPower+=x;
+				motors.yAxisPower+=y;
 				break;
 		}
 
