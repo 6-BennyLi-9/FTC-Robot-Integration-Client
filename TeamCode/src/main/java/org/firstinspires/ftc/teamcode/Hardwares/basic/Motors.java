@@ -128,5 +128,8 @@ public class Motors {
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);
 		updateStructureOptions();
+		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
+			clearDriveOptions();
+		}
 	}
 }

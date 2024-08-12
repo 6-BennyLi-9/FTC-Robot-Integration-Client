@@ -70,16 +70,9 @@ public class Robot {
 		sensors.update();
 		motors.update(sensors.FirstAngle);
 
-		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
-			prepareForNewCommands();
-		}
-
 		while(RuntimeOption.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}
-	}
-	public void prepareForNewCommands(){
-		motors.clearDriveOptions();
 	}
 }
