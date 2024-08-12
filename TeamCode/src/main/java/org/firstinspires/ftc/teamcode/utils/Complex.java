@@ -10,9 +10,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 public class Complex {
 	public static class imaginaryNumber {
 		public double factor;
-		imaginaryNumber(){
-			this(1);
-		}
 		imaginaryNumber(double factor){
 			this.factor=factor;
 		}

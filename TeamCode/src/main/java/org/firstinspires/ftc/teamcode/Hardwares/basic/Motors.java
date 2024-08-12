@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.namespace;
+import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.enums.hardware;
 
@@ -14,7 +16,7 @@ public class Motors {
 	public DcMotorEx LeftFront,RightFront,LeftRear,RightRear;
 	//除非在手动程序中，不建议直接更改下列数值
 	public double LeftFrontPower,RightFrontPower,LeftRearPower,RightRearPower;
-	public double xAxisPower,yAxisPower,headingPower/*Degree*/;
+	public double xAxisPower,yAxisPower,headingPower;
 
 	public DcMotorEx PlacementArm,SuspensionArm,Intake;
 	public double PlacementArmPower,SuspensionArmPower,IntakePower;
@@ -63,8 +65,9 @@ public class Motors {
 	 */
 	public void updateDriveOptions(double headingDeg){
 		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
-			double currentXPower,currentYPower,currentHeadingPower=headingPower;
+			double currentXPower=0,currentYPower=0,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);
+			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower));
 			if(headingDeg>=0&&headingDeg<90){//机器朝向：第一象限
 				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
 
@@ -87,7 +90,8 @@ public class Motors {
 				}
 			}else if(headingDeg>=-90&&headingDeg<0){//机器朝向：第二象限
 				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
-				
+					currentXPower=Math.cos(aim.toDegree()+headingDeg)* aim.magnitude();
+					currentYPower=Math.sin(aim.toDegree()+headingDeg)* aim.magnitude();
 				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
 				
 				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
@@ -106,6 +110,11 @@ public class Motors {
 				
 				}
 			}
+			
+			LeftFrontPower  += currentYPower+currentXPower-currentHeadingPower;
+			LeftRearPower   += currentYPower-currentXPower-currentHeadingPower;
+			RightFrontPower += currentYPower-currentXPower+currentHeadingPower;
+			RightRearPower  += currentYPower+currentXPower+currentHeadingPower;
 		}else {
 			LeftFront.setPower(LeftFrontPower);
 			LeftRear.setPower(LeftRearPower);
