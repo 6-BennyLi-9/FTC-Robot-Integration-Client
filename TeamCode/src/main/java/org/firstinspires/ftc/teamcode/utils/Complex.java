@@ -16,6 +16,8 @@ public class Complex {
 	}
 	public imaginaryNumber ImaginaryPart;
 	public double RealPart;
+	
+	
 	public Complex(@NonNull Vector2d position){
 		this(position.x,position.y);
 	}
@@ -30,28 +32,31 @@ public class Complex {
 		this.ImaginaryPart= ImaginaryPart;
 	}
 
+	public double imaginary(){
+		return ImaginaryPart.factor;
+	}
 	public double magnitude(){
-		return Math.sqrt(RealPart*RealPart + ImaginaryPart.factor*ImaginaryPart.factor);
+		return Math.sqrt(RealPart*RealPart + imaginary()*imaginary());
 	}
 	public Complex plus(@NonNull Complex val){
-		return new Complex(this.RealPart+ val.RealPart,this.ImaginaryPart.factor+val.ImaginaryPart.factor);
+		return new Complex(RealPart+ val.RealPart,imaginary()+val.imaginary());
 	}
 	public Complex negative(){
-		return new Complex(-this.RealPart,-this.ImaginaryPart.factor);
+		return new Complex(-RealPart,-imaginary());
 	}
 	public Complex minus(@NonNull Complex val){
 		return plus(val.negative());
 	}
 	public Complex times(@NonNull Complex val){
 		return new Complex(
-				this.RealPart* val.RealPart-this.ImaginaryPart.factor*val.ImaginaryPart.factor,
-				this.RealPart*val.ImaginaryPart.factor+this.ImaginaryPart.factor*this.RealPart
+				RealPart* val.RealPart-imaginary()*val.imaginary(),
+				RealPart*val.imaginary()+imaginary()*RealPart
 		);
 	}
 	public Complex times(double val){
 		return new Complex(
-				this.RealPart*val,
-				this.ImaginaryPart.factor*val
+				RealPart*val,
+				imaginary()*val
 		);
 	}
 
@@ -61,20 +66,43 @@ public class Complex {
 	 */
 	public Complex divide(@NonNull Complex val){
 		return new Complex(
-				(this.RealPart*val.RealPart+this.ImaginaryPart.factor*val.ImaginaryPart.factor)
-				/(val.RealPart* val.RealPart+val.ImaginaryPart.factor*val.ImaginaryPart.factor),
-				(this.ImaginaryPart.factor*val.RealPart-this.RealPart*val.ImaginaryPart.factor)
-				/(val.RealPart* val.RealPart+val.ImaginaryPart.factor*val.ImaginaryPart.factor)
+				(RealPart*val.RealPart+imaginary()*val.imaginary())
+				/(val.RealPart* val.RealPart+val.imaginary()*val.imaginary()),
+				(imaginary()*val.RealPart-RealPart*val.imaginary())
+				/(val.RealPart* val.RealPart+val.imaginary()*val.imaginary())
 		);
 	}
 	public Complex divide(double val){
-		return new Complex(this.RealPart/val,this.ImaginaryPart.factor/val);
+		return new Complex(RealPart/val,imaginary()/val);
 	}
 
 	public Vector2d toVector2d(){
-		return new Vector2d(this.RealPart,this.ImaginaryPart.factor);
+		return new Vector2d(RealPart,imaginary());
 	}
+	
+	/**
+	 * @return 返回该复数的幅角，范围在[-PI,PI]，如果复数的与原点重合，会抛出错误
+	 */
+	public double arg(){
+		if(RealPart>0){
+			return Math.atan(imaginary()/RealPart);
+		}else if(imaginary()>0&&RealPart==0){
+			return Math.PI/2;
+		}else if(imaginary()<0&&RealPart==0){
+			return -Math.PI/2;
+		}else if(RealPart<0&&imaginary()>=0){
+			return Math.atan(imaginary()/RealPart)+Math.PI;
+		}else if(RealPart<0&&imaginary()<0){
+			return Math.atan(imaginary()/RealPart-Math.PI);
+		}else{
+			throw new RuntimeException("Unexpected Value:The Complex can't be 0");
+		}
+	}
+	
+	/**
+	 * @return 返回该复数的幅角，范围在[-180,180]，如果复数的与原点重合，会抛出错误
+	 */
 	public double toDegree(){
-		return Math.atan2(this.ImaginaryPart.factor,this.RealPart);
+		return Math.toDegrees(arg());
 	}
 }
