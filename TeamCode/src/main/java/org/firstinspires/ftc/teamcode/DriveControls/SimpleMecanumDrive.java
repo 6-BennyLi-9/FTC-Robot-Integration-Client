@@ -121,44 +121,50 @@ public class SimpleMecanumDrive {
 		}
 	}
 	public class drivingCommandsBuilder{
-		private final LinkedList < DriveCommands > commands;
+		private final DriveCommandPackage commandPackage;
 		private DriveCommands cache;
 		drivingCommandsBuilder(){
-			commands=new LinkedList<>();
-			commands.add(new DriveCommands(BufPower,poseHistory.getLast()));
+			commandPackage =new DriveCommandPackage();
+			commandPackage.commands.add(new DriveCommands(BufPower,poseHistory.getLast()));
 		}
-		drivingCommandsBuilder(LinkedList<DriveCommands> commands){
-			this.commands=commands;
+		drivingCommandsBuilder(DriveCommandPackage commandPackage){
+			this.commandPackage = commandPackage;
 		}
 		public drivingCommandsBuilder SetPower(double power){
-			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
+			cache=new DriveCommands(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			cache.SetPower(power);
-			commands.add(cache);
-			return new drivingCommandsBuilder(commands);
+			commandPackage.commands.add(cache);
+			return new drivingCommandsBuilder(commandPackage);
 		}
 		public drivingCommandsBuilder TurnAngle(double angle){
-			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
+			cache=new DriveCommands(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			cache.Turn(angle);
-			commands.add(cache);
-			return new drivingCommandsBuilder(commands);
+			commandPackage.commands.add(cache);
+			return new drivingCommandsBuilder(commandPackage);
 		}
 		public drivingCommandsBuilder turn(double radians){
 			return TurnAngle(Math.toDegrees(radians));
 		}
 		public drivingCommandsBuilder StrafeInDistance(double radians,double distance){
-			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
+			cache=new DriveCommands(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			cache.StrafeInDistance(radians,distance);
-			commands.add(cache);
-			return new drivingCommandsBuilder(commands);
+			commandPackage.commands.add(cache);
+			return new drivingCommandsBuilder(commandPackage);
 		}
 		public drivingCommandsBuilder StrafeTo(Vector2d pose){
-			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
+			cache=new DriveCommands(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			cache.StrafeTo(pose);
-			commands.add(cache);
-			return new drivingCommandsBuilder(commands);
+			commandPackage.commands.add(cache);
+			return new drivingCommandsBuilder(commandPackage);
 		}
-		public LinkedList < DriveCommands > END(){
-			return commands;
+		public DriveCommandPackage END(){
+			return commandPackage;
+		}
+	}
+	public class DriveCommandPackage{
+		public LinkedList < DriveCommands > commands;
+		DriveCommandPackage(){
+			commands=new LinkedList<>();
 		}
 	}
 	public void runDriveCommand(@NonNull LinkedList < DriveCommands > commands){
