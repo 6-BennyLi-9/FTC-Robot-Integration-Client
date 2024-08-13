@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
+
 /**
  * 但凡Java支持重载运算符，都不至于写得这么复杂
  */
@@ -61,8 +63,8 @@ public class Complex {
 	}
 
 	/**
-	 * (a+bi)/(c+di)
-	 * (ac+bd)/(cc+dd)+(bc-ad)/(cc+dd)i
+	 *  (a+bi)/(c+di)
+	 * =(ac+bd)/(cc+dd)+(bc-ad)/(cc+dd)i
 	 */
 	public Complex divide(@NonNull Complex val){
 		return new Complex(
@@ -73,7 +75,7 @@ public class Complex {
 		);
 	}
 	public Complex divide(double val){
-		return new Complex(RealPart/val,imaginary()/val);
+		return divide(new Complex(val,0));
 	}
 
 	public Vector2d toVector2d(){
@@ -104,5 +106,21 @@ public class Complex {
 	 */
 	public double toDegree(){
 		return Math.toDegrees(arg());
+	}
+	public double angleToYAxis(){
+		return Math.abs(toDegree()-90);
+	}
+	public Quadrant quadrant(){
+		if(RealPart>0&&imaginary()>=0){
+			return Quadrant.firstQuadrant;
+		}else if(RealPart<=0&&imaginary()>0){
+			return Quadrant.secondQuadrant;
+		}else if(RealPart<0&&imaginary()<=0){
+			return Quadrant.thirdQuadrant;
+		} else if (RealPart >= 0 && imaginary() < 0) {
+			return Quadrant.forthQuadrant;
+		}else{
+			throw new RuntimeException("Unexpected Value:The Complex can't be 0");
+		}
 	}
 }

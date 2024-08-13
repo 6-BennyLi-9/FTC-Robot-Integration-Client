@@ -66,53 +66,8 @@ public class Motors {
 	public void updateDriveOptions(double headingDeg){
 		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower=0,currentYPower=0,currentHeadingPower=headingPower;
-			headingDeg= Mathematics.angleRationalize(headingDeg);
+			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
 			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower));
-			if(headingDeg>=0&&headingDeg<90){//机器朝向：第一象限
-				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
-
-				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
-
-				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
-
-				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
-
-				}
-			}else if(headingDeg>=90&&headingDeg<=180){//机器朝向：第四象限
-				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
-				
-				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
-				
-				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
-				
-				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
-				
-				}
-			}else if(headingDeg>=-90&&headingDeg<0){//机器朝向：第二象限
-				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
-					currentXPower=Math.cos(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
-					currentYPower=Math.sin(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
-				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
-					currentXPower=Math.cos(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
-					currentYPower=Math.sin(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
-				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
-					currentXPower= Math.cos(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
-					currentYPower=-Math.sin(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
-				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
-					currentXPower= Math.cos(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
-					currentYPower=-Math.sin(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
-				}
-			}else if(headingDeg>-180&&headingDeg<-90){//机器朝向：第三象限
-				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
-				
-				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
-				
-				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
-				
-				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
-				
-				}
-			}
 			
 			LeftFrontPower  += currentYPower+currentXPower-currentHeadingPower;
 			LeftRearPower   += currentYPower-currentXPower-currentHeadingPower;
