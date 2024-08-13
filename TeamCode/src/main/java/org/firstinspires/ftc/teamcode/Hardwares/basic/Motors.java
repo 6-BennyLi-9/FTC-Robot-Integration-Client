@@ -90,14 +90,17 @@ public class Motors {
 				}
 			}else if(headingDeg>=-90&&headingDeg<0){//机器朝向：第二象限
 				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
-					currentXPower=Math.cos(aim.toDegree()+headingDeg)* aim.magnitude();
-					currentYPower=Math.sin(aim.toDegree()+headingDeg)* aim.magnitude();
+					currentXPower=Math.cos(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
+					currentYPower=Math.sin(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
 				}else if(xAxisPower<0&&yAxisPower>=0){//目标处于：第二象限
-				
+					currentXPower=Math.cos(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
+					currentYPower=Math.sin(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
 				}else if(xAxisPower>=0&&yAxisPower<0){//目标处于：第四象限
-				
+					currentXPower= Math.cos(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
+					currentYPower=-Math.sin(Math.toRadians(aim.toDegree()+headingDeg))* aim.magnitude();
 				}else if(xAxisPower<0&&yAxisPower<0){//目标处于：第三象限
-				
+					currentXPower= Math.cos(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
+					currentYPower=-Math.sin(Math.toRadians(180-aim.toDegree()+headingDeg))* aim.magnitude();
 				}
 			}else if(headingDeg>-180&&headingDeg<-90){//机器朝向：第三象限
 				if(xAxisPower>=0&&yAxisPower>=0){//目标处于：第一象限
