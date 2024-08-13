@@ -102,6 +102,16 @@ public class Complex {
 	}
 	
 	/**
+	 * 1/(a+bi)=(a-bi)/(a^2+b^2)
+	 * @return 返回该复数的倒数
+	 */
+	public Complex reciprocal(){
+		return new Complex(
+				RealPart/(RealPart*RealPart+imaginary()*imaginary()),
+				imaginary()/(RealPart*RealPart+imaginary()*imaginary())
+				);
+	}
+	/**
 	 * @return 返回该复数的幅角，范围在[-180,180]，如果复数的与原点重合，会抛出错误
 	 */
 	public double toDegree(){
