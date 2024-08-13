@@ -1,5 +1,5 @@
-# FTC 集成化机器控制端(Demo)
-## FTC Robot Integration Client(Demo)
+# FTC 集成化机器控制端
+## FTC Robot Integration Client
 
 ### Warn:I'm a Chinese so most of the code and other things won't be fully translated.
 
@@ -11,7 +11,9 @@
 
 ### 使用与安装：
 
-建议不要直接克隆仓库。您可以在发行版中找到.zip的压缩包并下载，然后解压到指定目录。
+建议不要直接克隆仓库。您可以在发行版中找到.zip的压缩包并下载，然后解压到指定目录(即teamcode)。
+
+如果你是第一次编写FTC机器人的代码，那么我们还是建议克隆仓库。
 
 ---
 
@@ -22,4 +24,6 @@
 
 ### Usage & Installation:
 
-It is recommended that you do not clone the repository directly. You can find the .zip package in the distribution, download it, and extract it to the specified directory.
+It is recommended that you do not clone the repository directly. You can find the .zip package in the distribution, download it, and extract it to the specified directory (i.e., teamcode).
+
+If you're writing code for an FTC bot for the first time, then we recommend cloning the repository.
