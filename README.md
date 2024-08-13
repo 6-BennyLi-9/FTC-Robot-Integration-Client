@@ -3,6 +3,10 @@
 
 ### Warn:I'm a Chinese so most of the code and other things won't be fully translated.
 
+我们使用bing的翻译网站进行翻译，如果你有建议或修改，可以提交拉取请求给我们。
+
+We use Bing's translation site for translations, and if you have suggestions or modifications, you can submit a pull request to us.
+
 
 ### 关于本项目：
 
@@ -24,6 +28,6 @@
 
 ### Usage & Installation:
 
-It is recommended that you do not clone the repository directly. You can find the .zip package in the distribution, download it, and extract it to the specified directory (i.e., teamcode).
+It is recommended that you do not clone the repository release. You can find the .zip package in the distribution, download it, and extract it to the specified directory (i.e., teamcode).
 
 If you're writing code for an FTC bot for the first time, then we recommend cloning the repository.
