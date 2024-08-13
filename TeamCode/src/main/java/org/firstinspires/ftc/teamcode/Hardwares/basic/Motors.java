@@ -57,6 +57,9 @@ public class Motors {
 		RightFrontPower=0;
 		LeftRearPower=0;
 		RightRearPower=0;
+		
+		xAxisPower=0;
+		yAxisPower=0;
 	}
 
 	/**
@@ -67,7 +70,21 @@ public class Motors {
 		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower=0,currentYPower=0,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
-			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower));
+			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
+			Complex Counterclockwise=new Complex(robotHeading.angleToYAxis());
+			
+			switch (robotHeading.quadrant()){
+				case firstQuadrant://逆时针转
+				case thirdQuadrant:
+					aim=aim.times(Counterclockwise);
+					break;
+				case secondQuadrant://顺时针转
+				case forthQuadrant:
+					aim=aim.divide(Counterclockwise);
+					break;
+			}
+			currentYPower=aim.imaginary();
+			currentXPower=aim.RealPart;
 			
 			LeftFrontPower  += currentYPower+currentXPower-currentHeadingPower;
 			LeftRearPower   += currentYPower-currentXPower-currentHeadingPower;
