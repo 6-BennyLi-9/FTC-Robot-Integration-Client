@@ -38,7 +38,7 @@ public class Robot {
 		sensors=new Sensors(hardwareMap);
 		servos=new Servos(hardwareMap);
 
-		classic=new Classic(motors);
+		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);
 		webcam=new Webcam();
 
@@ -50,10 +50,11 @@ public class Robot {
 			InitInAutonomous();
 		} else if (state == runningState.ManualDrive) {
 			RuntimeOption.runUpdateWhenAnyNewOptionsAdded=true;
+			RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
 			InitInManualDrive();
 		} else {
-			throw new NullPointerException("HOW COULD THE STATE EVER BE NULL OR BEEN CHANGED???");
+			throw new NullPointerException("Unexpected runningState value???");
 		}
 	}
 
@@ -65,20 +66,13 @@ public class Robot {
 	}
 
 	public void update() throws InterruptedException {
-		motors.update();
 		servos.update();
 		sensors.update();
-
-		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
-			prepareForNewCommands();
-		}
+		motors.update(sensors.FirstAngle);
 
 		while(RuntimeOption.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}
-	}
-	public void prepareForNewCommands(){
-		motors.clearDriveOptions();
 	}
 }

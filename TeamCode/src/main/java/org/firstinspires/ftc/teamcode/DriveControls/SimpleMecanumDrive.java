@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
@@ -76,6 +77,7 @@ public class SimpleMecanumDrive {
 				@Override
 				public void runCommand() {
 					BufPower=power;
+					BufPower= Mathematics.intervalClip(BufPower,-1f,1f);
 				}
 			};
 		}
@@ -137,6 +139,8 @@ public class SimpleMecanumDrive {
 		}
 		public drivingCommandsBuilder SetPower(double power){
 			cache=new DriveCommand(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
+			power=Mathematics.intervalClip(power,-1f,1f);
+			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
 			cache.SetPower(power);
 			cache.trajectoryType=TrajectoryType.WithoutChangingPosition;
 			commandPackage.commands.add(cache);
@@ -189,7 +193,7 @@ public class SimpleMecanumDrive {
 			DriveCommand singleCommand = commandLists[i];
 			singleCommand.RUN();
 			update();
-			motors.updateDriveOptions();
+			motors.updateDriveOptions(position.heading.toDouble());
 
 			Canvas c = telemetryPacket.fieldOverlay();
 			c.setStroke("#4CAF50");
@@ -201,6 +205,7 @@ public class SimpleMecanumDrive {
 					Arrays.copyOf(xList,i+1),
 					Arrays.copyOf(yList,i+1)
 			);
+
 			this.BufPower= singleCommand.BufPower;
 			final double distance=Math.sqrt(
 					Math.abs(xList[i+1]-xList[i])*Math.abs(xList[i+1]-xList[i])+
@@ -233,11 +238,10 @@ public class SimpleMecanumDrive {
 						pidProcessor.update();
 
 						double[] fulfillment=pidProcessor.fulfillment;
-
-						motors.LeftFrontPower+= fulfillment[1]+fulfillment[0]-fulfillment[2];
-						motors.LeftRearPower+=  fulfillment[1]-fulfillment[0]-fulfillment[2];
-						motors.RightFrontPower+=fulfillment[1]-fulfillment[0]+fulfillment[2];
-						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
+						
+						motors.xAxisPower+=fulfillment[0];
+						motors.yAxisPower+=fulfillment[1];
+						motors.headingPower+=fulfillment[2];
 					}
 				}else{
 					if(Math.abs(aim.position.x- RobotPosition.position.x)>Params.pem
@@ -249,13 +253,19 @@ public class SimpleMecanumDrive {
 								(aim.heading.toDouble()> RobotPosition.heading.toDouble()? BufPower/2:-BufPower/2)
 						};
 
-						motors.LeftFrontPower+= fulfillment[1]+fulfillment[0]-fulfillment[2];
-						motors.LeftRearPower+=  fulfillment[1]-fulfillment[0]-fulfillment[2];
-						motors.RightFrontPower+=fulfillment[1]-fulfillment[0]+fulfillment[2];
-						motors.RightRearPower+= fulfillment[1]+fulfillment[0]+fulfillment[2];
+						motors.xAxisPower+=fulfillment[0];
+						motors.yAxisPower+=fulfillment[1];
+						motors.headingPower+=fulfillment[2];
 					}
 				}
+
+				motors.updateDriveOptions(position.heading.toDouble());
 			}
+
+			client.deleteDate("distance");
+			client.deleteDate("estimatedTime");
+			client.deleteDate("progress");
+			client.deleteDate("DELTA");
 		}
 
 		classic.STOP();
@@ -282,7 +292,7 @@ public class SimpleMecanumDrive {
 				end.position.x-from.position.x,
 				end.position.y-from.position.y
 		));
-		cache.times(progress);
+		cache=cache.times(progress);
 		return new Pose2d(
 				RobotPosition.position.x+cache.RealPart,
 				RobotPosition.position.y+cache.ImaginaryPart.factor,
@@ -328,9 +338,5 @@ public class SimpleMecanumDrive {
 		Drawing.drawRobot(c, RobotPosition);
 
 		poseHistory.add(RobotPosition);
-	}
-
-	public double getBufPower() {
-		return BufPower;
 	}
 }

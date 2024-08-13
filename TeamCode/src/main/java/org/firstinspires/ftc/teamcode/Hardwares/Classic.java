@@ -5,63 +5,52 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.enums.place;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 
 public class Classic {
 	public Motors motors;
+	public Sensors sensors;
 
-	public Classic(Motors motors) {
+	public Classic(Motors motors,Sensors sensors) {
 		this.motors = motors;
+		this.sensors=sensors;
 	}
 
 	public void drive(@NonNull driveDirection driveDirection, double power) {
 		switch ( driveDirection ) {
 			case forward:
-				motors.LeftFrontPower+=power;
-				motors.LeftRearPower+=power;
-				motors.RightFrontPower+=power;
-				motors.RightRearPower+=power;
+				motors.yAxisPower+=power;
 				break;
 			case back:
-				motors.LeftFrontPower -= power;
-				motors.LeftRearPower -= power;
-				motors.RightFrontPower -= power;
-				motors.RightRearPower -= power;
+				motors.yAxisPower-=power;
 				break;
 			case left:
-				motors.LeftFrontPower -= power;
-				motors.LeftRearPower+=power;
-				motors.RightFrontPower+=power;
-				motors.RightRearPower -= power;
+				motors.xAxisPower-=power;
 				break;
 			case right:
-				motors.LeftFrontPower+=power;
-				motors.LeftRearPower -= power;
-				motors.RightFrontPower -= power;
-				motors.RightRearPower+=power;
+				motors.xAxisPower+=power;
 				break;
 			case turn:
-				motors.LeftFrontPower+=power;
-				motors.LeftRearPower+=power;
-				motors.RightFrontPower -= power;
-				motors.RightRearPower -= power;
+				motors.headingPower+=power;
 				break;
 			case slant:
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
 		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
-			motors.update();
+			sensors.update();
+			motors.update(sensors.FirstAngle);
 		}
 	}
 
 	/**
 	 * @param angle 是较于x轴的度数
 	 */
-	public void drive(@NonNull driveDirection driveDirection, @NonNull place place, double power, double angle) {
+	public void drive(@NonNull driveDirection driveDirection, @NonNull Quadrant quadrant, double power, double angle) {
 		switch ( driveDirection ) {
 			case forward:case back:case left:case right:
 			case turn:
@@ -69,33 +58,32 @@ public class Classic {
 				break;
 			case slant:
 				double x=0,y=0;
-				switch (place) {
-					case A:
+				switch (quadrant) {
+					case firstQuadrant:
 						x = Math.cos(angle) * power;
 						y = Math.sin(angle) * power;
 						break;
-					case B:
+					case secondQuadrant:
 						x = -Math.cos(angle) * power;
 						y = Math.sin(angle) * power;
 						break;
-					case C:
+					case thirdQuadrant:
 						x = -Math.cos(angle) * power;
 						y = -Math.sin(angle) * power;
 						break;
-					case D:
+					case forthQuadrant:
 						x = Math.cos(angle) * power;
 						y = -Math.sin(angle) * power;
 						break;
 				}
-				motors.LeftFrontPower+=y + x;
-				motors.LeftRearPower+=y - x;
-				motors.RightFrontPower+=y - x;
-				motors.RightRearPower+=y + x;
+				motors.xAxisPower+=x;
+				motors.yAxisPower+=y;
 				break;
 		}
 
 		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
-			motors.update();
+			sensors.update();
+			motors.update(sensors.FirstAngle);
 		}
 	}
 
@@ -116,13 +104,13 @@ public class Classic {
 		}
 
 		if(angle>0&&angle<90){//第一象限
-			drive(driveDirection.slant,place.A,power,90-angle);
+			drive(driveDirection.slant, Quadrant.firstQuadrant,power,90-angle);
 		}else if(angle>90&&angle<180){//第四象限
-			drive(driveDirection.slant,place.D,power,angle-90);
+			drive(driveDirection.slant, Quadrant.forthQuadrant,power,angle-90);
 		}else if(angle>-90&angle<0){//第二象限
-			drive(driveDirection.slant,place.B,power,90+angle);
+			drive(driveDirection.slant, Quadrant.secondQuadrant,power,90+angle);
 		}else if(angle>-180&&angle<0){//第三象限
-			drive(driveDirection.slant,place.C,power,-90-angle);
+			drive(driveDirection.slant, Quadrant.thirdQuadrant,power,-90-angle);
 		}
 	}
 
@@ -137,6 +125,7 @@ public class Classic {
 	 */
 	public void STOP(){
 		motors.clearDriveOptions();
-		motors.updateDriveOptions();
+		sensors.update();
+		motors.updateDriveOptions(sensors.FirstAngle);
 	}
 }
