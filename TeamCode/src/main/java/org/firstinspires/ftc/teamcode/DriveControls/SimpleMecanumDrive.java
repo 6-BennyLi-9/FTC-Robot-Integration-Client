@@ -140,7 +140,7 @@ public class SimpleMecanumDrive {
 		public drivingCommandsBuilder SetPower(double power){
 			cache=new DriveCommand(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			power=Mathematics.intervalClip(power,-1f,1f);
-			cache=new DriveCommands(commands.getLast().BufPower,commands.getLast().NEXT());
+			cache=new DriveCommand(commandPackage.commands.getLast().BufPower,commandPackage.commands.getLast().NEXT());
 			cache.SetPower(power);
 			cache.trajectoryType=TrajectoryType.WithoutChangingPosition;
 			commandPackage.commands.add(cache);
@@ -193,7 +193,7 @@ public class SimpleMecanumDrive {
 			DriveCommand singleCommand = commandLists[i];
 			singleCommand.RUN();
 			update();
-			motors.updateDriveOptions(position.heading.toDouble());
+			motors.updateDriveOptions(RobotPosition.heading.toDouble());
 
 			Canvas c = telemetryPacket.fieldOverlay();
 			c.setStroke("#4CAF50");
@@ -259,7 +259,7 @@ public class SimpleMecanumDrive {
 					}
 				}
 
-				motors.updateDriveOptions(position.heading.toDouble());
+				motors.updateDriveOptions(RobotPosition.heading.toDouble());
 			}
 
 			client.deleteDate("distance");
@@ -295,7 +295,7 @@ public class SimpleMecanumDrive {
 		cache=cache.times(progress);
 		return new Pose2d(
 				RobotPosition.position.x+cache.RealPart,
-				RobotPosition.position.y+cache.ImaginaryPart.factor,
+				RobotPosition.position.y+cache.imaginary(),
 				from.heading.toDouble()+(end.heading.toDouble()-from.heading.toDouble())*progress
 		);
 	}
