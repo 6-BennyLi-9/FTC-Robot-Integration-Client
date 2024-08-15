@@ -67,7 +67,7 @@ public class Robot {
 		structure.ClipOption(ClipPosition.Open);
 	}
 
-	public void update() throws InterruptedException {
+	public void update()  {
 		sensors.update();
 		servos.update();
 		if(RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower) {
