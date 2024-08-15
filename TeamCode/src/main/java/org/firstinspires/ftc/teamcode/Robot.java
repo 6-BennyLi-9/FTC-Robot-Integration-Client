@@ -21,9 +21,9 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 import java.util.Objects;
 
 public class Robot {
-	private final Motors motors;
-	private final Sensors sensors;
-	private final Servos servos;
+	public final Motors motors;
+	public final Sensors sensors;
+	public final Servos servos;
 
 	public Classic classic;
 	public Structure structure;

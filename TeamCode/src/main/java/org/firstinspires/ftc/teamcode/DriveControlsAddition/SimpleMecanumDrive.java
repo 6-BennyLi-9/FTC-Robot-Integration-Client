@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControlsAddition;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -12,7 +14,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.DriveControls.Drawing;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
@@ -54,16 +56,19 @@ public class SimpleMecanumDrive {
 	private final ImuLocalizer localizer;
 	private double BufPower=1f;
 
-	public SimpleMecanumDrive(@NonNull Classic classic, Pose2d RobotPosition, Sensors sensors, Client client,
-	                          PID_processor pidProcessor){
+	public SimpleMecanumDrive(@NonNull Classic classic, Client client,
+	                          PID_processor pidProcessor, Pose2d RobotPosition){
 		this.classic=classic;
 		this.RobotPosition = RobotPosition;
 		this.client=client;
 		motors=classic.motors;
 
-		localizer=new ImuLocalizer(sensors);
+		localizer=new ImuLocalizer(classic.sensors);
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
+	}
+	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
+		this(robot.classic, robot.client, robot.pidProcessor, RobotPosition);
 	}
 	public class DriveCommand {
 		/**
@@ -278,10 +283,13 @@ public class SimpleMecanumDrive {
 			xList[i+1]=singleCommand.NEXT().position.x;
 			yList[i+1]=singleCommand.NEXT().position.y;
 
-			c.strokePolyline(
-					Arrays.copyOf(xList,i+1),
-					Arrays.copyOf(yList,i+1)
-			);
+			//我真是服了你了 Android Studio
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+				c.strokePolyline(
+						Arrays.copyOf(xList,i+1),
+						Arrays.copyOf(yList,i+1)
+				);
+			}
 
 			this.BufPower= singleCommand.BufPower;
 			final double distance=Math.sqrt(
