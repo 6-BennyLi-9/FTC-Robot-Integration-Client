@@ -70,7 +70,7 @@ public class SimpleMecanumDrive {
 	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
 		this(robot.classic, robot.client, robot.pidProcessor, RobotPosition);
 	}
-	public class DriveCommand {
+	private class DriveCommand {
 		/**
 		 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
 		 * <p>如果使用enum，则代码会明显过于臃肿</p>
@@ -168,6 +168,8 @@ public class SimpleMecanumDrive {
 		/**
 		 * @return 该Command节点的目标点位
 		 */
+		@NonNull
+		@Contract(" -> new")
 		public Pose2d NEXT(){
 			return new Pose2d(
 					pose.position.x+DeltaTrajectory.position.x,

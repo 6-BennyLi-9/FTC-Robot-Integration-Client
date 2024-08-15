@@ -21,6 +21,8 @@ public class Motors {
 	public DcMotorEx PlacementArm,SuspensionArm,Intake;
 	public double PlacementArmPower,SuspensionArmPower,IntakePower;
 
+	private double ClassicBufPower =1, StructureBufPower =1;
+
 	public Motors(@NonNull HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace = new namespace();
 		LeftFrontPower=0;
@@ -96,15 +98,15 @@ public class Motors {
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
 		
-		LeftFront.setPower(LeftFrontPower);
-		LeftRear.setPower(LeftRearPower);
-		RightFront.setPower(RightFrontPower);
-		RightRear.setPower(RightRearPower);
+		LeftFront.setPower(LeftFrontPower* ClassicBufPower);
+		LeftRear.setPower(LeftRearPower* ClassicBufPower);
+		RightFront.setPower(RightFrontPower* ClassicBufPower);
+		RightRear.setPower(RightRearPower* ClassicBufPower);
 	}
 	public void updateStructureOptions(){
-		PlacementArm.setPower(PlacementArmPower);
-		Intake.setPower(IntakePower);
-		SuspensionArm.setPower(SuspensionArmPower);
+		PlacementArm.setPower(PlacementArmPower* StructureBufPower);
+		Intake.setPower(IntakePower* StructureBufPower);
+		SuspensionArm.setPower(SuspensionArmPower* StructureBufPower);
 	}
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
@@ -135,5 +137,15 @@ public class Motors {
 		LeftRearPower   += yAxisPower-xPoser-headingPower;
 		RightFrontPower += yAxisPower-xPoser+headingPower;
 		RightRearPower  += yAxisPower+xPoser+headingPower;
+	}
+	public void setClassicBufPower(double BufPower){
+		ClassicBufPower =BufPower;
+	}
+	public void setStructureBufPower(double BufPower){
+		StructureBufPower =BufPower;
+	}
+	public void setBufPower(double BudPower){
+		setClassicBufPower(BudPower);
+		setStructureBufPower(BudPower);
 	}
 }
