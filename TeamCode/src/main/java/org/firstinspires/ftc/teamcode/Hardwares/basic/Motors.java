@@ -68,7 +68,7 @@ public class Motors {
 	 */
 	public void updateDriveOptions(double headingDeg){
 		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
-			double currentXPower=0,currentYPower=0,currentHeadingPower=headingPower;
+			double currentXPower,currentYPower,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
 			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
 			Complex Counterclockwise=new Complex(robotHeading.angleToYAxis());
@@ -86,16 +86,20 @@ public class Motors {
 			currentYPower=aim.imaginary();
 			currentXPower=aim.RealPart;
 			
-			LeftFrontPower  += currentYPower+currentXPower-currentHeadingPower;
-			LeftRearPower   += currentYPower-currentXPower-currentHeadingPower;
-			RightFrontPower += currentYPower-currentXPower+currentHeadingPower;
-			RightRearPower  += currentYPower+currentXPower+currentHeadingPower;
-		}else {
-			LeftFront.setPower(LeftFrontPower);
-			LeftRear.setPower(LeftRearPower);
-			RightFront.setPower(RightFrontPower);
-			RightRear.setPower(RightRearPower);
+			simpleMotorPowerController(currentXPower,currentYPower,currentHeadingPower);
 		}
+		updateDriveOptions();
+	}
+	public void updateDriveOptions(){
+		LeftFrontPower=Mathematics.intervalClip(LeftFrontPower,-1,1);
+		LeftRearPower=Mathematics.intervalClip(LeftRearPower,-1,1);
+		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
+		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
+		
+		LeftFront.setPower(LeftFrontPower);
+		LeftRear.setPower(LeftRearPower);
+		RightFront.setPower(RightFrontPower);
+		RightRear.setPower(RightRearPower);
 	}
 	public void updateStructureOptions(){
 		PlacementArm.setPower(PlacementArmPower);
@@ -112,5 +116,24 @@ public class Motors {
 		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
+	}
+	public void update(){
+		updateDriveOptions();
+		updateStructureOptions();
+		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
+			clearDriveOptions();
+		}
+	}
+	
+	/**
+	 * @param xPoser 机器平移力
+	 * @param yAxisPower 机器前行/后退力
+	 * @param headingPower 机器旋转力
+	 */
+	public void simpleMotorPowerController(double xPoser,double yAxisPower,double headingPower){
+		LeftFrontPower  += yAxisPower+xPoser-headingPower;
+		LeftRearPower   += yAxisPower-xPoser-headingPower;
+		RightFrontPower += yAxisPower-xPoser+headingPower;
+		RightRearPower  += yAxisPower+xPoser+headingPower;
 	}
 }

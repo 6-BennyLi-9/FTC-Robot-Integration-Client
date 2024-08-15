@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
+import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 import java.util.Objects;
@@ -59,20 +61,29 @@ public class Robot {
 	}
 
 	private void InitInAutonomous(){
-		structure.closeClips();
+		structure.ClipOption(ClipPosition.Close);
 	}
 	private void InitInManualDrive(){
-		structure.openClips();
+		structure.ClipOption(ClipPosition.Open);
 	}
 
 	public void update() throws InterruptedException {
-		servos.update();
 		sensors.update();
-		motors.update(sensors.FirstAngle);
+		servos.update();
+		if(RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower) {
+			motors.update(sensors.FirstAngle);
+		}else{
+			motors.update();
+		}
 
 		while(RuntimeOption.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}
+	}
+	
+	public void operateThroughGamePad(Gamepad gamepad1,Gamepad gamepad2){
+		classic.operateThroughGamePad(gamepad1);
+		structure.operateThroughGamePad(gamepad2);
 	}
 }

@@ -1,18 +1,25 @@
 package org.firstinspires.ftc.teamcode.Hardwares;
 
+import androidx.annotation.NonNull;
+
+import com.qualcomm.robotcore.hardware.Gamepad;
+
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
+import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
 
 public class Structure {
 	Motors motors;
 	Servos servos;
+	
+	ClipPosition clipPosition;
 
 	public Structure(Motors motors,Servos servos){
 		this.motors=motors;
 		this.servos=servos;
 	}
-//TODO:测量这些值
+//  TODO:测量这些值
 	public void OpenFrontClip(){
 		servos.FrontClipPosition=0;
 	}
@@ -26,7 +33,7 @@ public class Structure {
 		servos.FrontClipPosition=0;
 	}
 
-	public void openClips(){
+	private void openClips(){
 		OpenFrontClip();
 		OpenRearClip();
 
@@ -34,12 +41,47 @@ public class Structure {
 			servos.update();
 		}
 	}
-	public void closeClips(){
+	private void closeClips(){
 		CloseFrontClip();
 		CloseRearClip();
 
 		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
+	}
+	public void ClipOption(@NonNull ClipPosition clipPosition){
+		this.clipPosition=clipPosition;
+		switch (clipPosition){
+			case Open:
+				openClips();
+				break;
+			case Close:
+				closeClips();
+				break;
+			default:
+				throw new RuntimeException("UnKnown ClipPosition");
+		}
+	}
+	
+	private boolean gamePadButtonBHolding=false;
+	public void operateThroughGamePad(@NonNull Gamepad gamepad){
+		if(gamepad.b){
+			if(!gamePadButtonBHolding) {
+				gamePadButtonBHolding = true;
+				switch (clipPosition) {
+					case Open:
+						clipPosition=ClipPosition.Close;
+						break;
+					case Close:
+						clipPosition=ClipPosition.Open;
+						break;
+					default:
+						throw new RuntimeException("UnKnown ClipPosition");
+				}
+			}
+		}else gamePadButtonBHolding=false;
+		
+		motors.SuspensionArmPower=gamepad.right_stick_y;
+		motors.IntakePower=gamepad.left_stick_y;
 	}
 }

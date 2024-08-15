@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
+
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
@@ -14,6 +16,11 @@ import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 public class Classic {
 	public Motors motors;
 	public Sensors sensors;
+	
+	/**
+	 * 该BufPower只用于手动程序中
+	 */
+	private double BufPower=1;
 
 	public Classic(Motors motors,Sensors sensors) {
 		this.motors = motors;
@@ -127,5 +134,14 @@ public class Classic {
 		motors.clearDriveOptions();
 		sensors.update();
 		motors.updateDriveOptions(sensors.FirstAngle);
+	}
+	public void operateThroughGamePad(@NonNull Gamepad gamepad){
+		if(RuntimeOption.useRightStickYToConfigRobotSpeed){
+			BufPower+=gamepad.right_stick_y*0.6;
+			BufPower=Mathematics.intervalClip(BufPower,-1,1);
+			motors.simpleMotorPowerController(gamepad.left_stick_x,gamepad.left_stick_y,gamepad.right_stick_x);
+		}else {
+			motors.simpleMotorPowerController(gamepad.left_stick_x,gamepad.left_stick_y,gamepad.right_stick_x);
+		}
 	}
 }

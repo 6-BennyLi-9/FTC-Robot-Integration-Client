@@ -10,4 +10,5 @@ public final class RuntimeOption {
 	public static boolean alwaysRunPIDInAutonomous = false;
 	public static boolean usePIDInAutonomous = true;
 	public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
+	public static boolean useRightStickYToConfigRobotSpeed = true;
 }
