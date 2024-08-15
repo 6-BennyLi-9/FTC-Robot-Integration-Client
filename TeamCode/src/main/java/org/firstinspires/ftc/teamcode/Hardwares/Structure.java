@@ -10,6 +10,16 @@ import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
 
 public class Structure {
+	public static final class PARAMS{
+		/**
+		 * 在执行手动程序时，由Structure下达的IntakePower命令的倍率因数
+		 */
+		public static double factorIntakePower;
+		/**
+		 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
+		 */
+		public static double factorSuspensionArmPower;
+	}
 	Motors motors;
 	Servos servos;
 	
@@ -81,7 +91,7 @@ public class Structure {
 			}
 		}else gamePadButtonBHolding=false;
 		
-		motors.SuspensionArmPower=gamepad.right_stick_y;
-		motors.IntakePower=gamepad.left_stick_y;
+		motors.SuspensionArmPower=gamepad.right_stick_y*PARAMS.factorSuspensionArmPower;
+		motors.IntakePower=gamepad.left_stick_y*PARAMS.factorIntakePower;
 	}
 }

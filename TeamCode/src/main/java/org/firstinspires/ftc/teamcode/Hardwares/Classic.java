@@ -14,6 +14,20 @@ import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 
 public class Classic {
+	public static final class PARAMS{
+		/**
+		 * 在执行手动程序时，由Classic下达的XPower命令的倍率因数
+		 */
+		public static double factorXPower;
+		/**
+		 * 在执行手动程序时，由Classic下达的YPower命令的倍率因数
+		 */
+		public static double factorYPower;
+		/**
+		 * 在执行手动程序时，由Classic下达的HeadingPower命令的倍率因数
+		 */
+		public static double factorHeadingPower;
+	}
 	public Motors motors;
 	public Sensors sensors;
 	
@@ -139,9 +153,17 @@ public class Classic {
 		if(RuntimeOption.useRightStickYToConfigRobotSpeed){
 			BufPower+=gamepad.right_stick_y*0.6;
 			BufPower=Mathematics.intervalClip(BufPower,-1,1);
-			motors.simpleMotorPowerController(gamepad.left_stick_x,gamepad.left_stick_y,gamepad.right_stick_x);
+			motors.simpleMotorPowerController(
+					gamepad.left_stick_x*BufPower*PARAMS.factorXPower,
+					gamepad.left_stick_y*BufPower*PARAMS.factorYPower,
+					gamepad.right_stick_x*BufPower*PARAMS.factorHeadingPower
+			        );
 		}else {
-			motors.simpleMotorPowerController(gamepad.left_stick_x,gamepad.left_stick_y,gamepad.right_stick_x);
+			motors.simpleMotorPowerController(
+					gamepad.left_stick_x*PARAMS.factorXPower,
+					gamepad.left_stick_y*PARAMS.factorYPower,
+					gamepad.right_stick_x*PARAMS.factorHeadingPower
+			        );
 		}
 	}
 }
