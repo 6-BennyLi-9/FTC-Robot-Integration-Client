@@ -33,7 +33,7 @@ public class CameraDetection extends LinearOpMode {
 
 			@Override
 			public void onError(int errorCode) {
-
+				throw new RuntimeException(String.valueOf(errorCode));
 			}
 		});
 
