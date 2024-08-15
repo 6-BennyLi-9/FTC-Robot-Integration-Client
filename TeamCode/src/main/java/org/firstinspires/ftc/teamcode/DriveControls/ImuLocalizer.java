@@ -13,11 +13,17 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 
 /**
- * 该Localizer无法与roadrunner中的Localize兼容
+ * 该Localizer无法与roadrunner中的Localize兼容，我们可能会在后续对其进行优化
  */
 public final class ImuLocalizer implements Localizer{
 	public static class Params{
+		/**
+		 * IMU相较于机器的正中心在X轴上的偏差
+		 */
 		public static double X_error=0;
+		/**
+		 * IMU相较于机器的正中心在Y轴上的偏差
+		 */
 		public static double Y_error=0;
 	}
 	Sensors sensors;
@@ -30,6 +36,11 @@ public final class ImuLocalizer implements Localizer{
 
 	private boolean initialized=false;
 	private Pose2d lastPose;
+	
+	/**
+	 * @return 返回参照RoadRunner的Localizer的格式，参数第一个为Delta量，第二个为实际位置。由于官方写得实在是太抽象了，而且
+	 * 一点注释也不写，这是我们自己摸索出来的最好的结果
+	 */
 	@NonNull
 	public Twist2dDual<Time> update() {
 		if(!initialized){

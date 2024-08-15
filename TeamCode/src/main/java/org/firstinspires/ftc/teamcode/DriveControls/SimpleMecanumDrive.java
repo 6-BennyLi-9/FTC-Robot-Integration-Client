@@ -26,21 +26,32 @@ import java.util.LinkedList;
 
 public class SimpleMecanumDrive {
 	public static final class Params{
-		public static double vP=0;//用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
-//		public static double kP=vP;//kP的斜率，如果您在测试中发现这两者不相等，或这kP不是恒定的，请联系我们
-		public static double pem=0.5; //positionErrorMargin，单位：inch
-		public static double aem=1;   //angleErrorMargin，单位：度
+		/**
+		 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
+		 */
+		public static double vP=0;
+		//kP的斜率，如果您在测试中发现这两者不相等，或者kP不是恒定的，请联系我们
+//		public static double kP=vP;
+		/**
+		 *positionErrorMargin，单位：inch
+		 */
+		public static double pem=0.5;
+		/**
+		 *angleErrorMargin，单位：度
+		 */
+		public static double aem=1;
 	}
 
 	private final Classic classic;
 	private final Motors motors;
+	private final Client client;
+	private final PID_processor pidProcessor;
+	private final TelemetryPacket telemetryPacket;
+	
 	private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	private Pose2d RobotPosition;
 	private final ImuLocalizer localizer;
 	private double BufPower=1f;
-	private final TelemetryPacket telemetryPacket;
-	private final Client client;
-	private final PID_processor pidProcessor;
 
 	public SimpleMecanumDrive(@NonNull Classic classic, Pose2d RobotPosition, Sensors sensors, Client client,
 	                          PID_processor pidProcessor){
@@ -54,14 +65,18 @@ public class SimpleMecanumDrive {
 		this.pidProcessor=pidProcessor;
 	}
 	public class DriveCommand {
+		/**
+		 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
+		 * <p>如果使用enum，则代码会明显过于臃肿</p>
+		 */
 		public abstract class commandRunningNode{
 			public void runCommand() {}
 		}
-
+		
+		public commandRunningNode MEAN;
 		private double BufPower;
 		private Pose2d DeltaTrajectory;
 		private final Pose2d pose;
-		public commandRunningNode MEAN;
 		/**
 		 * <code>面向开发者：</code> 不建议在DriveCommands中更改trajectoryType的值，而是在drivingCommandsBuilder中
 		 */
@@ -71,7 +86,11 @@ public class SimpleMecanumDrive {
 			this.BufPower=BufPower;
 			this.pose=pose;
 		}
-
+		
+		/**
+		 * 在该节点只修改电机BufPower，不会在定义时影响主程序
+		 * @param power 目标设置的电机BufPower
+		 */
 		public void SetPower(double power){
 			MEAN=new commandRunningNode() {
 				@Override
@@ -81,6 +100,11 @@ public class SimpleMecanumDrive {
 				}
 			};
 		}
+		
+		/**
+		 * 在该节点让机器旋转指定弧度
+		 * @param radians 要转的弧度
+		 */
 		public void Turn(double radians){
 			MEAN=new commandRunningNode() {
 				@Override
@@ -90,6 +114,12 @@ public class SimpleMecanumDrive {
 			};
 			DeltaTrajectory=new Pose2d(new Vector2d(0,0),radians);
 		}
+		
+		/**
+		 * 在该节点让机器在指定角度行驶指定距离
+		 * @param radians 相较于机器的正方向，目标点位的度数（注意不是相较于当前机器方向，而是坐标系定义时给出的机器正方向）
+		 * @param distance 要行驶的距离
+		 */
 		public void StrafeInDistance(double radians,double distance){
 			MEAN=new commandRunningNode() {
 				@Override
@@ -103,6 +133,11 @@ public class SimpleMecanumDrive {
 							.toVector2d()
 					,radians);
 		}
+		
+		/**
+		 * 在该节点让机器在不旋转的情况下平移
+		 * @param pose 目标矢量点位
+		 */
 		public void StrafeTo(Vector2d pose){
 			Complex cache=new Complex(this.pose.position.minus(pose));
 			MEAN=new commandRunningNode() {
@@ -113,12 +148,20 @@ public class SimpleMecanumDrive {
 			};
 			DeltaTrajectory=new Pose2d(cache.toVector2d(),this.pose.heading);
 		}
+		
+		/**
+		 * 不要在自动程序中调用这个函数，否则你会后悔的
+		 */
 		public void RUN(){
 			MEAN.runCommand();
 		}
 		public Pose2d getDeltaTrajectory(){
 			return DeltaTrajectory;
 		}
+		
+		/**
+		 * @return 该Command节点的目标点位
+		 */
 		public Pose2d NEXT(){
 			return new Pose2d(
 					pose.position.x+DeltaTrajectory.position.x,
@@ -137,8 +180,12 @@ public class SimpleMecanumDrive {
 		drivingCommandsBuilder(DriveCommandPackage commandPackage){
 			this.commandPackage = commandPackage;
 		}
+		
+		/**
+		 * 在该节点只修改电机BufPower，不会在定义时影响主程序
+		 * @param power 目标设置的电机BufPower
+		 */
 		public drivingCommandsBuilder SetPower(double power){
-			cache=new DriveCommand(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			power=Mathematics.intervalClip(power,-1f,1f);
 			cache=new DriveCommand(commandPackage.commands.getLast().BufPower,commandPackage.commands.getLast().NEXT());
 			cache.SetPower(power);
@@ -146,16 +193,30 @@ public class SimpleMecanumDrive {
 			commandPackage.commands.add(cache);
 			return new drivingCommandsBuilder(commandPackage);
 		}
-		public drivingCommandsBuilder TurnAngle(double angle){
-			cache=new DriveCommand(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
-			cache.Turn(angle);
+		/**
+		 * 在该节点让机器旋转指定弧度
+		 * @param radians 要转的弧度[-PI,PI)
+		 */
+		public drivingCommandsBuilder TurnRadians(double radians){
+			radians=Mathematics.intervalClip(radians,-Math.PI,Math.PI);
+			cache=new DriveCommand(commandPackage.commands.getLast().BufPower,commandPackage.commands.getLast().NEXT());
+			cache.Turn(radians);
 			cache.trajectoryType=TrajectoryType.TurnOnly;
 			commandPackage.commands.add(cache);
 			return new drivingCommandsBuilder(commandPackage);
 		}
-		public drivingCommandsBuilder turn(double radians){
-			return TurnAngle(Math.toDegrees(radians));
+		/**
+		 * 在该节点让机器旋转指定角度
+		 * @param deg 要转的角度[-180,180)
+		 */
+		public drivingCommandsBuilder TurnAngle(double deg){
+			return TurnRadians(Math.toRadians(deg));
 		}
+		/**
+		 * 在该节点让机器在指定角度行驶指定距离
+		 * @param radians 相较于机器的正方向，目标点位的度数（注意不是相较于当前机器方向，而是坐标系定义时给出的机器正方向）
+		 * @param distance 要行驶的距离
+		 */
 		public drivingCommandsBuilder StrafeInDistance(double radians,double distance){
 			cache=new DriveCommand(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			cache.StrafeInDistance(radians,distance);
@@ -163,6 +224,10 @@ public class SimpleMecanumDrive {
 			commandPackage.commands.add(cache);
 			return new drivingCommandsBuilder(commandPackage);
 		}
+		/**
+		 * 在该节点让机器在不旋转的情况下平移
+		 * @param pose 目标矢量点位
+		 */
 		public drivingCommandsBuilder StrafeTo(Vector2d pose){
 			cache=new DriveCommand(commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 			cache.StrafeTo(pose);
@@ -170,16 +235,27 @@ public class SimpleMecanumDrive {
 			commandPackage.commands.add(cache);
 			return new drivingCommandsBuilder(commandPackage);
 		}
+		/**
+		 * 结束该DriveCommandPackage
+		 */
 		public DriveCommandPackage END(){
 			return commandPackage;
 		}
 	}
+	
+	/**
+	 * 为了方便存储，查询
+	 */
 	public class DriveCommandPackage{
 		public LinkedList < DriveCommand > commands;
 		DriveCommandPackage(){
 			commands=new LinkedList<>();
 		}
 	}
+	
+	/**
+	 * @param commands 要执行的LinkedList < DriveCommand >，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
+	 */
 	public void runDriveCommands(@NonNull LinkedList < DriveCommand > commands){
 		DriveCommand[] commandLists=new DriveCommand[commands.size()];
 		commands.toArray(commandLists);
@@ -321,6 +397,10 @@ public class SimpleMecanumDrive {
 		}
 		throw new RuntimeException("If you see this Exception on DriverHub, please let us know in the issue");
 	}
+	
+	/**
+	 * @return 定义开启新的drivingCommandsBuilder
+	 */
 	public drivingCommandsBuilder drivingCommandsBuilder(){
 		return new drivingCommandsBuilder();
 	}
