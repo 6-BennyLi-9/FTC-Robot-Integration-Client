@@ -8,10 +8,12 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.HardwareSet;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
@@ -23,6 +25,8 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 import java.util.Objects;
 
 public class Robot {
+	public HardwareSet devices;
+
 	public final Motors motors;
 	public final Sensors sensors;
 	public final Servos servos;
@@ -36,13 +40,15 @@ public class Robot {
 
 	private SimpleMecanumDrive drive=null;//如果您不想使用我们的drive，那么保留drive的值为null是没问题的
 
-	public Robot(HardwareMap hardwareMap, @NonNull runningState state, Client client){
-		if(hardwareMap==null||client==null){
-			throw new NullPointerException();
-		}
-		motors=new Motors(hardwareMap);
+	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Telemetry telemetry){
+		this(hardwareMap,state,new Client(telemetry));
+	}
+	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Client client){
+		devices=new HardwareSet();
+
+		motors=new Motors(hardwareMap,devices);
 		sensors=new Sensors(hardwareMap);
-		servos=new Servos(hardwareMap);
+		servos=new Servos(hardwareMap,devices);
 
 		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);
@@ -112,7 +118,7 @@ public class Robot {
 	 * @param BufPower 提供的电机力度因数
 	 */
 	public void SetGlobalBufPower(double BufPower){
-		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());
+		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
 		motors.setBufPower(BufPower);
 	}
 }
