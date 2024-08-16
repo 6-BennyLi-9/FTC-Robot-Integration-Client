@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
@@ -21,9 +23,9 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 import java.util.Objects;
 
 public class Robot {
-	private final Motors motors;
-	private final Sensors sensors;
-	private final Servos servos;
+	public final Motors motors;
+	public final Sensors sensors;
+	public final Servos servos;
 
 	public Classic classic;
 	public Structure structure;
@@ -31,6 +33,8 @@ public class Robot {
 
 	public Client client;
 	public PID_processor pidProcessor;
+
+	private SimpleMecanumDrive drive=null;//如果您不想使用我们的drive，那么保留drive的值为null是没问题的
 
 	public Robot(HardwareMap hardwareMap, @NonNull runningState state, Client client){
 		if(hardwareMap==null||client==null){
@@ -60,6 +64,14 @@ public class Robot {
 		}
 	}
 
+	/**
+	 * 自动初始化SimpleMecanumDrive
+	 * @return 返回定义好的SimpleMecanumDrive
+	 */
+	public SimpleMecanumDrive enableSimpleMecanumDrive(Pose2d RobotPosition){
+		drive=new SimpleMecanumDrive(this,RobotPosition);
+		return drive;
+	}
 	private void InitInAutonomous(){
 		structure.ClipOption(ClipPosition.Close);
 	}
@@ -85,5 +97,22 @@ public class Robot {
 	public void operateThroughGamePad(Gamepad gamepad1,Gamepad gamepad2){
 		classic.operateThroughGamePad(gamepad1);
 		structure.operateThroughGamePad(gamepad2);
+	}
+
+	/**
+	 * 在该节点让机器旋转指定角度
+	 * @param angle 要转的角度[-180,180)
+	 */
+	public void turnAngle(double angle){
+		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
+	}
+
+	/**
+	 * 将会把BufPower全部分配给电机
+	 * @param BufPower 提供的电机力度因数
+	 */
+	public void SetGlobalBufPower(double BufPower){
+		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());
+		motors.setBufPower(BufPower);
 	}
 }

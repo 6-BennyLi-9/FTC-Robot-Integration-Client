@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControlsAddition;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -12,7 +14,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.DriveControls.Drawing;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
@@ -54,18 +56,21 @@ public class SimpleMecanumDrive {
 	private final ImuLocalizer localizer;
 	private double BufPower=1f;
 
-	public SimpleMecanumDrive(@NonNull Classic classic, Pose2d RobotPosition, Sensors sensors, Client client,
-	                          PID_processor pidProcessor){
+	public SimpleMecanumDrive(@NonNull Classic classic, Client client,
+	                          PID_processor pidProcessor, Pose2d RobotPosition){
 		this.classic=classic;
 		this.RobotPosition = RobotPosition;
 		this.client=client;
 		motors=classic.motors;
 
-		localizer=new ImuLocalizer(sensors);
+		localizer=new ImuLocalizer(classic.sensors);
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}
-	public class DriveCommand {
+	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
+		this(robot.classic, robot.client, robot.pidProcessor, RobotPosition);
+	}
+	private class DriveCommand {
 		/**
 		 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
 		 * <p>如果使用enum，则代码会明显过于臃肿</p>
@@ -163,6 +168,8 @@ public class SimpleMecanumDrive {
 		/**
 		 * @return 该Command节点的目标点位
 		 */
+		@NonNull
+		@Contract(" -> new")
 		public Pose2d NEXT(){
 			return new Pose2d(
 					pose.position.x+DeltaTrajectory.position.x,
@@ -278,10 +285,13 @@ public class SimpleMecanumDrive {
 			xList[i+1]=singleCommand.NEXT().position.x;
 			yList[i+1]=singleCommand.NEXT().position.y;
 
-			c.strokePolyline(
-					Arrays.copyOf(xList,i+1),
-					Arrays.copyOf(yList,i+1)
-			);
+			//我真是服了你了 Android Studio
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+				c.strokePolyline(
+						Arrays.copyOf(xList,i+1),
+						Arrays.copyOf(yList,i+1)
+				);
+			}
 
 			this.BufPower= singleCommand.BufPower;
 			final double distance=Math.sqrt(
