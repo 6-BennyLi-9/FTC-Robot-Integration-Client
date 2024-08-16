@@ -74,9 +74,11 @@ public class Robot {
 	}
 	private void InitInAutonomous(){
 		structure.ClipOption(ClipPosition.Close);
+		SetGlobalBufPower(0.9f);
 	}
 	private void InitInManualDrive(){
 		structure.ClipOption(ClipPosition.Open);
+		SetGlobalBufPower(0.9f);
 	}
 
 	public void update()  {
