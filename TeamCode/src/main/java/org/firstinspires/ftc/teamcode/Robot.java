@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive.drivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
@@ -20,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.utils.enums.State;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 import java.util.Objects;
@@ -38,6 +40,7 @@ public class Robot {
 	public Client client;
 	public PID_processor pidProcessor;
 
+	public State state;
 	private SimpleMecanumDrive drive=null;//如果您不想使用我们的drive，那么保留drive的值为null是没问题的
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Telemetry telemetry){
@@ -68,6 +71,8 @@ public class Robot {
 		} else {
 			throw new NullPointerException("Unexpected runningState value???");
 		}
+
+		client.addData("State","UnKnow");
 	}
 
 	/**
@@ -80,9 +85,11 @@ public class Robot {
 	}
 	private void InitInAutonomous(){
 		structure.ClipOption(ClipPosition.Close);
+		state= State.IDLE;
 	}
 	private void InitInManualDrive(){
 		structure.ClipOption(ClipPosition.Open);
+		state= State.ManualDriving;
 	}
 
 	public void update()  {
@@ -94,6 +101,7 @@ public class Robot {
 			motors.update();
 		}
 
+		client.changeDate("State",state.name());
 		while(RuntimeOption.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
@@ -103,6 +111,9 @@ public class Robot {
 	public void operateThroughGamePad(Gamepad gamepad1,Gamepad gamepad2){
 		classic.operateThroughGamePad(gamepad1);
 		structure.operateThroughGamePad(gamepad2);
+	}
+	public drivingCommandsBuilder drivingCommandsBuilder(){
+		return drive.drivingCommandsBuilder();
 	}
 
 	/**

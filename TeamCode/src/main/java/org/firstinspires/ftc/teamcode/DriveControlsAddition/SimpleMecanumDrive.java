@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.DriveControlsAddition;
 
-import android.os.Build;
-
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -20,6 +18,7 @@ import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
+import org.firstinspires.ftc.teamcode.utils.enums.State;
 import org.firstinspires.ftc.teamcode.utils.enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.jetbrains.annotations.Contract;
@@ -43,6 +42,10 @@ public class SimpleMecanumDrive {
 		 *angleErrorMargin，单位：度
 		 */
 		public static double aem=1;
+		/**
+		 * 机器的超时保护机制，如果超过该时间，机器仍未到达点位，则会强制取消点位的执行
+		 */
+		public static double timeOutProtectionMills=1000;
 	}
 
 	private final Classic classic;
@@ -56,11 +59,14 @@ public class SimpleMecanumDrive {
 	private final ImuLocalizer localizer;
 	private double BufPower=1f;
 
+	public State state;
+
 	public SimpleMecanumDrive(@NonNull Classic classic, Client client,
-	                          PID_processor pidProcessor, Pose2d RobotPosition){
+	                          PID_processor pidProcessor, State state, Pose2d RobotPosition){
 		this.classic=classic;
 		this.RobotPosition = RobotPosition;
 		this.client=client;
+		this.state=state;
 		motors=classic.motors;
 
 		localizer=new ImuLocalizer(classic.sensors);
@@ -68,9 +74,9 @@ public class SimpleMecanumDrive {
 		this.pidProcessor=pidProcessor;
 	}
 	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
-		this(robot.classic, robot.client, robot.pidProcessor, RobotPosition);
+		this(robot.classic, robot.client, robot.pidProcessor, robot.state, RobotPosition);
 	}
-	private class DriveCommand {
+	public class DriveCommand {
 		/**
 		 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
 		 * <p>如果使用enum，则代码会明显过于臃肿</p>
@@ -285,13 +291,10 @@ public class SimpleMecanumDrive {
 			xList[i+1]=singleCommand.NEXT().position.x;
 			yList[i+1]=singleCommand.NEXT().position.y;
 
-			//我真是服了你了 Android Studio
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-				c.strokePolyline(
-						Arrays.copyOf(xList,i+1),
-						Arrays.copyOf(yList,i+1)
-				);
-			}
+			c.strokePolyline(
+					Arrays.copyOf(xList, i + 1),
+					Arrays.copyOf(yList, i + 1)
+			);
 
 			this.BufPower= singleCommand.BufPower;
 			final double distance=Math.sqrt(
@@ -312,7 +315,13 @@ public class SimpleMecanumDrive {
 				double progress=((et - st) / 1000.0) / estimatedTime * 100;
 				client.changeDate("progress", progress +"%");
 				Pose2d aim=getAimPositionThroughTrajectory(singleCommand,progress);
-				
+
+				if(et>st+estimatedTime+Params.timeOutProtectionMills&&RuntimeOption.useOutTimeProtection){//保护机制
+					state=State.BrakeDown;
+					motors.updateDriveOptions();
+					break;
+				}
+
 				if(RuntimeOption.usePIDInAutonomous){
 					if(Math.abs(aim.position.x- RobotPosition.position.x)>Params.pem
 							|| Math.abs(aim.position.y- RobotPosition.position.y)>Params.pem
@@ -353,9 +362,11 @@ public class SimpleMecanumDrive {
 			client.deleteDate("estimatedTime");
 			client.deleteDate("progress");
 			client.deleteDate("DELTA");
+			state= State.WaitingAtPoint;
 		}
 
 		classic.STOP();
+		state= State.IDLE;
 	}
 	
 	/**
@@ -399,9 +410,10 @@ public class SimpleMecanumDrive {
 			case LinerStrafe:
 			case LinerWithTurn:
 			case TurnOnly:
+				state= State.StrafeToPoint;
 				return getAimPositionThroughTrajectory(driveCommand.pose, driveCommand.NEXT(), progress);
 			case Spline://TODO:功能仍在开发中
-				
+				state= State.FollowSpline;
 				break;
 			default:
 				return new Pose2d(0, 0, 0);
