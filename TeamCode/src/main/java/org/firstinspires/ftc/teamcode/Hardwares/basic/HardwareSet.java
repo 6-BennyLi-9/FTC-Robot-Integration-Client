@@ -13,6 +13,9 @@ import org.firstinspires.ftc.teamcode.utils.enums.HardwareType;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @apiNote OpenCvCamera和BNU055IMU都不属于接口HardwareDevice
+ */
 public class HardwareSet {
 	public Map<HardwareType, HardwareDevice > devices;
 	public HardwareSet(){
