@@ -20,10 +20,12 @@ public final class ImuLocalizer implements Localizer {
 	public static class Params{
 		/**
 		 * IMU相较于机器的正中心在X轴上的偏差
+		 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
 		 */
 		public static double X_error=0;
 		/**
 		 * IMU相较于机器的正中心在Y轴上的偏差
+		 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
 		 */
 		public static double Y_error=0;
 	}
