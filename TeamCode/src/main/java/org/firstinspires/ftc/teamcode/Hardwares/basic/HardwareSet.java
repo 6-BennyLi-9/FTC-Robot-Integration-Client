@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.utils.enums.Hardware;
 
@@ -45,6 +46,24 @@ public class HardwareSet {
 			((DcMotor) device).setPower(power);
 		}else if(device instanceof Servos){
 			throw new RuntimeException("Cannot set the power of a servo at HardwareSet.class");
+		}
+	}
+	public void setPosition(Hardware hardwareType, double position){
+		HardwareDevice device=getDevice(hardwareType);
+		if(device instanceof Servo){
+			((Servo) device).setPosition(position);
+		}else{
+			throw new RuntimeException("Not allowed to set the position of a device witch isn't a Servo");
+		}
+	}
+	public double getPosition(Hardware hardwareType){
+		HardwareDevice device=getDevice(hardwareType);
+		if (device instanceof Servo) {
+			return ((Servo) device).getPosition();
+		}else if(device instanceof DcMotor){
+			return ((DcMotor) device).getCurrentPosition();
+		}else{
+			throw new RuntimeException("Cannot get the position of other devices at HardwareSet.class");
 		}
 	}
 }

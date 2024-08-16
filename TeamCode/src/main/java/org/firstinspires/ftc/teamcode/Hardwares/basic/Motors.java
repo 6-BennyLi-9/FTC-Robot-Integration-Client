@@ -24,7 +24,11 @@ public class Motors {
 	private double ClassicBufPower =1, StructureBufPower =1;
 
 	public Motors(@NonNull HardwareMap hardwareMap){
-		org.firstinspires.ftc.teamcode.namespace namespace = new namespace();
+		this(hardwareMap,new HardwareSet());
+	}
+	public Motors(@NonNull HardwareMap hardwareMap,HardwareSet hardwareSet){
+		namespace namespace = new namespace();
+		hardware=hardwareSet;
 		LeftFrontPower=0;
 		RightFrontPower=0;
 		LeftRearPower=0;
