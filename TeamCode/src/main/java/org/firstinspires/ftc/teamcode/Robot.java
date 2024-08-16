@@ -41,7 +41,10 @@ public class Robot {
 	public PID_processor pidProcessor;
 
 	public State state;
+	public runningState RunningState;
 	private SimpleMecanumDrive drive=null;//如果您不想使用我们的drive，那么保留drive的值为null是没问题的
+
+	public long StartTimeMills,NowTimeMills;
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
@@ -72,6 +75,8 @@ public class Robot {
 			throw new NullPointerException("Unexpected runningState value???");
 		}
 
+		RunningState=state;
+		StartTimeMills=System.currentTimeMillis();
 		client.addData("State","UnKnow");
 	}
 
@@ -121,6 +126,7 @@ public class Robot {
 	 * @param angle 要转的角度[-180,180)
 	 */
 	public void turnAngle(double angle){
+		if(RunningState==runningState.ManualDrive)return;
 		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
 	}
 
