@@ -11,6 +11,7 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 /**
+ * 我们这里使用的是OpenCV的颜色块识别，如果你有更多方案，可以进行修改，或者新建拉取请求
  * @see org.firstinspires.ftc.teamcode.RIC_samples.CameraDetection
  */
 public class Camera extends OpenCvPipeline {
@@ -23,15 +24,16 @@ public class Camera extends OpenCvPipeline {
 	public AutonomousLocation location = AutonomousLocation.failed;
 	public double left_red_Value,middle_red_Value,right_red_Value,left_blue_Value,middle_blue_Value,right_blue_Value;
 
+	//TODO: 区块识别的区域，需要更改
 	static final Rect LEFT_ROI = new Rect(
-			new Point(0, 0),//原x=110,y=305
-			new Point(0, 0));//原x=300，y=560
+			new Point(0, 0),
+			new Point(0, 0));
 	static final Rect  MIDDLE_ROI = new Rect(
-			new Point(0,0),//原x=610，y=280
-			new Point(0,0));//原x=690，y=490
+			new Point(0,0),
+			new Point(0,0));
 	static final Rect RIGHT_ROI = new Rect(
-			new Point(0,0),//原x=1050，y=295
-			new Point(0,0));//原x=1240，y=570
+			new Point(0,0),
+			new Point(0,0));
 	static double PERCENT_COLOR_THRESHOLD = 0.20;
 
 	public Camera(Telemetry telemetry) { this.telemetry = telemetry; }
