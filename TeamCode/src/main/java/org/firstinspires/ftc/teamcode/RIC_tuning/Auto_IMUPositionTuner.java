@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
  * <p>
  * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.DriveControlsAddition.ImuLocalizer.Params}
  */
-@Autonomous(name = "IMUPositionTuner",group = "tune")
+@Autonomous(name = "Auto_IMUPositionTuner",group = "tune")
 public class Auto_IMUPositionTuner extends LinearOpMode {
 	public Robot robot;
 
