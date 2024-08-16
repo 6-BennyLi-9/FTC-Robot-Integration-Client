@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.utils.enums.Hardware;
+import org.firstinspires.ftc.teamcode.utils.enums.HardwareType;
 import org.firstinspires.ftc.teamcode.namespace;
 
 public class Sensors {
@@ -20,7 +20,7 @@ public class Sensors {
 
 	public Sensors(@NonNull HardwareMap hardwareMap){
 		org.firstinspires.ftc.teamcode.namespace namespace=new namespace();
-		imu=hardwareMap.get(BNO055IMU.class,namespace.Hardware.get(Hardware.imu));
+		imu=hardwareMap.get(BNO055IMU.class,namespace.Hardware.get(HardwareType.imu));
 
 		BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 		parameters.angleUnit= BNO055IMU.AngleUnit.DEGREES;

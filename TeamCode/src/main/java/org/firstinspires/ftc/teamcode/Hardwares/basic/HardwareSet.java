@@ -8,29 +8,29 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.utils.enums.Hardware;
+import org.firstinspires.ftc.teamcode.utils.enums.HardwareType;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class HardwareSet {
-	public Map< Hardware , HardwareDevice > devices;
+	public Map<HardwareType, HardwareDevice > devices;
 	public HardwareSet(){
 		devices=new HashMap<>();
 	}
 
-	public void addDevice(HardwareDevice device, Hardware hardwareType){
+	public void addDevice(HardwareDevice device, HardwareType hardwareType){
 		devices.put(hardwareType,device);
 		Log.i("HardwareSet",device.getDeviceName()+" added.");
 	}
-	public HardwareDevice getDevice(Hardware hardwareType){
+	public HardwareDevice getDevice(HardwareType hardwareType){
 		if(devices.containsKey(hardwareType)){
 			return devices.get(hardwareType);
 		}else{
 			throw new NullPointerException("Device Not Found:"+hardwareType.toString());
 		}
 	}
-	public void setDirection(Hardware hardwareType, DcMotorSimple.Direction direction){
+	public void setDirection(HardwareType hardwareType, DcMotorSimple.Direction direction){
 		HardwareDevice device=getDevice(hardwareType);
 		if(device instanceof DcMotorEx){
 			((DcMotorEx) device).setDirection(direction);
@@ -38,7 +38,7 @@ public class HardwareSet {
 			throw new RuntimeException("DcMotor's Direction Only Matches To DcMotor");
 		}
 	}
-	public void setPower(Hardware hardwareType,double power){
+	public void setPower(HardwareType hardwareType, double power){
 		HardwareDevice device=getDevice(hardwareType);
 		if(device instanceof DcMotorEx){
 			((DcMotorEx) device).setPower(power);
@@ -48,7 +48,7 @@ public class HardwareSet {
 			throw new RuntimeException("Cannot set the power of a servo at HardwareSet.class");
 		}
 	}
-	public void setPosition(Hardware hardwareType, double position){
+	public void setPosition(HardwareType hardwareType, double position){
 		HardwareDevice device=getDevice(hardwareType);
 		if(device instanceof Servo){
 			((Servo) device).setPosition(position);
@@ -56,7 +56,7 @@ public class HardwareSet {
 			throw new RuntimeException("Not allowed to set the position of a device witch isn't a Servo");
 		}
 	}
-	public double getPosition(Hardware hardwareType){
+	public double getPosition(HardwareType hardwareType){
 		HardwareDevice device=getDevice(hardwareType);
 		if (device instanceof Servo) {
 			return ((Servo) device).getPosition();

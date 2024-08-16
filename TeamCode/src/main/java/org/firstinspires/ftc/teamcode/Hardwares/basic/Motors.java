@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.namespace;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.enums.Hardware;
+import org.firstinspires.ftc.teamcode.utils.enums.HardwareType;
 
 public class Motors {
 	public HardwareSet hardware;
@@ -38,24 +38,24 @@ public class Motors {
 		SuspensionArmPower=0;
 		IntakePower=0;
 
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.LeftFront)),Hardware.LeftFront);
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.LeftRear)),Hardware.LeftRear);
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.RightFront)),Hardware.RightFront);
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.RightRear)),Hardware.RightRear);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.LeftFront)), HardwareType.LeftFront);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.LeftRear)), HardwareType.LeftRear);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.RightFront)), HardwareType.RightFront);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.RightRear)), HardwareType.RightRear);
 
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.PlacementArm)),Hardware.PlacementArm);
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.SuspensionArm)),Hardware.SuspensionArm);
-		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(Hardware.Intake)),Hardware.Intake);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.PlacementArm)), HardwareType.PlacementArm);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.SuspensionArm)), HardwareType.SuspensionArm);
+		hardware.addDevice(hardwareMap.get(DcMotorEx.class, namespace.Hardware.get(HardwareType.Intake)), HardwareType.Intake);
 
 		//TODO:根据实际情况修改
-		hardware.setDirection(Hardware.LeftFront, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(Hardware.LeftRear, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(Hardware.RightFront, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(Hardware.RightRear, DcMotorSimple.Direction.REVERSE);
+		hardware.setDirection(HardwareType.LeftFront, DcMotorSimple.Direction.FORWARD);
+		hardware.setDirection(HardwareType.LeftRear, DcMotorSimple.Direction.FORWARD);
+		hardware.setDirection(HardwareType.RightFront, DcMotorSimple.Direction.REVERSE);
+		hardware.setDirection(HardwareType.RightRear, DcMotorSimple.Direction.REVERSE);
 
-		hardware.setDirection(Hardware.PlacementArm, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(Hardware.Intake, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(Hardware.SuspensionArm, DcMotorSimple.Direction.FORWARD);
+		hardware.setDirection(HardwareType.PlacementArm, DcMotorSimple.Direction.REVERSE);
+		hardware.setDirection(HardwareType.Intake, DcMotorSimple.Direction.REVERSE);
+		hardware.setDirection(HardwareType.SuspensionArm, DcMotorSimple.Direction.FORWARD);
 	}
 
 	public void clearDriveOptions(){
@@ -102,15 +102,15 @@ public class Motors {
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
 //		hardware.setPower(
-		hardware.setPower(Hardware.LeftFront, LeftFrontPower* ClassicBufPower);
-		hardware.setPower(Hardware.LeftRear, LeftRearPower* ClassicBufPower);
-		hardware.setPower(Hardware.RightFront, RightFrontPower* ClassicBufPower);
-		hardware.setPower(Hardware.RightRear, RightRearPower* ClassicBufPower);
+		hardware.setPower(HardwareType.LeftFront, LeftFrontPower* ClassicBufPower);
+		hardware.setPower(HardwareType.LeftRear, LeftRearPower* ClassicBufPower);
+		hardware.setPower(HardwareType.RightFront, RightFrontPower* ClassicBufPower);
+		hardware.setPower(HardwareType.RightRear, RightRearPower* ClassicBufPower);
 	}
 	public void updateStructureOptions(){
-		hardware.setPower(Hardware.PlacementArm, PlacementArmPower* StructureBufPower);
-		hardware.setPower(Hardware.Intake, IntakePower* StructureBufPower);
-		hardware.setPower(Hardware.SuspensionArm, SuspensionArmPower* StructureBufPower);
+		hardware.setPower(HardwareType.PlacementArm, PlacementArmPower* StructureBufPower);
+		hardware.setPower(HardwareType.Intake, IntakePower* StructureBufPower);
+		hardware.setPower(HardwareType.SuspensionArm, SuspensionArmPower* StructureBufPower);
 	}
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
