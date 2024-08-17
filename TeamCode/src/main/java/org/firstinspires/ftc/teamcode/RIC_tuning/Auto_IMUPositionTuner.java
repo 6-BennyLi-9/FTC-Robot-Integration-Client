@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 /**
  * 1.运行程序
  * <p>
- * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.DriveControlsAddition.ImuLocalizer.Params}
+ * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.DriveControls.ImuLocalizer.Params}
  */
 @Autonomous(name = "Auto_IMUPositionTuner",group = "tune")
 public class Auto_IMUPositionTuner extends LinearOpMode {

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
  * <p>
  * 3.把机器移动到地垫的另一端
  * <p>
- * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.DriveControlsAddition.ImuLocalizer.Params}
+ * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.DriveControls.ImuLocalizer.Params}
  */
 @TeleOp(name = "IMUPositionTuner",group = "tune")
 public class IMUPositionTuner extends LinearOpMode {

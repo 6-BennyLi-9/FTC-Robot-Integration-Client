@@ -5,8 +5,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;

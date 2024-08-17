@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControls;
 
-import com.acmerobotics.roadrunner.Time;
-import com.acmerobotics.roadrunner.Twist2dDual;
+import com.acmerobotics.roadrunner.Pose2d;
 
 public interface Localizer {
-    Twist2dDual<Time> update();
+	Pose2d update();
 }

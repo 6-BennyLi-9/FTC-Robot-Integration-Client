@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive.drivingCommandsBuilder;
+import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.drivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
