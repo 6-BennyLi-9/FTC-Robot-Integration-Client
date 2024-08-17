@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControlsAddition.SimpleMecanumDrive.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
@@ -18,7 +17,7 @@ public class SMD_Test extends LinearOpMode {
 
 	@Override
 	public void runOpMode() {
-		robot=new Robot(hardwareMap, runningState.Autonomous,new Client(telemetry));
+		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);
@@ -28,7 +27,7 @@ public class SMD_Test extends LinearOpMode {
 
 		drive=robot.enableSimpleMecanumDrive(new Pose2d(0,0,0));
 
-		DriveCommandPackage trajectory=drive.drivingCommandsBuilder()
+		DriveCommandPackage trajectory=robot.drivingCommandsBuilder()
 				.StrafeInDistance(0,24)
 				.TurnAngle(90)
 				.StrafeTo(new Vector2d(24,0))
