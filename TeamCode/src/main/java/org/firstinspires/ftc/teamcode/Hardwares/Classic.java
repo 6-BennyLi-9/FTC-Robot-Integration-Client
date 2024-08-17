@@ -18,15 +18,15 @@ public class Classic {
 		/**
 		 * 在执行手动程序时，由Classic下达的XPower命令的倍率因数
 		 */
-		public static double factorXPower;
+		public static double factorXPower=1;
 		/**
 		 * 在执行手动程序时，由Classic下达的YPower命令的倍率因数
 		 */
-		public static double factorYPower;
+		public static double factorYPower=1;
 		/**
 		 * 在执行手动程序时，由Classic下达的HeadingPower命令的倍率因数
 		 */
-		public static double factorHeadingPower;
+		public static double factorHeadingPower=1;
 	}
 	public Motors motors;
 	public Sensors sensors;
