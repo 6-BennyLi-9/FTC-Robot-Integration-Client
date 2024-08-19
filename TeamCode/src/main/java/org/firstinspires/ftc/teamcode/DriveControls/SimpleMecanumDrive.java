@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.ImuLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -427,7 +427,8 @@ public class SimpleMecanumDrive {
 	}
 
 	public void update(){
-		RobotPosition = localizer.update();
+		localizer.update();
+		RobotPosition = localizer.getCurrentPose();
 
 		Canvas c=telemetryPacket.fieldOverlay();
 		c.setStroke("#3F51B5");

@@ -1,17 +1,16 @@
-package org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition;
-
-import androidx.annotation.NonNull;
+package org.firstinspires.ftc.teamcode.DriveControls.Localizers;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 
 /**
  * 该Localizer无法与roadrunner中的Localize兼容，我们可能会在后续对其进行优化
  */
-public final class ImuLocalizer implements Localizer {
+public class ImuLocalizer implements PositionLocalizerPlugin {
 	public static class Params{
 		/**
 		 * IMU相较于机器的正中心在X轴上的偏差
@@ -34,24 +33,27 @@ public final class ImuLocalizer implements Localizer {
 
 	private boolean initialized=false;
 
-	/**
-	 * @return 返回我们重写的Localizer的格式，返回参数为实际位置。
-	 */
-	@NonNull
-	public Pose2d update() {
+	protected Pose2d pose;
+
+	public void update() {
 		if(!initialized){
 			initialized=true;
 			sensors.update();
 
-			return new Pose2d(0,0,0);
+			pose=new Pose2d(0,0,0);
+			return;
 		}
 		sensors.update();
-		Pose2d pose=new Pose2d(sensors.XMoved,sensors.YMoved,Math.toRadians(sensors.FirstAngle));
+		pose=new Pose2d(sensors.XMoved,sensors.YMoved,Math.toRadians(sensors.FirstAngle));
 		Complex complex=new Complex(pose.position);
 		Complex angle=new Complex(Math.toDegrees(pose.heading.toDouble()));
 		complex=complex.minus(error.times(angle).divide(angle.magnitude()));
 		pose=new Pose2d(complex.toVector2d(),pose.heading);
-
+	}/**
+	 * @return 返回我们重写的Localizer的格式，返回参数为实际位置。
+	 */
+	@Override
+	public Pose2d getCurrentPose() {
 		return pose;
 	}
 }

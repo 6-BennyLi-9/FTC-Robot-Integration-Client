@@ -28,8 +28,8 @@ public abstract class LocalizerSubassembly {
 				plugins[0].update();
 				plugins[1].update();
 				RobotPosition=new Pose2d(
-						((VectorPositionLocalizerPlugin) plugins[0]).getCurrentPose(),
-						((HeadingLocalizerPlugin) plugins[1]).getCurrentPose()
+						((VectorPositionLocalizerPlugin) plugins[0]).getCurrentVector(),
+						((HeadingLocalizerPlugin) plugins[1]).getHeadingDeg()
 				);
 				break;
 		}
