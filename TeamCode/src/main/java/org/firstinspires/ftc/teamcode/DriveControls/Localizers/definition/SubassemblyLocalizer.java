@@ -4,16 +4,16 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.utils.enums.LocalizerSubassemblyType;
 
-public abstract class LocalizerSubassembly {
+public abstract class SubassemblyLocalizer implements Localizer{
 	public final LocalizerSubassemblyType type;
 	public final LocalizerPlugin[] plugins;
 	public Pose2d RobotPosition;
 
-	public LocalizerSubassembly(PositionLocalizerPlugin localizerPlugin){
+	public SubassemblyLocalizer(PositionLocalizerPlugin localizerPlugin){
 		plugins=new LocalizerPlugin[]{localizerPlugin};
 		type=LocalizerSubassemblyType.SingleLocalizer;
 	}
-	public LocalizerSubassembly(VectorPositionLocalizerPlugin localizerPlugin1,HeadingLocalizerPlugin localizerPlugin2){
+	public SubassemblyLocalizer(VectorPositionLocalizerPlugin localizerPlugin1, HeadingLocalizerPlugin localizerPlugin2){
 		plugins=new LocalizerPlugin[]{localizerPlugin1,localizerPlugin2};
 		type=LocalizerSubassemblyType.SubassemblyLocalizer;
 	}

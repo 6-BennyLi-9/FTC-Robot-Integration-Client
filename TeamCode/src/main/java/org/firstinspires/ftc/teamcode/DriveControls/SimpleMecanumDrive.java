@@ -7,7 +7,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -54,8 +54,9 @@ public class SimpleMecanumDrive {
 	
 	private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	private Pose2d RobotPosition;
-	private final ImuLocalizer localizer;
 	private double BufPower=1f;
+
+	private final Localizer localizer;
 
 	public State state;
 
@@ -67,7 +68,7 @@ public class SimpleMecanumDrive {
 		this.state=state;
 		motors=classic.motors;
 
-		localizer=new ImuLocalizer(classic.sensors);
+		localizer=new IMUSubassemblyLocalizer(classic.sensors);//TODO:更换Localizer如果需要
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}
