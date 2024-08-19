@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Subass
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 
 public class IMUSubassemblyLocalizer extends SubassemblyLocalizer implements Localizer {
-	public Sensors sensors;
 	public IMUSubassemblyLocalizer(Sensors sensors) {
 		super(new ImuLocalizer(sensors));
 	}
