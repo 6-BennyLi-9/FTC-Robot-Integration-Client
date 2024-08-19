@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.DriveControls;
+package org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition;
 
 import androidx.annotation.NonNull;
 
@@ -27,7 +27,7 @@ public final class ImuLocalizer implements Localizer {
 	Sensors sensors;
 	Complex error;
 
-	ImuLocalizer(Sensors sensors){
+	public ImuLocalizer(Sensors sensors){
 		this.sensors=sensors;
 		error=new Complex(new Vector2d(Params.X_error,Params.Y_error));
 	}

@@ -5,10 +5,9 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Time;
-import com.acmerobotics.roadrunner.Twist2dDual;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -428,12 +427,7 @@ public class SimpleMecanumDrive {
 	}
 
 	public void update(){
-		Twist2dDual<Time> localizerPosition = localizer.update();
-		RobotPosition =new Pose2d(
-				localizerPosition.line.x.get(1),
-				localizerPosition.line.y.get(1),
-				localizerPosition.angle.get(1)
-				);
+		RobotPosition = localizer.update();
 
 		Canvas c=telemetryPacket.fieldOverlay();
 		c.setStroke("#3F51B5");
