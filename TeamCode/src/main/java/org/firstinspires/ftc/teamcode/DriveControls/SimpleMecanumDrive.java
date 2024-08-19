@@ -19,7 +19,6 @@ import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.enums.State;
 import org.firstinspires.ftc.teamcode.utils.enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
-import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -53,7 +52,7 @@ public class SimpleMecanumDrive {
 	private final TelemetryPacket telemetryPacket;
 	
 	private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
-	private Pose2d RobotPosition;
+	public Pose2d RobotPosition;
 	private double BufPower=1f;
 
 	private final Localizer localizer;
@@ -83,7 +82,7 @@ public class SimpleMecanumDrive {
 		public abstract class commandRunningNode{
 			public void runCommand() {}
 		}
-		
+
 		public commandRunningNode MEAN;
 		private double BufPower;
 		private Pose2d DeltaTrajectory;
@@ -97,7 +96,7 @@ public class SimpleMecanumDrive {
 			this.BufPower=BufPower;
 			this.pose=pose;
 		}
-		
+
 		/**
 		 * 在该节点只修改电机BufPower，不会在定义时影响主程序
 		 * @param power 目标设置的电机BufPower
@@ -111,7 +110,7 @@ public class SimpleMecanumDrive {
 				}
 			};
 		}
-		
+
 		/**
 		 * 在该节点让机器旋转指定弧度
 		 * @param radians 要转的弧度
@@ -125,7 +124,7 @@ public class SimpleMecanumDrive {
 			};
 			DeltaTrajectory=new Pose2d(new Vector2d(0,0),radians);
 		}
-		
+
 		/**
 		 * 在该节点让机器在指定角度行驶指定距离
 		 * @param radians 相较于机器的正方向，目标点位的度数（注意不是相较于当前机器方向，而是坐标系定义时给出的机器正方向）
@@ -144,7 +143,7 @@ public class SimpleMecanumDrive {
 							.toVector2d()
 					,radians);
 		}
-		
+
 		/**
 		 * 在该节点让机器在不旋转的情况下平移
 		 * @param pose 目标矢量点位
@@ -159,7 +158,7 @@ public class SimpleMecanumDrive {
 			};
 			DeltaTrajectory=new Pose2d(cache.toVector2d(),this.pose.heading);
 		}
-		
+
 		/**
 		 * 不要在自动程序中调用这个函数，否则你会后悔的
 		 */
@@ -169,12 +168,11 @@ public class SimpleMecanumDrive {
 		public Pose2d getDeltaTrajectory(){
 			return DeltaTrajectory;
 		}
-		
+
 		/**
 		 * @return 该Command节点的目标点位
 		 */
 		@NonNull
-		@Contract(" -> new")
 		public Pose2d NEXT(){
 			return new Pose2d(
 					pose.position.x+DeltaTrajectory.position.x,
@@ -383,7 +381,6 @@ public class SimpleMecanumDrive {
 	 * @return 在目标进度下机器的理想位置
 	 */
 	@NonNull
-	@Contract ("_, _, _ -> new")
 	private Pose2d getAimPositionThroughTrajectory(@NonNull Pose2d from, @NonNull Pose2d end, double progress){
 		Complex cache=new Complex(new Vector2d(
 				end.position.x-from.position.x,

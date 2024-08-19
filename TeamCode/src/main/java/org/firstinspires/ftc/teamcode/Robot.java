@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SleepAction;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -100,6 +101,12 @@ public class Robot {
 	}
 
 	public void update()  {
+		NowTimeMills=System.currentTimeMillis();
+
+		if(NowTimeMills-StartTimeMills>=90000){
+			state=State.FinalState;
+		}
+
 		sensors.update();
 		servos.update();
 		if(RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower) {
@@ -130,6 +137,15 @@ public class Robot {
 	public void turnAngle(double angle){
 		if(RunningState==runningState.ManualDrive)return;
 		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
+	}
+	public void strafeTo(Vector2d pose){
+		if(RunningState==runningState.ManualDrive)return;
+		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
+	}
+
+	public Pose2d pose(){
+		drive.update();
+		return drive.RobotPosition;
 	}
 
 	/**
