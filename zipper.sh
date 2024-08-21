@@ -7,11 +7,18 @@ echo ProgramPath "${programPath}"
 cd "${programPath}" || exit
 rm -i RIC.zip
 zip -r RIC.zip ./
-cd .. || exit
-cd .. || exit
-cd .. || exit
-cd .. || exit
-cd .. || exit
-cd .. || exit
-cd .. || exit
-mv "${programPath}"/RIC.zip "${zipperParentPathName}"
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
+cd .. || echo exit
+mv ./RIC.zip ..
