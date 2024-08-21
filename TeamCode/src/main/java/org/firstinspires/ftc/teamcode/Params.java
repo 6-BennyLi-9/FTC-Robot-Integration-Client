@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-public class Params {
+public final class Params {
 	/**
 	 * 每Tick机器所旋转的角度
 	 */

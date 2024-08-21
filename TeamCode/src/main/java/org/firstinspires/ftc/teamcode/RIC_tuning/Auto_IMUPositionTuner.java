@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
@@ -11,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 /**
  * 1.运行程序
  * <p>
- * 2.查看xError和yError，填入{@link ImuLocalizer.Params}
+ * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
  */
 @Autonomous(name = "Auto_IMUPositionTuner",group = "tune")
 public class Auto_IMUPositionTuner extends LinearOpMode {
