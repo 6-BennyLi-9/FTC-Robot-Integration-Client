@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: run zipper.sh
-        run: /bin/bash /home/benny/桌面/obv/FTC-robot-integration-client/zipper.sh
+        run: /bin/bash ./zipper.sh
