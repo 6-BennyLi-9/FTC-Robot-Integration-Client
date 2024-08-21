@@ -1,34 +1,26 @@
-package org.firstinspires.ftc.teamcode.DriveControls.Localizers;
+package org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins;
+
+import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.PositionLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 
 /**
  * 该Localizer无法与roadrunner中的Localize兼容，我们可能会在后续对其进行优化
  */
 public class ImuLocalizer implements PositionLocalizerPlugin {
-	public static class Params{
-		/**
-		 * IMU相较于机器的正中心在X轴上的偏差
-		 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
-		 */
-		public static double X_error=0;
-		/**
-		 * IMU相较于机器的正中心在Y轴上的偏差
-		 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
-		 */
-		public static double Y_error=0;
-	}
 	Sensors sensors;
 	Complex error;
 
-	public ImuLocalizer(Sensors sensors){
-		this.sensors=sensors;
-		error=new Complex(new Vector2d(Params.X_error,Params.Y_error));
+	public ImuLocalizer(@NonNull Classic classic){
+		this.sensors=classic.sensors;
+		error=new Complex(new Vector2d(Params.X_error, Params.Y_error));
 	}
 
 	private boolean initialized=false;

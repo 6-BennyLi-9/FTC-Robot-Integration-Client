@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
@@ -14,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
  * <p>
  * 3.把机器移动到地垫的另一端
  * <p>
- * 4.查看xError和yError，填入{@link ImuLocalizer.Params}
+ * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
  */
 @TeleOp(name = "IMUPositionTuner",group = "tune")
 public class IMUPositionTuner extends AutonomousProgramTemplate {

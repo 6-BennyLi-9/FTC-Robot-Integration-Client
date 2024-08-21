@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.enums.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
 
 public class Motors {
 	public DeviceMap hardware;
