@@ -11,7 +11,7 @@ public class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
 		/**
 		 * 每Tick机器所旋转的角度
 		 */
-		public static double TurningDegPerTick;
+		public static double TurningDegPerTick=0;
 	}
 
 	public DeadWheelEncoders encoders;

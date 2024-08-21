@@ -13,11 +13,11 @@ public class DeadWheelVectorPositionLocalizer implements VectorPositionLocalizer
 		/**
 		 * 每Tick机器所平移的距离
 		 */
-		public static double LateralInchPerTick;
+		public static double LateralInchPerTick=0;
 		/**
 		 * 每Tick机器所前进的距离
 		 */
-		public static double AxialInchPerTick;
+		public static double AxialInchPerTick=0;
 	}
 	public Vector2d RobotPosition;
 	public DeadWheelEncoders encoders;

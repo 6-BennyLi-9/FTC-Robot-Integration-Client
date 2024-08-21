@@ -68,7 +68,8 @@ public class SimpleMecanumDrive {
 		this.state=state;
 		motors=classic.motors;
 
-		localizer=new SimpleSubassemblyLocalizer(classic);//TODO:更换Localizer如果需要
+		//TODO:更换Localizer如果需要
+		localizer=new SimpleSubassemblyLocalizer(classic);
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}
