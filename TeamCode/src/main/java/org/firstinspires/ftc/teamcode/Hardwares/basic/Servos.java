@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
-import org.firstinspires.ftc.teamcode.utils.enums.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
 
 public class Servos {
 	public DeviceMap hardware;

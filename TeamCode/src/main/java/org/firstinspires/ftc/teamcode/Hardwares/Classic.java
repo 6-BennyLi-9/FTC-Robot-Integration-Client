@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
@@ -30,15 +31,17 @@ public class Classic {
 	}
 	public Motors motors;
 	public Sensors sensors;
+	public DeadWheelEncoders encoders;
 	
 	/**
 	 * 该BufPower只用于手动程序中
 	 */
 	private double BufPower=1;
 
-	public Classic(Motors motors,Sensors sensors) {
-		this.motors = motors;
-		this.sensors=sensors;
+	public Classic(Motors motors,Sensors sensors,DeadWheelEncoders encoders) {
+		this.motors     =motors;
+		this.sensors    =sensors;
+		this.encoders   =encoders;
 	}
 
 	public void drive(@NonNull driveDirection driveDirection, double power) {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.utils.enums;
+package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
 /**
  * 仅适用于类型不是<code>HardwareDevice</code> 接口下的硬件

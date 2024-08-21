@@ -67,7 +67,7 @@ public class SimpleMecanumDrive {
 		this.state=state;
 		motors=classic.motors;
 
-		localizer=new IMUSubassemblyLocalizer(classic.sensors);//TODO:更换Localizer如果需要
+		localizer=new IMUSubassemblyLocalizer(classic);//TODO:更换Localizer如果需要
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.utils.enums.RobotDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.namespace.RobotDevices;
 
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好

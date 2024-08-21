@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.utils.enums;
+package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+//TODO:以下名字均为我们团队所测定的
 /**
  * 仅适用于类型为<code>HardwareDevice</code> 接口下的硬件
  * <p>
@@ -17,7 +18,10 @@ public enum HardwareDevices {
 	Intake("intake", DcMotorEx.class),
 	FrontClip("frontClip", Servo.class),
 	RearClip("rearClip", Servo.class),
-	SuspensionArm("rack", DcMotorEx.class);
+	SuspensionArm("rack", DcMotorEx.class),
+	LeftDeadWheel("leftFront",DcMotorEx.class),
+	MiddleDeadWheel("leftRear",DcMotorEx.class),
+	RightDeadWheel("rightFront",DcMotorEx.class);
 	public final String deviceName;
 	public final Class<?> classType;
 

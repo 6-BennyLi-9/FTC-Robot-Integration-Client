@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.PositionLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 
@@ -26,8 +27,8 @@ public class ImuLocalizer implements PositionLocalizerPlugin {
 	Sensors sensors;
 	Complex error;
 
-	public ImuLocalizer(Sensors sensors){
-		this.sensors=sensors;
+	public ImuLocalizer(Classic classic){
+		this.sensors=classic.sensors;
 		error=new Complex(new Vector2d(Params.X_error,Params.Y_error));
 	}
 
