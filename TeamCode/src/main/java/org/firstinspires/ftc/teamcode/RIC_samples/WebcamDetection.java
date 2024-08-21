@@ -4,13 +4,13 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
+import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 
 @Disabled
 @Autonomous (name = "WebcamDetection",group = "sample")
-public class WebcamDetection extends LinearOpMode {
+public class WebcamDetection extends AutonomousProgramTemplate {
 	Webcam webcam=new Webcam();
 
 	@Override

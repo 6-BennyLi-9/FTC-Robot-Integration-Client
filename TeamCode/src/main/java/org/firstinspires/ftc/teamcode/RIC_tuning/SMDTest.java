@@ -3,15 +3,15 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
-public class SMDTest extends LinearOpMode {
+public class SMDTest extends AutonomousProgramTemplate {
 	Robot robot;
 	SimpleMecanumDrive drive;
 

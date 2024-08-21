@@ -2,17 +2,17 @@ package org.firstinspires.ftc.teamcode.RIC_samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Camera;
+import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Disabled
 @Autonomous(name = "CameraDetection",group = "sample")
-public class CameraDetection extends LinearOpMode {
+public class CameraDetection extends AutonomousProgramTemplate {
 	OpenCvCamera webcam;
 	Camera detector=new Camera(telemetry);
 

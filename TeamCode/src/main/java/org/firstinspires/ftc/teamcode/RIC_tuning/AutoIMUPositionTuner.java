@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
  * 2.查看xError和yError，填入{@link ImuLocalizer.Params}
  */
 @Autonomous(name = "AutoIMUPositionTuner",group = "tune")
-public class AutoIMUPositionTuner extends LinearOpMode {
+public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 	public Robot robot;
 
 	@Override
