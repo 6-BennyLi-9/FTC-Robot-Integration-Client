@@ -1,7 +1,7 @@
 name: Zipper
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
 jobs:
   zip:
     runs-on: ubuntu-latest
