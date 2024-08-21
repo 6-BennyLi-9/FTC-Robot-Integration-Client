@@ -4,8 +4,8 @@ programPath=${zipperParentPathName}/TeamCode/src/main/java/org/firstinspires/ftc
 echo ParentPath "${zipperParentPathName}"
 echo ProgramPath "${programPath}"
 
-cd ${programPath} || exit
+cd "${programPath}" || exit
 rm -i RIC.zip
 zip -r RIC.zip ./
 cd "${zipperParentPathName}" || exit
-mv ${programPath}/RIC.zip "${zipperParentPathName}"
+mv "${programPath}"/RIC.zip "${zipperParentPathName}"
