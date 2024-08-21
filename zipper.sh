@@ -1,5 +1,5 @@
 zipperParentPathName=$(dirname "$0")
-programPath=./TeamCode/src/main/java/org/firstinspires/ftc/teamcode
+programPath=${zipperParentPathName}/TeamCode/src/main/java/org/firstinspires/ftc/teamcode
 
 echo ParentPath "${zipperParentPathName}"
 echo ProgramPath "${programPath}"
