@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControls;
 
+import static org.firstinspires.ftc.teamcode.Params.*;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -25,27 +27,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class SimpleMecanumDrive {
-	public static final class Params{
-		/**
-		 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
-		 */
-		public static double vP=0;
-		//kP的斜率，如果您在测试中发现这两者不相等，或者kP不是恒定的，请联系我们
-//		public static double kP=vP;
-		/**
-		 *positionErrorMargin，单位：inch
-		 */
-		public static double pem=0.5;
-		/**
-		 *angleErrorMargin，单位：度
-		 */
-		public static double aem=1;
-		/**
-		 * 机器的超时保护机制，如果超过该时间，机器仍未到达点位，则会强制取消点位的执行
-		 */
-		public static double timeOutProtectionMills=1000;
-	}
-
 	private final Classic classic;
 	private final Motors motors;
 	private final Client client;
@@ -300,31 +281,31 @@ public class SimpleMecanumDrive {
 					Math.abs(xList[i+1]-xList[i])*Math.abs(xList[i+1]-xList[i])+
 							Math.abs(yList[i+1]-yList[i])*Math.abs(yList[i+1]-yList[i])
 			);
-			final double estimatedTime=distance/(Params.vP/(1f/BufPower));
+			final double estimatedTime=distance/(vP/(1f/BufPower));
 			client.addData("distance",String.valueOf(distance));
 			client.addData("estimatedTime",String.valueOf(estimatedTime));
 			client.addData("progress","0%");
 			client.addData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
 			st=System.currentTimeMillis();
-			while ((Math.abs(RobotPosition.position.x-xList[i+1])>Params.pem)
-				&& (Math.abs(RobotPosition.position.y-yList[i+1])>Params.pem)
-				&& (Math.abs(RobotPosition.heading.toDouble()-singleCommand.NEXT().heading.toDouble())>Params.aem)){
+			while ((Math.abs(RobotPosition.position.x-xList[i+1])> pem)
+				&& (Math.abs(RobotPosition.position.y-yList[i+1])> pem)
+				&& (Math.abs(RobotPosition.heading.toDouble()-singleCommand.NEXT().heading.toDouble())> aem)){
 				et=System.currentTimeMillis();
 				double progress=((et - st) / 1000.0) / estimatedTime * 100;
 				client.changeDate("progress", progress +"%");
 				Pose2d aim=getAimPositionThroughTrajectory(singleCommand,progress);
 
-				if(et>st+estimatedTime+Params.timeOutProtectionMills&&RuntimeOption.useOutTimeProtection){//保护机制
+				if(et>st+estimatedTime+ timeOutProtectionMills&&RuntimeOption.useOutTimeProtection){//保护机制
 					state=State.BrakeDown;
 					motors.updateDriveOptions();
 					break;
 				}
 
 				if(RuntimeOption.usePIDInAutonomous){
-					if(Math.abs(aim.position.x- RobotPosition.position.x)>Params.pem
-							|| Math.abs(aim.position.y- RobotPosition.position.y)>Params.pem
-							|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())>Params.aem
+					if(Math.abs(aim.position.x- RobotPosition.position.x)> pem
+							|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
+							|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem
 							|| RuntimeOption.alwaysRunPIDInAutonomous ){
 						//间断地调用pid可能会导致pid的效果不佳
 						pidProcessor.inaccuracies[0]=aim.position.x- RobotPosition.position.x;
@@ -339,12 +320,12 @@ public class SimpleMecanumDrive {
 						motors.headingPower+=fulfillment[2];
 					}
 				}else{
-					if(Math.abs(aim.position.x- RobotPosition.position.x)>Params.pem
-							|| Math.abs(aim.position.y- RobotPosition.position.y)>Params.pem
-							|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())>Params.aem){
+					if(Math.abs(aim.position.x- RobotPosition.position.x)> pem
+							|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
+							|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem){
 						double[] fulfillment=new double[]{
-								(aim.position.x- RobotPosition.position.x)*(Params.vP)*BufPower/2,
-								(aim.position.y- RobotPosition.position.y)*(Params.vP)*BufPower/2,
+								(aim.position.x- RobotPosition.position.x)*(vP)*BufPower/2,
+								(aim.position.y- RobotPosition.position.y)*(vP)*BufPower/2,
 								(aim.heading.toDouble()> RobotPosition.heading.toDouble()? BufPower/2:-BufPower/2)
 						};
 

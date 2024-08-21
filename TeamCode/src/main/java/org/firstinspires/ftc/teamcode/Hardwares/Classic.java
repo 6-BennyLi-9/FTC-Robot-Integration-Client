@@ -9,26 +9,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 
 public class Classic {
-	public static final class PARAMS{
-		/**
-		 * 在执行手动程序时，由Classic下达的XPower命令的倍率因数
-		 */
-		public static double factorXPower=1;
-		/**
-		 * 在执行手动程序时，由Classic下达的YPower命令的倍率因数
-		 */
-		public static double factorYPower=1;
-		/**
-		 * 在执行手动程序时，由Classic下达的HeadingPower命令的倍率因数
-		 */
-		public static double factorHeadingPower=1;
-	}
 	public Motors motors;
 	public Sensors sensors;
 	public DeadWheelEncoders encoders;
@@ -157,15 +144,15 @@ public class Classic {
 			BufPower+=gamepad.right_stick_y*0.6;
 			BufPower=Mathematics.intervalClip(BufPower,-1,1);
 			motors.simpleMotorPowerController(
-					gamepad.left_stick_x*BufPower*PARAMS.factorXPower,
-					gamepad.left_stick_y*BufPower*PARAMS.factorYPower,
-					gamepad.right_stick_x*BufPower*PARAMS.factorHeadingPower
+					gamepad.left_stick_x*BufPower* Params.factorXPower,
+					gamepad.left_stick_y*BufPower* Params.factorYPower,
+					gamepad.right_stick_x*BufPower* Params.factorHeadingPower
 			        );
 		}else {
 			motors.simpleMotorPowerController(
-					gamepad.left_stick_x*PARAMS.factorXPower,
-					gamepad.left_stick_y*PARAMS.factorYPower,
-					gamepad.right_stick_x*PARAMS.factorHeadingPower
+					gamepad.left_stick_x* Params.factorXPower,
+					gamepad.left_stick_y* Params.factorYPower,
+					gamepad.right_stick_x* Params.factorHeadingPower
 			        );
 		}
 	}
