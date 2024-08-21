@@ -3,14 +3,17 @@ package org.firstinspires.ftc.teamcode;
 public final class Params {
 	/**
 	 * 每Tick机器所旋转的角度
+	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.TurningDegPerTickTest
 	 */
 	public static double TurningDegPerTick = 0;
 	/**
 	 * 每Tick机器所平移的距离
+	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
 	 */
 	public static double LateralInchPerTick=0;
 	/**
 	 * 每Tick机器所前进的距离
+	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
 	 */
 	public static double AxialInchPerTick=0;
 	/**

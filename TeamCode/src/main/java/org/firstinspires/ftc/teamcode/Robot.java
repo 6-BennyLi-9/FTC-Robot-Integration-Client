@@ -112,6 +112,7 @@ public class Robot {
 
 		sensors.update();
 		servos.update();
+		encoders.update();
 		if(RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower) {
 			motors.update(sensors.FirstAngle);
 		}else{
