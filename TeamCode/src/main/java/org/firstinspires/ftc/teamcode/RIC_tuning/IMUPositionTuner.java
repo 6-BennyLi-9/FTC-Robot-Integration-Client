@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 /**
@@ -46,6 +45,6 @@ public class IMUPositionTuner extends LinearOpMode {
 		}
 	}
 	public void INIT(){
-		robot=new Robot(hardwareMap, runningState.Autonomous,new Client(telemetry));
+		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
 	}
 }

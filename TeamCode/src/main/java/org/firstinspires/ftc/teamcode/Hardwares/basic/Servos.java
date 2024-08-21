@@ -1,39 +1,25 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
-import androidx.annotation.NonNull;
-
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.utils.enums.HardwareType;
-import org.firstinspires.ftc.teamcode.namespace;
+import org.firstinspires.ftc.teamcode.utils.enums.HardwareDevices;
 
 public class Servos {
-	public HardwareSet hardware;
+	public DeviceMap hardware;
 	public double FrontClipPosition,RearClipPosition;
 
 	private final static double AllowErrorPosition=0.1;
 	private boolean PositionInPlace;
 
-	public Servos(@NonNull HardwareMap hardwareMap){
-		this(hardwareMap,new HardwareSet());
-	}
-	public Servos(@NonNull HardwareMap hardwareMap,HardwareSet hardware){
-		namespace namespace=new namespace();
+	public Servos(DeviceMap hardware){
 		this.hardware=hardware;
-
-		this.hardware.addDevice(hardwareMap.get(Servo.class, namespace.Hardware.get(HardwareType.FrontClip)), HardwareType.FrontClip);
-		this.hardware.addDevice(hardwareMap.get(Servo.class, namespace.Hardware.get(HardwareType.RearClip)), HardwareType.RearClip);
-
 		PositionInPlace=false;
 	}
 
 	public void update(){
-		hardware.setPosition(HardwareType.FrontClip,FrontClipPosition);
-		hardware.setPosition(HardwareType.RearClip,RearClipPosition);
+		hardware.setPosition(HardwareDevices.FrontClip,FrontClipPosition);
+		hardware.setPosition(HardwareDevices.RearClip,RearClipPosition);
 
-		PositionInPlace=(Math.abs(hardware.getPosition(HardwareType.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
-						(Math.abs(hardware.getPosition(HardwareType.FrontClip)- FrontClipPosition) < AllowErrorPosition);
+		PositionInPlace=(Math.abs(hardware.getPosition(HardwareDevices.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
+						(Math.abs(hardware.getPosition(HardwareDevices.FrontClip)- FrontClipPosition) < AllowErrorPosition);
 	}
 
 	/**

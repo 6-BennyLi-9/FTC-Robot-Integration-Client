@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
@@ -21,7 +20,7 @@ public class Auto_IMUPositionTuner extends LinearOpMode {
 	@Override
 	public void runOpMode() {
 		double xP,yP,r;
-		robot=new Robot(hardwareMap, runningState.Autonomous,new Client(telemetry));
+		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);

@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.drivingCo
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.HardwareSet;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 import java.util.Objects;
 
 public class Robot {
-	public HardwareSet devices;
+	public DeviceMap devices;
 
 	public final Motors motors;
 	public final Sensors sensors;
@@ -51,11 +51,11 @@ public class Robot {
 		this(hardwareMap,state,new Client(telemetry));
 	}
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Client client){
-		devices=new HardwareSet();
+		devices=new DeviceMap(hardwareMap);
 
-		motors=new Motors(hardwareMap,devices);
+		motors=new Motors(devices);
 		sensors=new Sensors(hardwareMap);
-		servos=new Servos(hardwareMap,devices);
+		servos=new Servos(devices);
 
 		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);

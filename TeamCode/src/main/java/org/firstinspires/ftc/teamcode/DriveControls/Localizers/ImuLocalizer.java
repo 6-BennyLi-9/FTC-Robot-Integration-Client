@@ -49,7 +49,8 @@ public class ImuLocalizer implements PositionLocalizerPlugin {
 		Complex angle=new Complex(Math.toDegrees(pose.heading.toDouble()));
 		complex=complex.minus(error.times(angle).divide(angle.magnitude()));
 		pose=new Pose2d(complex.toVector2d(),pose.heading);
-	}/**
+	}
+	/**
 	 * @return 返回我们重写的Localizer的格式，返回参数为实际位置。
 	 */
 	@Override
