@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.DriveControls.Localizers;
+package org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.VectorPositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 
 public final class ImuVectorPositionLocalizer extends ImuLocalizer implements VectorPositionLocalizerPlugin {
-	public ImuVectorPositionLocalizer(Sensors sensors){
-		super(sensors);
-		this.sensors=sensors;
+	public ImuVectorPositionLocalizer(Classic classic){
+		super(classic);
+		this.sensors=classic.sensors;
 	}
 
 	@Override

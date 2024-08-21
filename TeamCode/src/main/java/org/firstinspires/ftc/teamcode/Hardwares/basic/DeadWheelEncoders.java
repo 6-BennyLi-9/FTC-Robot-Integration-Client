@@ -25,10 +25,10 @@ public class DeadWheelEncoders {
 
 	//TODO:按需求修改
 	public final DeadWheelsType type=DeadWheelsType.BE_NOT_USING_DEAD_WHEELS;
-	public Encoder Left,Middle,Right;
+	protected Encoder Left,Middle,Right;
 	public double AxialTicks,TurningTicks,LateralTicks;
 
-	public final double vI;
+	private final double vI;
 
 	public DeadWheelEncoders(@NonNull DeviceMap deviceMap){
 		Left    =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.LeftDeadWheel)));

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.ImuLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;

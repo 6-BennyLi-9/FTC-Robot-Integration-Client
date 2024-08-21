@@ -7,6 +7,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.SimpleSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
@@ -67,7 +68,7 @@ public class SimpleMecanumDrive {
 		this.state=state;
 		motors=classic.motors;
 
-		localizer=new IMUSubassemblyLocalizer(classic);//TODO:更换Localizer如果需要
+		localizer=new SimpleSubassemblyLocalizer(classic);//TODO:更换Localizer如果需要
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}
