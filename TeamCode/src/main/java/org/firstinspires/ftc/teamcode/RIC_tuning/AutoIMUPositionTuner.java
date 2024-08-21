@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
  * <p>
  * 2.查看xError和yError，填入{@link ImuLocalizer.Params}
  */
-@Autonomous(name = "Auto_IMUPositionTuner",group = "tune")
-public class Auto_IMUPositionTuner extends LinearOpMode {
+@Autonomous(name = "AutoIMUPositionTuner",group = "tune")
+public class AutoIMUPositionTuner extends LinearOpMode {
 	public Robot robot;
 
 	@Override

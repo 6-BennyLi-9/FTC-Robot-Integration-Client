@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
-public class SMD_Test extends LinearOpMode {
+public class SMDTest extends LinearOpMode {
 	Robot robot;
 	SimpleMecanumDrive drive;
 
