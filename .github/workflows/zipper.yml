@@ -1,0 +1,11 @@
+on:
+  push:
+    branches:
+    - main
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: run zipper.sh
+        run: /bin/bash /home/benny/桌面/obv/FTC-robot-integration-client/zipper.sh
