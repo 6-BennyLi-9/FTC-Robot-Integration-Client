@@ -48,6 +48,18 @@ public class Client {
 		update();
 	}
 	/**
+	 * 注意：这是新的Data
+	 */
+	public void addData(String key,int val){
+		addData(key,String.valueOf(val));
+	}
+	/**
+	 * 注意：这是新的Data
+	 */
+	public void addData(String key,double val){
+		addData(key,String.valueOf(val));
+	}
+	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	public void deleteDate(String key){

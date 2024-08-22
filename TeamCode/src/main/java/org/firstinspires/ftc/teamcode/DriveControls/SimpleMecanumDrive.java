@@ -282,8 +282,8 @@ public class SimpleMecanumDrive {
 							Math.abs(yList[i+1]-yList[i])*Math.abs(yList[i+1]-yList[i])
 			);
 			final double estimatedTime=distance/(vP/(1f/BufPower));
-			client.addData("distance",String.valueOf(distance));
-			client.addData("estimatedTime",String.valueOf(estimatedTime));
+			client.addData("distance",distance);
+			client.addData("estimatedTime",estimatedTime);
 			client.addData("progress","0%");
 			client.addData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
