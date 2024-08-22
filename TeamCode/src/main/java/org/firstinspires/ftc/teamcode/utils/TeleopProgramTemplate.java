@@ -11,6 +11,7 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	@Override
 	public void init() {
 		robot=new Robot(hardwareMap, runningState.ManualDrive,telemetry);
+		whenInit();
 	}
 
 	@Override
@@ -28,5 +29,8 @@ public abstract class TeleopProgramTemplate extends OpMode {
 
 		whileActivating();
 	}
-	public void whileActivating(){}
+
+
+	public abstract void whileActivating();
+	public abstract void whenInit();
 }

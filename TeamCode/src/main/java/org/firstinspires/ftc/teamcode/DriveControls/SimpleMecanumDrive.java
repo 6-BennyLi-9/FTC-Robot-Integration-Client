@@ -37,7 +37,7 @@ public class SimpleMecanumDrive {
 	public Pose2d RobotPosition;
 	private double BufPower=1f;
 
-	private final Localizer localizer;
+	public final Localizer localizer;
 
 	public State state;
 
