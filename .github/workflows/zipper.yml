@@ -4,20 +4,19 @@ on:
     branches: ["master"]
 jobs:
   zip:
+    permissions:
+      contents: write # for git push
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: run zipper.sh
-        env:
-         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
          /bin/bash ./zipper.sh
-         git config --global user.name "Github Actions"
-         git config --global user.email "actions@github.com"
-         git add RIC.zip
+         
          if [ -n "$(git status --porcelain)" ]; then
+           git config --global user.name "Github Actions"
+           git config --global user.email "actions@github.com"
+           git add RIC.zip
            git commit --allow-empty -m "自动更新RIC.zip"
-           git remote add ACTION git@github.com:6-BennyLi-9/FTC-Robot-Integration-Client.git
-           git push ACTION HEAD
-           git remote remove ACTION
+           git push
          fi
