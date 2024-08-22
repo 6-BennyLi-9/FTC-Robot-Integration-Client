@@ -10,7 +10,9 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Subass
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationSubassembly;
 
+@LocalizationSubassembly
 public class CustomizeLocalizer extends SubassemblyLocalizer implements Localizer {
 	public CustomizeLocalizer(@NonNull Classic classic) {
 		super(new LocalizerPlugin[]{

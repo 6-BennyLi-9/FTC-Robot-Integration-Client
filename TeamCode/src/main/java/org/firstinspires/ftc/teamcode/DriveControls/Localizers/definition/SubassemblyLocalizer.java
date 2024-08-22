@@ -48,11 +48,10 @@ public abstract class SubassemblyLocalizer implements Localizer{
 				throw new RuntimeException("unknown localizer plugin");
 			}
 		}
-		cache=new Pose2d(
+		RobotPosition=new Pose2d(
 				cache.position.x/VectorFactor,
 				cache.position.y/VectorFactor,
 				cache.heading.toDouble()/HeadingFactor
 		);
-		RobotPosition=cache;
 	}
 }

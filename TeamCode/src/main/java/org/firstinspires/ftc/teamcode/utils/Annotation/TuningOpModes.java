@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * 在调试阶段结束后，请在{@link TuningOpModes}中取消注释{@link Disabled}
  */
-@Disabled
+//@Disabled
 @Target({ElementType.TYPE})
 @Documented
 public @interface TuningOpModes{
