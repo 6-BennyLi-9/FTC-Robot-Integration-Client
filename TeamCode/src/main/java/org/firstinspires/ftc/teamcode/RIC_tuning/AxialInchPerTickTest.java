@@ -18,7 +18,7 @@ public class AxialInchPerTickTest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.client.changeDate("Ticks",String.valueOf(robot.classic.encoders.LateralTicks));
+			robot.client.changeDate("Ticks",robot.classic.encoders.LateralTicks);
 		}
 	}
 }

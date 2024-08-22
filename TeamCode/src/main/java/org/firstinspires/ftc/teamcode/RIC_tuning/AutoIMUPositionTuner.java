@@ -39,8 +39,8 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 		r=robot.sensors.XMoved/2;
 		xP=r;
 		yP=robot.sensors.YMoved-2*r;
-		robot.client.changeDate("xError",String.valueOf(xP));
-		robot.client.changeDate("yError", String.valueOf(yP));
+		robot.client.changeDate("xError",xP);
+		robot.client.changeDate("yError", yP);
 
 		sleep(1145141919);
 	}

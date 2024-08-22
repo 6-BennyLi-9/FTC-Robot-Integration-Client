@@ -28,7 +28,7 @@ public class ManualCodeSample extends OpMode {
 
 	public void updateTPS(){
 		et=System.currentTimeMillis();
-		robot.client.changeDate("TPS", String.valueOf(1000/(et-st)));
+		robot.client.changeDate("TPS", 1000/(et-st));
 		st=System.currentTimeMillis();
 	}
 }

@@ -82,6 +82,18 @@ public class Client {
 		}
 		update();
 	}
+	/**
+	 * 自动创建新的行如果key所指向的值不存在
+	 */
+	public void changeDate(String key,int val){
+		changeDate(key,String.valueOf(val));
+	}
+	/**
+	 * 自动创建新的行如果key所指向的值不存在
+	 */
+	public void changeDate(String key,double val){
+		changeDate(key,String.valueOf(val));
+	}
 
 	public void addLine(String key){
 		lines.put(key,++ID);
