@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: run zipper.sh
+      - name: run zipper.sh to update RIC.zip
         run: |
          /bin/bash ./zipper.sh
          
