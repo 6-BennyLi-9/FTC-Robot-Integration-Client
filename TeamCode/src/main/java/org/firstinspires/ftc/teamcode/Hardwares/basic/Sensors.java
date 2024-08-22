@@ -15,7 +15,7 @@ public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好
 	 */
 	public BNO055IMU imu;
-	public double FirstAngle,XMoved,YMoved;
+	public double FirstAngle,XMoved,YMoved,LastXMoved, LastYMoved,LastFirstAngle;
 
 	public Sensors(@NonNull HardwareMap hardwareMap){
 		imu=hardwareMap.get(BNO055IMU.class,RobotDevices.imu.name);
@@ -28,9 +28,17 @@ public class Sensors {
 		parameters.loggingTag="IMU";
 		parameters.accelerationIntegrationAlgorithm=new JustLoggingAccelerationIntegrator();
 		imu.initialize(parameters);
+
+		LastYMoved=0;
+		LastXMoved=0;
+		LastFirstAngle=0;
 	}
 
 	public void update(){
+		LastXMoved=XMoved;
+		LastYMoved=YMoved;
+		LastFirstAngle=FirstAngle;
+
 		FirstAngle=imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
 		XMoved=imu.getPosition().x;
 		YMoved=imu.getPosition().y;

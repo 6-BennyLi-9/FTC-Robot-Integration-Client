@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.utils.Complex;
 
 @LocalizationPlugin
 public class ImuLocalizer implements PositionLocalizerPlugin {
-	Sensors sensors;
-	Complex error;
+	public Sensors sensors;
+	public Complex error;
 
 	public ImuLocalizer(@NonNull Classic classic){
 		this.sensors=classic.sensors;
