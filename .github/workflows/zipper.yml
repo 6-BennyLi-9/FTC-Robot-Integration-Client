@@ -17,5 +17,7 @@ jobs:
          git add RIC.zip
          if [ -n "$(git status --porcelain)" ]; then
            git commit --allow-empty -m "自动更新RIC.zip"
-           git push
+           git remote add ACTION https://github.com/6-BennyLi-9/FTC-Robot-Integration-Client.git
+           git push ACTION HEAD
+           git remote remove ACTION
          fi
