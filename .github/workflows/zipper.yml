@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: run zipper.sh to update RIC.zip
+      - name: run Zipper.sh to update RIC.zip
         run: |
-         /bin/bash ./zipper.sh
+         /bin/bash ./Zipper.sh
          
          if [ -n "$(git status --porcelain)" ]; then
            git config --global user.name "Github Actions"
