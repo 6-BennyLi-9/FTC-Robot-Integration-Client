@@ -18,10 +18,14 @@ public class DeadWheelEncoders {
 	public final DeadWheelsType type=DeadWheelsType.BE_NOT_USING_DEAD_WHEELS;
 	protected Encoder Left,Middle,Right;
 	public double AxialTicks,TurningTicks,LateralTicks;
-
+	public double LastAxialTicks,LastTurningTicks,LastLateralTicks;
 	private final double vI;
 
 	public DeadWheelEncoders(@NonNull DeviceMap deviceMap){
+		LastAxialTicks=0;
+		LastLateralTicks=0;
+		LastTurningTicks=0;
+
 		Left    =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.LeftDeadWheel)));
 		Middle  =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.MiddleDeadWheel)));
 		Right   =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.RightDeadWheel)));
@@ -29,6 +33,10 @@ public class DeadWheelEncoders {
 	}
 
 	public void update(){
+		LastLateralTicks=LateralTicks;
+		LastAxialTicks=AxialTicks;
+		LastTurningTicks=TurningTicks;
+
 		PositionVelocityPair left,middle,right;
 		switch (type) {
 			case BE_NOT_USING_DEAD_WHEELS:

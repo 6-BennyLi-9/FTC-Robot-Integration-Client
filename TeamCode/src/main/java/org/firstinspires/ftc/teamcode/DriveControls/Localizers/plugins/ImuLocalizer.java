@@ -9,11 +9,10 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Positi
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 
-/**
- * 该Localizer无法与roadrunner中的Localize兼容，我们可能会在后续对其进行优化
- */
+@LocalizationPlugin
 public class ImuLocalizer implements PositionLocalizerPlugin {
 	Sensors sensors;
 	Complex error;

@@ -24,9 +24,9 @@ public class Complex {
 		this(position.x,position.y);
 	}
 	public Complex(double degree){
-		this(Math.cos(degree),Math.sin(degree));
+		this(Math.cos(Mathematics.angleRationalize(degree)),Math.sin(Mathematics.angleRationalize(degree)));
 	}
-	Complex(double RealPart,double ImaginaryPartFactor){
+	public Complex(double RealPart,double ImaginaryPartFactor){
 		this(RealPart,new imaginaryNumber(ImaginaryPartFactor));
 	}
 	Complex(double RealPart,imaginaryNumber ImaginaryPart){
