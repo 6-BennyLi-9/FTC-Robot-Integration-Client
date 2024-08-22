@@ -7,10 +7,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.utils.Annotation.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
+@TuningOpModes
 public class SMDTest extends AutonomousProgramTemplate {
 	Robot robot;
 	SimpleMecanumDrive drive;

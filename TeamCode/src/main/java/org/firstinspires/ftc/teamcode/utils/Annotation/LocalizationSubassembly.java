@@ -6,9 +6,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * 用于禁用类未使用的警告，同时也是标记
+ */
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 //@SuppressWarnings(value={"unused"})
-public @interface LocalizationPlugin {
+public @interface LocalizationSubassembly {
 }

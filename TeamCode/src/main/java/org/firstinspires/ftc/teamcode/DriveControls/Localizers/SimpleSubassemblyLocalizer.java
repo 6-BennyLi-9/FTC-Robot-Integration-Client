@@ -7,9 +7,9 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Subass
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.DeadWheelHeadingLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.ImuVectorPositionLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationPlugin;
+import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationSubassembly;
 
-@LocalizationPlugin
+@LocalizationSubassembly
 public class SimpleSubassemblyLocalizer extends SubassemblyLocalizer implements Localizer {
 	public SimpleSubassemblyLocalizer(Classic classic) {
 		super(new ImuVectorPositionLocalizer(classic),new DeadWheelHeadingLocalizer(classic));

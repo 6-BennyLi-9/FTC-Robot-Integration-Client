@@ -15,12 +15,16 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
 		drive=robot.enableSimpleMecanumDrive(position);
 	}
+
+	/**
+	 * @return 如果程序被停止，则返回true
+	 */
 	public boolean WaitForStartRequest(){
 		while(opModeIsNotActive()){
 			sleep(50);
 		}
 
-		return opModeStopped();
+		return ! opModeStopped();
 	}
 	public boolean opModeIsNotActive(){
 		return !opModeIsActive()&&!isStopRequested();

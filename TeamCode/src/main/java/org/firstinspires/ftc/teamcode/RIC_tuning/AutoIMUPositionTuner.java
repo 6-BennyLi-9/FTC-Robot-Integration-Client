@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.utils.Annotation.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.runningState;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.runningState;
  * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
  */
 @Autonomous(name = "AutoIMUPositionTuner",group = "tune")
+@TuningOpModes
 public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 	public Robot robot;
 

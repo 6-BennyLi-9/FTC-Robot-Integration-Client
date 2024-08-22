@@ -21,7 +21,7 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 			sleep(50);
 		}
 
-		if(!WaitForStartRequest())return;
+		if(WaitForStartRequest())return;
 
 		robot.client.deleteDate("Position");
 		switch (location){
