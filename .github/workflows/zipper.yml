@@ -8,6 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: run zipper.sh
+        env:
+         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
          /bin/bash ./zipper.sh
          git config --global user.name "Github Actions"
