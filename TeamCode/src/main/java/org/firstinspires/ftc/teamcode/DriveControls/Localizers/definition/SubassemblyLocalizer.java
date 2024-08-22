@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.utils.enums.LocalizerSubassemblyType;
@@ -17,6 +19,10 @@ public abstract class SubassemblyLocalizer implements Localizer{
 		plugins=new LocalizerPlugin[]{localizerPlugin1,localizerPlugin2};
 		type=LocalizerSubassemblyType.SubassemblyLocalizer;
 	}
+	public SubassemblyLocalizer(@NonNull LocalizerPlugin[] localizerClasses){
+		type=LocalizerSubassemblyType.SynthesisLocalizer;
+		plugins=localizerClasses;
+	}
 
 	public void update(){
 		switch (type) {
@@ -32,6 +38,21 @@ public abstract class SubassemblyLocalizer implements Localizer{
 						((HeadingLocalizerPlugin) plugins[1]).getHeadingDeg()
 				);
 				break;
+			case SynthesisLocalizer:
+				Pose2d cache=new Pose2d(0,0,0);
+				for(LocalizerPlugin plugin:plugins){
+					cache=new Pose2d(
+							cache.position.x+((PositionLocalizerPlugin)plugin).getCurrentPose().position.x,
+							cache.position.y+((PositionLocalizerPlugin)plugin).getCurrentPose().position.y,
+							cache.heading.toDouble()+((PositionLocalizerPlugin)plugin).getCurrentPose().heading.toDouble()
+					);
+				}
+				cache=new Pose2d(
+						cache.position.x/plugins.length,
+						cache.position.y/plugins.length,
+						cache.heading.toDouble()/plugins.length
+				);
+				RobotPosition=cache;
 		}
 	}
 }

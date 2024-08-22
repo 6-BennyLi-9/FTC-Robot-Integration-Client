@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationPlugin;
 
 @LocalizationPlugin
-public class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
+public final class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
 
 	public DeadWheelEncoders encoders;
 	public double HeadingDeg;
