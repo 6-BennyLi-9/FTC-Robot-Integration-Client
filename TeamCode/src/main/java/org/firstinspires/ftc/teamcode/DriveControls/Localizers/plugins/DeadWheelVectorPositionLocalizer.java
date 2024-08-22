@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationPlugin;
 
 @LocalizationPlugin
-public class ThreeDeadWheelVectorPositionLocalizer extends ThreeDeadWheelLocalizer implements VectorPositionLocalizerPlugin {
-	public ThreeDeadWheelVectorPositionLocalizer(@NonNull Classic classic){
+public class DeadWheelVectorPositionLocalizer extends DeadWheelLocalizer implements VectorPositionLocalizerPlugin {
+	public DeadWheelVectorPositionLocalizer(@NonNull Classic classic){
 		super(classic);
 	}
 
