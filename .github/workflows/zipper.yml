@@ -21,7 +21,7 @@ jobs:
            git push
          fi
       - name: run UpgradeZipper to upgrade RIC_Upgrade.zip
-        run:
+        run: |
           /bin/bash ./UpgradeZipper.sh
           if [ -n "$(git status --porcelain)" ]; then
             git config --global user.name "Github Actions"
