@@ -75,8 +75,8 @@ public class Client {
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
 	public void changeDate(String key,String val){
-		if( data.containsKey(key)){
-			data.replace(key,new Pair<>(val, ++ ID));
+		if(data.containsKey(key)){
+			data.replace(key,new Pair<>(val, Objects.requireNonNull(data.get(key)).second));
 		}else{
 			addData(key, val);
 		}
@@ -132,7 +132,7 @@ public class Client {
 		for (Map.Entry<String, Pair<String, Integer>> i : data.entrySet() ) {
 			String key = i.getKey(),val=i.getValue().first;
 			Integer IDCache=i.getValue().second;
-			outputData.add(new Pair<>(IDCache,key+val));
+			outputData.add(new Pair<>(IDCache,key+":"+val));
 		}
 		for ( Map.Entry<String, Integer> entry : lines.entrySet() ) {
 			String key = entry.getKey();
@@ -140,8 +140,8 @@ public class Client {
 			outputData.add(new Pair<>(val, key));
 		}
 		outputData.sort(Comparator.comparingInt(x -> x.first));
-		for ( Pair<Integer, String> outputDatum : outputData ) {
-			telemetry.addLine(outputDatum.second);
+		for ( Pair<Integer, String> outputLine : outputData ) {
+			telemetry.addLine("["+ outputLine.first+"]"+ outputLine.second);
 		}
 		telemetry.update();
 	}
