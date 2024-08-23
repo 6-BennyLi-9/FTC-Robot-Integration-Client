@@ -5,12 +5,12 @@ public final class Params {
 	 * 每Tick机器所旋转的角度
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.TurningDegPerTickTest
 	 */
-	public static double TurningDegPerTick = 0;
+	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所平移的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
 	 */
-	public static double LateralInchPerTick=0;
+	public static double LateralInchPerTick=0.001135933358576296857251041272;
 	/**
 	 * 每Tick机器所前进的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest

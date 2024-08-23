@@ -22,6 +22,9 @@ public class LocalizationTest extends TeleopProgramTemplate {
 		robot.update();
 		drive.update();
 		robot.client.changeDate("POSITION",drive.localizer.getCurrentPose().toString());
+		robot.client.changeDate("X",drive.localizer.getCurrentPose().position.x);
+		robot.client.changeDate("Y",drive.localizer.getCurrentPose().position.y);
+		robot.client.changeDate("HEADING",Math.toDegrees(drive.localizer.getCurrentPose().heading.toDouble()));
 
 		robot.operateThroughGamePad(gamepad1,gamepad2);
 	}

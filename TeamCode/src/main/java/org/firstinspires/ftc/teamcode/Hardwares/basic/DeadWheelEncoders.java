@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
-import static org.firstinspires.ftc.teamcode.Params.*;
+import static org.firstinspires.ftc.teamcode.Params.AxialPosition;
+import static org.firstinspires.ftc.teamcode.Params.LateralPosition;
 
 import androidx.annotation.NonNull;
 
@@ -60,7 +61,11 @@ public class DeadWheelEncoders {
 
 				AxialTicks=(left.position+right.position)/2.0;
 				TurningTicks=(right.position-left.position)/2.0;
-				LateralTicks=middle.position-TurningTicks*vI;
+				if(AxialPosition==0){
+					LateralTicks=middle.position;
+				}else{
+					LateralTicks=middle.position-TurningTicks*vI;
+				}
 				break;
 		}
 	}
