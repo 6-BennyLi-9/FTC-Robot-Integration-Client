@@ -17,7 +17,7 @@ public class ClientUsage extends OpMode {
 
 	private void waitForXPressed(){
 		while(!gamepad1.x){
-			Actions.runBlocking(new SleepAction(0.5));
+			Actions.runBlocking(new SleepAction(0.05));
 		}
 	}
 
@@ -65,5 +65,7 @@ public class ClientUsage extends OpMode {
 		++time;
 		waitForXPressed();
 		operateThroughTime();
+
+		Actions.runBlocking(new SleepAction(0.5));
 	}
 }
