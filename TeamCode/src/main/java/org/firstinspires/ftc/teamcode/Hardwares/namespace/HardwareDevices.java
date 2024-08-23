@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public enum HardwareDevices {
 	LeftFront("leftFront", DcMotorEx.class),
-	RightFront("eightFront", DcMotorEx.class),
+	RightFront("rightFront", DcMotorEx.class),
 	LeftRear("leftRear", DcMotorEx.class),
 	RightRear("rightRear", DcMotorEx.class),
 	PlacementArm("rightLift", DcMotorEx.class),

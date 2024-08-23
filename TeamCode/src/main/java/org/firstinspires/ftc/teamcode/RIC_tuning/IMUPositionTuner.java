@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.RIC_tuning;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.Annotation.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
 
 /**
  * 1.把机器的正方向的边缘对齐放在地垫的交界处
@@ -25,13 +25,9 @@ public class IMUPositionTuner extends AutonomousProgramTemplate {
 	public void runOpMode() {
 		double xP,yP,r;
 
-		INIT();
+		Init(new Pose2d(0,0,0));
 
-		while(!opModeIsActive()&&!isStopRequested()){
-			sleep(50);
-		}
-
-		if (!opModeIsActive() || isStopRequested())return;
+		if (WaitForStartRequest())return;
 
 		robot.client.addData("xError","waitingForFeedback");
 		robot.client.addData("yError","waitingForFeedback");
@@ -44,8 +40,5 @@ public class IMUPositionTuner extends AutonomousProgramTemplate {
 			robot.client.changeDate("xError",xP);
 			robot.client.changeDate("yError", yP);
 		}
-	}
-	public void INIT(){
-		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
 	}
 }

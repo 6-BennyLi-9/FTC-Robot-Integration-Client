@@ -21,15 +21,15 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 	 */
 	public boolean WaitForStartRequest(){
 		while(opModeIsNotActive()){
-			sleep(50);
+			sleep(500);
 		}
 
-		return ! opModeStopped();
+		return opModeStopped();
 	}
 	public boolean opModeIsNotActive(){
 		return !opModeIsActive()&&!isStopRequested();
 	}
 	public boolean opModeStopped(){
-		return opModeIsActive() && ! isStopRequested();
+		return !opModeIsActive() || isStopRequested();
 	}
 }
