@@ -9,14 +9,15 @@ import com.acmerobotics.roadrunner.ftc.OverflowEncoder;
 import com.acmerobotics.roadrunner.ftc.PositionVelocityPair;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.utils.enums.DeadWheelsType;
 
 public class DeadWheelEncoders {
 	//TODO:按需求修改
-	public final DeadWheelsType type=DeadWheelsType.BE_NOT_USING_DEAD_WHEELS;
-	protected Encoder Left,Middle,Right;
+	public final DeadWheelsType type=DeadWheelsType.ThreeDeadWheels;
+	public Encoder Left,Middle,Right;
 	public double AxialTicks,TurningTicks,LateralTicks;
 	public double LastAxialTicks,LastTurningTicks,LastLateralTicks;
 	private final double vI;
@@ -30,6 +31,10 @@ public class DeadWheelEncoders {
 		Middle  =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.MiddleDeadWheel)));
 		Right   =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.RightDeadWheel)));
 		vI= LateralPosition/ AxialPosition/2;
+
+		Left.setDirection(DcMotorSimple.Direction.REVERSE);
+		Middle.setDirection(DcMotorSimple.Direction.REVERSE);
+		Right.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
 
 	public void update(){

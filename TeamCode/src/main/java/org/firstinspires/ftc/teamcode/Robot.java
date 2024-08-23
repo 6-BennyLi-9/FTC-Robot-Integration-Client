@@ -62,7 +62,7 @@ public class Robot {
 
 		classic=new Classic(motors,sensors,encoders);
 		structure=new Structure(motors,servos);
-		webcam=new Webcam();
+		webcam=new Webcam(hardwareMap);
 
 		this.client=client;
 		pidProcessor=new PID_processor();
@@ -157,7 +157,9 @@ public class Robot {
 	 * @param BufPower 提供的电机力度因数
 	 */
 	public void SetGlobalBufPower(double BufPower){
-		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
+		if(drive!=null) {
+			drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
+		}
 		motors.setBufPower(BufPower);
 	}
 }

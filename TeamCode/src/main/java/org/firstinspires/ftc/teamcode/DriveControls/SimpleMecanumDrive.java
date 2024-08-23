@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.DriveControls;
 
-import static org.firstinspires.ftc.teamcode.Params.*;
+import static org.firstinspires.ftc.teamcode.Params.aem;
+import static org.firstinspires.ftc.teamcode.Params.pem;
+import static org.firstinspires.ftc.teamcode.Params.timeOutProtectionMills;
+import static org.firstinspires.ftc.teamcode.Params.vP;
 
 import androidx.annotation.NonNull;
 
@@ -9,7 +12,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.SimpleSubassemblyLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
@@ -50,7 +53,7 @@ public class SimpleMecanumDrive {
 		motors=classic.motors;
 
 		//TODO:更换Localizer如果需要
-		localizer=new SimpleSubassemblyLocalizer(classic);
+		localizer=new DeadWheelSubassemblyLocalizer(classic);
 		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}

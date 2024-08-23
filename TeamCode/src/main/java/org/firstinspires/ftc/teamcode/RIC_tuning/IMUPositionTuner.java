@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.Annotation.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 
@@ -19,8 +18,6 @@ import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 @TeleOp(name = "IMUPositionTuner",group = "tune")
 @TuningOpModes
 public class IMUPositionTuner extends AutonomousProgramTemplate {
-	public Robot robot;
-
 	@Override
 	public void runOpMode() {
 		double xP,yP,r;
@@ -39,6 +36,10 @@ public class IMUPositionTuner extends AutonomousProgramTemplate {
 			yP=robot.sensors.YMoved-2*r;
 			robot.client.changeDate("xError",xP);
 			robot.client.changeDate("yError", yP);
+			robot.client.changeDate("R",r);
+			robot.client.changeDate("X", robot.sensors.XMoved);
+			robot.client.changeDate("Y", robot.sensors.YMoved);
+			robot.client.changeDate("Heading", robot.sensors.FirstAngle);
 		}
 	}
 }

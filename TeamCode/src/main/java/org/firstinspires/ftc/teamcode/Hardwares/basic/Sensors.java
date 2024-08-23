@@ -40,7 +40,7 @@ public class Sensors {
 		LastFirstAngle=FirstAngle;
 
 		FirstAngle=imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
-		XMoved=imu.getPosition().x;
-		YMoved=imu.getPosition().y;
+		XMoved=imu.getGravity().xAccel;
+		YMoved=imu.getGravity().yAccel;
 	}
 }

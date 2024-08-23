@@ -35,9 +35,11 @@ public class Motors {
 		hardware.setDirection(HardwareDevices.RightFront, DcMotorSimple.Direction.REVERSE);
 		hardware.setDirection(HardwareDevices.RightRear, DcMotorSimple.Direction.REVERSE);
 
-		hardware.setDirection(HardwareDevices.PlacementArm, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(HardwareDevices.Intake, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(HardwareDevices.SuspensionArm, DcMotorSimple.Direction.FORWARD);
+		try {
+			hardware.setDirection(HardwareDevices.PlacementArm, DcMotorSimple.Direction.REVERSE);
+			hardware.setDirection(HardwareDevices.Intake, DcMotorSimple.Direction.REVERSE);
+			hardware.setDirection(HardwareDevices.SuspensionArm, DcMotorSimple.Direction.FORWARD);
+		}catch (Exception ignored){}
 	}
 
 	public void clearDriveOptions(){
@@ -100,14 +102,20 @@ public class Motors {
 	 */
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);
-		updateStructureOptions();
+		try{
+			updateStructureOptions();
+		}catch (Exception ignored){}
+
 		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}
 	public void update(){
 		updateDriveOptions();
-		updateStructureOptions();
+		try{
+			updateStructureOptions();
+		}catch (Exception ignored){}
+
 		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}

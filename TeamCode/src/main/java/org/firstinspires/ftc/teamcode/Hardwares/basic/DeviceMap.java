@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares.basic;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -8,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.utils.enums.HardwareState;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,18 +23,29 @@ public class DeviceMap {
 	public DeviceMap(HardwareMap hardwareMap){
 		devices=new HashMap<>();
 		for(HardwareDevices device: HardwareDevices.values()){
-			devices.put(device,(HardwareDevice)hardwareMap.get(device.classType,device.deviceName));
+			if(device.state== HardwareState.Enabled) {
+				if(device==HardwareDevices.LeftFront||device==HardwareDevices.LeftRear||
+						device==HardwareDevices.RightFront||device==HardwareDevices.RightRear){
+					DcMotorEx hardwareDevice= (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
+					hardwareDevice.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+					devices.put(device,hardwareDevice);
+				}else {
+					devices.put(device, (HardwareDevice) hardwareMap.get(device.classType, device.deviceName));
+				}
+			}
 		}
 	}
 
-	public HardwareDevice getDevice(HardwareDevices hardwareDevices){
+	public HardwareDevice getDevice(@NonNull HardwareDevices hardwareDevices){
+		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
 		if(devices.containsKey(hardwareDevices)){
 			return devices.get(hardwareDevices);
 		}else{
 			throw new NullPointerException("Device Not Found:"+ hardwareDevices.toString());
 		}
 	}
-	public void setDirection(HardwareDevices hardwareDevices, DcMotorSimple.Direction direction){
+	public void setDirection(@NonNull HardwareDevices hardwareDevices, DcMotorSimple.Direction direction){
+		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
 		HardwareDevice device=getDevice(hardwareDevices);
 		if(device instanceof DcMotorEx){
 			((DcMotorEx) device).setDirection(direction);
@@ -39,7 +53,8 @@ public class DeviceMap {
 			throw new RuntimeException("DcMotor's Direction Only Matches To DcMotor");
 		}
 	}
-	public void setPower(HardwareDevices hardwareDevices, double power){
+	public void setPower(@NonNull HardwareDevices hardwareDevices, double power){
+		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
 		HardwareDevice device=getDevice(hardwareDevices);
 		if(device instanceof DcMotorEx){
 			((DcMotorEx) device).setPower(power);
@@ -49,7 +64,8 @@ public class DeviceMap {
 			throw new RuntimeException("Cannot set the power of a servo at DeviceMap.class");
 		}
 	}
-	public void setPosition(HardwareDevices hardwareDevices, double position){
+	public void setPosition(@NonNull HardwareDevices hardwareDevices, double position){
+		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
 		HardwareDevice device=getDevice(hardwareDevices);
 		if(device instanceof Servo){
 			((Servo) device).setPosition(position);
@@ -57,7 +73,8 @@ public class DeviceMap {
 			throw new RuntimeException("Not allowed to set the position of a device witch isn't a Servo");
 		}
 	}
-	public double getPosition(HardwareDevices hardwareDevices){
+	public double getPosition(@NonNull HardwareDevices hardwareDevices){
+		if(hardwareDevices.state==HardwareState.Disabled)throw new RuntimeException("Hardware "+hardwareDevices.name()+" Disabled.");
 		HardwareDevice device=getDevice(hardwareDevices);
 		if (device instanceof Servo) {
 			return ((Servo) device).getPosition();

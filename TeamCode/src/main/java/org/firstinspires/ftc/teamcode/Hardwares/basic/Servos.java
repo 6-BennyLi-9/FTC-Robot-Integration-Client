@@ -15,11 +15,13 @@ public class Servos {
 	}
 
 	public void update(){
-		hardware.setPosition(HardwareDevices.FrontClip,FrontClipPosition);
-		hardware.setPosition(HardwareDevices.RearClip,RearClipPosition);
+		try {
+			hardware.setPosition(HardwareDevices.FrontClip,FrontClipPosition);
+			hardware.setPosition(HardwareDevices.RearClip,RearClipPosition);
 
-		PositionInPlace=(Math.abs(hardware.getPosition(HardwareDevices.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
-						(Math.abs(hardware.getPosition(HardwareDevices.FrontClip)- FrontClipPosition) < AllowErrorPosition);
+			PositionInPlace=(Math.abs(hardware.getPosition(HardwareDevices.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
+					(Math.abs(hardware.getPosition(HardwareDevices.FrontClip)- FrontClipPosition) < AllowErrorPosition);
+		}catch (Exception ignored){}
 	}
 
 	/**

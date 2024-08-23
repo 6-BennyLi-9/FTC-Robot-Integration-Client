@@ -15,7 +15,7 @@ public final class Params {
 	 * 每Tick机器所前进的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
 	 */
-	public static double AxialInchPerTick=0;
+	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * IMU相较于机器的正中心在X轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
@@ -45,7 +45,7 @@ public final class Params {
 	/**
 	 * 左侧死轮和右侧死轮的距离
 	 */
-	public static double LateralPosition=0;
+	public static double LateralPosition=21;
 	/**
 	 * 机器中心到中间死轮(前端死轮)的距离
 	 */

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 @Disabled
 @Autonomous (name = "WebcamDetection",group = "sample")
 public class WebcamDetection extends AutonomousProgramTemplate {
-	Webcam webcam=new Webcam();
+	Webcam webcam=new Webcam(hardwareMap);
 
 	@Override
 	public void runOpMode() {
