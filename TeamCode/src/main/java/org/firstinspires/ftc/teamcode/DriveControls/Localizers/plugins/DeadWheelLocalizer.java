@@ -51,7 +51,7 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 				RobotPosition=new Pose2d(
 						RobotPosition.position.x+delta.RealPart,
 						RobotPosition.position.y+delta.imaginary(),
-						RobotPosition.heading.toDouble()+Math.toRadians(encoders.TurningTicks*Params.TurningDegPerTick)
+						Math.toRadians(encoders.TurningTicks*Params.TurningDegPerTick)
 				);
 				break;
 		}
