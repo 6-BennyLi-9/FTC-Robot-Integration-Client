@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.firstinspires.ftc.teamcode.utils.Exceptions.UnKnownErrorsException;
+
 public abstract class SubassemblyLocalizer implements Localizer{
 	public final LocalizerPlugin[] plugins;
 	public Pose2d RobotPosition;
@@ -45,7 +47,7 @@ public abstract class SubassemblyLocalizer implements Localizer{
 				++VectorFactor;
 				++HeadingFactor;
 			}else{
-				throw new RuntimeException("unknown localizer plugin");
+				throw new UnKnownErrorsException("Unknown localizer plugin");
 			}
 		}
 		RobotPosition=new Pose2d(
