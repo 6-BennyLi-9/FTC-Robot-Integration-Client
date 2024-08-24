@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.ImuLocali
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.SubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationSubassembly;
+import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationSubassembly;
 
 @LocalizationSubassembly
 public class IMUSubassemblyLocalizer extends SubassemblyLocalizer implements Localizer {

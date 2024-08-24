@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.utils;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
 
 public abstract class TeleopProgramTemplate extends OpMode {
 	public Robot robot;

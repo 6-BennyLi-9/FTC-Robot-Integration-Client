@@ -22,9 +22,9 @@ import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
-import org.firstinspires.ftc.teamcode.utils.enums.State;
-import org.firstinspires.ftc.teamcode.utils.enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.Enums.State;
+import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
+import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
 
 import java.util.Arrays;
 import java.util.LinkedList;

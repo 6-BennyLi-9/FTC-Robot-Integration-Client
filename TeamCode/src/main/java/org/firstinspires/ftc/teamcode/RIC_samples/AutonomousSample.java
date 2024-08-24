@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.enums.AutonomousLocation;
+import org.firstinspires.ftc.teamcode.utils.Enums.AutonomousLocation;
 
 @Autonomous(name = "AutonomousSample",group = "SAMPLE")
 public class AutonomousSample extends AutonomousProgramTemplate {

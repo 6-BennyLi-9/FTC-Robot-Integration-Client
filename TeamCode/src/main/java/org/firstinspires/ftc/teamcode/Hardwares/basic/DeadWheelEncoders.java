@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
-import org.firstinspires.ftc.teamcode.utils.enums.DeadWheelsType;
+import org.firstinspires.ftc.teamcode.utils.Enums.DeadWheelsType;
 
 public class DeadWheelEncoders {
 	//TODO:按需求修改

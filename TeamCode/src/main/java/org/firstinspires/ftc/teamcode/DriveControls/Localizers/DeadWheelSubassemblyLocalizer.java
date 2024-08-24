@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Locali
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.SubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationSubassembly;
+import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationSubassembly;
 
 @LocalizationSubassembly
 public class DeadWheelSubassemblyLocalizer extends SubassemblyLocalizer implements Localizer {

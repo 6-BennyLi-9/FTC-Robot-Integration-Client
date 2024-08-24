@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Annotation.TuningOpModes;
+import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
 
 /**
  * 1.运行程序

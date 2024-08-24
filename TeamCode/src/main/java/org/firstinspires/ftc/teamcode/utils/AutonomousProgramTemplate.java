@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
 
 public abstract class AutonomousProgramTemplate extends LinearOpMode {
 	public Robot robot;

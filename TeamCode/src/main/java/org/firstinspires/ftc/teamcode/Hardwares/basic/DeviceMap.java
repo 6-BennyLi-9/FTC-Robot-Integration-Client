@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
-import org.firstinspires.ftc.teamcode.utils.enums.HardwareState;
+import org.firstinspires.ftc.teamcode.utils.Enums.HardwareState;
 
 import java.util.HashMap;
 import java.util.Map;

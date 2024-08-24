@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.utils.Annotation;
+package org.firstinspires.ftc.teamcode.utils.Annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

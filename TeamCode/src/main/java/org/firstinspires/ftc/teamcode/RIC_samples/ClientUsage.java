@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.utils.Annotation.TuningOpModes;
+import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.Client;
 
 @TuningOpModes

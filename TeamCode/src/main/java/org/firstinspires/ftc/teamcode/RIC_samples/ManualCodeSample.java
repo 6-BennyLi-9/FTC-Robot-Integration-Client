@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
 
 @TeleOp(name = "ManualCodeSample",group = "samples")
 public class ManualCodeSample extends OpMode {

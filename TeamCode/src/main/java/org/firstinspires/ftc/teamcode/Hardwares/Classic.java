@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.enums.driveDirection;
-import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
+import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.Enums.Quadrant;
 
 public class Classic {
 	public Motors motors;

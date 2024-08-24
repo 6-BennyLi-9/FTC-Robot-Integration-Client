@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.RuntimeOption;
-import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
 
 public class Structure {
 	Motors motors;

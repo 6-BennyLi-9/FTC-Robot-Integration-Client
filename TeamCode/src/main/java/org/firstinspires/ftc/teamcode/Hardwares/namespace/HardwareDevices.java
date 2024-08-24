@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.utils.enums.HardwareState;
+import org.firstinspires.ftc.teamcode.utils.Enums.HardwareState;
 
 //TODO:以下名字均为我们团队所测定的
 /**

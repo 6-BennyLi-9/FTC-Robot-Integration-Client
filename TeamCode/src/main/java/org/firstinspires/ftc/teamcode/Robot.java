@@ -22,9 +22,9 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
-import org.firstinspires.ftc.teamcode.utils.enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.utils.enums.State;
-import org.firstinspires.ftc.teamcode.utils.enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.utils.Enums.State;
+import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
 
 import java.util.Objects;
 

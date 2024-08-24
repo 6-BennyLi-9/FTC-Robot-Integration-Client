@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Headin
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Annotation.LocalizationPlugin;
+import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public final class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
