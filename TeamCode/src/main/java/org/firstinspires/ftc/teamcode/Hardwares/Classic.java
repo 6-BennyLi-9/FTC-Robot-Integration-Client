@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.RuntimeOption;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.Enums.Quadrant;
@@ -52,7 +51,7 @@ public class Classic {
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.FirstAngle);
 		}
@@ -92,7 +91,7 @@ public class Classic {
 				break;
 		}
 
-		if( RuntimeOption.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.FirstAngle);
 		}
@@ -140,7 +139,7 @@ public class Classic {
 		motors.updateDriveOptions(sensors.FirstAngle);
 	}
 	public void operateThroughGamePad(@NonNull Gamepad gamepad){
-		if(RuntimeOption.useRightStickYToConfigRobotSpeed){
+		if(Params.useRightStickYToConfigRobotSpeed){
 			BufPower+=gamepad.right_stick_y*0.6;
 			BufPower=Mathematics.intervalClip(BufPower,-1,1);
 			motors.simpleMotorPowerController(

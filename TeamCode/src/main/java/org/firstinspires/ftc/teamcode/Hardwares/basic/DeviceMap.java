@@ -44,7 +44,7 @@ public class DeviceMap {
 		if(devices.containsKey(hardwareDevices)){
 			return devices.get(hardwareDevices);
 		}else{
-			throw new NullPointerException("Device Not Found:"+ hardwareDevices.toString());
+			throw new NullPointerException("Device Not Found:"+ hardwareDevices);
 		}
 	}
 	public void setDirection(@NonNull HardwareDevices hardwareDevices, DcMotorSimple.Direction direction){

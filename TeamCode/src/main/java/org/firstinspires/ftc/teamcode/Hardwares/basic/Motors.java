@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardwares.basic;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.RuntimeOption;
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
@@ -54,10 +54,10 @@ public class Motors {
 
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
-	 * @see org.firstinspires.ftc.teamcode.RuntimeOption
+	 * @see org.firstinspires.ftc.teamcode.Params
 	 */
 	public void updateDriveOptions(double headingDeg){
-		if( RuntimeOption.driverUsingAxisPowerInsteadOfCurrentPower ){
+		if( Params.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower,currentYPower,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
 			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
@@ -98,7 +98,7 @@ public class Motors {
 	}
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
-	 * @see org.firstinspires.ftc.teamcode.RuntimeOption
+	 * @see org.firstinspires.ftc.teamcode.Params
 	 */
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);
@@ -106,7 +106,7 @@ public class Motors {
 			updateStructureOptions();
 		}catch (Exception ignored){}
 
-		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
+		if(Params.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}
@@ -116,7 +116,7 @@ public class Motors {
 			updateStructureOptions();
 		}catch (Exception ignored){}
 
-		if(RuntimeOption.autoPrepareForNextOptionWhenUpdate){
+		if(Params.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}
