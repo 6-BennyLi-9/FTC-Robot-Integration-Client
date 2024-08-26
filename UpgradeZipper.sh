@@ -25,4 +25,4 @@ mv ./RIC_Upgrade.zip ..
 cd ..
 
 zip -d RIC_Upgrade Params.java
-zip -d RIC_Upgrade utils/Annotation/TuningOpModes.java
+zip -d RIC_Upgrade utils/Annotations/TuningOpModes.java
