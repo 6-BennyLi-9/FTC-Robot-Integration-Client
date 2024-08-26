@@ -74,11 +74,11 @@ public final class Params {
 	/**
 	 * 左侧死轮和右侧死轮的距离
 	 */
-	public static final double LateralPosition=21;
+	public static double LateralPosition=21;
 	/**
 	 * 机器中心到中间死轮(前端死轮)的距离
 	 */
-	public static final double AxialPosition=0;
+	public static double AxialPosition=0;
 	/**
 	 * 在执行手动程序时，由Classic下达的XPower命令的倍率因数
 	 */

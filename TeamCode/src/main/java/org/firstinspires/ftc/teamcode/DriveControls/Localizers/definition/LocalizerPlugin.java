@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition;
 
-public interface LocalizerPlugin {
+public interface LocalizerPlugin extends Localizer{
 	void update();
 }
