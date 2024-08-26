@@ -71,8 +71,8 @@ public class Robot {
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {
 			InitInAutonomous();
 		} else if (state == runningState.ManualDrive) {
-			Params.runUpdateWhenAnyNewOptionsAdded=true;
-			Params.driverUsingAxisPowerInsteadOfCurrentPower=false;
+			Params.Configs.runUpdateWhenAnyNewOptionsAdded=true;
+			Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
 			InitInManualDrive();
 		} else {
@@ -113,14 +113,14 @@ public class Robot {
 		sensors.update();
 		servos.update();
 		encoders.update();
-		if(Params.driverUsingAxisPowerInsteadOfCurrentPower) {
+		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
 			motors.update(sensors.FirstAngle);
 		}else{
 			motors.update();
 		}
 
 		client.changeDate("State",state.name());
-		while(Params.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
+		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}

@@ -41,7 +41,7 @@ public class Structure {
 		OpenFrontClip();
 		OpenRearClip();
 
-		if( Params.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}
@@ -49,7 +49,7 @@ public class Structure {
 		CloseFrontClip();
 		CloseRearClip();
 
-		if( Params.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}

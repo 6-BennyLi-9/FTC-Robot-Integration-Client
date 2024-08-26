@@ -57,7 +57,7 @@ public class Motors {
 	 * @see org.firstinspires.ftc.teamcode.Params
 	 */
 	public void updateDriveOptions(double headingDeg){
-		if( Params.driverUsingAxisPowerInsteadOfCurrentPower ){
+		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower,currentYPower,currentHeadingPower=headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
 			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
@@ -106,7 +106,7 @@ public class Motors {
 			updateStructureOptions();
 		}catch (Exception ignored){}
 
-		if(Params.autoPrepareForNextOptionWhenUpdate){
+		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}
@@ -116,7 +116,7 @@ public class Motors {
 			updateStructureOptions();
 		}catch (Exception ignored){}
 
-		if(Params.autoPrepareForNextOptionWhenUpdate){
+		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
 		}
 	}

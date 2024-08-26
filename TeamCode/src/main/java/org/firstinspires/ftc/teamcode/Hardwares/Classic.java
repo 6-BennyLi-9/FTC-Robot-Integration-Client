@@ -51,7 +51,7 @@ public class Classic {
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( Params.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.FirstAngle);
 		}
@@ -91,7 +91,7 @@ public class Classic {
 				break;
 		}
 
-		if( Params.runUpdateWhenAnyNewOptionsAdded ){
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.FirstAngle);
 		}
@@ -139,7 +139,7 @@ public class Classic {
 		motors.updateDriveOptions(sensors.FirstAngle);
 	}
 	public void operateThroughGamePad(@NonNull Gamepad gamepad){
-		if(Params.useRightStickYToConfigRobotSpeed){
+		if(Params.Configs.useRightStickYToConfigRobotSpeed){
 			BufPower+=gamepad.right_stick_y*0.6;
 			BufPower=Mathematics.intervalClip(BufPower,-1,1);
 			motors.simpleMotorPowerController(

@@ -299,17 +299,17 @@ public class SimpleMecanumDrive {
 				client.changeDate("progress", progress +"%");
 				Pose2d aim=getAimPositionThroughTrajectory(singleCommand,progress);
 
-				if(et>st+estimatedTime+ timeOutProtectionMills&& Params.useOutTimeProtection){//保护机制
+				if(et>st+estimatedTime+ timeOutProtectionMills&& Params.Configs.useOutTimeProtection){//保护机制
 					state=State.BrakeDown;
 					motors.updateDriveOptions();
 					break;
 				}
 
-				if(Params.usePIDInAutonomous){
+				if(Params.Configs.usePIDInAutonomous){
 					if(Math.abs(aim.position.x- RobotPosition.position.x)> pem
 							|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
 							|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem
-							|| Params.alwaysRunPIDInAutonomous ){
+							|| Params.Configs.alwaysRunPIDInAutonomous ){
 						//间断地调用pid可能会导致pid的效果不佳
 						pidProcessor.inaccuracies[0]=aim.position.x- RobotPosition.position.x;
 						pidProcessor.inaccuracies[1]=aim.position.y- RobotPosition.position.y;

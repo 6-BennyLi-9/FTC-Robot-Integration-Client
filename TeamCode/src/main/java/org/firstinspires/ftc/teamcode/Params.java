@@ -1,89 +1,102 @@
 package org.firstinspires.ftc.teamcode;
 
 public final class Params {
+	public final static class Configs{
+		/**让机器自动在运行<code>update()</code>时，自动清除所有电机的<code>power</code>*/
+		public static boolean autoPrepareForNextOptionWhenUpdate = true;
+		/**让机器自动在执行提供的操作时，自动在更改任何<code>power</code>变量后执行<code>update()</code>*/
+		public static boolean runUpdateWhenAnyNewOptionsAdded = false;
+		/**在对舵机下达命令时，自动等待舵机到位*/
+		public static boolean waitForServoUntilThePositionIsInPlace = false;
+		/**让机器即使在不调用<code>pid</code>时，依然执行<code>pid.update()</code>*/
+		public static boolean alwaysRunPIDInAutonomous = false;
+		/**在自动程序中使用<code>pid</code>*/
+		public static boolean usePIDInAutonomous = true;
+		/**必须在自动程序中保持改变量为<code>true</code>*/
+		public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
+		/**在手动程序中，使用<code>gamepad1</code>的<code>right_stick_y</code>来控制底盘速度*/
+		public static boolean useRightStickYToConfigRobotSpeed = true;
+		/**启用超时保护器*/
+		public static boolean useOutTimeProtection = true;
+	}
+	public final static class namespace{
+		public static String LeftFront="leftFront";
+		public static String RightFront="rightFront";
+		public static String LeftRear="leftBack";
+		public static String RightRear="rightRear";
+		public static String PlacementArm="rightLift";
+		public static String Intake="intake";
+		public static String FrontClip="frontClip";
+		public static String RearClip="rearClip";
+		public static String SuspensionArm="rack";
+	}
 	/**
 	 * 每Tick机器所旋转的角度
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.TurningDegPerTickTest
 	 */
-	public static double TurningDegPerTick = 0.01339983622422392615201369761;
+	public static final double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所平移的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
 	 */
-	public static double LateralInchPerTick=0.001135933358576296857251041272;
+	public static final double LateralInchPerTick=0.001135933358576296857251041272;
 	/**
 	 * 每Tick机器所前进的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
 	 */
-	public static double AxialInchPerTick=0.001131541725601131541725601132;
+	public static final double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * IMU相较于机器的正中心在X轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
 	 */
-	public static double X_error=0;
+	public static final double X_error=0;
 	/**
 	 * IMU相较于机器的正中心在Y轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
 	 */
-	public static double Y_error=0;
+	public static final double Y_error=0;
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 */
-	public static double vP=0;
+	public static final double vP=0;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */
-	public static double pem=0.5;
+	public static final double pem=0.5;
 	/**
 	 *angleErrorMargin，单位：度
 	 */
-	public static double aem=1;
+	public static final double aem=1;
 	/**
 	 * 机器的超时保护机制，如果超过该时间，机器仍未到达点位，则会强制取消点位的执行
 	 */
-	public static double timeOutProtectionMills=1000;
+	public static final double timeOutProtectionMills=1000;
 	/**
 	 * 左侧死轮和右侧死轮的距离
 	 */
-	public static double LateralPosition=21;
+	public static final double LateralPosition=21;
 	/**
 	 * 机器中心到中间死轮(前端死轮)的距离
 	 */
-	public static double AxialPosition=0;
+	public static final double AxialPosition=0;
 	/**
 	 * 在执行手动程序时，由Classic下达的XPower命令的倍率因数
 	 */
-	public static double factorXPower=1;
+	public static final double factorXPower=1;
 	/**
 	 * 在执行手动程序时，由Classic下达的YPower命令的倍率因数
 	 */
-	public static double factorYPower=1;
+	public static final double factorYPower=1;
 	/**
 	 * 在执行手动程序时，由Classic下达的HeadingPower命令的倍率因数
 	 */
-	public static double factorHeadingPower=1;
+	public static final double factorHeadingPower=1;
 	/**
 	 * 在执行手动程序时，由Structure下达的IntakePower命令的倍率因数
 	 */
-	public static double factorIntakePower;
+	public static final double factorIntakePower=1;
 	/**
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
-	public static double factorSuspensionArmPower;
-	/**让机器自动在运行<code>update()</code>时，自动清除所有电机的<code>power</code>*/
-	public static boolean autoPrepareForNextOptionWhenUpdate = true;
-	/**让机器自动在执行提供的操作时，自动在更改任何<code>power</code>变量后执行<code>update()</code>*/
-	public static boolean runUpdateWhenAnyNewOptionsAdded = false;
-	/**在对舵机下达命令时，自动等待舵机到位*/
-	public static boolean waitForServoUntilThePositionIsInPlace = false;
-	/**让机器即使在不调用<code>pid</code>时，依然执行<code>pid.update()</code>*/
-	public static boolean alwaysRunPIDInAutonomous = false;
-	/**在自动程序中使用<code>pid</code>*/
-	public static boolean usePIDInAutonomous = true;
-	/**必须在自动程序中保持改变量为<code>true</code>*/
-	public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
-	/**在手动程序中，使用<code>gamepad1</code>的<code>right_stick_y</code>来控制底盘速度*/
-	public static boolean useRightStickYToConfigRobotSpeed = true;
-	/**启用超时保护器*/
-	public static boolean useOutTimeProtection = true;
+	public static final double factorSuspensionArmPower=1;
 }
