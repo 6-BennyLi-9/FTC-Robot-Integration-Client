@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.basic;
+package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareDevice;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.basic;
+package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
 import androidx.annotation.NonNull;
 
@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.utils.Enums.HardwareState;
 import org.firstinspires.ftc.teamcode.utils.Exceptions.DeviceDisabledException;
 
@@ -20,7 +20,7 @@ import java.util.Map;
  * @apiNote OpenCvCamera和BNU055IMU都不属于接口HardwareDevice
  */
 public class DeviceMap {
-	public Map<HardwareDevices, DeviceInterface > devices;
+	public Map<HardwareDevices, DeviceInterface> devices;
 	public DeviceMap(HardwareMap hardwareMap){
 		devices=new HashMap<>();
 		for(HardwareDevices device: HardwareDevices.values()){
