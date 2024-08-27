@@ -25,8 +25,4 @@ We use Bing's translation site for translations, and if you have suggestions or 
 
 ### Usage & Installation:
 
-It is recommended that you do not clone the repository release. You can find the .zip package in the distribution, download it, and extract it to the specified directory (i.e., teamcode).
-
-If you're writing code for an FTC bot for the first time, then we recommend cloning the repository.
-
-If you want to use the latest beta version, you can download the ```RIC.zip``` under the ```master``` branch, and it's worth noting that this part of the content tends to be more uncertain.
+If you want to use the latest beta, you can download ``RIC.zip`` or ``RIC_Updrade.zip`` under the ``master`` branch, or clone our repository.
