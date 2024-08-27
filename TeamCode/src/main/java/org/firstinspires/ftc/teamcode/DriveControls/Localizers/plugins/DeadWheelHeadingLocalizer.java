@@ -4,17 +4,17 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.HeadingLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public final class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
-
-	public DeadWheelEncoders encoders;
+	public Sensors sensors;
 	public double HeadingDeg;
 
 	public DeadWheelHeadingLocalizer(@NonNull Classic classic){
-		encoders=classic.encoders;
+		sensors=classic.sensors;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public final class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
 
 	@Override
 	public void update() {
-		encoders.update();
-		HeadingDeg=encoders.TurningTicks* Params.TurningDegPerTick;
+		sensors.update();
+		HeadingDeg=(sensors.LeftTick-sensors.RightTick)/2* Params.TurningDegPerTick;
 	}
 }

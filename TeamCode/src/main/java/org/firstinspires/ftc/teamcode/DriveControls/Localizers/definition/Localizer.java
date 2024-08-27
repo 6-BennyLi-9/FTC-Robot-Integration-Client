@@ -4,5 +4,5 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 public interface Localizer {
 	void update();
-	Pose2d getCurrentPose();
+	default Pose2d getCurrentPose(){return null;}
 }
