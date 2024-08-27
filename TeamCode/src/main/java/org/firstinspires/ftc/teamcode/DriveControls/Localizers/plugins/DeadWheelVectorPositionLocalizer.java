@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins;
 
 import static org.firstinspires.ftc.teamcode.Params.AxialInchPerTick;
-import static org.firstinspires.ftc.teamcode.Params.AxialPosition;
 import static org.firstinspires.ftc.teamcode.Params.LateralInchPerTick;
-import static org.firstinspires.ftc.teamcode.Params.LateralPosition;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,13 +57,13 @@ public final class DeadWheelVectorPositionLocalizer implements VectorPositionLoc
 			case TwoDeadWheels:
 				return new Vector2d(
 								0,
-								sensors.LeftTick/2* AxialInchPerTick+sensors.RightTick/2* AxialInchPerTick
+								sensors.getDeltaA()* AxialInchPerTick
 						);
 			case ThreeDeadWheels:
 				return new Vector2d(
-								(((sensors.LeftTick * LateralPosition) / 2) / LateralPosition - (sensors.LeftTick * AxialPosition) / LateralPosition - (sensors.RightTick * AxialPosition) / LateralPosition) * 2 * LateralInchPerTick,
-								sensors.LeftTick/2* AxialInchPerTick+sensors.RightTick/2* AxialInchPerTick
-						);
+						sensors.getDeltaL()*LateralInchPerTick,
+						sensors.getDeltaA()* AxialInchPerTick
+				);
 		}
 		return null;
 	}

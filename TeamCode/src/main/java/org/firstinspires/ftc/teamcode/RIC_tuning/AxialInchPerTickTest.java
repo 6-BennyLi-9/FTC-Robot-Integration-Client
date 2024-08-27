@@ -18,6 +18,7 @@ public class AxialInchPerTickTest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
+			robot.changeData("Ticks",robot.sensors.getDeltaA());
 		}
 	}
 }

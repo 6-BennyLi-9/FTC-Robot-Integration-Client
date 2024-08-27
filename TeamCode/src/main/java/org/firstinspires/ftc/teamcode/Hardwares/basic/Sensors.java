@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Enums.DeadWheelsType;
 
 public class Sensors {
@@ -92,5 +93,24 @@ public class Sensors {
 				RightTick=right.position;
 				break;
 		}
+	}
+
+	/**
+	 * @return 机器前进的TICK数
+	 */
+	public double getDeltaA(){
+		return (LeftTick-LastLeftTick+RightTick-LastRightTick)/2;
+	}
+	/**
+	 * @return 机器平移的TICK数
+	 */
+	public double getDeltaL(){
+		return MiddleTick-LastMiddleTick-getDeltaA()*Params.AxialPosition/Params.LateralPosition*4;
+	}
+	/**
+	 * @return 机器旋转的TICK数
+	 */
+	public double getDeltaT(){
+		return (LeftTick-LastLeftTick-RightTick+LastRightTick)/2;
 	}
 }

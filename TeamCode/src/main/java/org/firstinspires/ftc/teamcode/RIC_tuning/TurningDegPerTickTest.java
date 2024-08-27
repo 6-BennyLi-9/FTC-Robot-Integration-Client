@@ -18,7 +18,7 @@ public class TurningDegPerTickTest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.changeData("Ticks",robot.classic.encoders.TurningTicks);
+			robot.changeData("Ticks",robot.sensors.getDeltaT());
 		}
 	}
 }
