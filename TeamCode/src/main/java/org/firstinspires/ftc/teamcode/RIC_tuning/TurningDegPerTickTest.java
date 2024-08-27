@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
 
@@ -19,6 +20,7 @@ public class TurningDegPerTickTest extends AutonomousProgramTemplate {
 		while (!isStopRequested()){
 			robot.update();
 			robot.changeData("Ticks",robot.sensors.getDeltaT());
+			robot.changeData("Deg Turned",robot.sensors.getDeltaT()* Params.TurningDegPerTick);
 		}
 	}
 }
