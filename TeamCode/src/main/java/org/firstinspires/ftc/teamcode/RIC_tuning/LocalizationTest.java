@@ -14,17 +14,17 @@ public class LocalizationTest extends TeleopProgramTemplate {
 	@Override
 	public void whenInit() {
 		drive=robot.enableSimpleMecanumDrive(new Pose2d(0,0,0));
-		robot.client.addData("POSITION","WAIT FOR START");
+		robot.addData("POSITION","WAIT FOR START");
 	}
 
 	@Override
 	public void whileActivating() {
 		robot.update();
 		drive.update();
-		robot.client.changeDate("POSITION",drive.localizer.getCurrentPose().toString());
-		robot.client.changeDate("X",drive.localizer.getCurrentPose().position.x);
-		robot.client.changeDate("Y",drive.localizer.getCurrentPose().position.y);
-		robot.client.changeDate("HEADING",Math.toDegrees(drive.localizer.getCurrentPose().heading.toDouble()));
+		robot.changeData("POSITION",drive.localizer.getCurrentPose().toString());
+		robot.changeData("X",drive.localizer.getCurrentPose().position.x);
+		robot.changeData("Y",drive.localizer.getCurrentPose().position.y);
+		robot.changeData("HEADING",Math.toDegrees(drive.localizer.getCurrentPose().heading.toDouble()));
 
 		robot.operateThroughGamePad(gamepad1,gamepad2);
 	}

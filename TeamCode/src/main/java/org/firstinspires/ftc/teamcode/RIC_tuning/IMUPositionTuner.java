@@ -26,20 +26,20 @@ public class IMUPositionTuner extends AutonomousProgramTemplate {
 
 		if (WaitForStartRequest())return;
 
-		robot.client.addData("xError","waitingForFeedback");
-		robot.client.addData("yError","waitingForFeedback");
+		robot.addData("xError","waitingForFeedback");
+		robot.addData("yError","waitingForFeedback");
 
 		while(!isStopRequested()){
 			robot.update();
 			r=robot.sensors.XMoved/2;
 			xP=r;
 			yP=robot.sensors.YMoved-2*r;
-			robot.client.changeDate("xError",xP);
-			robot.client.changeDate("yError", yP);
-			robot.client.changeDate("R",r);
-			robot.client.changeDate("X", robot.sensors.XMoved);
-			robot.client.changeDate("Y", robot.sensors.YMoved);
-			robot.client.changeDate("Heading", robot.sensors.FirstAngle);
+			robot.changeData ("xError",xP);
+			robot.changeData("yError", yP);
+			robot.changeData("R",r);
+			robot.changeData("X", robot.sensors.XMoved);
+			robot.changeData("Y", robot.sensors.YMoved);
+			robot.changeData("Heading", robot.sensors.FirstAngle);
 		}
 	}
 }

@@ -17,9 +17,9 @@ public class DWETest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.client.changeDate("L",robot.classic.sensors.LeftTick);
-			robot.client.changeDate("M",robot.classic.sensors.MiddleTick);
-			robot.client.changeDate("R",robot.classic.sensors.RightTick);
+			robot.changeData("L",robot.classic.sensors.LeftTick);
+			robot.changeData("M",robot.classic.sensors.MiddleTick);
+			robot.changeData("R",robot.classic.sensors.RightTick);
 		}
 	}
 }

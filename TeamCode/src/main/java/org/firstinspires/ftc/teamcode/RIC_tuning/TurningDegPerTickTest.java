@@ -12,13 +12,13 @@ public class TurningDegPerTickTest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		Init(new Pose2d(0,0,0));
-		robot.client.addData("Ticks","WAITING FOR REQUEST");
+		robot.addData("Ticks","WAITING FOR REQUEST");
 
 		if(WaitForStartRequest())return;
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.client.changeDate("Ticks",robot.classic.encoders.TurningTicks);
+			robot.changeData("Ticks",robot.classic.encoders.TurningTicks);
 		}
 	}
 }
