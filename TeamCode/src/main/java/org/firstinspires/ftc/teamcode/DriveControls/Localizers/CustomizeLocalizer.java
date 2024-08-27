@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.DriveControls.Localizers;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Pose2d;
-
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.LocalizerPlugin;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.SubassemblyLocalizer;
@@ -19,10 +17,5 @@ public class CustomizeLocalizer extends SubassemblyLocalizer implements Localize
 				new DeadWheelLocalizer(classic),
 				new ImuLocalizer(classic)
 		});
-	}
-
-	@Override
-	public Pose2d getCurrentPose() {
-		return null;
 	}
 }
