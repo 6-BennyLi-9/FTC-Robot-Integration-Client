@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 public class ImuHeadingLocalizer implements HeadingLocalizerPlugin {
 	public double HeadingDeg;
 	public Sensors sensors;
-	ImuHeadingLocalizer(@NonNull Classic classic){
+	public ImuHeadingLocalizer(@NonNull Classic classic){
 		sensors=classic.sensors;
 	}
 	@Override
