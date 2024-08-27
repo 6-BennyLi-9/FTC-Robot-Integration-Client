@@ -37,15 +37,15 @@ public final class Params {
 	 */
 	public static final double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
-	 * 每Tick机器所平移的距离
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
-	 */
-	public static final double LateralInchPerTick=0.001135933358576296857251041272;
-	/**
 	 * 每Tick机器所前进的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
 	 */
 	public static final double AxialInchPerTick=0.001131541725601131541725601132;
+	/**
+	 * 每Tick机器所平移的距离
+	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
+	 */
+	public static final double LateralInchPerTick=AxialInchPerTick;
 	/**
 	 * IMU相较于机器的正中心在X轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner

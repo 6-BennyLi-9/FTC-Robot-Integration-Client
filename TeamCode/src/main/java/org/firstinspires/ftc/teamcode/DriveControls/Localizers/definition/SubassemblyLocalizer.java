@@ -24,6 +24,9 @@ public abstract class SubassemblyLocalizer implements Localizer{
 		Pose2d cache=new Pose2d(0,0,0);
 		int VectorFactor=0,HeadingFactor=0;
 		for(LocalizerPlugin plugin:plugins){
+			if (plugin instanceof VectorPositionLocalizerPlugin) {
+				((VectorPositionLocalizerPlugin) plugin).SetHeadingRad(Math.toDegrees(RobotPosition.heading.toDouble()));
+			}
 			plugin.update();
 			if(plugin instanceof VectorPositionLocalizerPlugin){
 				cache=new Pose2d(
@@ -40,9 +43,9 @@ public abstract class SubassemblyLocalizer implements Localizer{
 				++HeadingFactor;
 			}else if(plugin instanceof PositionLocalizerPlugin){
 				cache=new Pose2d(
-						cache.position.x+((PositionLocalizerPlugin)plugin).getCurrentPose().position.x,
-						cache.position.y+((PositionLocalizerPlugin)plugin).getCurrentPose().position.y,
-						cache.heading.toDouble()+((PositionLocalizerPlugin)plugin).getCurrentPose().heading.toDouble()
+						cache.position.x+ plugin.getCurrentPose().position.x,
+						cache.position.y+ plugin.getCurrentPose().position.y,
+						cache.heading.toDouble()+ plugin.getCurrentPose().heading.toDouble()
 				);
 				++VectorFactor;
 				++HeadingFactor;

@@ -23,7 +23,7 @@ public class Sensors {
 	 */
 	public BNO055IMU imu;
 	//TODO:按需求修改
-	public final DeadWheelsType type=DeadWheelsType.ThreeDeadWheels;
+	public final DeadWheelsType DeadWheelType =DeadWheelsType.ThreeDeadWheels;
 	public Encoder Left,Middle,Right;
 	public double LeftTick,MiddleTick,RightTick;
 	public double LastLeftTick,LastMiddleTick,LastRightTick;
@@ -74,7 +74,7 @@ public class Sensors {
 		LastRightTick=RightTick;
 
 		PositionVelocityPair left,middle,right;
-		switch (type) {
+		switch (DeadWheelType) {
 			case BE_NOT_USING_DEAD_WHEELS:
 				break;
 			case TwoDeadWheels:

@@ -18,7 +18,6 @@ public class LateralInchPerTickTest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.client.changeDate("Ticks",robot.classic.encoders.LateralTicks);
 		}
 	}
 }

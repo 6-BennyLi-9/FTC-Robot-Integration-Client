@@ -6,18 +6,17 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
 
 @LocalizationPlugin
 public class DeadWheelLocalizer implements PositionLocalizerPlugin {
-	public DeadWheelEncoders encoders;
+	public Sensors sensors;
 	public Pose2d RobotPosition;
 
 	public DeadWheelLocalizer(@NonNull Classic classic){
-		encoders=classic.encoders;
+		sensors=classic.sensors;
 		RobotPosition=new Pose2d(0,0,0);
 	}
 	@Override
@@ -27,31 +26,15 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 
 	@Override
 	public void update() {
-		encoders.update();
+		sensors.update();
 		Complex delta;
-		switch (encoders.type) {
+		switch (sensors.DeadWheelType) {
 			case BE_NOT_USING_DEAD_WHEELS:
 				break;
 			case TwoDeadWheels:
-				delta=new Complex(encoders.AxialTicks,0);
-				delta=delta.times(new Complex(Mathematics.angleRationalize(encoders.TurningTicks* Params.TurningDegPerTick)));
-				RobotPosition=new Pose2d(
-						RobotPosition.position.x+delta.RealPart,
-						RobotPosition.position.y+delta.imaginary(),
-						RobotPosition.heading.toDouble()+Math.toRadians(encoders.TurningTicks*Params.TurningDegPerTick)
-				);
-				break;
+
 			case ThreeDeadWheels:
-				delta=new Complex(
-						Params.LateralInchPerTick*(encoders.LateralTicks-encoders.LastLateralTicks),
-						Params.AxialInchPerTick*(encoders.AxialTicks-encoders.LastAxialTicks)
-				);
-				delta=delta.divide(new Complex(Params.TurningDegPerTick*(encoders.TurningTicks-encoders.LastTurningTicks)));
-				RobotPosition=new Pose2d(
-						RobotPosition.position.x+delta.RealPart,
-						RobotPosition.position.y+delta.imaginary(),
-						Math.toRadians(encoders.TurningTicks*Params.TurningDegPerTick)
-				);
+
 				break;
 		}
 	}

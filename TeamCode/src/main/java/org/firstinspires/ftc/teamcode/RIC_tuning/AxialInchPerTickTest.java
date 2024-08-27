@@ -19,8 +19,6 @@ public class AxialInchPerTickTest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.client.changeDate("Ticks",robot.classic.encoders.AxialTicks);
-			robot.client.changeDate("Pose",robot.classic.encoders.AxialTicks* Params.AxialInchPerTick);
 		}
 	}
 }
