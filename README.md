@@ -14,12 +14,7 @@ We use Bing's translation site for translations, and if you have suggestions or 
 2. 允许队伍更集成化地控制机器（也就是11212所做的，不过本项目与他们的不同）。
 
 ### 使用与安装：
-
-建议不要直接克隆仓库。您可以在发行版中找到.zip的压缩包并下载，然后解压到指定目录(即teamcode)。
-
-如果你是第一次编写FTC机器人的代码，那么我们还是建议克隆仓库。
-
-如果您想用最新的测试版，您可以下载```master```分支下的```RIC.zip```，值得注意的是这部分内容往往不确定因素更大。
+如果您想用最新的测试版，您可以下载```master```分支下的```RIC.zip```或```RIC_Updrade.zip```，或者克隆我们的仓库。
 
 ---
 
