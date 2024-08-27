@@ -8,8 +8,6 @@ import org.firstinspires.ftc.teamcode.Params.namespace;
 import org.firstinspires.ftc.teamcode.utils.Enums.HardwareState;
 
 /**
- * 仅适用于类型为<code>HardwareDevice</code> 接口下的硬件
- * <p>
  * 可以自动登记硬件的名字及其类型
  * @see namespace
  */
