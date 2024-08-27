@@ -20,7 +20,7 @@ import java.util.Map;
  * @apiNote OpenCvCamera和BNU055IMU都不属于接口HardwareDevice
  */
 public class DeviceMap {
-	public Map<HardwareDevices, HardwareDevice > devices;
+	public Map<HardwareDevices, DeviceInterface > devices;
 	public DeviceMap(HardwareMap hardwareMap){
 		devices=new HashMap<>();
 		for(HardwareDevices device: HardwareDevices.values()){
@@ -29,9 +29,9 @@ public class DeviceMap {
 						device==HardwareDevices.RightFront||device==HardwareDevices.RightRear){
 					DcMotorEx hardwareDevice= (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
 					hardwareDevice.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-					devices.put(device,hardwareDevice);
+					devices.put(device, (DeviceInterface) hardwareDevice);
 				}else {
-					devices.put(device, (HardwareDevice) hardwareMap.get(device.classType, device.deviceName));
+					devices.put(device, (DeviceInterface) hardwareMap.get(device.classType, device.deviceName));
 				}
 			}
 		}

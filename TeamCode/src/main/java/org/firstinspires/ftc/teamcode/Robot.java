@@ -15,7 +15,6 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.drivingCo
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
@@ -34,7 +33,6 @@ public class Robot {
 	public final Motors motors;
 	public final Sensors sensors;
 	public final Servos servos;
-	public final DeadWheelEncoders encoders;
 
 	public Classic classic;
 	public Structure structure;
@@ -56,11 +54,10 @@ public class Robot {
 		devices=new DeviceMap(hardwareMap);
 
 		motors=new Motors(devices);
-		sensors=new Sensors(hardwareMap);
+		sensors=new Sensors(devices);
 		servos=new Servos(devices);
-		encoders=new DeadWheelEncoders(devices);
 
-		classic=new Classic(motors,sensors,encoders);
+		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);
 		webcam=new Webcam(hardwareMap);
 
@@ -112,7 +109,7 @@ public class Robot {
 
 		sensors.update();
 		servos.update();
-		encoders.update();
+
 		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
 			motors.update(sensors.FirstAngle);
 		}else{

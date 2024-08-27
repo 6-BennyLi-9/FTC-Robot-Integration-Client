@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -24,7 +25,8 @@ public enum HardwareDevices {
 	SuspensionArm(namespace.SuspensionArm, DcMotorEx.class,HardwareState.Disabled),
 	LeftDeadWheel(LeftRear.deviceName, DcMotorEx.class,HardwareState.Enabled),
 	MiddleDeadWheel(LeftFront.deviceName,DcMotorEx.class,HardwareState.Enabled),
-	RightDeadWheel(RightFront.deviceName, DcMotorEx.class,HardwareState.Enabled);
+	RightDeadWheel(RightFront.deviceName, DcMotorEx.class,HardwareState.Enabled),
+	imu(namespace.Imu, BNO055IMU .class,HardwareState.Enabled);
 	public final String deviceName;
 	public final Class<?> classType;
 	public final HardwareState state;

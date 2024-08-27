@@ -29,6 +29,7 @@ public final class Params {
 		public static String FrontClip="frontClip";
 		public static String RearClip="rearClip";
 		public static String SuspensionArm="rack";
+		public static String Imu="imu";
 	}
 	/**
 	 * 每Tick机器所旋转的角度

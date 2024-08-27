@@ -6,7 +6,6 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.utils.Complex;

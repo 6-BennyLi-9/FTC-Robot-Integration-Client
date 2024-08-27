@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.HeadingLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.DeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationPlugin;
 
