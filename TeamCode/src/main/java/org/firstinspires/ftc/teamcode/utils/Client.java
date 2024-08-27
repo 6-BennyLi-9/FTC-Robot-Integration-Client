@@ -99,6 +99,12 @@ public class Client {
 		lines.put(key,++ID);
 		update();
 	}
+	public void addLine(int key){
+		addLine(String.valueOf(key));
+	}
+	public void addLine(double key){
+		addLine(String.valueOf(key));
+	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */

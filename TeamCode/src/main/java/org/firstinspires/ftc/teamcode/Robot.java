@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
@@ -159,4 +160,29 @@ public class Robot {
 		}
 		motors.setBufPower(BufPower);
 	}
+
+	@ExtractedInterfaces
+	public void addData(String key, String val){client.addData(key, val);}
+	@ExtractedInterfaces
+	public void addData(String key,int val){client.addData(key, val);}
+	@ExtractedInterfaces
+	public void addData(String key,double val){client.addData(key, val);}
+	@ExtractedInterfaces
+	public void deleteDate(String key){try{client.deleteDate(key);}catch (Exception ignored){}}
+	@ExtractedInterfaces
+	public void changeData(String key, String val){client.changeDate(key, val);}
+	@ExtractedInterfaces
+	public void changeData(String key,int val){client.changeDate(key, val);}
+	@ExtractedInterfaces
+	public void changeData(String key,double val){client.changeDate(key, val);}
+	@ExtractedInterfaces
+	public void addLine(String val){client.addLine(val);}
+	@ExtractedInterfaces
+	public void addLine(int val){client.addLine(val);}
+	@ExtractedInterfaces
+	public void addLine(double val){client.addLine(val);}
+	@ExtractedInterfaces
+	public void changeLine(@NonNull Object key, @NonNull Object val){client.changeLine(key.toString(),val.toString());}
+	@ExtractedInterfaces
+	public void deleteLine(String key){try{client.deleteLine(key);}catch (Exception ignored){}}
 }
