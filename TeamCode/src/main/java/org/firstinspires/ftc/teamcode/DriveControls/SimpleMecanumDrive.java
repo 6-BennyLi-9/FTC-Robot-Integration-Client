@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode.DriveControls;
 
-import static org.firstinspires.ftc.teamcode.utils.Client.Drawing.drawInstantRobot;
 import static org.firstinspires.ftc.teamcode.Params.aem;
 import static org.firstinspires.ftc.teamcode.Params.pem;
 import static org.firstinspires.ftc.teamcode.Params.timeOutProtectionMills;
-import static org.firstinspires.ftc.teamcode.Params.vP;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.canvas.Canvas;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
@@ -21,14 +17,13 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.Client;
 import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
-import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.Enums.State;
 import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class SimpleMecanumDrive {
@@ -36,7 +31,6 @@ public class SimpleMecanumDrive {
 	private final Motors motors;
 	private final Client client;
 	private final PID_processor pidProcessor;
-	private final TelemetryPacket telemetryPacket;
 	
 	private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	public Pose2d RobotPosition;
@@ -56,7 +50,6 @@ public class SimpleMecanumDrive {
 
 		//TODO:更换Localizer如果需要
 		localizer=new DeadWheelSubassemblyLocalizer(classic);
-		telemetryPacket=new TelemetryPacket();
 		this.pidProcessor=pidProcessor;
 	}
 	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
@@ -258,11 +251,9 @@ public class SimpleMecanumDrive {
 	public void runDriveCommands(@NonNull LinkedList < DriveCommand > commands){
 		DriveCommand[] commandLists=new DriveCommand[commands.size()];
 		commands.toArray(commandLists);
-		double[] xList,yList;
-		xList=new double[commandLists.length+1];
-		yList=new double[commandLists.length+1];
-		xList[0]=commandLists[0].pose.position.x;
-		yList[0]=commandLists[0].pose.position.y;
+		Vector2d[] PoseList;
+		PoseList=new Vector2d[commandLists.length+1];
+		PoseList[0]=commandLists[0].pose.position;
 		Timer timer = new Timer();
 		for ( int i = 0, commandListsLength = commandLists.length; i < commandListsLength; i++ ) {
 			DriveCommand singleCommand = commandLists[i];
@@ -270,31 +261,23 @@ public class SimpleMecanumDrive {
 			update();
 			motors.updateDriveOptions(RobotPosition.heading.toDouble());
 
-			Canvas c = telemetryPacket.fieldOverlay();
-			c.setStroke("#4CAF50");
 
-			xList[i+1]=singleCommand.NEXT().position.x;
-			yList[i+1]=singleCommand.NEXT().position.y;
-
-			c.strokePolyline(
-					Arrays.copyOf(xList, i + 1),
-					Arrays.copyOf(yList, i + 1)
-			);
+			PoseList[i+1]=singleCommand.NEXT().position;
+			client.DrawLine(PoseList[i],PoseList[i+1]);
 
 			this.BufPower= singleCommand.BufPower;
-			final double distance=Math.sqrt(
-					Math.abs(xList[i+1]-xList[i])*Math.abs(xList[i+1]-xList[i])+
-							Math.abs(yList[i+1]-yList[i])*Math.abs(yList[i+1]-yList[i])
-			);
-			final double estimatedTime=distance/(vP/(1f/BufPower));
+			double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
+			double dX = Math.abs(PoseList[i + 1].x - PoseList[i].x);
+			final double distance=Math.sqrt(dX * dX + dY * dY);
+			final double estimatedTime=distance/(Params.vP /(1f/BufPower));
 			client.addData("distance",distance);
 			client.addData("estimatedTime",estimatedTime);
 			client.addData("progress","0%");
 			client.addData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
 			timer.restart();
-			while ((Math.abs(RobotPosition.position.x-xList[i+1])> pem)
-				&& (Math.abs(RobotPosition.position.y-yList[i+1])> pem)
+			while ((Math.abs(RobotPosition.position.x-PoseList[i+1].x)> pem)
+				&& (Math.abs(RobotPosition.position.y-PoseList[i+1].y)> pem)
 				&& (Math.abs(RobotPosition.heading.toDouble()-singleCommand.NEXT().heading.toDouble())> aem)){
 				double progress=(timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 				client.changeDate("progress", progress +"%");
@@ -328,8 +311,8 @@ public class SimpleMecanumDrive {
 							|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
 							|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem){
 						double[] fulfillment=new double[]{
-								(aim.position.x- RobotPosition.position.x)*(vP)*BufPower/2,
-								(aim.position.y- RobotPosition.position.y)*(vP)*BufPower/2,
+								(aim.position.x- RobotPosition.position.x)*(Params.vP)*BufPower/2,
+								(aim.position.y- RobotPosition.position.y)*(Params.vP)*BufPower/2,
 								(aim.heading.toDouble()> RobotPosition.heading.toDouble()? BufPower/2:-BufPower/2)
 						};
 
@@ -415,9 +398,7 @@ public class SimpleMecanumDrive {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		Canvas c=telemetryPacket.fieldOverlay();
-		c.setStroke("#3F51B5");
-		drawInstantRobot(RobotPosition);
+		client.DrawRobot(RobotPosition);
 
 		poseHistory.add(RobotPosition);
 	}

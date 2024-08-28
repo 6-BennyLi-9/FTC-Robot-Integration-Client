@@ -255,9 +255,13 @@ public class Client {
 	}
 	@UtilFunctions
 	public void DrawLine(@NonNull Pose2d start,@NonNull Pose2d end){
+		DrawLine(start.position,end.position);
+	}
+	@UtilFunctions
+	public void DrawLine(@NonNull Vector2d start,@NonNull Vector2d end){
 		Canvas c=packet.fieldOverlay();
 		c.setStroke(Drawing.Blue);
-		c.strokeLine(start.position.x,start.position.y,end.position.x,end.position.y);
+		c.strokeLine(start.x,start.y,end.x,end.y);
 		update();
 	}
 	@UtilFunctions
