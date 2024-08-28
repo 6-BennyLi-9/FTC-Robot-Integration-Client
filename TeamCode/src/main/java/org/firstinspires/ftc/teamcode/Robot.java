@@ -121,7 +121,7 @@ public class Robot {
 			motors.update();
 		}
 
-		client.changeDate("State",state.name());
+		client.changeData("State",state.name());
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
@@ -172,13 +172,13 @@ public class Robot {
 	@ExtractedInterfaces
 	public void addData(String key,double val){client.addData(key, val);}
 	@ExtractedInterfaces
-	public void deleteDate(String key){try{client.deleteDate(key);}catch (Exception ignored){}}
+	public void deleteDate(String key){try{client.deleteData(key);}catch (Exception ignored){}}
 	@ExtractedInterfaces
-	public void changeData(String key, String val){client.changeDate(key, val);}
+	public void changeData(String key, String val){client.changeData(key, val);}
 	@ExtractedInterfaces
-	public void changeData(String key,int val){client.changeDate(key, val);}
+	public void changeData(String key,int val){client.changeData(key, val);}
 	@ExtractedInterfaces
-	public void changeData(String key,double val){client.changeDate(key, val);}
+	public void changeData(String key,double val){client.changeData(key, val);}
 	@ExtractedInterfaces
 	public void addLine(String val){client.addLine(val);}
 	@ExtractedInterfaces

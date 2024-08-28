@@ -1,6 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 public final class Params {
+	public final static class PIDParams{
+		public static double[] kP;
+		public static double[] kI;
+		public static double[] kD;
+		public static double[] MAX_I;
+	}
 	public final static class Configs{
 		/**让机器自动在运行<code>update()</code>时，自动清除所有电机的<code>power</code>*/
 		public static boolean autoPrepareForNextOptionWhenUpdate = true;

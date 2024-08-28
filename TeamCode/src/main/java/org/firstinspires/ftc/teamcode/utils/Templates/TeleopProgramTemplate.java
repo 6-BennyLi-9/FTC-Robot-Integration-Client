@@ -25,7 +25,7 @@ public abstract class TeleopProgramTemplate extends OpMode {
 
 	@Override
 	public void loop() {
-		robot.client.changeDate("TPS", timer.restartAndGetDeltaTime() /1000);
+		robot.client.changeData("TPS", timer.restartAndGetDeltaTime() /1000);
 
 		whileActivating();
 	}

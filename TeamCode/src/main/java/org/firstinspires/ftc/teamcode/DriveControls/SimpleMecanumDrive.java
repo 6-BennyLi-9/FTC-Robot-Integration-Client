@@ -270,17 +270,17 @@ public class SimpleMecanumDrive {
 			double dX = Math.abs(PoseList[i + 1].x - PoseList[i].x);
 			final double distance=Math.sqrt(dX * dX + dY * dY);
 			final double estimatedTime=distance/(Params.vP /(1f/BufPower));
-			client.addData("distance",distance);
-			client.addData("estimatedTime",estimatedTime);
-			client.addData("progress","0%");
-			client.addData("DELTA",singleCommand.getDeltaTrajectory().toString());
+			client.changeData("distance",distance);
+			client.changeData("estimatedTime",estimatedTime);
+			client.changeData("progress","0%");
+			client.changeData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
 			timer.restart();
 			while ((Math.abs(RobotPosition.position.x-PoseList[i+1].x)> pem)
 				&& (Math.abs(RobotPosition.position.y-PoseList[i+1].y)> pem)
 				&& (Math.abs(RobotPosition.heading.toDouble()-singleCommand.NEXT().heading.toDouble())> aem)){
 				double progress=(timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
-				client.changeDate("progress", progress +"%");
+				client.changeData("progress", progress +"%");
 				Pose2d aim=getAimPositionThroughTrajectory(singleCommand,progress);
 
 				if(timer.getDeltaTime()>estimatedTime+ timeOutProtectionMills&& Params.Configs.useOutTimeProtection){//保护机制
@@ -325,12 +325,12 @@ public class SimpleMecanumDrive {
 				motors.updateDriveOptions(RobotPosition.heading.toDouble());
 			}
 
-			client.deleteDate("distance");
-			client.deleteDate("estimatedTime");
-			client.deleteDate("progress");
-			client.deleteDate("DELTA");
 			state= State.WaitingAtPoint;
 		}
+		client.deleteData("distance");
+		client.deleteData("estimatedTime");
+		client.deleteData("progress");
+		client.deleteData("DELTA");
 
 		classic.STOP();
 		state= State.IDLE;

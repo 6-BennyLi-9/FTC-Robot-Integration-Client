@@ -32,11 +32,11 @@ public class ClientUsage extends OpMode {
 				client.addData("按下次数","1");
 				break;
 			case 2:
-				client.changeDate("按下次数","2");
+				client.changeData("按下次数","2");
 				break;
 			case 3:
 				client.addLine("第三次按下");
-				client.deleteDate("按下次数");
+				client.deleteData("按下次数");
 				break;
 			case 4:
 				client.deleteLine("第三次按下");
@@ -44,11 +44,11 @@ public class ClientUsage extends OpMode {
 				break;
 			case 5:
 				client.addLine("第五次按下");
-				client.deleteDate("按下次数");
+				client.deleteData("按下次数");
 				break;
 			case 6:
 				client.changeLine("第五次按下","第六次按下");
-				client.changeDate("按下次数","6");
+				client.changeData("按下次数","6");
 				break;
 			case 7:
 				client.clear();

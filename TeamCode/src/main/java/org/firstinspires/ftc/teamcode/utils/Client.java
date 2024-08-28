@@ -25,8 +25,6 @@ import java.util.Vector;
  */
 public class Client {
 	public static final class Drawing {
-		private Drawing() {}
-
 		public static final String Blue="#3F51B5";
 		public static final String Green="#4CAF50";
 
@@ -35,6 +33,7 @@ public class Client {
 		 * @param c 绘制的关键程序变量
 		 * @param t 机器位置
 		 */
+		@UtilFunctions
 		public static void drawRobot(@NonNull Canvas c, @NonNull Pose2d t) {
 			final double ROBOT_RADIUS = 9;
 
@@ -48,27 +47,13 @@ public class Client {
 		}
 
 		/**
-		 * 智能地根据机器的点位，但是是瞬时的，一旦FtcDashboard有了更新，则很有可能机器的图案会消失
-		 * @param pose 机器位置
-		 */
-		@UtilFunctions
-		public static void drawInstantRobot(@NonNull Pose2d pose){
-			TelemetryPacket packet=new TelemetryPacket();
-			packet.fieldOverlay().setStroke(Blue);
-			drawRobot(packet.fieldOverlay(),pose);
-			FtcDashboard.getInstance().sendTelemetryPacket(packet);
-		}
-
-		/**
 		 * 默认为蓝色
 		 * @param pose 机器位置
 		 * @param packet 使用packet绘制机器
 		 */
 		@UtilFunctions
 		public static void drawRobotUsingPacket(@NonNull Pose2d pose,@NonNull TelemetryPacket packet){
-			packet.fieldOverlay().setStroke(Blue);
-			drawRobot(packet.fieldOverlay(),pose);
-			FtcDashboard.getInstance().sendTelemetryPacket(packet);
+			drawRobotUsingPacket(pose,packet,Blue);
 		}
 		/**
 		 * @param pose 机器位置
@@ -77,7 +62,6 @@ public class Client {
 		@UtilFunctions
 		public static void drawRobotUsingPacket(@NonNull Pose2d pose,@NonNull TelemetryPacket packet,@NonNull String color){
 			packet.fieldOverlay().setStroke(color);
-			packet.fieldOverlay().setStroke(Blue);
 			drawRobot(packet.fieldOverlay(),pose);
 			FtcDashboard.getInstance().sendTelemetryPacket(packet);
 		}
@@ -120,19 +104,13 @@ public class Client {
 	/**
 	 * 注意：这是新的Data
 	 */
-	public void addData(String key,int val){
-		addData(key,String.valueOf(val));
-	}
-	/**
-	 * 注意：这是新的Data
-	 */
-	public void addData(String key,double val){
+	public void addData(String key,Object val){
 		addData(key,String.valueOf(val));
 	}
 	/**
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
-	public void deleteDate(String key){
+	public void deleteData(String key){
 		if( data.containsKey(key)){
 			data.remove(key);
 		}else{
@@ -144,9 +122,9 @@ public class Client {
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
-	public void changeDate(String key,String val){
+	public void changeData(String key, String val){
 		if(data.containsKey(key)){
-			data.replace(key,new Pair<>(val, Objects.requireNonNull(data.get(key)).second));
+			data.replace(key,new Pair<>(val, (Objects.requireNonNull(data.get(key))).second));
 		}else{
 			addData(key, val);
 		}
@@ -155,24 +133,15 @@ public class Client {
 	/**
 	 * 自动创建新的行如果key所指向的值不存在
 	 */
-	public void changeDate(String key,int val){
-		changeDate(key,String.valueOf(val));
-	}
-	/**
-	 * 自动创建新的行如果key所指向的值不存在
-	 */
-	public void changeDate(String key,double val){
-		changeDate(key,String.valueOf(val));
+	public void changeData(String key, Object val){
+		changeData(key,String.valueOf(val));
 	}
 
 	public void addLine(String key){
 		lines.put(key,++ID);
 		update();
 	}
-	public void addLine(int key){
-		addLine(String.valueOf(key));
-	}
-	public void addLine(double key){
+	public void addLine(Object key){
 		addLine(String.valueOf(key));
 	}
 	/**
@@ -223,7 +192,6 @@ public class Client {
 
 		FtcDashboard.getInstance().sendTelemetryPacket(packet);
 	}
-
 
 	/**
 	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw

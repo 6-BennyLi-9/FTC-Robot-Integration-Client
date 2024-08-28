@@ -28,6 +28,6 @@ public class ManualCodeSample extends OpMode {
 	}
 
 	public void updateTPS(){
-		robot.client.changeDate("TPS", 1000/(timer.restartAndGetDeltaTime()));
+		robot.client.changeData("TPS", 1000/(timer.restartAndGetDeltaTime()));
 	}
 }

@@ -17,13 +17,13 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 		AutonomousLocation location = AutonomousLocation.failed;
 		while (opModeIsNotActive()) {
 			location=robot.webcam.getLocation();
-			robot.client.changeDate("Position",location.name());
+			robot.changeData("Position",location.name());
 			sleep(50);
 		}
 
 		if(WaitForStartRequest())return;
 
-		robot.client.deleteDate("Position");
+		robot.client.deleteData("Position");
 		switch (location){
 			case left:
 				robot.strafeTo(robot.pose().position.plus(new Vector2d(0,24)));
