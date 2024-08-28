@@ -1,3 +1,4 @@
+#! /bin/bash
 zipperParentPathName=$(dirname "$0")
 programPath=${zipperParentPathName}/TeamCode/src/main/java/org/firstinspires/ftc/teamcode
 
