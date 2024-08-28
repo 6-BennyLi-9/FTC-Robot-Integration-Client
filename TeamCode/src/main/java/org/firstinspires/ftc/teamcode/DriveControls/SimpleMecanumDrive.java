@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.DriveControls;
 
+import static org.firstinspires.ftc.teamcode.utils.Client.Drawing.drawInstantRobot;
 import static org.firstinspires.ftc.teamcode.Params.aem;
 import static org.firstinspires.ftc.teamcode.Params.pem;
 import static org.firstinspires.ftc.teamcode.Params.timeOutProtectionMills;
@@ -416,7 +417,7 @@ public class SimpleMecanumDrive {
 
 		Canvas c=telemetryPacket.fieldOverlay();
 		c.setStroke("#3F51B5");
-		Drawing.drawInstantRobot(RobotPosition);
+		drawInstantRobot(RobotPosition);
 
 		poseHistory.add(RobotPosition);
 	}

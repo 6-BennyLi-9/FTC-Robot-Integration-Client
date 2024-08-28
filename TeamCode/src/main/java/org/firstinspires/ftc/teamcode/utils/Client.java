@@ -2,7 +2,17 @@ package org.firstinspires.ftc.teamcode.utils;
 
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.utils.Annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.Annotations.UtilFunctions;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,7 +24,66 @@ import java.util.Vector;
  * @see org.firstinspires.ftc.teamcode.RIC_samples.ClientUsage
  */
 public class Client {
-	Telemetry telemetry;
+	public static final class Drawing {
+		private Drawing() {}
+
+		public static final String Blue="#3F51B5";
+		public static final String Green="#4CAF50";
+
+		/**
+		 * 智能地根据机器的点位，但是需要搭配相应的配套操作
+		 * @param c 绘制的关键程序变量
+		 * @param t 机器位置
+		 */
+		public static void drawRobot(@NonNull Canvas c, @NonNull Pose2d t) {
+			final double ROBOT_RADIUS = 9;
+
+			c.setStrokeWidth(1);
+			c.strokeCircle(t.position.x, t.position.y, ROBOT_RADIUS);
+
+			Vector2d half_v = t.heading.vec().times(0.5 * ROBOT_RADIUS);
+			Vector2d p1 = t.position.plus(half_v);
+			Vector2d p2 = p1.plus(half_v);
+			c.strokeLine(p1.x, p1.y, p2.x, p2.y);
+		}
+
+		/**
+		 * 智能地根据机器的点位，但是是瞬时的，一旦FtcDashboard有了更新，则很有可能机器的图案会消失
+		 * @param pose 机器位置
+		 */
+		@UtilFunctions
+		public static void drawInstantRobot(@NonNull Pose2d pose){
+			TelemetryPacket packet=new TelemetryPacket();
+			packet.fieldOverlay().setStroke(Blue);
+			drawRobot(packet.fieldOverlay(),pose);
+			FtcDashboard.getInstance().sendTelemetryPacket(packet);
+		}
+
+		/**
+		 * 默认为蓝色
+		 * @param pose 机器位置
+		 * @param packet 使用packet绘制机器
+		 */
+		@UtilFunctions
+		public static void drawRobotUsingPacket(@NonNull Pose2d pose,@NonNull TelemetryPacket packet){
+			packet.fieldOverlay().setStroke(Blue);
+			drawRobot(packet.fieldOverlay(),pose);
+			FtcDashboard.getInstance().sendTelemetryPacket(packet);
+		}
+		/**
+		 * @param pose 机器位置
+		 * @param packet 使用packet绘制机器
+		 */
+		@UtilFunctions
+		public static void drawRobotUsingPacket(@NonNull Pose2d pose,@NonNull TelemetryPacket packet,@NonNull String color){
+			packet.fieldOverlay().setStroke(color);
+			packet.fieldOverlay().setStroke(Blue);
+			drawRobot(packet.fieldOverlay(),pose);
+			FtcDashboard.getInstance().sendTelemetryPacket(packet);
+		}
+	}
+	public Telemetry telemetry;
+	public TelemetryPacket packet;
 	private final Map < String , Pair < String , Integer > > data;
 	private final Map < String , Integer > lines;
 	private int ID=0;
@@ -23,6 +92,7 @@ public class Client {
 		this.telemetry=telemetry;
 		data =new HashMap<>();
 		lines=new HashMap<>();
+		packet=new TelemetryPacket();
 		update();
 	}
 
@@ -150,5 +220,57 @@ public class Client {
 			telemetry.addLine("["+ outputLine.first+"]"+ outputLine.second);
 		}
 		telemetry.update();
+
+		FtcDashboard.getInstance().sendTelemetryPacket(packet);
+	}
+
+
+	/**
+	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw
+	 * <p>
+	 * 同时会在DashBoard中发送机器的位置信息
+	 * @see Drawing
+	 */
+	@ExtractedInterfaces
+	public void DrawRobot(@NonNull Pose2d pose2d){
+		Drawing.drawRobotUsingPacket(pose2d,packet);
+		packet.put("X",pose2d.position.x);
+		packet.put("Y",pose2d.position.y);
+		packet.put("Heading(DEG)", Math.toDegrees(pose2d.heading.toDouble()));
+		update();
+	}
+	/**
+	 * 可以自动使用packet进行draw
+	 * <p>
+	 * 同时会在DashBoard中发送机器的位置信息
+	 * @see Drawing
+	 */
+	@ExtractedInterfaces
+	public void DrawTargetRobot(@NonNull Pose2d pose2d){
+		Drawing.drawRobotUsingPacket(pose2d,packet,Drawing.Green);
+		packet.put("TargetX",pose2d.position.x);
+		packet.put("TargetY",pose2d.position.y);
+		packet.put("TargetHeading(DEG)", Math.toDegrees(pose2d.heading.toDouble()));
+		update();
+	}
+	@UtilFunctions
+	public void DrawLine(@NonNull Pose2d start,@NonNull Pose2d end){
+		Canvas c=packet.fieldOverlay();
+		c.setStroke(Drawing.Blue);
+		c.strokeLine(start.position.x,start.position.y,end.position.x,end.position.y);
+		update();
+	}
+	@UtilFunctions
+	public void DrawTargetLine(@NonNull Pose2d start,@NonNull Pose2d end){
+		Canvas c=packet.fieldOverlay();
+		c.setStroke(Drawing.Green);
+		c.strokeLine(start.position.x,start.position.y,end.position.x,end.position.y);
+		update();
+	}
+	@UtilFunctions
+	public void clearDashBoardScreen(){
+		packet=new TelemetryPacket();
+		FtcDashboard.getInstance().clearTelemetry();
+		update();
 	}
 }
