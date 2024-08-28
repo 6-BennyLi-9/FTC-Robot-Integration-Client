@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.utils.Templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "DeadWheelEncoders_Test",group = "tune")
 @TuningOpModes

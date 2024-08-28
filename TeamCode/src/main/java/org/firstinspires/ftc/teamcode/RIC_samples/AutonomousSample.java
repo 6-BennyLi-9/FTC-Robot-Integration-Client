@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.DriveCommandPackage;
-import org.firstinspires.ftc.teamcode.utils.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.utils.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.Enums.AutonomousLocation;
 
 @Autonomous(name = "AutonomousSample",group = "SAMPLE")
