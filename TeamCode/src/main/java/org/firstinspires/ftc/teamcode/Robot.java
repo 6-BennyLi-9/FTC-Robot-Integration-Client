@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
@@ -44,7 +46,7 @@ public class Robot {
 
 	public State state;
 	public runningState RunningState;
-	private SimpleMecanumDrive drive=null;//如果您不想使用我们的drive，那么保留drive的值为null是没问题的
+	private SimpleMecanumDrive drive=null;
 
 	public long StartTimeMills,NowTimeMills;
 
@@ -86,8 +88,11 @@ public class Robot {
 	 * 自动初始化SimpleMecanumDrive
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
-	public SimpleMecanumDrive enableSimpleMecanumDrive(Pose2d RobotPosition){
+	public SimpleMecanumDrive InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
+		if(RunningState!=runningState.Autonomous) {
+			Log.w("Robot.java","Initialized Driving Program in Manual Driving State.");
+		}
 		return drive;
 	}
 	private void InitInAutonomous(){

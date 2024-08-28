@@ -13,7 +13,7 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 
 	public void Init(Pose2d position){
 		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
-		drive=robot.enableSimpleMecanumDrive(position);
+		drive=robot.InitMecanumDrive(position);
 	}
 
 	/**

@@ -13,7 +13,7 @@ public class LocalizationTest extends TeleopProgramTemplate {
 	SimpleMecanumDrive drive;
 	@Override
 	public void whenInit() {
-		drive=robot.enableSimpleMecanumDrive(new Pose2d(0,0,0));
+		drive=robot.InitMecanumDrive(new Pose2d(0,0,0));
 		robot.addData("POSITION","WAIT FOR START");
 	}
 
