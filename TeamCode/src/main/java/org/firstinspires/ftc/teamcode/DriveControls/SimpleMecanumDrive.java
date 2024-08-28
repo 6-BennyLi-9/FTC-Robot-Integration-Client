@@ -416,7 +416,7 @@ public class SimpleMecanumDrive {
 
 		Canvas c=telemetryPacket.fieldOverlay();
 		c.setStroke("#3F51B5");
-		Drawing.drawRobot(c, RobotPosition);
+		Drawing.drawInstantRobot(RobotPosition);
 
 		poseHistory.add(RobotPosition);
 	}
