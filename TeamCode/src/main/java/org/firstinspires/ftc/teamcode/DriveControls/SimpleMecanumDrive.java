@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.Enums.State;
 import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -261,7 +262,7 @@ public class SimpleMecanumDrive {
 		yList=new double[commandLists.length+1];
 		xList[0]=commandLists[0].pose.position.x;
 		yList[0]=commandLists[0].pose.position.y;
-		long st,et;
+		Timer timer = new Timer();
 		for ( int i = 0, commandListsLength = commandLists.length; i < commandListsLength; i++ ) {
 			DriveCommand singleCommand = commandLists[i];
 			singleCommand.RUN();
@@ -290,16 +291,15 @@ public class SimpleMecanumDrive {
 			client.addData("progress","0%");
 			client.addData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
-			st=System.currentTimeMillis();
+			timer.restart();
 			while ((Math.abs(RobotPosition.position.x-xList[i+1])> pem)
 				&& (Math.abs(RobotPosition.position.y-yList[i+1])> pem)
 				&& (Math.abs(RobotPosition.heading.toDouble()-singleCommand.NEXT().heading.toDouble())> aem)){
-				et=System.currentTimeMillis();
-				double progress=((et - st) / 1000.0) / estimatedTime * 100;
+				double progress=(timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 				client.changeDate("progress", progress +"%");
 				Pose2d aim=getAimPositionThroughTrajectory(singleCommand,progress);
 
-				if(et>st+estimatedTime+ timeOutProtectionMills&& Params.Configs.useOutTimeProtection){//保护机制
+				if(timer.getDeltaTime()>estimatedTime+ timeOutProtectionMills&& Params.Configs.useOutTimeProtection){//保护机制
 					state=State.BrakeDown;
 					motors.updateDriveOptions();
 					break;

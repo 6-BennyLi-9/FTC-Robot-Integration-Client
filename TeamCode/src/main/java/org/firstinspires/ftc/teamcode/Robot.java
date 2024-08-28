@@ -17,16 +17,17 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive.drivingCo
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
-import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.Client;
-import org.firstinspires.ftc.teamcode.utils.PID_processor;
 import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
 import org.firstinspires.ftc.teamcode.utils.Enums.State;
 import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.utils.PID_processor;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 
 import java.util.Objects;
 
@@ -48,7 +49,7 @@ public class Robot {
 	public runningState RunningState;
 	private SimpleMecanumDrive drive=null;
 
-	public long StartTimeMills,NowTimeMills;
+	public Timer timer;
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
@@ -80,7 +81,7 @@ public class Robot {
 		}
 
 		RunningState=state;
-		StartTimeMills=System.currentTimeMillis();
+		timer=new Timer();
 		client.addData("State","UnKnow");
 	}
 
@@ -107,9 +108,7 @@ public class Robot {
 	}
 
 	public void update()  {
-		NowTimeMills=System.currentTimeMillis();
-
-		if(NowTimeMills-StartTimeMills>=90000){
+		if(timer.stopAndGetDeltaTime()>=90000){
 			state=State.FinalState;
 		}
 
