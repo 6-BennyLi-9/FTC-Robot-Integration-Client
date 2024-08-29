@@ -107,4 +107,19 @@ public class DriveCommand implements DriveOrder {
 				pose.heading.toDouble() + DeltaTrajectory.heading.toDouble()
 		);
 	}
+
+	@Override
+	public double getBufVal() {
+		return BufPower;
+	}
+
+	@Override
+	public Pose2d getPose() {
+		return pose;
+	}
+
+	@Override
+	public TrajectoryType getState() {
+		return trajectoryType;
+	}
 }

@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
+
 public interface DriveOrder {
 	/**
 	 * 在该节点只修改电机BufPower，不会在定义时影响主程序
@@ -39,4 +41,8 @@ public interface DriveOrder {
 	 */
 	@NonNull
 	Pose2d NEXT();
+
+	double getBufVal();
+	Pose2d getPose();
+	TrajectoryType getState();
 }
