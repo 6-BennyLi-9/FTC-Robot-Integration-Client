@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.DriveControls.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 
 public class drivingCommandsBuilder {
 	private final DriveCommandPackage commandPackage;
-	private final SimpleMecanumDrive drive;
+	private final DriverProgram drive;
 	private DriveCommand cache;
 
 	public drivingCommandsBuilder(@NonNull SimpleMecanumDrive drive) {
@@ -19,7 +20,7 @@ public class drivingCommandsBuilder {
 		this.drive = drive;
 	}
 
-	drivingCommandsBuilder(SimpleMecanumDrive drive, DriveCommandPackage commandPackage) {
+	drivingCommandsBuilder(DriverProgram drive, DriveCommandPackage commandPackage) {
 		this.commandPackage = commandPackage;
 		this.drive = drive;
 	}
@@ -31,7 +32,7 @@ public class drivingCommandsBuilder {
 	 */
 	public drivingCommandsBuilder SetPower(double power) {
 		power = Mathematics.intervalClip(power, -1f, 1f);
-		cache = new DriveCommand(drive.classic, commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 		cache.SetPower(power);
 		cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
 		commandPackage.commands.add(cache);
@@ -45,7 +46,7 @@ public class drivingCommandsBuilder {
 	 */
 	public drivingCommandsBuilder TurnRadians(double radians) {
 		radians = Mathematics.intervalClip(radians, -Math.PI, Math.PI);
-		cache = new DriveCommand(drive.classic, commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 		cache.Turn(radians);
 		cache.trajectoryType = TrajectoryType.TurnOnly;
 		commandPackage.commands.add(cache);
@@ -68,7 +69,7 @@ public class drivingCommandsBuilder {
 	 * @param distance 要行驶的距离
 	 */
 	public drivingCommandsBuilder StrafeInDistance(double radians, double distance) {
-		cache = new DriveCommand(drive.classic, commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 		cache.StrafeInDistance(radians, distance);
 		cache.trajectoryType = TrajectoryType.LinerStrafe;
 		commandPackage.commands.add(cache);
@@ -81,7 +82,7 @@ public class drivingCommandsBuilder {
 	 * @param pose 目标矢量点位
 	 */
 	public drivingCommandsBuilder StrafeTo(Vector2d pose) {
-		cache = new DriveCommand(drive.classic, commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 		cache.StrafeTo(pose);
 		cache.trajectoryType = TrajectoryType.LinerStrafe;
 		commandPackage.commands.add(cache);

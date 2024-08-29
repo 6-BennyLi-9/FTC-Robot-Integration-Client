@@ -1,9 +1,12 @@
-package org.firstinspires.ftc.teamcode.DriveControls.Commands;
+package org.firstinspires.ftc.teamcode.DriveControls.Actions;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.DriveControls.DriveOrder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
@@ -12,19 +15,15 @@ import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 
-public class DriveCommand implements DriveOrder {
+public class DriveAction implements DriveOrder {
 	private final Classic classic;
 
 	/**
 	 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
 	 * <p>如果使用enum，则代码会明显过于臃肿</p>
 	 */
-	public abstract static class commandRunningNode {
-		public void runCommand() {
-		}
-	}
-
-	public commandRunningNode MEAN;
+	public abstract static class actionRunningNode implements Action {}
+	public actionRunningNode MEAN;
 	public double BufPower;
 	public Pose2d DeltaTrajectory;
 	public final Pose2d pose;
@@ -33,7 +32,7 @@ public class DriveCommand implements DriveOrder {
 	 */
 	public TrajectoryType trajectoryType = null;
 
-	DriveCommand(final Classic classic, double BufPower, Pose2d pose) {
+	DriveAction(final Classic classic, double BufPower, Pose2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
 		this.classic = classic;
@@ -41,48 +40,53 @@ public class DriveCommand implements DriveOrder {
 
 	@Override
 	public void SetPower(double power) {
-		MEAN = new commandRunningNode() {
+		MEAN=new actionRunningNode() {
 			@Override
-			public void runCommand() {
-				BufPower = power;
-				BufPower = Mathematics.intervalClip(BufPower, -1f, 1f);
+			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+				BufPower=power;
+				BufPower= Mathematics.intervalClip(BufPower,-1,1);
+				return false;
 			}
 		};
 	}
 
 	@Override
 	public void Turn(double radians) {
-		MEAN = new commandRunningNode() {
+		MEAN=new actionRunningNode() {
 			@Override
-			public void runCommand() {
+			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 				classic.drive(driveDirection.turn, BufPower);
+				return false;
 			}
 		};
-		DeltaTrajectory = new Pose2d(new Vector2d(0, 0), radians);
+		DeltaTrajectory = new Pose2d(0, 0, radians);
 	}
 
 	@Override
 	public void StrafeInDistance(double radians, double distance) {
-		MEAN = new commandRunningNode() {
+		MEAN=new actionRunningNode() {
 			@Override
-			public void runCommand() {
+			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 				classic.SimpleRadiansDrive(BufPower, radians);
+				return false;
 			}
 		};
 		DeltaTrajectory = new Pose2d(
 				(new Complex(new Vector2d(distance, 0))).times(new Complex(Math.toDegrees(radians)))
 						.divide(new Complex(Math.toDegrees(radians)).magnitude())
 						.toVector2d()
-				, radians);
+				, radians
+		);
 	}
 
 	@Override
 	public void StrafeTo(Vector2d pose) {
 		Complex cache = new Complex(this.pose.position.minus(pose));
-		MEAN = new commandRunningNode() {
+		MEAN=new actionRunningNode() {
 			@Override
-			public void runCommand() {
+			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 				classic.SimpleRadiansDrive(BufPower, Math.toRadians(cache.toDegree()));
+				return false;
 			}
 		};
 		DeltaTrajectory = new Pose2d(cache.toVector2d(), this.pose.heading);
@@ -90,7 +94,7 @@ public class DriveCommand implements DriveOrder {
 
 	@Override
 	public void RUN() {
-		MEAN.runCommand();
+		Actions.runBlocking(MEAN);
 	}
 
 	@Override
@@ -98,8 +102,8 @@ public class DriveCommand implements DriveOrder {
 		return DeltaTrajectory;
 	}
 
-	@Override
 	@NonNull
+	@Override
 	public Pose2d NEXT() {
 		return new Pose2d(
 				pose.position.x + DeltaTrajectory.position.x,

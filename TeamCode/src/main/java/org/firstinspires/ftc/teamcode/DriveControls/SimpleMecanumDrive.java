@@ -147,7 +147,12 @@ public class SimpleMecanumDrive implements DriverProgram{
 		classic.STOP();
 		state= State.IDLE;
 	}
-	
+
+	@Override
+	public Classic getClassic() {
+		return classic;
+	}
+
 	/**
 	 * @param driveCommandPackage 要执行的DriveCommandPackage，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
