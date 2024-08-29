@@ -11,7 +11,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
-import org.firstinspires.ftc.teamcode.DriveControls.Commands.drivingCommandsBuilder;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
@@ -208,8 +208,8 @@ public class SimpleMecanumDrive implements DriverProgram{
 	/**
 	 * @return 定义开启新的drivingCommandsBuilder
 	 */
-	public drivingCommandsBuilder drivingCommandsBuilder(){
-		return new drivingCommandsBuilder(this);
+	public DrivingCommandsBuilder drivingCommandsBuilder(){
+		return new DrivingCommandsBuilder(this);
 	}
 
 	@Override

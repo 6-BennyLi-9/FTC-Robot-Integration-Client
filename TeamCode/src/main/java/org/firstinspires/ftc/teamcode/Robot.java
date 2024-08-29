@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControls.Commands.drivingCommandsBuilder;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
@@ -132,7 +132,7 @@ public class Robot {
 		classic.operateThroughGamePad(gamepad1);
 		structure.operateThroughGamePad(gamepad2);
 	}
-	public drivingCommandsBuilder drivingCommandsBuilder(){
+	public DrivingCommandsBuilder drivingCommandsBuilder(){
 		return drive.drivingCommandsBuilder();
 	}
 

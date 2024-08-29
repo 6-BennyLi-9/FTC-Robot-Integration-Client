@@ -33,7 +33,7 @@ public class DriveCommand implements DriveOrder {
 	 */
 	public TrajectoryType trajectoryType = null;
 
-	DriveCommand(final Classic classic, double BufPower, Pose2d pose) {
+	public DriveCommand(final Classic classic, double BufPower, Pose2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
 		this.classic = classic;
