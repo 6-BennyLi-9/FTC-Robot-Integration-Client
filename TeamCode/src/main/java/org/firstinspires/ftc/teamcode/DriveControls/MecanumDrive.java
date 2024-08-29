@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Client;
 import org.firstinspires.ftc.teamcode.Utils.Client.Drawing;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
@@ -31,6 +32,7 @@ import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 import java.util.LinkedList;
 
+@DrivingPrograms
 public class MecanumDrive implements DriverProgram{
 	public final Classic classic;
 	private final Motors motors;

@@ -109,11 +109,6 @@ public class DriveCommand implements DriveOrder {
 	}
 
 	@Override
-	public double getBufVal() {
-		return BufPower;
-	}
-
-	@Override
 	public Pose2d getPose() {
 		return pose;
 	}

@@ -113,11 +113,6 @@ public class DriveAction implements DriveOrder {
 	}
 
 	@Override
-	public double getBufVal() {
-		return BufPower;
-	}
-
-	@Override
 	public Pose2d getPose() {
 		return pose;
 	}

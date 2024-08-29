@@ -42,7 +42,6 @@ public interface DriveOrder {
 	@NonNull
 	Pose2d NEXT();
 
-	double getBufVal();
 	Pose2d getPose();
 	TrajectoryType getState();
 }

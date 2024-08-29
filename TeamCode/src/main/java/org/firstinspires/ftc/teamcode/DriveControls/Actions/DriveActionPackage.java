@@ -21,15 +21,4 @@ public class DriveActionPackage implements DriveOrderPackage {
 		return res;
 	}
 
-	@Override
-	public void setOrder(LinkedList<DriveOrder> val) {
-		if(val != null) {
-			actions=new LinkedList<>();
-			for (DriveOrder order : val) {
-				actions.push((DriveAction) order);
-			}
-		}else{
-			throw new NullPointerException();
-		}
-	}
 }

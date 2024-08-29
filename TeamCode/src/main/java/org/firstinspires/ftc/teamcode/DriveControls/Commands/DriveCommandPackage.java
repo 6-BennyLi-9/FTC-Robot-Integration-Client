@@ -24,15 +24,4 @@ public class DriveCommandPackage implements DriveOrderPackage {
 		return res;
 	}
 
-	@Override
-	public void setOrder(LinkedList<DriveOrder> val) {
-		if(val != null) {
-			commands=new LinkedList<>();
-			for (DriveOrder order : val) {
-				commands.push((DriveCommand) order);
-			}
-		}else{
-			throw new NullPointerException();
-		}
-	}
 }
