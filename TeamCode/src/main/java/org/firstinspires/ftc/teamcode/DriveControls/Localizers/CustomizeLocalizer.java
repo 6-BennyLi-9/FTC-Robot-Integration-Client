@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode.DriveControls.Localizers;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.LocalizerPlugin;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.SubassemblyLocalizer;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.DeadWheelLocalizer;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.plugins.ImuLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.LocalizerPlugin;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.SubassemblyLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerPlugins.DeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerPlugins.ImuLocalizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.utils.Annotations.LocalizationSubassembly;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationSubassembly;
 
 @LocalizationSubassembly
 public class CustomizeLocalizer extends SubassemblyLocalizer implements Localizer {

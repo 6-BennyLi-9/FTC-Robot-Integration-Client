@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.DriveControls.Actions;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
-import org.firstinspires.ftc.teamcode.DriveControls.DriveOrder;
-import org.firstinspires.ftc.teamcode.DriveControls.DriveOrderPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 
 import java.util.LinkedList;
 

@@ -13,16 +13,16 @@ import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Client;
-import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Enums.State;
-import org.firstinspires.ftc.teamcode.utils.PID_processor;
-import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.Utils.Client;
+import org.firstinspires.ftc.teamcode.Utils.Complex;
+import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.PID_processor;
+import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 import java.util.LinkedList;
 

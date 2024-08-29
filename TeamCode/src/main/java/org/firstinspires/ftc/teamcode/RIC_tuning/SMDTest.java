@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.Templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
+import org.firstinspires.ftc.teamcode.Utils.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")
 @TuningOpModes

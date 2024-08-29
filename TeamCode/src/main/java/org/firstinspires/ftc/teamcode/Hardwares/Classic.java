@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Enums.Quadrant;
-import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
+import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 
 public class Classic {
 	public Motors motors;

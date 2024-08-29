@@ -8,12 +8,12 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
-import org.firstinspires.ftc.teamcode.DriveControls.DriveOrder;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.Utils.Complex;
+import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 
 public class DriveAction implements DriveOrder {
 	private final Classic classic;

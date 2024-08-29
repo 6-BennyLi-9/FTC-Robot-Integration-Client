@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.utils.Exceptions.UnKnownErrorsException;
+import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
 public class Structure {
 	Motors motors;

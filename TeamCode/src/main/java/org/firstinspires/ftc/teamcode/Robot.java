@@ -21,13 +21,13 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
-import org.firstinspires.ftc.teamcode.utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.Client;
-import org.firstinspires.ftc.teamcode.utils.Enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.utils.Enums.State;
-import org.firstinspires.ftc.teamcode.utils.Enums.runningState;
-import org.firstinspires.ftc.teamcode.utils.PID_processor;
-import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.Utils.Client;
+import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.PID_processor;
+import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 import java.util.Objects;
 

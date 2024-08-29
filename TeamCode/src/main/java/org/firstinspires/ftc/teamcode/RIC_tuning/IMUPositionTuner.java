@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
+import org.firstinspires.ftc.teamcode.Utils.Templates.AutonomousProgramTemplate;
 
 /**
  * 1.把机器的正方向的边缘对齐放在地垫的交界处

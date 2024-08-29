@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.Enums.DeadWheelsType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.DeadWheelsType;
 
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好

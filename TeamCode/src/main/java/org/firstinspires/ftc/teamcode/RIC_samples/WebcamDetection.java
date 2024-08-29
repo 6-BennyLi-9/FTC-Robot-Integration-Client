@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
-import org.firstinspires.ftc.teamcode.utils.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Templates.AutonomousProgramTemplate;
 
 @Disabled
 @Autonomous (name = "WebcamDetection",group = "sample")

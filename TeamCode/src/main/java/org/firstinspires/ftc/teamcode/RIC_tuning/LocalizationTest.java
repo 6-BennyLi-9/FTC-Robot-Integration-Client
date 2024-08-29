@@ -4,8 +4,8 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.utils.Templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
+import org.firstinspires.ftc.teamcode.Utils.Templates.TeleopProgramTemplate;
 
 @TeleOp(name = "LocalizationTest",group = "tune")
 @TuningOpModes
