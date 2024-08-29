@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.DriveControls.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.utils.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.Enums.AutonomousLocation;
 
@@ -36,7 +36,7 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 						.TurnAngle(90)
 						.StrafeInDistance(Math.toRadians(-90),Math.sqrt(1152))
 						.END();
-				drive.runDriveCommandPackage(command);
+				drive.runCommandPackage(command);
 				break;
 			case right:
 				break;

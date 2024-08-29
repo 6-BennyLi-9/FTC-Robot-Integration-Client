@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.drivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
@@ -23,15 +26,15 @@ import org.firstinspires.ftc.teamcode.utils.Timer;
 
 import java.util.LinkedList;
 
-public class SimpleMecanumDrive {
-	protected final Classic classic;
+public class SimpleMecanumDrive implements DriverProgram{
+	public final Classic classic;
 	private final Motors motors;
 	private final Client client;
 	private final PID_processor pidProcessor;
 	
-	protected final LinkedList<Pose2d> poseHistory = new LinkedList<>();
+	public final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	public Pose2d RobotPosition;
-	protected double BufPower=1f;
+	public double BufPower=1f;
 
 	public final Localizer localizer;
 
@@ -56,7 +59,8 @@ public class SimpleMecanumDrive {
 	/**
 	 * @param commands 要执行的LinkedList < DriveCommand >，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
-	public void runDriveCommands(@NonNull LinkedList < DriveCommand > commands){
+	@Override
+	public void runCommandPackage(@NonNull LinkedList <DriveCommand> commands){
 		DriveCommand[] commandLists=new DriveCommand[commands.size()];
 		commands.toArray(commandLists);
 		Vector2d[] PoseList;
@@ -147,8 +151,9 @@ public class SimpleMecanumDrive {
 	/**
 	 * @param driveCommandPackage 要执行的DriveCommandPackage，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
-	public void runDriveCommandPackage(@NonNull DriveCommandPackage driveCommandPackage){
-		runDriveCommands(driveCommandPackage.commands);
+	@Override
+	public void runCommandPackage(@NonNull DriveCommandPackage driveCommandPackage){
+		runCommandPackage(driveCommandPackage.commands);
 	}
 	
 	/**
@@ -202,6 +207,7 @@ public class SimpleMecanumDrive {
 		return new drivingCommandsBuilder(this);
 	}
 
+	@Override
 	public void update(){
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();

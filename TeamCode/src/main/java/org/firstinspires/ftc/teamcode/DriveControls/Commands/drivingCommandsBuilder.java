@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.DriveControls;
+package org.firstinspires.ftc.teamcode.DriveControls.Commands;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utils.Enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 
@@ -12,7 +13,7 @@ public class drivingCommandsBuilder {
 	private final SimpleMecanumDrive drive;
 	private DriveCommand cache;
 
-	drivingCommandsBuilder(@NonNull SimpleMecanumDrive drive) {
+	public drivingCommandsBuilder(@NonNull SimpleMecanumDrive drive) {
 		commandPackage = new DriveCommandPackage();
 		commandPackage.commands.add(new DriveCommand(drive.classic, drive.BufPower, drive.poseHistory.getLast()));
 		this.drive = drive;

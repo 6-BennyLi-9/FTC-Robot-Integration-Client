@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControls.drivingCommandsBuilder;
+import org.firstinspires.ftc.teamcode.DriveControls.Commands.drivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
@@ -142,11 +142,11 @@ public class Robot {
 	 */
 	public void turnAngle(double angle){
 		if(RunningState==runningState.ManualDrive)return;
-		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
+		drive.runCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
 		if(RunningState==runningState.ManualDrive)return;
-		drive.runDriveCommandPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
+		drive.runCommandPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
 	}
 
 	public Pose2d pose(){
@@ -160,7 +160,7 @@ public class Robot {
 	 */
 	public void SetGlobalBufPower(double BufPower){
 		if(drive!=null) {
-			drive.runDriveCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
+			drive.runCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
 		}
 		motors.setBufPower(BufPower);
 	}
