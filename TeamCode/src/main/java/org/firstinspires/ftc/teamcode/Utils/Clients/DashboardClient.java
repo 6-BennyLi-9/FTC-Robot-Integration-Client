@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Utils.Clients;
 
+import android.util.Pair;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -57,13 +59,19 @@ public class DashboardClient {
 			FtcDashboard.getInstance().sendTelemetryPacket(packet);
 		}
 	}
-	private final Map< String , TelemetryPacket > packets;
+	private final Map< Integer , Pair < String , TelemetryPacket > > packets;
 	private int ID=0;
 
 	public DashboardClient(){
 		packets=new HashMap<>();
 	}
 
+	private void pushPacket(TelemetryPacket packet, @NonNull Object tag){
+		packets.put(++ID,new Pair<>(String.valueOf(tag),packet));
+	}
+	private void pushPacket(TelemetryPacket packet){
+		pushPacket(packet,ID+1);
+	}
 
 	/**
 	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw
@@ -78,7 +86,7 @@ public class DashboardClient {
 		packet.put("TargetX", pose.position.x);
 		packet.put("TargetY", pose.position.y);
 		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading.toDouble()));
-		packets.put(String.valueOf(++ID),packet);
+		pushPacket(packet);
 		update();
 	}
 
@@ -107,7 +115,7 @@ public class DashboardClient {
 		Canvas c=packet.fieldOverlay();
 		c.setStroke(Blue);
 		c.strokeLine(sx,sy,ex,ey);
-		packets.put(String.valueOf(++ID),packet);
+		pushPacket(packet);
 		update();
 	}
 
@@ -117,7 +125,7 @@ public class DashboardClient {
 		Canvas c=packet.fieldOverlay();
 		c.setStroke(Green);
 		c.strokeLine(start.position.x,start.position.y,end.position.x,end.position.y);
-		packets.put(String.valueOf(++ID),packet);
+		pushPacket(packet);
 		update();
 	}
 	@UtilFunctions
@@ -127,8 +135,8 @@ public class DashboardClient {
 	}
 	public void update(){
 		FtcDashboard.getInstance().clearTelemetry();
-		for (Map.Entry<String, TelemetryPacket> entry : packets.entrySet()) {
-			TelemetryPacket packet = entry.getValue();
+		for (Map.Entry<Integer, Pair<String, TelemetryPacket>> entry : packets.entrySet()) {
+			TelemetryPacket packet = entry.getValue().second;
 			FtcDashboard.getInstance().sendTelemetryPacket(packet);
 		}
 		FtcDashboard.getInstance().updateConfig();
