@@ -21,14 +21,6 @@ public class PID_processor {
 		P=new double[N];
 		I=new double[N];
 		D=new double[N];
-
-		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
-		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
-		Params.PIDParams.kP= new double[]{0.12, 0.15, 0.12};
-		Params.PIDParams.kI= new double[]{0, 0, 0};
-		Params.PIDParams.kD= new double[]{0.04, 0.05, 0.04};
-
-		Params.PIDParams.MAX_I= new double[]{100, 100, 0};//可以用0代替所有与角度有关的I
 	}
 
 	private void I_processor(int ID){

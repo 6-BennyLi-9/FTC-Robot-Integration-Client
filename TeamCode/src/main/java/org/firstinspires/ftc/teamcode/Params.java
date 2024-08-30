@@ -1,12 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
+
+@Config
 public final class Params {
+	@Config
 	public final static class PIDParams{
-		public static double[] kP;
-		public static double[] kI;
-		public static double[] kD;
-		public static double[] MAX_I;
+		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
+		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
+		public static double[] kP= new double[]{0.12, 0.15, 0.12};
+		public static double[] kI= new double[]{0, 0, 0};
+		public static double[] kD= new double[]{0.04, 0.05, 0.04};
+		public static double[] MAX_I= new double[]{100, 100, 0};
 	}
+	@Config
 	public final static class Configs{
 		/**让机器自动在运行<code>update()</code>时，自动清除所有电机的<code>power</code>*/
 		public static boolean autoPrepareForNextOptionWhenUpdate = true;
@@ -25,6 +32,7 @@ public final class Params {
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
 	}
+	@Config
 	public final static class namespace{
 		public static String LeftFront="leftFront";
 		public static String RightFront="rightFront";
@@ -41,43 +49,43 @@ public final class Params {
 	 * 每Tick机器所旋转的角度
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.TurningDegPerTickTest
 	 */
-	public static final double TurningDegPerTick = 0.01339983622422392615201369761;
+	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所前进的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
 	 */
-	public static final double AxialInchPerTick=0.001131541725601131541725601132;
+	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * 每Tick机器所平移的距离
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
 	 */
-	public static final double LateralInchPerTick=AxialInchPerTick;
+	public static double LateralInchPerTick=AxialInchPerTick;
 	/**
 	 * IMU相较于机器的正中心在X轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
 	 */
-	public static final double X_error=0;
+	public static double X_error=0;
 	/**
 	 * IMU相较于机器的正中心在Y轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
 	 */
-	public static final double Y_error=0;
+	public static double Y_error=0;
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 */
-	public static final double vP=0;
+	public static double vP=0;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */
-	public static final double pem=0.5;
+	public static double pem=0.5;
 	/**
 	 *angleErrorMargin，单位：度
 	 */
-	public static final double aem=1;
+	public static double aem=1;
 	/**
 	 * 机器的超时保护机制，如果超过该时间，机器仍未到达点位，则会强制取消点位的执行
 	 */
-	public static final double timeOutProtectionMills=1000;
+	public static double timeOutProtectionMills=1000;
 	/**
 	 * 左侧死轮和右侧死轮的距离
 	 */
@@ -89,21 +97,21 @@ public final class Params {
 	/**
 	 * 在执行手动程序时，由Classic下达的XPower命令的倍率因数
 	 */
-	public static final double factorXPower=1;
+	public static double factorXPower=1;
 	/**
 	 * 在执行手动程序时，由Classic下达的YPower命令的倍率因数
 	 */
-	public static final double factorYPower=1;
+	public static double factorYPower=1;
 	/**
 	 * 在执行手动程序时，由Classic下达的HeadingPower命令的倍率因数
 	 */
-	public static final double factorHeadingPower=1;
+	public static double factorHeadingPower=1;
 	/**
 	 * 在执行手动程序时，由Structure下达的IntakePower命令的倍率因数
 	 */
-	public static final double factorIntakePower=1;
+	public static double factorIntakePower=1;
 	/**
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
-	public static final double factorSuspensionArmPower=1;
+	public static double factorSuspensionArmPower=1;
 }
