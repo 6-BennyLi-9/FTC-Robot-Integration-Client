@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
+import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,44 +72,45 @@ public class DashboardClient {
 	 * @see Drawing
 	 */
 	@ExtractedInterfaces
-	public void DrawRobot(@NonNull Pose2d pose){
-		TelemetryPacket packet = new TelemetryPacket();
-		Drawing.drawRobotUsingPacket(pose, packet);
-		packet.put("X", pose.position.x);
-		packet.put("Y", pose.position.y);
-		packet.put("Heading(DEG)", Math.toDegrees(pose.heading.toDouble()));
-		packets.put(String.valueOf(++ID), packet);
-		update();
-	}
-	/**
-	 * 可以自动使用packet进行draw
-	 * <p>
-	 * 同时会在DashBoard中发送机器的位置信息
-	 * @see Drawing
-	 */
-	@ExtractedInterfaces
-	public void DrawTargetRobot(@NonNull Pose2d pose2d){
+	public void DrawRobot(@NonNull Pose2d pose,@NonNull String color){
 		TelemetryPacket packet=new TelemetryPacket();
-		Drawing.drawRobotUsingPacket(pose2d,packet, Green);
-		packet.put("TargetX",pose2d.position.x);
-		packet.put("TargetY",pose2d.position.y);
-		packet.put("TargetHeading(DEG)", Math.toDegrees(pose2d.heading.toDouble()));
+		Drawing.drawRobotUsingPacket(pose,packet, color);
+		packet.put("TargetX", pose.position.x);
+		packet.put("TargetY", pose.position.y);
+		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading.toDouble()));
 		packets.put(String.valueOf(++ID),packet);
 		update();
 	}
+
 	@UtilFunctions
-	public void DrawLine(@NonNull Pose2d start,@NonNull Pose2d end){
-		DrawLine(start.position,end.position);
-	}
-	@UtilFunctions
-	public void DrawLine(@NonNull Vector2d start, @NonNull Vector2d end){
+	public void DrawLine(@NonNull Object start,@NonNull Object end){
+		double sx,sy,ex,ey;
+		if(start.getClass()==Vector2d.class){
+			sx=((Vector2d) start).x;
+			sy=((Vector2d) start).y;
+		}else if(start.getClass()==Pose2d.class){
+			sx=((Pose2d) start).position.x;
+			sy=((Pose2d) start).position.y;
+		}else{
+			throw new UnKnownErrorsException(start.getClass().toString());
+		}
+		if(end.getClass()==Vector2d.class){
+			ex=((Vector2d) end).x;
+			ey=((Vector2d) end).y;
+		}else if(end.getClass()==Pose2d.class){
+			ex=((Pose2d) end).position.x;
+			ey=((Pose2d) end).position.y;
+		}else{
+			throw new UnKnownErrorsException(end.getClass().toString());
+		}
 		TelemetryPacket packet=new TelemetryPacket();
 		Canvas c=packet.fieldOverlay();
 		c.setStroke(Blue);
-		c.strokeLine(start.x,start.y,end.x,end.y);
+		c.strokeLine(sx,sy,ex,ey);
 		packets.put(String.valueOf(++ID),packet);
 		update();
 	}
+
 	@UtilFunctions
 	public void DrawTargetLine(@NonNull Pose2d start,@NonNull Pose2d end){
 		TelemetryPacket packet=new TelemetryPacket();

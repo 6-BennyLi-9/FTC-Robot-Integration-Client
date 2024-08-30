@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.DriveControls;
 import static org.firstinspires.ftc.teamcode.Params.aem;
 import static org.firstinspires.ftc.teamcode.Params.pem;
 import static org.firstinspires.ftc.teamcode.Params.timeOutProtectionMills;
+import static org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient.Blue;
 
 import androidx.annotation.NonNull;
 
@@ -71,7 +72,7 @@ public class MecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.DrawRobot(RobotPosition);
+		client.dashboard.DrawRobot(RobotPosition, Blue);
 
 		poseHistory.add(RobotPosition);
 	}
