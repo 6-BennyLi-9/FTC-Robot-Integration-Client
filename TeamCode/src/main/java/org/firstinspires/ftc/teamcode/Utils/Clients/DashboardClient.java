@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
 
 public class DashboardClient {
@@ -61,17 +62,28 @@ public class DashboardClient {
 			FtcDashboard.getInstance().sendTelemetryPacket(packet);
 		}
 	}
+	public int retainPacketsCount;
 	private final Map< Integer , Pair < String , TelemetryPacket > > packets;
-	private int ID=0;
+	private int ID=0,DEAD_ID=0;
 
 	public DashboardClient(){
 		packets=new HashMap<>();
+		retainPacketsCount=100;
 	}
 
-	private void pushPacket(TelemetryPacket packet, @NonNull Object tag){
+	/**
+	 * 自动update()
+	 */
+	@UtilFunctions
+	public void pushPacket(TelemetryPacket packet, @NonNull Object tag){
 		packets.put(++ID,new Pair<>(String.valueOf(tag),packet));
+		update();
 	}
-	private void pushPacket(TelemetryPacket packet){
+	/**
+	 * 自动update()
+	 */
+	@ExtractedInterfaces
+	public void pushPacket(TelemetryPacket packet){
 		pushPacket(packet,ID+1);
 	}
 
@@ -98,7 +110,6 @@ public class DashboardClient {
 		packet.put("TargetY", pose.position.y);
 		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading.toDouble()));
 		pushPacket(packet,tag);
-		update();
 	}
 
 	@UtilFunctions
@@ -137,12 +148,42 @@ public class DashboardClient {
 		c.setStroke(color);
 		c.strokeLine(sx,sy,ex,ey);
 		pushPacket(packet,tag);
+	}
+
+	@UtilFunctions
+	public void deletePacketByTag(String tag){
+		for (Map.Entry<Integer, Pair<String, TelemetryPacket>> entry : packets.entrySet()){
+			if(Objects.equals(entry.getValue().first, tag)){
+				packets.remove(entry.getKey());
+			}
+		}
+	}
+	@UtilFunctions
+	public void deletePacketByID(Integer ID){
+		if(packets.containsKey(ID)){
+			packets.remove(ID);
+		}else{
+			throw new RuntimeException("can't find the key \""+ID+"\".");
+		}
 		update();
 	}
+
+	/**
+	 * @param length 保留的packet个数，其他的packet将会被删去
+	 */
+	@UtilFunctions
+	public void popRedundantPackets(int length){
+		if(packets.size()>length){
+			while (!packets.containsKey(DEAD_ID))++DEAD_ID;
+			while(packets.size()!=length){
+				packets.remove(DEAD_ID);
+			}
+		}
+	}
+
 	@UtilFunctions
 	public void clearDashBoardScreen(){
 		packets.clear();
-		update();
 	}
 	public void update(){
 		FtcDashboard.getInstance().clearTelemetry();
