@@ -142,11 +142,11 @@ public class Robot {
 	 */
 	public void turnAngle(double angle){
 		if(RunningState==runningState.ManualDrive)return;
-		drive.runCommandPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
+		drive.runOrderPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
 		if(RunningState==runningState.ManualDrive)return;
-		drive.runCommandPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
+		drive.runOrderPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
 	}
 
 	public Pose2d pose(){
@@ -160,7 +160,7 @@ public class Robot {
 	 */
 	public void SetGlobalBufPower(double BufPower){
 		if(drive!=null) {
-			drive.runCommandPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
+			drive.runOrderPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
 		}
 		motors.setBufPower(BufPower);
 	}

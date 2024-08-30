@@ -72,21 +72,22 @@ public class MecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.DrawRobot(RobotPosition, Blue);
+		client.dashboard.deletePacketByTag("RobotPosition");
+		client.dashboard.DrawRobot(RobotPosition, Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);
 	}
 
 	@Override
-	public void runCommandPackage(@NonNull DriveOrderPackage orderPackage) {
-		runCommandPackage(orderPackage.getOrder());
+	public void runOrderPackage(@NonNull DriveOrderPackage orderPackage) {
+		runOrderPackage(orderPackage.getOrder());
 	}
 
 	/**
 	 * @see SimpleMecanumDrive
 	 */
 	@Override
-	public void runCommandPackage(@NonNull LinkedList<DriveOrder> orders) {
+	public void runOrderPackage(@NonNull LinkedList<DriveOrder> orders) {
 		DriveAction[] commandLists=new DriveAction[orders.size()];
 		for (int i = 0 ; i < orders.size(); i++) {
 			commandLists[i]= (DriveAction) orders.get(i);

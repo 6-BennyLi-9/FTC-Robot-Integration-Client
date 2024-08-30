@@ -65,7 +65,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 	 * @param orders 要执行的LinkedList < DriveCommand >，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
 	@Override
-	public void runCommandPackage(@NonNull LinkedList<DriveOrder> orders){
+	public void runOrderPackage(@NonNull LinkedList<DriveOrder> orders){
 		DriveCommand[] commandLists=new DriveCommand[orders.size()];
 		for (int i = 0 ; i < orders.size(); i++) {
 			commandLists[i]= (DriveCommand) orders.get(i);
@@ -82,7 +82,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 			motors.updateDriveOptions(RobotPosition.heading.toDouble());
 
 			PoseList[i+1]=singleCommand.NEXT().position;
-			client.dashboard.DrawLine(PoseList[i],PoseList[i+1]);
+			client.dashboard.DrawLine(PoseList[i],PoseList[i+1],"TargetLine");
 
 			this.BufPower= singleCommand.BufPower;
 			double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
@@ -150,6 +150,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		client.deleteData("estimatedTime");
 		client.deleteData("progress");
 		client.deleteData("DELTA");
+		client.dashboard.deletePacketByTag("TargetLine");
 
 		classic.STOP();
 		state= State.IDLE;
@@ -164,8 +165,8 @@ public class SimpleMecanumDrive implements DriverProgram {
 	 * @param driveOrderPackage 要执行的DriveCommandPackage，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
 	@Override
-	public void runCommandPackage(@NonNull DriveOrderPackage driveOrderPackage){
-		runCommandPackage(driveOrderPackage.getOrder());
+	public void runOrderPackage(@NonNull DriveOrderPackage driveOrderPackage){
+		runOrderPackage(driveOrderPackage.getOrder());
 	}
 
 	/**
@@ -180,7 +181,8 @@ public class SimpleMecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.DrawRobot(RobotPosition, Blue);
+		client.dashboard.deletePacketByTag("RobotPosition");
+		client.dashboard.DrawRobot(RobotPosition, Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);
 	}

@@ -112,14 +112,23 @@ public class DashboardClient {
 		pushPacket(packet,tag);
 	}
 
+	/**
+	 * 自动选择：蓝色，将 ID 作为tag
+	 */
 	@UtilFunctions
 	public void DrawLine(@NonNull Object start,@NonNull Object end){
 		DrawLine(start,end,ID+1);
 	}
+	/**
+	 * 自动选择：将 ID 作为tag
+	 */
 	@UtilFunctions
-	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull String color){
+	public void DrawLine(@NonNull String color,@NonNull Object start,@NonNull Object end){
 		DrawLine(start,end,ID+1,color);
 	}
+	/**
+	 * 自动选择：蓝色
+	 */
 	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag){
 		DrawLine(start,end,tag,Blue);
 	}

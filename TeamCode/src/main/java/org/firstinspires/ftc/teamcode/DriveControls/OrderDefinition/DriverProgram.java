@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public interface DriverProgram {
 	void update();
-	default void runCommandPackage(@NonNull DriveOrderPackage orderPackage){}
-	default void runCommandPackage(@NonNull LinkedList<DriveOrder> orders){}
+	default void runOrderPackage(@NonNull DriveOrderPackage orderPackage){}
+	default void runOrderPackage(@NonNull LinkedList<DriveOrder> orders){}
 	Classic getClassic();
 }

@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
+import org.firstinspires.ftc.teamcode.DriveControls.MecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
 import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
@@ -120,5 +124,10 @@ public class DriveAction implements DriveOrder {
 	@Override
 	public TrajectoryType getState() {
 		return trajectoryType;
+	}
+
+	@ExtractedInterfaces
+	public Action AsAction(MecanumDrive drive){
+		return new InstantAction(() -> drive.runOrderPackage((DriveOrderPackage) this));
 	}
 }

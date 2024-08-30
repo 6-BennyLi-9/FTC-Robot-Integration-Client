@@ -36,7 +36,7 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 						.TurnAngle(90)
 						.StrafeInDistance(Math.toRadians(-90),Math.sqrt(1152))
 						.END();
-				drive.runCommandPackage(command);
+				drive.runOrderPackage(command);
 				break;
 			case right:
 				break;

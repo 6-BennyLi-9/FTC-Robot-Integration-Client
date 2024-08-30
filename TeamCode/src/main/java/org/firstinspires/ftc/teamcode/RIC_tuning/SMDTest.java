@@ -35,7 +35,7 @@ public class SMDTest extends AutonomousProgramTemplate {
 				.StrafeTo(new Vector2d(24,0))
 				.END();
 
-		drive.runCommandPackage(trajectory);
+		drive.runOrderPackage(trajectory);
 		robot.update();
 		robot.turnAngle(-90);
 
