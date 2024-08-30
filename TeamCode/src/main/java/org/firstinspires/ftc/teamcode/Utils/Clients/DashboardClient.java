@@ -83,17 +83,36 @@ public class DashboardClient {
 	 */
 	@ExtractedInterfaces
 	public void DrawRobot(@NonNull Pose2d pose,@NonNull String color){
+		DrawRobot(pose,color,ID+1);
+	}
+	/**
+	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw
+	 * <p>
+	 * 同时会在DashBoard中发送机器的位置信息
+	 * @see Drawing
+	 */
+	public void DrawRobot(@NonNull Pose2d pose,@NonNull String color,@NonNull Object tag){
 		TelemetryPacket packet=new TelemetryPacket();
 		Drawing.drawRobotUsingPacket(pose,packet, color);
 		packet.put("TargetX", pose.position.x);
 		packet.put("TargetY", pose.position.y);
 		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading.toDouble()));
-		pushPacket(packet);
+		pushPacket(packet,tag);
 		update();
 	}
 
 	@UtilFunctions
 	public void DrawLine(@NonNull Object start,@NonNull Object end){
+		DrawLine(start,end,ID+1);
+	}
+	@UtilFunctions
+	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull String color){
+		DrawLine(start,end,ID+1,color);
+	}
+	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag){
+		DrawLine(start,end,tag,Blue);
+	}
+	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag,String color){
 		double sx,sy,ex,ey;
 		if(start.getClass()==Vector2d.class){
 			sx=((Vector2d) start).x;
@@ -115,19 +134,9 @@ public class DashboardClient {
 		}
 		TelemetryPacket packet=new TelemetryPacket();
 		Canvas c=packet.fieldOverlay();
-		c.setStroke(Blue);
+		c.setStroke(color);
 		c.strokeLine(sx,sy,ex,ey);
-		pushPacket(packet);
-		update();
-	}
-
-	@UtilFunctions
-	public void DrawTargetLine(@NonNull Pose2d start,@NonNull Pose2d end){
-		TelemetryPacket packet=new TelemetryPacket();
-		Canvas c=packet.fieldOverlay();
-		c.setStroke(Green);
-		c.strokeLine(start.position.x,start.position.y,end.position.x,end.position.y);
-		pushPacket(packet);
+		pushPacket(packet,tag);
 		update();
 	}
 	@UtilFunctions
