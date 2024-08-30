@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassem
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
@@ -29,7 +30,7 @@ import org.firstinspires.ftc.teamcode.Utils.Timer;
 import java.util.LinkedList;
 
 @DrivingPrograms
-public class SimpleMecanumDrive implements DriverProgram{
+public class SimpleMecanumDrive implements DriverProgram {
 	public final Classic classic;
 	private final Motors motors;
 	private final Client client;

@@ -18,11 +18,13 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassem
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Client;
 import org.firstinspires.ftc.teamcode.Utils.Client.Drawing;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
@@ -33,7 +35,7 @@ import org.firstinspires.ftc.teamcode.Utils.Timer;
 import java.util.LinkedList;
 
 @DrivingPrograms
-public class MecanumDrive implements DriverProgram{
+public class MecanumDrive implements DriverProgram {
 	public final Classic classic;
 	private final Motors motors;
 	private final Client client;
@@ -59,6 +61,7 @@ public class MecanumDrive implements DriverProgram{
 		//TODO:更换Localizer如果需要
 		localizer=new DeadWheelSubassemblyLocalizer(classic);
 	}
+	@ExtractedInterfaces
 	public MecanumDrive(@NonNull Robot robot,Pose2d RobotPosition){
 		this(robot.classic,robot.client,robot.pidProcessor,robot.state,RobotPosition);
 	}
@@ -166,7 +169,12 @@ public class MecanumDrive implements DriverProgram{
 					motors.updateDriveOptions(RobotPosition.heading.toDouble());
 				}
 
-				return ID!=commandLists.length-1;
+				if(ID!=commandLists.length-1){
+					++ID;
+					return true;
+				}else{
+					return false;
+				}
 			}
 			@Override
 			public void preview(@NonNull Canvas fieldOverlay){

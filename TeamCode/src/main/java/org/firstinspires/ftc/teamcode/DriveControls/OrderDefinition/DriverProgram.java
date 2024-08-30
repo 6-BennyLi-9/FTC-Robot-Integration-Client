@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.teamcode.DriveControls;
+package org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
-import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 
 import java.util.LinkedList;
