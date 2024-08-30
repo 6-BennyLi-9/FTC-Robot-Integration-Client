@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 
 @Config
-public final class Params {
+public class Params {
 	@Config
-	public final static class PIDParams{
+	public static class PIDParams{
 		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
 		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
 		public static double[] kP= new double[]{0.12, 0.15, 0.12};
@@ -14,7 +14,7 @@ public final class Params {
 		public static double[] MAX_I= new double[]{100, 100, 0};
 	}
 	@Config
-	public final static class Configs{
+	public static class Configs{
 		/**让机器自动在运行<code>update()</code>时，自动清除所有电机的<code>power</code>*/
 		public static boolean autoPrepareForNextOptionWhenUpdate = true;
 		/**让机器自动在执行提供的操作时，自动在更改任何<code>power</code>变量后执行<code>update()</code>*/
@@ -33,7 +33,7 @@ public final class Params {
 		public static boolean useOutTimeProtection = true;
 	}
 	@Config
-	public final static class namespace{
+	public static class namespace{
 		public static String LeftFront="leftFront";
 		public static String RightFront="rightFront";
 		public static String LeftRear="leftBack";
