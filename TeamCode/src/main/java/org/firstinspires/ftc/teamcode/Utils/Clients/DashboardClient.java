@@ -14,8 +14,10 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class DashboardClient {
 	public static final String Blue="#3F51B5";
@@ -135,10 +137,16 @@ public class DashboardClient {
 	}
 	public void update(){
 		FtcDashboard.getInstance().clearTelemetry();
+
+		Vector<Pair<Integer, TelemetryPacket>> outputData = new Vector<>();
 		for (Map.Entry<Integer, Pair<String, TelemetryPacket>> entry : packets.entrySet()) {
-			TelemetryPacket packet = entry.getValue().second;
-			FtcDashboard.getInstance().sendTelemetryPacket(packet);
+			outputData.add(new Pair<>(entry.getKey(),entry.getValue().second));
 		}
+		outputData.sort(Comparator.comparingInt(x -> x.first));
+		for ( Pair<Integer, TelemetryPacket> outputPacket : outputData ){
+			FtcDashboard.getInstance().sendTelemetryPacket(outputPacket.second);
+		}
+
 		FtcDashboard.getInstance().updateConfig();
 	}
 }
