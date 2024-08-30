@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.Utils.Client;
+import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;

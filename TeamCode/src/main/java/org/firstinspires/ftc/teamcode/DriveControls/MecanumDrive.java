@@ -25,8 +25,8 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.Utils.Client;
-import org.firstinspires.ftc.teamcode.Utils.Client.Drawing;
+import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
+import org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.PID_processor;
@@ -71,7 +71,7 @@ public class MecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.DrawRobot(RobotPosition);
+		client.dashboard.DrawRobot(RobotPosition);
 
 		poseHistory.add(RobotPosition);
 	}
@@ -178,7 +178,7 @@ public class MecanumDrive implements DriverProgram {
 			}
 			@Override
 			public void preview(@NonNull Canvas fieldOverlay){
-				fieldOverlay.setStroke(Drawing.Green);
+				fieldOverlay.setStroke(DashboardClient.Green);
 				for(int i=0;i<PoseList.length;++i){
 					fieldOverlay.strokeLine(PoseList[i].x,PoseList[i].y,PoseList[i+1].x,PoseList[i+1].y);
 				}

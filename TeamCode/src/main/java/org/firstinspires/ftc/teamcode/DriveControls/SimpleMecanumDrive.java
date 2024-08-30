@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
-import org.firstinspires.ftc.teamcode.Utils.Client;
+import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.PID_processor;
@@ -81,7 +81,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 			motors.updateDriveOptions(RobotPosition.heading.toDouble());
 
 			PoseList[i+1]=singleCommand.NEXT().position;
-			client.DrawLine(PoseList[i],PoseList[i+1]);
+			client.dashboard.DrawLine(PoseList[i],PoseList[i+1]);
 
 			this.BufPower= singleCommand.BufPower;
 			double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
@@ -179,7 +179,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.DrawRobot(RobotPosition);
+		client.dashboard.DrawRobot(RobotPosition);
 
 		poseHistory.add(RobotPosition);
 	}
