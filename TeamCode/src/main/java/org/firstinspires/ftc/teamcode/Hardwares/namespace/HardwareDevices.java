@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Params.namespace;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage;
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 
@@ -31,23 +32,29 @@ public enum HardwareDevices {
 	public final Class<?> classType;
 	public final DeviceConfigPackage config;
 
+	@UserRequirementFunctions
 	HardwareDevices(String deviceName, Class<?> classType,DeviceConfigPackage config){
 		this.config=config;
 		this.classType=classType;
 		this.deviceName=deviceName;
 	}
+	@UserRequirementFunctions
 	HardwareDevices(String deviceName, Class<?> classType){
 		this(deviceName,classType,new DeviceConfigPackage().AutoComplete());
 	}
+	@UserRequirementFunctions
 	HardwareDevices(String deviceName, Class<?> classType,HardwareState state){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(state));
 	}
+	@UserRequirementFunctions
 	HardwareDevices(String deviceName, Class<?> classType, Direction direction){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction));
 	}
+	@UserRequirementFunctions
 	HardwareDevices(String deviceName, Class<?> classType,HardwareState state, Direction direction){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction).AddConfig(state));
 	}
+	@UserRequirementFunctions
 	HardwareDevices(String deviceName, Class<?> classType, Direction direction,HardwareState state){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction).AddConfig(state));
 	}
