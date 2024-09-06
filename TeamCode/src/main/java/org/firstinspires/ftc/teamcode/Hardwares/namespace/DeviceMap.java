@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.Utils.Enums.DeviceDirection;
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceDisabledException;
 
@@ -23,22 +24,28 @@ public class DeviceMap {
 	public Map<HardwareDevices, DeviceInterface> devices;
 	public DeviceMap(HardwareMap hardwareMap){
 		devices=new HashMap<>();
+		register(hardwareMap);
+	}
+
+	public void register(HardwareMap hardwareMap){
 		for(HardwareDevices device: HardwareDevices.values()){
-			if(device.state== HardwareState.Enabled) {
+			DcMotorEx hardwareDevice= (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
+			if(device.config.state== HardwareState.Enabled) {
 				if(device==HardwareDevices.LeftFront||device==HardwareDevices.LeftRear||
 						device==HardwareDevices.RightFront||device==HardwareDevices.RightRear){
-					DcMotorEx hardwareDevice= (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
 					hardwareDevice.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 					devices.put(device, (DeviceInterface) hardwareDevice);
-				}else {
-					devices.put(device, (DeviceInterface) hardwareMap.get(device.classType, device.deviceName));
 				}
+				if(device.config.direction== DeviceDirection.REVERSE){
+					hardwareDevice.setDirection(DcMotorSimple.Direction.REVERSE);
+				}
+				devices.put(device, (DeviceInterface) hardwareMap.get(device.classType, device.deviceName));
 			}
 		}
 	}
 
 	public HardwareDevice getDevice(@NonNull HardwareDevices hardwareDevices){
-		if(hardwareDevices.state==HardwareState.Disabled) {
+		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
 		if(devices.containsKey(hardwareDevices)){
@@ -48,7 +55,7 @@ public class DeviceMap {
 		}
 	}
 	public void setDirection(@NonNull HardwareDevices hardwareDevices, DcMotorSimple.Direction direction){
-		if(hardwareDevices.state==HardwareState.Disabled) {
+		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
 		HardwareDevice device=getDevice(hardwareDevices);
@@ -59,7 +66,7 @@ public class DeviceMap {
 		}
 	}
 	public void setPower(@NonNull HardwareDevices hardwareDevices, double power){
-		if(hardwareDevices.state==HardwareState.Disabled) {
+		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
 		HardwareDevice device=getDevice(hardwareDevices);
@@ -72,7 +79,7 @@ public class DeviceMap {
 		}
 	}
 	public void setPosition(@NonNull HardwareDevices hardwareDevices, double position){
-		if(hardwareDevices.state==HardwareState.Disabled) {
+		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
 		HardwareDevice device=getDevice(hardwareDevices);
@@ -83,7 +90,7 @@ public class DeviceMap {
 		}
 	}
 	public double getPosition(@NonNull HardwareDevices hardwareDevices){
-		if(hardwareDevices.state==HardwareState.Disabled) {
+		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
 		HardwareDevice device=getDevice(hardwareDevices);
