@@ -35,7 +35,7 @@ public class DeviceMap {
 					hardwareDevice.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 					devices.put(device, (DeviceInterface) hardwareDevice);
 				}
-				if(device.config.direction== DeviceDirection.REVERSE){
+				if(device.config.direction== DcMotorSimple.Direction.REVERSE){
 					hardwareDevice.setDirection(DcMotorSimple.Direction.REVERSE);
 				}
 				devices.put(device, (DeviceInterface) hardwareMap.get(device.classType, device.deviceName));
