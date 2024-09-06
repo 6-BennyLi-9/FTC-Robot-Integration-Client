@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import Hardwares.basic.Motors;
 import Hardwares.basic.Sensors;
-import core.teamcode.Params;
-import core.teamcode.Utils.Enums.Quadrant;
-import core.teamcode.Utils.Enums.driveDirection;
-import core.teamcode.Utils.Mathematics;
+import core.Params;
+import core.Utils.Enums.Quadrant;
+import core.Utils.Enums.driveDirection;
+import core.Utils.Mathematics;
 
 public class Classic {
 	public Motors motors;

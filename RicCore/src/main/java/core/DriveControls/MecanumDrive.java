@@ -1,9 +1,9 @@
 package core.DriveControls;
 
-import static core.teamcode.Params.aem;
-import static core.teamcode.Params.pem;
-import static core.teamcode.Params.timeOutProtectionMills;
-import static core.teamcode.Utils.Clients.DashboardClient.Blue;
+import static core.Params.aem;
+import static core.Params.pem;
+import static core.Params.timeOutProtectionMills;
+import static core.Utils.Clients.DashboardClient.Blue;
 
 import androidx.annotation.NonNull;
 
@@ -14,24 +14,24 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
-import DriveControls.Actions.DriveAction;
-import DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
-import DriveControls.Localizers.LocalizerDefinition.Localizer;
-import DriveControls.OrderDefinition.DriveOrder;
-import DriveControls.OrderDefinition.DriveOrderPackage;
-import DriveControls.OrderDefinition.DriverProgram;
-import core.teamcode.Hardwares.Classic;
-import core.teamcode.Hardwares.basic.Motors;
-import core.teamcode.Params;
-import core.teamcode.Robot;
-import core.teamcode.Utils.Annotations.DrivingPrograms;
-import core.teamcode.Utils.Annotations.ExtractedInterfaces;
-import core.teamcode.Utils.Clients.Client;
-import core.teamcode.Utils.Clients.DashboardClient;
-import core.teamcode.Utils.Enums.State;
-import core.teamcode.Utils.Functions;
-import core.teamcode.Utils.PID_processor;
-import core.teamcode.Utils.Timer;
+import core.DriveControls.Actions.DriveAction;
+import core.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
+import core.DriveControls.Localizers.LocalizerDefinition.Localizer;
+import core.DriveControls.OrderDefinition.DriveOrder;
+import core.DriveControls.OrderDefinition.DriveOrderPackage;
+import core.DriveControls.OrderDefinition.DriverProgram;
+import core.Hardwares.Classic;
+import core.Hardwares.basic.Motors;
+import core.Params;
+import core.Robot;
+import core.Utils.Annotations.DrivingPrograms;
+import core.Utils.Annotations.ExtractedInterfaces;
+import core.Utils.Clients.Client;
+import core.Utils.Clients.DashboardClient;
+import core.Utils.Enums.State;
+import core.Utils.Functions;
+import core.Utils.PID_processor;
+import core.Utils.Timer;
 
 import java.util.LinkedList;
 

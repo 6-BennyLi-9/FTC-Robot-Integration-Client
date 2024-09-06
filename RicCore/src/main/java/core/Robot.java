@@ -12,8 +12,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import core.robotcore.external.Telemetry;
-import DriveControls.SimpleMecanumDrive;
-import DriveControls.Commands.DrivingCommandsBuilder;
+import core.DriveControls.SimpleMecanumDrive;
+import core.DriveControls.Commands.DrivingCommandsBuilder;
 import Hardwares.Classic;
 import Hardwares.Structure;
 import Hardwares.Webcam;

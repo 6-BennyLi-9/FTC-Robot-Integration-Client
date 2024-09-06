@@ -2,11 +2,11 @@ package core.DriveControls.Localizers.LocalizerPlugins;
 
 import androidx.annotation.NonNull;
 
-import DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
-import core.teamcode.Hardwares.Classic;
-import core.teamcode.Hardwares.basic.Sensors;
-import core.teamcode.Params;
-import core.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
+import core.Hardwares.Classic;
+import core.Hardwares.basic.Sensors;
+import core.Params;
+import core.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public final class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {

@@ -4,13 +4,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import core.robotcore.external.hardware.camera.WebcamName;
 import Hardwares.basic.Camera;
-import core.teamcode.Utils.Enums.AutonomousLocation;
+import core.Utils.Enums.AutonomousLocation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 /**
- * @see core.teamcode.RIC_samples.CameraDetection
+ * @see core.RIC_samples.CameraDetection
  */
 public class Webcam {
 	Camera detector;

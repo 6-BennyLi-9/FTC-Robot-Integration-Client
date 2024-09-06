@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import DriveControls.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
-import core.teamcode.Hardwares.Classic;
-import core.teamcode.Hardwares.basic.Sensors;
-import core.teamcode.Params;
-import core.teamcode.Utils.Annotations.LocalizationPlugin;
-import core.teamcode.Utils.Complex;
+import core.DriveControls.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
+import core.Hardwares.Classic;
+import core.Hardwares.basic.Sensors;
+import core.Params;
+import core.Utils.Annotations.LocalizationPlugin;
+import core.Utils.Complex;
 
 @LocalizationPlugin
 public class NewImuLocalizer implements PositionLocalizerPlugin {

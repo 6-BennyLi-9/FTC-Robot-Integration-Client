@@ -15,8 +15,8 @@ import core.robotcore.external.navigation.AxesOrder;
 import core.robotcore.external.navigation.AxesReference;
 import Hardwares.namespace.DeviceMap;
 import Hardwares.namespace.HardwareDevices;
-import core.teamcode.Params;
-import core.teamcode.Utils.Enums.DeadWheelsType;
+import core.Params;
+import core.Utils.Enums.DeadWheelsType;
 
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好

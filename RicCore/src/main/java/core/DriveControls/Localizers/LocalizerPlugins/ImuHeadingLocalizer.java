@@ -2,10 +2,10 @@ package core.DriveControls.Localizers.LocalizerPlugins;
 
 import androidx.annotation.NonNull;
 
-import DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
-import core.teamcode.Hardwares.Classic;
-import core.teamcode.Hardwares.basic.Sensors;
-import core.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
+import core.Hardwares.Classic;
+import core.Hardwares.basic.Sensors;
+import core.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public class ImuHeadingLocalizer implements HeadingLocalizerPlugin {

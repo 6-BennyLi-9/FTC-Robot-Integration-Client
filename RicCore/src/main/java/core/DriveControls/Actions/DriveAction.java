@@ -12,10 +12,13 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import core.DriveControls.MecanumDrive;
 import core.DriveControls.OrderDefinition.DriveOrder;
 import core.DriveControls.OrderDefinition.DriveOrderPackage;
-import core.Utils.*;
+import core.Hardwares.Classic;
+import core.Utils.Complex;
+import core.Utils.Enums.TrajectoryType;
+import core.Utils.Mathematics;
 
 public class DriveAction implements DriveOrder {
-	private final Hardwares.Classic classic;
+	private final Classic classic;
 
 	/**
 	 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
@@ -29,9 +32,9 @@ public class DriveAction implements DriveOrder {
 	/**
 	 * <code>面向开发者：</code> 不建议在DriveCommands中更改trajectoryType的值，而是在drivingCommandsBuilder中
 	 */
-	public Utils.Enums.TrajectoryType trajectoryType = null;
+	public TrajectoryType trajectoryType = null;
 
-	DriveAction(final Hardwares.Classic classic, double BufPower, Pose2d pose) {
+	DriveAction(final Classic classic, double BufPower, Pose2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
 		this.classic = classic;
@@ -80,7 +83,7 @@ public class DriveAction implements DriveOrder {
 
 	@Override
 	public void StrafeTo(Vector2d pose) {
-		Utils.Complex cache = new Utils.Complex(this.pose.position.minus(pose));
+		Complex cache = new Complex(this.pose.position.minus(pose));
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {

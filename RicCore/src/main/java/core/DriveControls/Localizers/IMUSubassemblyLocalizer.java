@@ -2,11 +2,11 @@ package core.DriveControls.Localizers;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import DriveControls.Localizers.LocalizerPlugins.ImuLocalizer;
-import DriveControls.Localizers.LocalizerDefinition.Localizer;
-import DriveControls.Localizers.LocalizerDefinition.SubassemblyLocalizer;
-import core.teamcode.Hardwares.Classic;
-import core.teamcode.Utils.Annotations.LocalizationSubassembly;
+import core.DriveControls.Localizers.LocalizerPlugins.ImuLocalizer;
+import core.DriveControls.Localizers.LocalizerDefinition.Localizer;
+import core.DriveControls.Localizers.LocalizerDefinition.SubassemblyLocalizer;
+import core.Hardwares.Classic;
+import core.Utils.Annotations.LocalizationSubassembly;
 
 @LocalizationSubassembly
 public class IMUSubassemblyLocalizer extends SubassemblyLocalizer implements Localizer {

@@ -3,7 +3,7 @@ package core.Utils.Clients;
 import core.robotcore.external.Telemetry;
 
 /**
- * @see core.teamcode.RIC_samples.ClientUsage
+ * @see core.RIC_samples.ClientUsage
  */
 public class Client extends TelemetryClient{
 	public DashboardClient dashboard;

@@ -2,9 +2,9 @@ package core.DriveControls.Localizers.LocalizerPlugins;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
-import DriveControls.Localizers.LocalizerDefinition.VectorPositionLocalizerPlugin;
-import core.teamcode.Hardwares.Classic;
-import core.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.DriveControls.Localizers.LocalizerDefinition.VectorPositionLocalizerPlugin;
+import core.Hardwares.Classic;
+import core.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public final class ImuVectorPositionLocalizer extends ImuLocalizer implements VectorPositionLocalizerPlugin {
