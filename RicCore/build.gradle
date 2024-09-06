@@ -1,22 +1,11 @@
 //
-// build.gradle in TeamCode
+//存在于FtcRobotIntegrationClientCore中的build.gradle
 //
-// Most of the definitions for building your module reside in a common, shared
-// file 'build.common.gradle'. Being factored in this way makes it easier to
-// integrate updates to the FTC into your code. If you really need to customize
-// the build definitions, you can place those customizations in this file, but
-// please think carefully as to whether such customizations are really necessary
-// before doing so.
 
-
-// Custom definitions may go here
-
-// Include common definitions from above.
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
 
 android {
-    namespace = 'org.firstinspires.ftc.teamcode'
     androidResources {
         noCompress 'tflite'
     }
@@ -37,7 +26,6 @@ repositories {
 
 dependencies {
     implementation project(':FtcRobotController')
-    implementation project(':RicCore')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 
     implementation "com.acmerobotics.roadrunner:ftc:0.1.13"
