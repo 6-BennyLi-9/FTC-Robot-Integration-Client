@@ -9,7 +9,6 @@ import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -54,11 +53,6 @@ public class Sensors {
 		LastLeftTick=0;
 		LastMiddleTick=0;
 		LastRightTick=0;
-
-		//TODO:根据实际需求修改
-		Left.setDirection(DcMotorSimple.Direction.REVERSE);
-		Middle.setDirection(DcMotorSimple.Direction.REVERSE);
-		Right.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
 
 	public void update(){

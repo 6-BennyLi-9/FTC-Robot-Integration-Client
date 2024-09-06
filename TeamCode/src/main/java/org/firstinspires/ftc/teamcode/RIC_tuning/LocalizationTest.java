@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.Utils.Templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.TeleopProgramTemplate;
 
 @TeleOp(name = "LocalizationTest",group = "tune")
 @TuningOpModes

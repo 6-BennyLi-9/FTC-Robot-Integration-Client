@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
+
+import static org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState.*;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
@@ -19,14 +23,14 @@ public enum HardwareDevices {
 	RightFront(namespace.RightFront, DcMotorEx.class),
 	LeftRear(namespace.LeftRear, DcMotorEx.class),
 	RightRear(namespace.RightRear, DcMotorEx.class),
-	PlacementArm(namespace.PlacementArm, DcMotorEx.class,HardwareState.Disabled),
-	Intake(namespace.Intake, DcMotorEx.class,HardwareState.Disabled),
-	FrontClip(namespace.FrontClip, Servo.class,HardwareState.Disabled),
-	RearClip(namespace.RearClip, Servo.class,HardwareState.Disabled),
-	SuspensionArm(namespace.SuspensionArm, DcMotorEx.class,HardwareState.Disabled),
-	LeftDeadWheel(LeftRear.deviceName, DcMotorEx.class),
-	MiddleDeadWheel(LeftFront.deviceName,DcMotorEx.class),
-	RightDeadWheel(RightFront.deviceName, DcMotorEx.class),
+	PlacementArm(namespace.PlacementArm, DcMotorEx.class, Disabled),
+	Intake(namespace.Intake, DcMotorEx.class, Disabled),
+	FrontClip(namespace.FrontClip, Servo.class, Disabled),
+	RearClip(namespace.RearClip, Servo.class, Disabled),
+	SuspensionArm(namespace.SuspensionArm, DcMotorEx.class, Disabled),
+	LeftDeadWheel(LeftRear.deviceName, DcMotorEx.class, REVERSE),
+	MiddleDeadWheel(LeftFront.deviceName,DcMotorEx.class, REVERSE),
+	RightDeadWheel(RightFront.deviceName, DcMotorEx.class, REVERSE),
 	imu(namespace.Imu, BNO055IMU .class);
 	public final String deviceName;
 	public final Class<?> classType;

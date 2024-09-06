@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.Utils.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 

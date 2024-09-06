@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
-import org.firstinspires.ftc.teamcode.Utils.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 
 @Autonomous(name = "SimpleMecanumDrive_Test",group = "tune")

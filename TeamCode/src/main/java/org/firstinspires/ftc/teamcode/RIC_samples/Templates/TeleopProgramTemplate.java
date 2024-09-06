@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utils.Templates;
+package org.firstinspires.ftc.teamcode.RIC_samples.Templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
