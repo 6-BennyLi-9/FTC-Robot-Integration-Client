@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTem
  * <p>
  * 3.把机器移动到地垫的另一端
  * <p>
- * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
+ * 4.查看xError和yError，填入{@link Params}
  */
 @TeleOp(name = "IMUPositionTuner",group = "tune")
 @TuningOpModes

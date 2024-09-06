@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.RIC_samples.Templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import Robot;
+import core.Robot;
+
 import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 

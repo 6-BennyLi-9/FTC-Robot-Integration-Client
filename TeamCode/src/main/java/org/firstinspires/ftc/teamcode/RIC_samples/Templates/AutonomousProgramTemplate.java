@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import DriveControls.SimpleMecanumDrive;
-import Robot;
+import core.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 
 public abstract class AutonomousProgramTemplate extends LinearOpMode {

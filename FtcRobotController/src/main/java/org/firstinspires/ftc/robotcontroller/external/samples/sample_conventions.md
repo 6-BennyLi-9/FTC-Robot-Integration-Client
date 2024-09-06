@@ -19,7 +19,7 @@ Sensor:    	This is a Sample OpMode that shows how to use a specific sensor.
             It is not intended to drive a functioning robot, it is simply showing the minimal code
             required to read and display the sensor values.
 
-Robot:	    This is a Sample OpMode that assumes a simple two-motor (differential) drive base.
+core.Robot:	    This is a Sample OpMode that assumes a simple two-motor (differential) drive base.
             It may be used to provide a common baseline driving OpMode, or
             to demonstrate how a particular sensor or concept can be used to navigate.
 
@@ -37,7 +37,7 @@ Utility:    This sample type is provided as a useful tool, or aide, to perform s
 After the prefix, other conventions will apply:
 
 * Sensor class names should constructed as:       Sensor - Company - Type
-* Robot class names should be constructed as:     Robot - Mode - Action - OpModetype
+* core.Robot class names should be constructed as:     core.Robot - Mode - Action - OpModetype
 * Concept class names should be constructed as:   Concept - Topic - OpModetype
 
 ### Sample OpMode Content/Style
