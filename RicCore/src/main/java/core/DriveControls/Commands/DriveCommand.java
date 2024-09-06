@@ -5,12 +5,12 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import DriveControls.OrderDefinition.DriveOrder;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Utils.Complex;
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import core.DriveControls.OrderDefinition.DriveOrder;
+import core.Hardwares.Classic;
+import core.Utils.Complex;
+import core.Utils.Enums.TrajectoryType;
+import core.Utils.Enums.driveDirection;
+import core.Utils.Mathematics;
 
 public class DriveCommand implements DriveOrder {
 	private final Classic classic;

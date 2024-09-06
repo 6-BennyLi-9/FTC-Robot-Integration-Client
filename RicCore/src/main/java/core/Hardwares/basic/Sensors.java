@@ -10,13 +10,13 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import core.robotcore.external.navigation.AngleUnit;
+import core.robotcore.external.navigation.AxesOrder;
+import core.robotcore.external.navigation.AxesReference;
 import Hardwares.namespace.DeviceMap;
 import Hardwares.namespace.HardwareDevices;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Enums.DeadWheelsType;
+import core.teamcode.Params;
+import core.teamcode.Utils.Enums.DeadWheelsType;
 
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好

@@ -6,11 +6,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
 import DriveControls.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
-import org.firstinspires.ftc.teamcode.Utils.Complex;
+import core.teamcode.Hardwares.Classic;
+import core.teamcode.Hardwares.basic.Sensors;
+import core.teamcode.Params;
+import core.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.teamcode.Utils.Complex;
 
 @LocalizationPlugin
 public class ImuLocalizer implements PositionLocalizerPlugin {

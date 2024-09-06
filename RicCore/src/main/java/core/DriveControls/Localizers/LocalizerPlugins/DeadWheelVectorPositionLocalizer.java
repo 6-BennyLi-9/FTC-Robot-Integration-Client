@@ -1,7 +1,7 @@
 package core.DriveControls.Localizers.LocalizerPlugins;
 
-import static org.firstinspires.ftc.teamcode.Params.AxialInchPerTick;
-import static org.firstinspires.ftc.teamcode.Params.LateralInchPerTick;
+import static core.teamcode.Params.AxialInchPerTick;
+import static core.teamcode.Params.LateralInchPerTick;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,9 +9,9 @@ import androidx.annotation.Nullable;
 import com.acmerobotics.roadrunner.Vector2d;
 
 import DriveControls.Localizers.LocalizerDefinition.VectorPositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.teamcode.Hardwares.Classic;
+import core.teamcode.Hardwares.basic.Sensors;
+import core.teamcode.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public final class DeadWheelVectorPositionLocalizer implements VectorPositionLocalizerPlugin {

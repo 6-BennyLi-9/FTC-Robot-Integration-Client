@@ -11,7 +11,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import core.robotcore.external.Telemetry;
 import DriveControls.SimpleMecanumDrive;
 import DriveControls.Commands.DrivingCommandsBuilder;
 import Hardwares.Classic;

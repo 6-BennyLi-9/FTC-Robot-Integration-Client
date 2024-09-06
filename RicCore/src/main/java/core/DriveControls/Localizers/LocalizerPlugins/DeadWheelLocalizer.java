@@ -6,8 +6,8 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
 import DriveControls.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.teamcode.Hardwares.Classic;
+import core.teamcode.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public class DeadWheelLocalizer implements PositionLocalizerPlugin {

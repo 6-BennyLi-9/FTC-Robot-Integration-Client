@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import Hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
-import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceDisabledException;
+import core.teamcode.Utils.Enums.HardwareState;
+import core.teamcode.Utils.Exceptions.DeviceDisabledException;
 
 import java.util.HashMap;
 import java.util.Map;

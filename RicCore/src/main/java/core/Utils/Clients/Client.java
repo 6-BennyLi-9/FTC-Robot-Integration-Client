@@ -1,9 +1,9 @@
 package core.Utils.Clients;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import core.robotcore.external.Telemetry;
 
 /**
- * @see org.firstinspires.ftc.teamcode.RIC_samples.ClientUsage
+ * @see core.teamcode.RIC_samples.ClientUsage
  */
 public class Client extends TelemetryClient{
 	public DashboardClient dashboard;

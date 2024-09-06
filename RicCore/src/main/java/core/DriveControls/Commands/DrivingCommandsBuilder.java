@@ -7,8 +7,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 import DriveControls.OrderDefinition.DriveOrderBuilder;
 import DriveControls.OrderDefinition.DriverProgram;
 import DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import core.teamcode.Utils.Enums.TrajectoryType;
+import core.teamcode.Utils.Mathematics;
 
 public class DrivingCommandsBuilder implements DriveOrderBuilder {
 	private final DriveCommandPackage commandPackage;

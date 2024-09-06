@@ -2,15 +2,15 @@ package core.Hardwares;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import core.robotcore.external.hardware.camera.WebcamName;
 import Hardwares.basic.Camera;
-import org.firstinspires.ftc.teamcode.Utils.Enums.AutonomousLocation;
+import core.teamcode.Utils.Enums.AutonomousLocation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 /**
- * @see org.firstinspires.ftc.teamcode.RIC_samples.CameraDetection
+ * @see core.teamcode.RIC_samples.CameraDetection
  */
 public class Webcam {
 	Camera detector;

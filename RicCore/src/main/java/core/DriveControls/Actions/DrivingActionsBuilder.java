@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
-import DriveControls.OrderDefinition.DriveOrderBuilder;
-import DriveControls.OrderDefinition.DriveOrderPackage;
-import DriveControls.OrderDefinition.DriverProgram;
-import DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import core.DriveControls.OrderDefinition.DriveOrderBuilder;
+import core.DriveControls.OrderDefinition.DriveOrderPackage;
+import core.DriveControls.OrderDefinition.DriverProgram;
+import core.DriveControls.SimpleMecanumDrive;
+import core.Utils.Enums.TrajectoryType;
+import core.Utils.Mathematics;
 
 public class DrivingActionsBuilder implements DriveOrderBuilder {
 	private final DriveActionPackage actionPackage;

@@ -1,9 +1,9 @@
 package core.DriveControls;
 
-import static org.firstinspires.ftc.teamcode.Params.aem;
-import static org.firstinspires.ftc.teamcode.Params.pem;
-import static org.firstinspires.ftc.teamcode.Params.timeOutProtectionMills;
-import static org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient.Blue;
+import static core.teamcode.Params.aem;
+import static core.teamcode.Params.pem;
+import static core.teamcode.Params.timeOutProtectionMills;
+import static core.teamcode.Utils.Clients.DashboardClient.Blue;
 
 import androidx.annotation.NonNull;
 
@@ -17,16 +17,16 @@ import DriveControls.Localizers.LocalizerDefinition.Localizer;
 import DriveControls.OrderDefinition.DriveOrder;
 import DriveControls.OrderDefinition.DriveOrderPackage;
 import DriveControls.OrderDefinition.DriverProgram;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
-import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
-import org.firstinspires.ftc.teamcode.Utils.Enums.State;
-import org.firstinspires.ftc.teamcode.Utils.Functions;
-import org.firstinspires.ftc.teamcode.Utils.PID_processor;
-import org.firstinspires.ftc.teamcode.Utils.Timer;
+import core.teamcode.Hardwares.Classic;
+import core.teamcode.Hardwares.basic.Motors;
+import core.teamcode.Params;
+import core.teamcode.Robot;
+import core.teamcode.Utils.Annotations.DrivingPrograms;
+import core.teamcode.Utils.Clients.Client;
+import core.teamcode.Utils.Enums.State;
+import core.teamcode.Utils.Functions;
+import core.teamcode.Utils.PID_processor;
+import core.teamcode.Utils.Timer;
 
 import java.util.LinkedList;
 

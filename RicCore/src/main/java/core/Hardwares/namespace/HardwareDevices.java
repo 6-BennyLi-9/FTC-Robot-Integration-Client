@@ -7,10 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Params.namespace;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage;
-import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
+import core.teamcode.Params.namespace;
+import core.teamcode.Utils.Annotations.UserRequirementFunctions;
+import core.teamcode.Utils.DeviceConfigPackage;
+import core.teamcode.Utils.Enums.HardwareState;
 
 /**
  * 可以自动登记硬件的名字及其类型

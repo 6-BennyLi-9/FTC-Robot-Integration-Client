@@ -1,7 +1,7 @@
 package core.Hardwares;
 
-import static org.firstinspires.ftc.teamcode.Params.factorIntakePower;
-import static org.firstinspires.ftc.teamcode.Params.factorSuspensionArmPower;
+import static core.teamcode.Params.factorIntakePower;
+import static core.teamcode.Params.factorSuspensionArmPower;
 
 import androidx.annotation.NonNull;
 
@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import Hardwares.basic.Motors;
 import Hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
+import core.teamcode.Params;
+import core.teamcode.Utils.Enums.ClipPosition;
+import core.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
 public class Structure {
 	Motors motors;

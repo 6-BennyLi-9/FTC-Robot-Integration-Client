@@ -3,9 +3,9 @@ package core.DriveControls.Localizers.LocalizerPlugins;
 import androidx.annotation.NonNull;
 
 import DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
+import core.teamcode.Hardwares.Classic;
+import core.teamcode.Hardwares.basic.Sensors;
+import core.teamcode.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
 public class ImuHeadingLocalizer implements HeadingLocalizerPlugin {

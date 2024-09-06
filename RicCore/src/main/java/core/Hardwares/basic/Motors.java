@@ -4,9 +4,9 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import Hardwares.namespace.DeviceMap;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Complex;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import core.teamcode.Params;
+import core.teamcode.Utils.Complex;
+import core.teamcode.Utils.Mathematics;
 import Hardwares.namespace.HardwareDevices;
 
 public class Motors {
@@ -55,7 +55,7 @@ public class Motors {
 
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
-	 * @see org.firstinspires.ftc.teamcode.Params
+	 * @see core.teamcode.Params
 	 */
 	public void updateDriveOptions(double headingDeg){
 		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
@@ -99,7 +99,7 @@ public class Motors {
 	}
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
-	 * @see org.firstinspires.ftc.teamcode.Params
+	 * @see core.teamcode.Params
 	 */
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);
