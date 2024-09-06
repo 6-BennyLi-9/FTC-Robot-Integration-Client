@@ -1,13 +1,18 @@
 package core.Hardwares.basic;
 
+import static core.Utils.Enums.Quadrant.firstQuadrant;
+import static core.Utils.Enums.Quadrant.forthQuadrant;
+import static core.Utils.Enums.Quadrant.secondQuadrant;
+import static core.Utils.Enums.Quadrant.thirdQuadrant;
+
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import Hardwares.namespace.DeviceMap;
+import core.Hardwares.namespace.DeviceMap;
+import core.Hardwares.namespace.HardwareDevices;
 import core.Params;
 import core.Utils.Complex;
 import core.Utils.Mathematics;
-import Hardwares.namespace.HardwareDevices;
 
 public class Motors {
 	public DeviceMap hardware;

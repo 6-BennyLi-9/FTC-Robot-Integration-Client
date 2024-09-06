@@ -1,7 +1,6 @@
 package core.Hardwares.basic;
 
-import core.robotcore.external.Telemetry;
-import core.Utils.Enums.AutonomousLocation;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -10,9 +9,10 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+import core.Utils.Enums.AutonomousLocation;
+
 /**
  * 我们这里使用的是OpenCV的颜色块识别，如果你有更多方案，可以进行修改，或者新建拉取请求
- * @see core.RIC_samples.CameraDetection
  */
 public class Camera extends OpenCvPipeline {
 	private final Telemetry telemetry;

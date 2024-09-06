@@ -7,8 +7,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import core.DriveControls.OrderDefinition.DriveOrder;
 import core.DriveControls.SimpleMecanumDrive;
-import Utils.Annotations.UtilFunctions;
-import Utils.Enums.State;
+import core.Utils.Annotations.UtilFunctions;
+import core.Utils.Enums.State;
 
 public final class Functions {
     @UtilFunctions

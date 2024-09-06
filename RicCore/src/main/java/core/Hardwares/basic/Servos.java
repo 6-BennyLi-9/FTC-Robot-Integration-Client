@@ -1,7 +1,8 @@
 package core.Hardwares.basic;
 
-import Hardwares.namespace.DeviceMap;
-import Hardwares.namespace.HardwareDevices;
+
+import core.Hardwares.namespace.DeviceMap;
+import core.Hardwares.namespace.HardwareDevices;
 
 public class Servos {
 	public DeviceMap hardware;

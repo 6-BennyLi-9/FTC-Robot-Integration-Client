@@ -1,5 +1,9 @@
 package core.Hardwares.basic;
 
+import static core.Hardwares.namespace.HardwareDevices.LeftDeadWheel;
+import static core.Hardwares.namespace.HardwareDevices.MiddleDeadWheel;
+import static core.Hardwares.namespace.HardwareDevices.RightDeadWheel;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.ftc.Encoder;
@@ -10,11 +14,12 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import core.robotcore.external.navigation.AngleUnit;
-import core.robotcore.external.navigation.AxesOrder;
-import core.robotcore.external.navigation.AxesReference;
-import Hardwares.namespace.DeviceMap;
-import Hardwares.namespace.HardwareDevices;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
+import core.Hardwares.namespace.DeviceMap;
+import core.Hardwares.namespace.HardwareDevices;
 import core.Params;
 import core.Utils.Enums.DeadWheelsType;
 
@@ -29,6 +34,7 @@ public class Sensors {
 	public double LastLeftTick,LastMiddleTick,LastRightTick;
 	public double FirstAngle,XMoved,YMoved,LastXMoved, LastYMoved,LastFirstAngle;
 
+
 	public Sensors(@NonNull DeviceMap deviceMap){
 		imu= (BNO055IMU) deviceMap.getDevice(HardwareDevices.imu);
 
@@ -40,9 +46,9 @@ public class Sensors {
 		parameters.loggingTag="IMU";
 		parameters.accelerationIntegrationAlgorithm=new JustLoggingAccelerationIntegrator();
 		imu.initialize(parameters);
-		Left    =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.LeftDeadWheel)));
-		Middle  =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.MiddleDeadWheel)));
-		Right   =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(HardwareDevices.RightDeadWheel)));
+		Left    =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(LeftDeadWheel)));
+		Middle  =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(MiddleDeadWheel)));
+		Right   =new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(RightDeadWheel)));
 
 		LastYMoved=0;
 		LastXMoved=0;

@@ -2,7 +2,8 @@ package core.Utils;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 
-import Utils.Enums.HardwareState;
+import core.Utils.Enums.HardwareState;
+
 
 public class DeviceConfigPackage {
 	public HardwareState state;

@@ -25,9 +25,9 @@ public class PID_processor {
 
 	private void I_processor(int ID){
 		if(ID==2){//TODO:列出所有与角度有关的ID
-			I[ID]= Utils.Mathematics.angleRationalize(I[ID]);
+			I[ID]= Mathematics.angleRationalize(I[ID]);
 		}else{
-			I[ID]= Utils.Mathematics.intervalClip(I[ID],-Params.PIDParams.MAX_I[ID], Params.PIDParams.MAX_I[ID]);
+			I[ID]= Mathematics.intervalClip(I[ID],-Params.PIDParams.MAX_I[ID], Params.PIDParams.MAX_I[ID]);
 		}
 	}
 
