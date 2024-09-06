@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.Hardwares.namespace;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Params.namespace;
 import org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage;
-import org.firstinspires.ftc.teamcode.Utils.Enums.DeviceDirection;
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 
 /**
@@ -42,13 +42,13 @@ public enum HardwareDevices {
 	HardwareDevices(String deviceName, Class<?> classType,HardwareState state){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(state));
 	}
-	HardwareDevices(String deviceName, Class<?> classType, DeviceDirection direction){
+	HardwareDevices(String deviceName, Class<?> classType, Direction direction){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction));
 	}
-	HardwareDevices(String deviceName, Class<?> classType,HardwareState state, DeviceDirection direction){
+	HardwareDevices(String deviceName, Class<?> classType,HardwareState state, Direction direction){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction).AddConfig(state));
 	}
-	HardwareDevices(String deviceName, Class<?> classType, DeviceDirection direction,HardwareState state){
+	HardwareDevices(String deviceName, Class<?> classType, Direction direction,HardwareState state){
 		this(deviceName,classType,new DeviceConfigPackage().AddConfig(direction).AddConfig(state));
 	}
 }
