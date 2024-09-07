@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import core.Params;
-
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+
+import core.Params;
+import core.Utils.Annotations.TuningOpModes;
 
 @TeleOp(name = "AxialInchPerTickTest",group = "tune")
 @TuningOpModes

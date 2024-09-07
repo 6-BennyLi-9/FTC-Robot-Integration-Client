@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import core.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
-import org.firstinspires.ftc.teamcode.Utils.Timer;
+import core.Utils.Enums.runningState;
+import core.Utils.Timer;
 
 @TeleOp(name = "ManualCodeSample",group = "samples")
 public class ManualCodeSample extends OpMode {
