@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import Hardwares.basic.Motors;
-import Hardwares.basic.Sensors;
+import core.Hardwares.basic.Motors;
+import core.Hardwares.basic.Sensors;
 import core.Params;
 import core.Utils.Enums.Quadrant;
 import core.Utils.Enums.driveDirection;

@@ -2,7 +2,7 @@ package core.Utils.Clients;
 
 import android.util.Pair;
 
-import core.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.Comparator;
 import java.util.HashMap;

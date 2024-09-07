@@ -10,15 +10,15 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import Utils.Annotations.ExtractedInterfaces;
-import Utils.Annotations.UtilFunctions;
-import Utils.Exceptions.UnKnownErrorsException;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
+
+import core.Utils.Annotations.ExtractedInterfaces;
+import core.Utils.Annotations.UtilFunctions;
+import core.Utils.Exceptions.UnKnownErrorsException;
 
 public class DashboardClient {
 	public static final String Blue="#3F51B5";

@@ -1,14 +1,11 @@
 package core.Hardwares;
 
-import static core.Params.factorIntakePower;
-import static core.Params.factorSuspensionArmPower;
-
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import Hardwares.basic.Motors;
-import Hardwares.basic.Servos;
+import core.Hardwares.basic.Motors;
+import core.Hardwares.basic.Servos;
 import core.Params;
 import core.Utils.Enums.ClipPosition;
 import core.Utils.Exceptions.UnKnownErrorsException;

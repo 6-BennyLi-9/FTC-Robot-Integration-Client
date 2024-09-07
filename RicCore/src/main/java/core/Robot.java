@@ -11,25 +11,26 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import core.robotcore.external.Telemetry;
-import core.DriveControls.SimpleMecanumDrive;
-import core.DriveControls.Commands.DrivingCommandsBuilder;
-import Hardwares.Classic;
-import Hardwares.Structure;
-import Hardwares.Webcam;
-import Hardwares.basic.Motors;
-import Hardwares.basic.Sensors;
-import Hardwares.basic.Servos;
-import Hardwares.namespace.DeviceMap;
-import Utils.Annotations.ExtractedInterfaces;
-import Utils.Clients.Client;
-import Utils.Enums.ClipPosition;
-import Utils.Enums.State;
-import Utils.Enums.runningState;
-import Utils.PID_processor;
-import Utils.Timer;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import java.util.Objects;
+
+import core.DriveControls.Commands.DrivingCommandsBuilder;
+import core.DriveControls.SimpleMecanumDrive;
+import core.Hardwares.Classic;
+import core.Hardwares.Structure;
+import core.Hardwares.Webcam;
+import core.Hardwares.basic.Motors;
+import core.Hardwares.basic.Sensors;
+import core.Hardwares.basic.Servos;
+import core.Hardwares.namespace.DeviceMap;
+import core.Utils.Annotations.ExtractedInterfaces;
+import core.Utils.Clients.Client;
+import core.Utils.Enums.ClipPosition;
+import core.Utils.Enums.State;
+import core.Utils.Enums.runningState;
+import core.Utils.PID_processor;
+import core.Utils.Timer;
 
 public class Robot {
 	public DeviceMap devices;

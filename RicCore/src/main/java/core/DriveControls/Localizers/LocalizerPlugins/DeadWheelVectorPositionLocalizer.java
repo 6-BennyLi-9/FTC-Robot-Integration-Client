@@ -1,8 +1,5 @@
 package core.DriveControls.Localizers.LocalizerPlugins;
 
-import static core.Params.AxialInchPerTick;
-import static core.Params.LateralInchPerTick;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -11,6 +8,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import core.DriveControls.Localizers.LocalizerDefinition.VectorPositionLocalizerPlugin;
 import core.Hardwares.Classic;
 import core.Hardwares.basic.Sensors;
+import core.Params;
 import core.Utils.Annotations.LocalizationPlugin;
 
 @LocalizationPlugin
