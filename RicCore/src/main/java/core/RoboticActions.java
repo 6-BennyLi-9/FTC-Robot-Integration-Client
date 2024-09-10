@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import core.Utils.Clients.Client;
 import core.Utils.Enums.runningState;
 
+@Deprecated
 public class RoboticActions extends Robot {
 	public RoboticActions(HardwareMap hardwareMap, runningState state, Client client) {
 		super(hardwareMap, state, client);
