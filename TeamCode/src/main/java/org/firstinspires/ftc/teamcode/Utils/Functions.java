@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 
-public final class Functions {
+public final class Functions extends Mathematics{
     @UtilFunctions
     public static double getCurrentTimeMills(){
         return System.nanoTime()/1.0E06;

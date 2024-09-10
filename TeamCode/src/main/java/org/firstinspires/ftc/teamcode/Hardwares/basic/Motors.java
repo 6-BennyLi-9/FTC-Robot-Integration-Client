@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
+import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
 
@@ -60,7 +61,7 @@ public class Motors {
 	public void updateDriveOptions(double headingDeg){
 		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
 			double currentXPower,currentYPower,currentHeadingPower=headingPower;
-			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
+			headingDeg= Functions.angleRationalize(headingDeg);//防止有问题
 			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
 			Complex Counterclockwise=new Complex(robotHeading.angleToYAxis());
 			

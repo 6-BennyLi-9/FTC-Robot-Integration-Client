@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPa
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DrivingActionsBuilder implements DriveOrderBuilder {
 	private final DriveActionPackage actionPackage;
@@ -28,7 +28,7 @@ public class DrivingActionsBuilder implements DriveOrderBuilder {
 
 	@Override
 	public DriveOrderBuilder SetPower(double power) {
-		power = Mathematics.intervalClip(power, -1f, 1f);
+		power = Functions.intervalClip(power, -1f, 1f);
 		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().NEXT());
 		cache.SetPower(power);
 		cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
@@ -38,7 +38,7 @@ public class DrivingActionsBuilder implements DriveOrderBuilder {
 
 	@Override
 	public DriveOrderBuilder TurnRadians(double radians) {
-		radians = Mathematics.intervalClip(radians, -Math.PI, Math.PI);
+		radians = Functions.intervalClip(radians, -Math.PI, Math.PI);
 		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().NEXT());
 		cache.Turn(radians);
 		cache.trajectoryType = TrajectoryType.TurnOnly;

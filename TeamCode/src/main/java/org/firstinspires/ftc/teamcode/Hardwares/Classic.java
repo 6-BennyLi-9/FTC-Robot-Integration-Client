@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
 import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class Classic {
 	public Motors motors;
@@ -98,7 +98,7 @@ public class Classic {
 	 * @param angle 相较于机器的正方向，允许为[-180,180]内的实数(不是弧度，不是弧度，不是弧度）
 	 */
 	public void SimpleDrive(double power,double angle){
-		angle= Mathematics.angleRationalize(angle);
+		angle= Functions.angleRationalize(angle);
 
 		if(angle==0){
 			drive(driveDirection.forward,power);
@@ -122,7 +122,7 @@ public class Classic {
 	}
 
 	public void SimpleRadiansDrive(double power,double radians){
-		radians=Mathematics.radiansRationalize(radians);
+		radians=Functions.radiansRationalize(radians);
 
 		SimpleDrive(power,Math.toDegrees(radians));
 	}
@@ -138,7 +138,7 @@ public class Classic {
 	public void operateThroughGamePad(@NonNull Gamepad gamepad){
 		if(Params.Configs.useRightStickYToConfigRobotSpeed){
 			BufPower+=gamepad.right_stick_y*0.6;
-			BufPower=Mathematics.intervalClip(BufPower,-1,1);
+			BufPower=Functions.intervalClip(BufPower,-1,1);
 			motors.simpleMotorPowerController(
 					gamepad.left_stick_x*BufPower* Params.factorXPower,
 					gamepad.left_stick_y*BufPower* Params.factorYPower,

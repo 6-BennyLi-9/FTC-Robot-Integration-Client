@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderBu
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Mathematics;
+import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DrivingCommandsBuilder implements DriveOrderBuilder {
 	private final DriveCommandPackage commandPackage;
@@ -27,7 +27,7 @@ public class DrivingCommandsBuilder implements DriveOrderBuilder {
 	}
 
 	public DrivingCommandsBuilder SetPower(double power) {
-		power = Mathematics.intervalClip(power, -1f, 1f);
+		power = Functions.intervalClip(power, -1f, 1f);
 		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 		cache.SetPower(power);
 		cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
@@ -36,7 +36,7 @@ public class DrivingCommandsBuilder implements DriveOrderBuilder {
 	}
 
 	public DrivingCommandsBuilder TurnRadians(double radians) {
-		radians = Mathematics.intervalClip(radians, -Math.PI, Math.PI);
+		radians = Functions.intervalClip(radians, -Math.PI, Math.PI);
 		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
 		cache.Turn(radians);
 		cache.trajectoryType = TrajectoryType.TurnOnly;
