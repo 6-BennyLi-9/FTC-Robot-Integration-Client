@@ -12,6 +12,7 @@ import core.Utils.Annotations.LocalizationPlugin;
 import core.Utils.Complex;
 
 @LocalizationPlugin
+@Deprecated
 public class NewImuLocalizer implements PositionLocalizerPlugin {
 	public Sensors sensors;
 	public Complex error;
