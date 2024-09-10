@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 
 @LocalizationPlugin
+@Deprecated
 public class NewImuLocalizer implements PositionLocalizerPlugin {
 	public Sensors sensors;
 	public Complex error;
