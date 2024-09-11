@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 
+import java.util.Objects;
 import java.util.Vector;
 
 public class PidProcessor {
@@ -16,7 +17,7 @@ public class PidProcessor {
 	}
 
 	private void I_processor(int ID){
-		if(ID==2){//TODO:列出所有与角度有关的ID
+		if(Objects.equals(contents.get(ID).Tag, "Turning")){//TODO:列出所有与角度有关的ID
 			contents.get(ID).I= Mathematics.angleRationalize(contents.get(ID).vI);
 		}else{
 			contents.get(ID).I=Mathematics.intervalClip(contents.get(ID).vI,-Params.PIDParams.MAX_I[ID], Params.PIDParams.MAX_I[ID]);
