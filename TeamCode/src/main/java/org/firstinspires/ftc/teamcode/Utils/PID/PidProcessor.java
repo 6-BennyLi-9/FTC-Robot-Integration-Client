@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode.Utils;
+package org.firstinspires.ftc.teamcode.Utils.PID;
 
 
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 
 import java.util.Arrays;
 
-public class PID_processor {
+public class PidProcessor {
 	private static final int N = 3;
 
 	private final  double[] P,I,D;
@@ -13,10 +14,10 @@ public class PID_processor {
 
 	private final long[] timeFlags={0,0,0};
 
-	public PID_processor(){
+	public PidProcessor(){
 		this(System.currentTimeMillis());
 	}
-	public PID_processor(long TimeNow) {
+	public PidProcessor(long TimeNow) {
 		Arrays.fill(timeFlags, TimeNow);
 		P=new double[N];
 		I=new double[N];
@@ -25,7 +26,7 @@ public class PID_processor {
 
 	private void I_processor(int ID){
 		if(ID==2){//TODO:列出所有与角度有关的ID
-			I[ID]=Mathematics.angleRationalize(I[ID]);
+			I[ID]= Mathematics.angleRationalize(I[ID]);
 		}else{
 			I[ID]=Mathematics.intervalClip(I[ID],-Params.PIDParams.MAX_I[ID], Params.PIDParams.MAX_I[ID]);
 		}

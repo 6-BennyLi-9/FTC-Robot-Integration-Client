@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
-import org.firstinspires.ftc.teamcode.Utils.PID_processor;
+import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 import java.util.Objects;
@@ -43,7 +43,7 @@ public class Robot {
 	public Webcam webcam;
 
 	public Client client;
-	public PID_processor pidProcessor;
+	public PidProcessor pidProcessor;
 
 	public State state;
 	public runningState RunningState;
@@ -66,7 +66,7 @@ public class Robot {
 		webcam=new Webcam(hardwareMap);
 
 		this.client=client;
-		pidProcessor=new PID_processor();
+		pidProcessor=new PidProcessor();
 
 		//TODO:如果需要，在这里修改RuntimeOption中的值
 		if (Objects.requireNonNull(state) == runningState.Autonomous) {
