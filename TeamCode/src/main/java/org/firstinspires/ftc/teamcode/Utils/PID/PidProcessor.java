@@ -59,6 +59,9 @@ public class PidProcessor {
 		}
 	}
 
+	/**
+	 * @param content 将要加入的content
+	 */
 	@UtilFunctions
 	public void loadContent(PidContent content){
 		contents.add(content);
