@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DriveCommand implements DriveOrder {
@@ -55,7 +55,7 @@ public class DriveCommand implements DriveOrder {
 		MEAN = new commandRunningNode() {
 			@Override
 			public void runCommand() {
-				classic.drive(driveDirection.turn, BufPower);
+				classic.drive(DriveDirection.turn, BufPower);
 			}
 		};
 		DeltaTrajectory = new Pose2d(new Vector2d(0, 0), radians);

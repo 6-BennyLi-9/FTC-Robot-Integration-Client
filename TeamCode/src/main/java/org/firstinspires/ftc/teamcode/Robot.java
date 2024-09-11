@@ -25,7 +25,6 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
-import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
@@ -46,15 +45,15 @@ public class Robot {
 	public PidProcessor pidProcessor;
 
 	public State state;
-	public runningState RunningState;
+	public org.firstinspires.ftc.teamcode.Utils.Enums.RunningState RunningState;
 	private SimpleMecanumDrive drive=null;
 
 	public Timer timer;
 
-	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Telemetry telemetry){
+	public Robot(@NonNull HardwareMap hardwareMap, @NonNull org.firstinspires.ftc.teamcode.Utils.Enums.RunningState state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
-	public Robot(@NonNull HardwareMap hardwareMap, @NonNull runningState state, @NonNull Client client){
+	public Robot(@NonNull HardwareMap hardwareMap, @NonNull org.firstinspires.ftc.teamcode.Utils.Enums.RunningState state, @NonNull Client client){
 		devices=new DeviceMap(hardwareMap);
 
 		motors=new Motors(devices);
@@ -69,9 +68,9 @@ public class Robot {
 		pidProcessor=new PidProcessor();
 
 		//TODO:如果需要，在这里修改RuntimeOption中的值
-		if (Objects.requireNonNull(state) == runningState.Autonomous) {
+		if (Objects.requireNonNull(state) == org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.Autonomous) {
 			InitInAutonomous();
-		} else if (state == runningState.ManualDrive) {
+		} else if (state == org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.ManualDrive) {
 			Params.Configs.runUpdateWhenAnyNewOptionsAdded=true;
 			Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
@@ -91,7 +90,7 @@ public class Robot {
 	 */
 	public SimpleMecanumDrive InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
-		if(RunningState!=runningState.Autonomous) {
+		if(RunningState!= org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving State.");
 		}
 		return drive;
@@ -141,11 +140,11 @@ public class Robot {
 	 * @param angle 要转的角度[-180,180)
 	 */
 	public void turnAngle(double angle){
-		if(RunningState==runningState.ManualDrive)return;
+		if(RunningState== org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.ManualDrive)return;
 		drive.runOrderPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
-		if(RunningState==runningState.ManualDrive)return;
+		if(RunningState== org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.ManualDrive)return;
 		drive.runOrderPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
 	}
 

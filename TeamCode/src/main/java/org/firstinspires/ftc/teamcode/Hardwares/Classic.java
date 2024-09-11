@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
-import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class Classic {
@@ -27,7 +27,7 @@ public class Classic {
 		this.sensors    =sensors;
 	}
 
-	public void drive(@NonNull driveDirection driveDirection, double power) {
+	public void drive(@NonNull DriveDirection driveDirection, double power) {
 		switch ( driveDirection ) {
 			case forward:
 				motors.yAxisPower+=power;
@@ -57,7 +57,7 @@ public class Classic {
 	/**
 	 * @param angle 是较于x轴的度数
 	 */
-	public void drive(@NonNull driveDirection driveDirection, @NonNull Quadrant quadrant, double power, double angle) {
+	public void drive(@NonNull DriveDirection driveDirection, @NonNull Quadrant quadrant, double power, double angle) {
 		switch ( driveDirection ) {
 			case forward:case back:case left:case right:
 			case turn:
@@ -101,23 +101,23 @@ public class Classic {
 		angle= Functions.angleRationalize(angle);
 
 		if(angle==0){
-			drive(driveDirection.forward,power);
+			drive(DriveDirection.forward,power);
 		}else if(angle==90){
-			drive(driveDirection.right,power);
+			drive(DriveDirection.right,power);
 		}else if(angle==-90){
-			drive(driveDirection.left,power);
+			drive(DriveDirection.left,power);
 		}else if(angle==180){
-			drive(driveDirection.back,power);
+			drive(DriveDirection.back,power);
 		}
 
 		if(angle>0&&angle<90){//第一象限
-			drive(driveDirection.slant, Quadrant.firstQuadrant,power,90-angle);
+			drive(DriveDirection.slant, Quadrant.firstQuadrant,power,90-angle);
 		}else if(angle>90&&angle<180){//第四象限
-			drive(driveDirection.slant, Quadrant.forthQuadrant,power,angle-90);
+			drive(DriveDirection.slant, Quadrant.forthQuadrant,power,angle-90);
 		}else if(angle>-90&angle<0){//第二象限
-			drive(driveDirection.slant, Quadrant.secondQuadrant,power,90+angle);
+			drive(DriveDirection.slant, Quadrant.secondQuadrant,power,90+angle);
 		}else if(angle>-180&&angle<0){//第三象限
-			drive(driveDirection.slant, Quadrant.thirdQuadrant,power,-90-angle);
+			drive(DriveDirection.slant, Quadrant.thirdQuadrant,power,-90-angle);
 		}
 	}
 

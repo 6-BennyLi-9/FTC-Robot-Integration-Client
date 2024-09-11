@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.Utils.Enums.driveDirection;
-import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningState;
 
 /**
  * 1.运行程序
@@ -21,7 +21,7 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		double xP,yP,r;
-		robot=new Robot(hardwareMap, runningState.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningState.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);
@@ -30,7 +30,7 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 		if (!opModeIsActive() || isStopRequested())return;
 
 		robot.turnAngle(180);
-		robot.classic.drive(driveDirection.back,0.6f);
+		robot.classic.drive(DriveDirection.back,0.6f);
 
 		sleep(5000);
 

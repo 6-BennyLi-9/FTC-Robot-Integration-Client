@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.RIC_samples.Templates;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Enums.runningState;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningState;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 public abstract class TeleopProgramTemplate extends OpMode {
@@ -11,7 +11,7 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	public Timer timer;
 	@Override
 	public void init() {
-		robot=new Robot(hardwareMap, runningState.ManualDrive,telemetry);
+		robot=new Robot(hardwareMap, RunningState.ManualDrive,telemetry);
 		timer=new Timer();
 		whenInit();
 	}
