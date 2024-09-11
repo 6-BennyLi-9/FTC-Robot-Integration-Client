@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 
 @OdometerPrograms
-public class ArcOrganizedOdometer extends ClassicOdometer{
+public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
 	ArcOrganizedOdometer(Client client) {
 		super(client);
 	}
