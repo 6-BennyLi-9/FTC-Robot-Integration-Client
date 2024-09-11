@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefiniti
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
-
+@Deprecated
 @LocalizationPlugin
 public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	public DeadWheelVectorPositionLocalizer vectorLocalizer;

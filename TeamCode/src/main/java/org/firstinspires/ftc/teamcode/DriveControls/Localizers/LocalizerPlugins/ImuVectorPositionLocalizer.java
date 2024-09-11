@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.VectorPositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
-
+@Deprecated
 @LocalizationPlugin
 public final class ImuVectorPositionLocalizer extends ImuLocalizer implements VectorPositionLocalizerPlugin {
 	public ImuVectorPositionLocalizer(Classic classic){

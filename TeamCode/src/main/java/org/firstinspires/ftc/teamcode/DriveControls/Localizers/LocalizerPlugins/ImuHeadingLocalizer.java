@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefiniti
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
-
+@Deprecated
 @LocalizationPlugin
 public class ImuHeadingLocalizer implements HeadingLocalizerPlugin {
 	public double HeadingDeg;

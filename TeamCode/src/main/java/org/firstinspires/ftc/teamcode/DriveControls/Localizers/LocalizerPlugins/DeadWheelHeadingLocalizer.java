@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
 
+@Deprecated
 @LocalizationPlugin
 public final class DeadWheelHeadingLocalizer implements HeadingLocalizerPlugin {
 	public Sensors sensors;
