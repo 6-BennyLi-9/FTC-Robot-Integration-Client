@@ -15,6 +15,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveAction;
+import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveActionBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
@@ -199,5 +200,17 @@ public class MecanumDrive implements DriverProgram {
 	@Override
 	public Classic getClassic() {
 		return classic;
+	}
+
+	@Override
+	public Pose2d getCurrentPose() {
+		return RobotPosition;
+	}
+
+	/**
+	 * @return 定义开启新的 DriveActionBuilder
+	 */
+	public DriveActionBuilder drivingCommandsBuilder(){
+		return new DriveActionBuilder(this);
 	}
 }

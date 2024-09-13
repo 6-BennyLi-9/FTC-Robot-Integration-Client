@@ -12,8 +12,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.DriveControls.MecanumDrive;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderBuilder;
+import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
@@ -46,7 +48,7 @@ public class Robot {
 
 	public State state;
 	public org.firstinspires.ftc.teamcode.Utils.Enums.RunningState RunningState;
-	private SimpleMecanumDrive drive=null;
+	private DriverProgram drive=null;
 
 	public Timer timer;
 
@@ -88,7 +90,7 @@ public class Robot {
 	 * 自动初始化SimpleMecanumDrive
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
-	public SimpleMecanumDrive InitMecanumDrive(Pose2d RobotPosition){
+	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
 		if(RunningState!= org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving State.");
@@ -131,8 +133,12 @@ public class Robot {
 		classic.operateThroughGamePad(gamepad1);
 		structure.operateThroughGamePad(gamepad2);
 	}
-	public DrivingCommandsBuilder drivingCommandsBuilder(){
-		return drive.drivingCommandsBuilder();
+	public DriveOrderBuilder DrivingOrderBuilder(){
+		if(drive instanceof SimpleMecanumDrive)
+			return ((SimpleMecanumDrive) drive).drivingCommandsBuilder();
+		else if(drive instanceof MecanumDrive)
+			return ((MecanumDrive) drive).drivingCommandsBuilder();
+		return null;
 	}
 
 	/**
@@ -141,16 +147,16 @@ public class Robot {
 	 */
 	public void turnAngle(double angle){
 		if(RunningState== org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.ManualDrive)return;
-		drive.runOrderPackage(drive.drivingCommandsBuilder().TurnAngle(angle).END());
+		drive.runOrderPackage(DrivingOrderBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
 		if(RunningState== org.firstinspires.ftc.teamcode.Utils.Enums.RunningState.ManualDrive)return;
-		drive.runOrderPackage(drive.drivingCommandsBuilder().StrafeTo(pose).END());
+		drive.runOrderPackage(DrivingOrderBuilder().StrafeTo(pose).END());
 	}
 
 	public Pose2d pose(){
 		drive.update();
-		return drive.RobotPosition;
+		return drive.getCurrentPose();
 	}
 
 	/**
@@ -159,7 +165,7 @@ public class Robot {
 	 */
 	public void SetGlobalBufPower(double BufPower){
 		if(drive!=null) {
-			drive.runOrderPackage(drive.drivingCommandsBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
+			drive.runOrderPackage(DrivingOrderBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
 		}
 		motors.setBufPower(BufPower);
 	}

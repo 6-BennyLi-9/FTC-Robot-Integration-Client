@@ -25,9 +25,9 @@ public class SMDTest extends AutonomousProgramTemplate {
 
 		if (!opModeIsActive() || isStopRequested())return;
 
-		drive=robot.InitMecanumDrive(new Pose2d(0,0,0));
+		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(new Pose2d(0,0,0));
 
-		DriveCommandPackage trajectory=robot.drivingCommandsBuilder()
+		DriveCommandPackage trajectory= (DriveCommandPackage) robot.DrivingOrderBuilder()
 				.StrafeInDistance(0,24)
 				.TurnAngle(90)
 				.StrafeTo(new Vector2d(24,0))

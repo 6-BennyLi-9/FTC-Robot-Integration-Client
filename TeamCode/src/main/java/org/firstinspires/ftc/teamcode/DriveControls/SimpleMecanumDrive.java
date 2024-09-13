@@ -161,6 +161,11 @@ public class SimpleMecanumDrive implements DriverProgram {
 		return classic;
 	}
 
+	@Override
+	public Pose2d getCurrentPose() {
+		return RobotPosition;
+	}
+
 	/**
 	 * @param driveOrderPackage 要执行的DriveCommandPackage，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
