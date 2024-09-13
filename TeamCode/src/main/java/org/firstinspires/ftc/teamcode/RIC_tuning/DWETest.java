@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
-@TeleOp(name = "DeadWheelEncoders_Test",group = "tune")
-@TuningOpModes
+@TuningOrSampleTeleOPs(name = "DeadWheelEncoders_Test",group = "tune")
 public class DWETest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {

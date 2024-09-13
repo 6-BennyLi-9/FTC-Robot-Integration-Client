@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOpModes;
 import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
 /**
  * 1.把机器的正方向的边缘对齐放在地垫的交界处
@@ -15,8 +14,7 @@ import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTem
  * <p>
  * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
  */
-@TeleOp(name = "IMUPositionTuner",group = "tune")
-@TuningOpModes
+@TuningOrSampleTeleOPs(name = "IMUPositionTuner",group = "tune")
 public class IMUPositionTuner extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {

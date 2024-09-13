@@ -8,10 +8,14 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * 在调试阶段结束后，请在{@link TuningOpModes}中取消注释{@link Disabled}
+ * 在调试阶段结束后，请在{@link TuningOrSampleTeleOPs}中取消注释{@link Disabled}
  */
 //@Disabled
 @Target({ElementType.TYPE})
 @Documented
-public @interface TuningOpModes{
+public @interface TuningOrSampleTeleOPs {
+	@UserRequirementFunctions
+	boolean DISABLED() default false;
+	String name();
+	String group() default "";
 }
