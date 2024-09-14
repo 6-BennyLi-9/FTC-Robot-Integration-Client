@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
 @TuningOrSampleTeleOPs(name = "LateralInchPerTickTest",group = "tune")

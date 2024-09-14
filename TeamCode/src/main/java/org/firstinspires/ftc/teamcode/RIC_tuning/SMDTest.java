@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningState;

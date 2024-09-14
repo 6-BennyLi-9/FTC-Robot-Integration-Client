@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.RIC_samples.Templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleAutonomous;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;

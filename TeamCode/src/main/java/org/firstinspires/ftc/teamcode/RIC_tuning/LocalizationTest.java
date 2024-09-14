@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.RIC_tuning;
 import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.RIC_samples.Templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
 @TuningOrSampleTeleOPs(name = "LocalizationTest",group = "tune")
