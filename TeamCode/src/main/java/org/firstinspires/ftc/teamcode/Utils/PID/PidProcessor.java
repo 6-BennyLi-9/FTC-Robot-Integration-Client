@@ -1,61 +1,54 @@
 package org.firstinspires.ftc.teamcode.Utils.PID;
 
 
-import org.firstinspires.ftc.teamcode.Params;
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Mathematics;
 
-import java.util.Objects;
-import java.util.Vector;
+import java.util.Map;
 
 public class PidProcessor {
-	private final Vector< PidContent > contents;
-	public double[] inaccuracies,lastInaccuracies,fulfillment;
+	private final PidContentPackage contents;
 
 	public PidProcessor(){
-		contents=new Vector<>();
+		contents=new PidContentPackage();
 	}
 
-	private void I_processor(int ID){
-		if(Objects.equals(contents.get(ID).Tag, "Turning")){//TODO:列出所有与角度有关的ID
-			contents.get(ID).I= Mathematics.angleRationalize(contents.get(ID).vI);
+	private void RationalizeI(@NonNull PidContent content){
+		if(contents.TagIsAngleBasedContent(content.Tag)){
+			content.I=Mathematics.roundClip(content.I,content.MAX_I);
 		}else{
-			contents.get(ID).I=Mathematics.intervalClip(contents.get(ID).vI,-Params.PIDParams.MAX_I[ID], Params.PIDParams.MAX_I[ID]);
+			content.I=Mathematics.intervalClip(content.I,-content.MAX_I,content.MAX_I);
 		}
 	}
 
 	/**
 	 * 不要更改，不要更改，不要更改
-	 * @param ID 要调用那一个数据的编号
+	 * @param content 要调用那一个数据
 	 */
-	public void ModifyPID(int ID){
-		contents.get(ID).P=inaccuracies[ID]* Params.PIDParams.kP[ID];
-		contents.get(ID).I+=inaccuracies[ID]* Params.PIDParams.kI[ID]*contents.get(ID).timer.getDeltaTime();
+	public void ModifyPID(@NonNull PidContent content){
+		content.P=content.inaccuracies*content.getKp();
+		content.I+=content.inaccuracies * content.getKi() * content.timer.getDeltaTime();
 
-		I_processor(ID);
+		RationalizeI(content);
 
-		contents.get(ID).D=(inaccuracies[ID]-lastInaccuracies[ID])* Params.PIDParams.kD[ID]/contents.get(ID).timer.getDeltaTime();
-		lastInaccuracies[ID]=inaccuracies[ID];
+		content.D=(content.inaccuracies-content.lastInaccuracies)* content.getKd()/ content.timer.getDeltaTime();
+		content.lastInaccuracies=content.inaccuracies;
 
-		fulfillment[ID]=contents.get(ID).getFulfillment();
-	}
-
-	/**
-	 * @param ID 要调用那一个数据的编号
-	 */
-	public void simplePID(int ID){
-		for (PidContent content : contents) {
-			content.timer.stopAndRestart();
-		}
-		ModifyPID(ID);
+		content.fulfillment=content.getFulfillment();
 	}
 
 	/**
 	 * 刷新所有PID
 	 */
 	public void update(){
-		for(int i = 0; i< contents.size(); ++i){
-			simplePID(i);
+		PidContent content;
+		for (Map.Entry<String, PidContent> entry : contents.coreContents.entrySet()) {
+			content = entry.getValue();
+			content.timer.stopAndRestart();
+
+			ModifyPID(content);
 		}
 	}
 
@@ -64,6 +57,6 @@ public class PidProcessor {
 	 */
 	@UtilFunctions
 	public void loadContent(PidContent content){
-		contents.add(content);
+		contents.register(content);
 	}
 }
