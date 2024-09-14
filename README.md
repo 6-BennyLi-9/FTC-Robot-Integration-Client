@@ -13,7 +13,7 @@ We use Bing's translation site for translations, and if you have suggestions or 
 1. 允许队伍更集成化地控制机器（也就是11212所做的，不过本项目与他们的不同）。
 
 ### 使用与安装：
-如果您想用最新的测试版，您可以下载```master```分支下的```RIC.zip```或```RIC_Updrade.zip```，或者克隆我们的仓库。
+详见wiki
 
 ---
 
@@ -23,4 +23,4 @@ We use Bing's translation site for translations, and if you have suggestions or 
 
 ### Usage & Installation:
 
-If you want to use the latest beta, you can download ``RIC.zip`` or ``RIC_Updrade.zip`` under the ``master`` branch, or clone our repository.
+See more in wiki.
