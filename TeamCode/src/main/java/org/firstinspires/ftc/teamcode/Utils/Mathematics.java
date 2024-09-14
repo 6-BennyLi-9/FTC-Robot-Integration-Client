@@ -8,7 +8,7 @@ public class Mathematics {
 		return Math.min(Math.max(min,value),max);
 	}
 	/**
-	 * @return 强制使value在(min,max)范围内，方法为“园滚”
+	 * @return 强制使value在(min,max)范围内，方法为“园滚”，遇到歧义自动取正
 	 */
 	public static double roundClip(double value,double max){
 		double cache=value;
