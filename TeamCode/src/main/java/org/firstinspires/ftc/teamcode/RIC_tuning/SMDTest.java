@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningState;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
 
 @TuningOrSampleTeleOPs(name = "SimpleMecanumDrive_Test",group = "tune")
 public class SMDTest extends AutonomousProgramTemplate {
@@ -17,7 +17,7 @@ public class SMDTest extends AutonomousProgramTemplate {
 
 	@Override
 	public void runOpMode() {
-		robot=new Robot(hardwareMap, RunningState.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningStateType.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);

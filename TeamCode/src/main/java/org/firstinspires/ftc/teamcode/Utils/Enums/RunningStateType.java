@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Utils.Enums;
 
-public enum RunningState {
+public enum RunningStateType {
 	Autonomous,
 	ManualDrive
 }

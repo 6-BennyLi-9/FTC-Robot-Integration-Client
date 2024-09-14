@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleAutonomous;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningState;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
 
 /**
  * 1.运行程序
@@ -21,7 +21,7 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		double xP,yP,r;
-		robot=new Robot(hardwareMap, RunningState.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningStateType.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);
