@@ -115,4 +115,8 @@ public class Params {
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
 	public static double factorSuspensionArmPower=1;
+	/**
+	 * 电机的转力从0到其余数的保护时间，单位：ms
+	 */
+	public static double switchFromStaticToKinetic =75;
 }

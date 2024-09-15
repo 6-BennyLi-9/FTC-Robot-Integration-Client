@@ -81,4 +81,9 @@ public class PidProcessor {
 		} catch (ClassNotFoundException ignored) {}
 		return 0;
 	}
+	public void ModifyPidByTag(String tag){
+		try {
+			ModifyPID(contents.getTag(tag));
+		} catch (ClassNotFoundException ignored) {}
+	}
 }

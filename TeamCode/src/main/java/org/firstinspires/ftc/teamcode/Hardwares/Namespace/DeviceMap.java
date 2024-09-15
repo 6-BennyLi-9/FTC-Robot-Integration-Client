@@ -21,12 +21,15 @@ import java.util.Map;
  */
 public class DeviceMap {
 	public Map<HardwareDevices, DeviceInterface> devices;
+	public HardwareMap lazyHardwareMap;
+
 	public DeviceMap(HardwareMap hardwareMap){
 		devices=new HashMap<>();
 		register(hardwareMap);
 	}
 
 	public void register(HardwareMap hardwareMap){
+		lazyHardwareMap=hardwareMap;
 		for(HardwareDevices device: HardwareDevices.values()){
 			DcMotorEx hardwareDevice= (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
 			if(device.config.state== HardwareState.Enabled) {
@@ -102,5 +105,9 @@ public class DeviceMap {
 		}else{
 			throw new RuntimeException("Cannot get the position of other devices at DeviceMap.class");
 		}
+	}
+
+	public double getVoltage(){
+		return lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
 	}
 }
