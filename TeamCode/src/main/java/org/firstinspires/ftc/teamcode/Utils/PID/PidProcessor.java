@@ -59,4 +59,26 @@ public class PidProcessor {
 	public void loadContent(PidContent content){
 		contents.register(content);
 	}
+
+	/**
+	 * 自动抑制可能报出的错误
+	 * @param tag Content Tag
+	 * @param inaccuracies 登记的误差，不会自动update()
+	 */
+	public void registerInaccuracies(String tag,double inaccuracies){
+		try {
+			contents.getTag(tag).inaccuracies=inaccuracies;
+		} catch (ClassNotFoundException ignored) {}
+	}
+
+	/**
+	 * 自动抑制可能报出的错误
+	 * @return 如果发生错误，则返回0
+	 */
+	public double getFulfillment(String Tag){
+		try {
+			return contents.getTag(Tag).fulfillment;
+		} catch (ClassNotFoundException ignored) {}
+		return 0;
+	}
 }

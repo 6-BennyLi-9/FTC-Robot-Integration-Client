@@ -8,6 +8,7 @@ public class Params {
 	public static class PIDParams{
 		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
 		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
+		//TODO:若要更改，则请查看对该类型的访问中的序数是否需要改变
 		public static double[] kP= new double[]{0.12, 0.15, 0.12};
 		public static double[] kI= new double[]{0, 0, 0};
 		public static double[] kD= new double[]{0.04, 0.05, 0.04};

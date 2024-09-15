@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.Utils.PID;
 
-import org.firstinspires.ftc.teamcode.Params;
+import static org.firstinspires.ftc.teamcode.Params.PIDParams;
+import static org.firstinspires.ftc.teamcode.Params.PIDParams.kD;
+import static org.firstinspires.ftc.teamcode.Params.PIDParams.kI;
+import static org.firstinspires.ftc.teamcode.Params.PIDParams.kP;
+
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
@@ -22,18 +26,21 @@ public class PidContent {
 		timer=new Timer();
 		ParamID=paramID;
 	}
+	public PidContent(String tag,int paramID){
+		this(tag, kP[paramID], kI[paramID], kD[paramID], PIDParams.MAX_I[paramID],paramID);
+	}
 
 	public double getFulfillment(){
 		return P+I+D;
 	}
 	public double getKp(){
-		return Params.PIDParams.kP[ParamID];
+		return kP[ParamID];
 	}
 	public double getKd(){
-		return Params.PIDParams.kD[ParamID];
+		return kD[ParamID];
 	}
 	public double getKi(){
-		return Params.PIDParams.kI[ParamID];
+		return kI[ParamID];
 	}
 
 }

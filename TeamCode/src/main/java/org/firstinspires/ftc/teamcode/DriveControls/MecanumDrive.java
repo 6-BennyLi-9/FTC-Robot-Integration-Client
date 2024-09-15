@@ -31,6 +31,7 @@ import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
+import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
@@ -42,6 +43,7 @@ public class MecanumDrive implements DriverProgram {
 	private final Motors motors;
 	private final Client client;
 	private final PidProcessor pidProcessor;
+	private final String[] ContentTags;
 
 	public final LinkedList<Pose2d> poseHistory = new LinkedList<>();
 	public Pose2d RobotPosition;
@@ -62,6 +64,12 @@ public class MecanumDrive implements DriverProgram {
 
 		//TODO:更换Localizer如果需要
 		localizer=new DeadWheelSubassemblyLocalizer(classic);
+
+		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
+
+		pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
+		pidProcessor.loadContent(new PidContent(ContentTags[1],1));
+		pidProcessor.loadContent(new PidContent(ContentTags[2],2));
 	}
 	@ExtractedInterfaces
 	public MecanumDrive(@NonNull Robot robot,Pose2d RobotPosition){
@@ -142,16 +150,15 @@ public class MecanumDrive implements DriverProgram {
 								|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem
 								|| Params.Configs.alwaysRunPIDInAutonomous ){
 							//间断地调用pid可能会导致pid的效果不佳
-							pidProcessor.inaccuracies[0]=aim.position.x- RobotPosition.position.x;
-							pidProcessor.inaccuracies[1]=aim.position.y- RobotPosition.position.y;
-							pidProcessor.inaccuracies[2]=aim.heading.toDouble()- RobotPosition.heading.toDouble();
+							pidProcessor.registerInaccuracies(ContentTags[0], aim.position.x- RobotPosition.position.x);
+							pidProcessor.registerInaccuracies(ContentTags[1], aim.position.y- RobotPosition.position.y);
+							pidProcessor.registerInaccuracies(ContentTags[2], aim.heading.toDouble()- RobotPosition.heading.toDouble());
+
 							pidProcessor.update();
 
-							double[] fulfillment=pidProcessor.fulfillment;
-
-							motors.xAxisPower+=fulfillment[0];
-							motors.yAxisPower+=fulfillment[1];
-							motors.headingPower+=fulfillment[2];
+							motors.xAxisPower+=pidProcessor.getFulfillment(ContentTags[0]);
+							motors.yAxisPower+=pidProcessor.getFulfillment(ContentTags[1]);
+							motors.headingPower+=pidProcessor.getFulfillment(ContentTags[2]);
 						}
 					}else{
 						if(Math.abs(aim.position.x- RobotPosition.position.x)> pem
