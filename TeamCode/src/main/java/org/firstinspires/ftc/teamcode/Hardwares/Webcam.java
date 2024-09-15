@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardwares;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Camera;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Camera;
 import org.firstinspires.ftc.teamcode.Utils.Enums.AutonomousLocation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.namespace;
+package org.firstinspires.ftc.teamcode.Hardwares.Namespace;
 
 import androidx.annotation.NonNull;
 
@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceDisabledException;
 

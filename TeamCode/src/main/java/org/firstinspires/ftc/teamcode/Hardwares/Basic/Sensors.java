@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.basic;
+package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
 import androidx.annotation.NonNull;
 
@@ -13,8 +13,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
-import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DeadWheelsType;
 

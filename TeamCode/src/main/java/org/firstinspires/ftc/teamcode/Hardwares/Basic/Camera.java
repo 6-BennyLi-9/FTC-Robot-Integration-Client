@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.basic;
+package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Utils.Enums.AutonomousLocation;

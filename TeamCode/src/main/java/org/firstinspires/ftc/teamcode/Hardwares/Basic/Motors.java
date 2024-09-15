@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.Hardwares.basic;
+package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Hardwares.namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.Mathematics;
-import org.firstinspires.ftc.teamcode.Hardwares.namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 
 public class Motors {
 	public DeviceMap hardware;

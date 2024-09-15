@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;

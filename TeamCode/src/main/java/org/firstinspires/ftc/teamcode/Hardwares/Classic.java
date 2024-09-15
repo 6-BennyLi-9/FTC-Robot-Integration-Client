@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;

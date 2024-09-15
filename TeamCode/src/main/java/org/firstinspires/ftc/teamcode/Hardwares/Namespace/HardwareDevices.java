@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.namespace;
+package org.firstinspires.ftc.teamcode.Hardwares.Namespace;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
 

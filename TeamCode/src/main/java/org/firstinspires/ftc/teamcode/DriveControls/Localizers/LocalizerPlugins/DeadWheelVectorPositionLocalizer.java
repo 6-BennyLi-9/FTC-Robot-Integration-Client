@@ -10,7 +10,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.VectorPositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
 @Deprecated
 @LocalizationPlugin
