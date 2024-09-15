@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIC_tuning;
+package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
@@ -6,8 +6,8 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
-@TuningOrSampleTeleOPs(name = "LateralInchPerTickTest",group = "tune")
-public class LateralInchPerTickTest extends AutonomousProgramTemplate {
+@TuningOrSampleTeleOPs(name = "AxialInchPerTickTest",group = "tune")
+public class AxialInchPerTickTest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		Init(new Pose2d(0,0,0));
@@ -17,8 +17,8 @@ public class LateralInchPerTickTest extends AutonomousProgramTemplate {
 
 		while (!isStopRequested()){
 			robot.update();
-			robot.changeData("Ticks",robot.sensors.getDeltaL());
-			robot.changeData("Inch Drove",robot.sensors.getDeltaA()* Params.LateralInchPerTick);
+			robot.changeData("Ticks",robot.sensors.getDeltaA());
+			robot.changeData("Inch Drove",robot.sensors.getDeltaA()* Params.AxialInchPerTick);
 		}
 	}
 }

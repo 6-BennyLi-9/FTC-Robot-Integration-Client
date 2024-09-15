@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIC_samples;
+package org.firstinspires.ftc.teamcode.Samples;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;

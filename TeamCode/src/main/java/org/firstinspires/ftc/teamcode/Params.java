@@ -47,27 +47,27 @@ public class Params {
 	}
 	/**
 	 * 每Tick机器所旋转的角度
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.TurningDegPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.TurningDegPerTickTest
 	 */
 	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所前进的距离
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.AxialInchPerTickTest
 	 */
 	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * 每Tick机器所平移的距离
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.LateralInchPerTickTest
 	 */
 	public static double LateralInchPerTick=AxialInchPerTick;
 	/**
 	 * IMU相较于机器的正中心在X轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
+	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
 	 */
 	public static double X_error=0;
 	/**
 	 * IMU相较于机器的正中心在Y轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
+	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
 	 */
 	public static double Y_error=0;
 	/**

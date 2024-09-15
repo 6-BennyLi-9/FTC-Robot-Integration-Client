@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 /**
- * @see org.firstinspires.ftc.teamcode.RIC_samples.CameraDetection
+ * @see org.firstinspires.ftc.teamcode.Samples.CameraDetection
  */
 public class Webcam {
 	Camera detector;

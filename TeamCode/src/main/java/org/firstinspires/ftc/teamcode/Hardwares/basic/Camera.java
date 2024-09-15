@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 /**
  * 我们这里使用的是OpenCV的颜色块识别，如果你有更多方案，可以进行修改，或者新建拉取请求
- * @see org.firstinspires.ftc.teamcode.RIC_samples.CameraDetection
+ * @see org.firstinspires.ftc.teamcode.Samples.CameraDetection
  */
 public class Camera extends OpenCvPipeline {
 	private final Telemetry telemetry;

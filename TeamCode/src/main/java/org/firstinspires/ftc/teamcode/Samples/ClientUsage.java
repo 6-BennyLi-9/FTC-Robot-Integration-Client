@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIC_samples;
+package org.firstinspires.ftc.teamcode.Samples;
 
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;

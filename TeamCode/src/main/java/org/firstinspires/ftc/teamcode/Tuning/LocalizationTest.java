@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RIC_tuning;
+package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
