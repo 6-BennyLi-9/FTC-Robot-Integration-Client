@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
@@ -21,6 +22,7 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	private double bufPower=1f;
 	private int targetPosition;
 
+	@UserRequirementFunctions
 	public PositionalIntegrationMotor(DeviceMap deviceMap, HardwareDevices deviceType){
 		this(deviceMap,deviceType,new PidProcessor());
 		Log.e("Error","PidProcessor Not Given");
@@ -34,6 +36,7 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 		}
 	}
 
+	@UserRequirementFunctions
 	public void initPID(int ParamID){
 		if(PID_ENABLED){
 			pidTag=this.getClass().getName()+"-"+motor.getDeviceName();
@@ -41,10 +44,12 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 		}
 	}
 
+	@UserRequirementFunctions
 	public void setTargetPosition(int position){
 		targetPosition=position;
 		updated=false;
 	}
+	@UserRequirementFunctions
 	public void setBufPower(double bufPower){
 		this.bufPower=bufPower;
 		updated=false;
@@ -68,14 +73,16 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	}
 
 	@Override
-	protected double getPosition() {
+	public double getPosition() {
 		return motor.getCurrentPosition();
 	}
 
+	@UserRequirementFunctions
 	public void setIsLazy(boolean LAZY_MODE) {
 		this.LAZY_MODE = LAZY_MODE;
 	}
 
+	@UserRequirementFunctions
 	public void ConfigPidEnable(boolean val) {
 		PID_ENABLED = val;
 	}

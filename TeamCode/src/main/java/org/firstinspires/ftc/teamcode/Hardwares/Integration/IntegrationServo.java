@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
 public class IntegrationServo extends IntegrationDevice{
 	public final double positionPerRadian,speed,basePose;
@@ -15,6 +16,7 @@ public class IntegrationServo extends IntegrationDevice{
 	private double targetPose,targetVelocity;
 	public final Servo servo;
 
+	@UserRequirementFunctions
 	public IntegrationServo(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType){
 		super(deviceType.deviceName);
 		servo= (Servo) deviceMap.getDevice(deviceType);
@@ -23,6 +25,7 @@ public class IntegrationServo extends IntegrationDevice{
 		positionPerRadian=1;
 		basePose=0;
 	}
+	@UserRequirementFunctions
 	public IntegrationServo(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType,
 	                        double positionPerRadian, double speed, double basePose){
 		super(deviceType.deviceName);
@@ -33,11 +36,13 @@ public class IntegrationServo extends IntegrationDevice{
 		lazyMode=false;
 	}
 
+	@UserRequirementFunctions
 	public void setTargetPose(double targetPose) {
 		if(smoothMode) smoothMode=false;
 		this.targetPose = targetPose;
 		updated=false;
 	}
+	@UserRequirementFunctions
 	public void setTargetPoseInTime(double targetPose,double TimeMills){
 		smoothMode=true;
 		targetVelocity=(targetPose-servo.getPosition())/TimeMills;
@@ -66,7 +71,7 @@ public class IntegrationServo extends IntegrationDevice{
 	}
 
 	@Override
-	protected double getPosition() {
+	public double getPosition() {
 		return servo.getPosition();
 	}
 }

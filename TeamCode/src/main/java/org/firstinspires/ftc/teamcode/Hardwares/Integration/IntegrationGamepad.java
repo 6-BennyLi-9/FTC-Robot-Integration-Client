@@ -11,6 +11,7 @@ public class IntegrationGamepad {
 	public BasicIntegrationGamepad gamepad1,gamepad2;
 	public final KeyMap map;
 
+	@UserRequirementFunctions
 	public IntegrationGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		this(new BasicIntegrationGamepad(gamepad1),new BasicIntegrationGamepad(gamepad2));
 	}
