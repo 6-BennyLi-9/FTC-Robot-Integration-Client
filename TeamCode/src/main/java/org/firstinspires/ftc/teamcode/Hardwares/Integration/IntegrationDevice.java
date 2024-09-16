@@ -14,6 +14,6 @@ public abstract class IntegrationDevice {
 	}
 
 	public abstract void update();
-	protected double getPower(){return 0;}
-	protected abstract double getPosition();
+	public double getPower(){return 0;}
+	public abstract double getPosition();
 }
