@@ -1,16 +1,16 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 
 public class Servos {
-	public DeviceMap hardware;
+	public IntegrationHardwareMap hardware;
 	public double FrontClipPosition,RearClipPosition;
 
 	private final static double AllowErrorPosition=0.1;
 	private boolean PositionInPlace;
 
-	public Servos(DeviceMap hardware){
+	public Servos(IntegrationHardwareMap hardware){
 		this.hardware=hardware;
 		PositionInPlace=false;
 	}

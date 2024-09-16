@@ -64,7 +64,7 @@ public class Robot {
 
 		motors=new Motors(lazyIntegratedDevices);
 		sensors=new Sensors(devices);
-		servos=new Servos(devices);
+		servos=new Servos(lazyIntegratedDevices);
 
 		classic=new Classic(motors,sensors);
 		structure=new Structure(motors,servos);
