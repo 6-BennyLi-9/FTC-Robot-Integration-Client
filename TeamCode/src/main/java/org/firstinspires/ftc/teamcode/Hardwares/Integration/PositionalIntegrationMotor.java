@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 
 public class PositionalIntegrationMotor extends IntegrationDevice{
-	private final boolean PID_ENABLED =true;
-	private final boolean LAZY_MODE = false;
+	private boolean PID_ENABLED =true;
+	private boolean LAZY_MODE = false;
 
 	public final DcMotor motor;
 	private final PidProcessor pidProcessor;
@@ -43,9 +43,11 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 
 	public void setTargetPosition(int position){
 		targetPosition=position;
+		updated=false;
 	}
 	public void setBufPower(double bufPower){
 		this.bufPower=bufPower;
+		updated=false;
 	}
 
 	@Override
@@ -62,10 +64,19 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 				motor.setPower(Functions.intervalClip(bufPower*(targetPosition-motor.getCurrentPosition())/ kp,-1,1));
 			}
 		}
+		updated=true;
 	}
 
 	@Override
 	protected double getPosition() {
 		return motor.getCurrentPosition();
+	}
+
+	public void setIsLazy(boolean LAZY_MODE) {
+		this.LAZY_MODE = LAZY_MODE;
+	}
+
+	public void ConfigPidEnable(boolean val) {
+		PID_ENABLED = val;
 	}
 }

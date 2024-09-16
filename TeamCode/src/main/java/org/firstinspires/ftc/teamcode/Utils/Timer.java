@@ -8,10 +8,12 @@ import java.util.Map;
 
 public class Timer {
     public double StartTime,EndTime;
-    public Map<String, Double> Tags;
+    public final Map<String, Double> Tags;
+    public final Map<String, Object> TagMeaning;
     public Timer(){
         StartTime=Functions.getCurrentTimeMills();
         Tags=new HashMap<>();
+        TagMeaning=new HashMap<>();
     }
     @UserRequirementFunctions
     @ExtractedInterfaces
@@ -63,9 +65,25 @@ public class Timer {
 	        Tags.put(tag,getCurrentTime());
         }
     }
+    /**自动覆写如果存在相同的tag*/
+    @UserRequirementFunctions
+    public final void pushObjectionTimeTag(String tag,Object objection){
+        pushTimeTag(tag);
+        if(Tags.containsKey(tag)){
+            TagMeaning.replace(tag,objection);
+        }else {
+            TagMeaning.put(tag,objection);
+        }
+    }
+
     @UserRequirementFunctions
     public double getTimeTag(String tag){
         Double v = Tags.get(tag);
-	    return v == null ? 0 : v;
+        return v == null ? 0 : v;
+    }
+    @UserRequirementFunctions
+    public Object getTimeTagObjection(String tag){
+        Object v = TagMeaning.get(tag);
+        return v == null ? 0 : v;
     }
 }

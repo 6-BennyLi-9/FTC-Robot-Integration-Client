@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 
 public class IntegrationMotor extends IntegrationDevice{
-	private final boolean PID_ENABLED =true;
+	private boolean PID_ENABLED =true;
 
 	public final DcMotor motor;
 	private final PidProcessor pidProcessor;
@@ -100,5 +100,9 @@ public class IntegrationMotor extends IntegrationDevice{
 	@Override
 	public double getPower() {
 		return motor.getPower();
+	}
+
+	public void ConfigPidEnable(boolean val) {
+		PID_ENABLED = val;
 	}
 }
