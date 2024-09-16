@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Enums.KeyButtonType;
 import org.firstinspires.ftc.teamcode.Utils.Enums.KeyMapSettingType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.KeyRodType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class BasicIntegrationGamepad{
 	//TODO:添加需求Function如果需要
 
 	@UserRequirementFunctions
-	public boolean getButtonStateByType(@NonNull KeyButtonType type){
+	public boolean getCurrentButtonState(@NonNull KeyButtonType type){
 		boolean res=false;
 		switch (type) {
 			case A:
@@ -81,9 +82,9 @@ public class BasicIntegrationGamepad{
 		return Boolean.TRUE.equals(LastState.put(type, res));
 	}
 	@UserRequirementFunctions
-	public boolean getState(@NonNull KeyButtonType type, @NonNull KeyMapSettingType setting){
+	public boolean getButtonState(@NonNull KeyButtonType type, @NonNull KeyMapSettingType setting){
 		boolean lst= Boolean.TRUE.equals(LastState.get(type));
-		boolean now= getButtonStateByType(type);
+		boolean now= getCurrentButtonState(type);
 		boolean res=false;
 
 		switch (setting) {
@@ -100,6 +101,25 @@ public class BasicIntegrationGamepad{
 				throw new RuntimeException("Cannot Get The STATE Of A PullRod");
 		}
 
+		return res;
+	}
+	@UserRequirementFunctions
+	public double getRodState(@NonNull KeyRodType type){
+		double res=0;
+		switch (type) {
+			case LeftStickX:
+				res=LeftStickX();
+				break;
+			case LeftStickY:
+				res=LeftStickY();
+				break;
+			case RightStickX:
+				res=RightStickX();
+				break;
+			case RightStickY:
+				res=RightStickY();
+				break;
+		}
 		return res;
 	}
 }
