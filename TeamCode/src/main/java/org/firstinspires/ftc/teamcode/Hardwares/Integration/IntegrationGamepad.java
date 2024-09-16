@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardwares.Integration;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.BasicIntegrationGamepad;
 import org.firstinspires.ftc.teamcode.KeyMap;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;

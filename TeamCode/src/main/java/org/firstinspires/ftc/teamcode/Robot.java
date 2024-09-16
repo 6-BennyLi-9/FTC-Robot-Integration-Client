@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderBu
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;

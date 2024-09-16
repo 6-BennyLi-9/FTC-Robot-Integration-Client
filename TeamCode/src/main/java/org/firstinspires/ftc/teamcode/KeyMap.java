@@ -7,7 +7,7 @@ import static org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag.*;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.BasicIntegrationGamepad;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.BasicIntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Enums.KeyButtonType;

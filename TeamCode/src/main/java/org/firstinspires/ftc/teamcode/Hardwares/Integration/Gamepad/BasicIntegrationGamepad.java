@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration;
+package org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad;
 
 import androidx.annotation.NonNull;
 

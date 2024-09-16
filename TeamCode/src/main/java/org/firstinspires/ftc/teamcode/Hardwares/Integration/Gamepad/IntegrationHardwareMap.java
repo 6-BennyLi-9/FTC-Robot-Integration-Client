@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration;
+package org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad;
 
 import androidx.annotation.NonNull;
 
@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationDevice;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationMotor;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceInterface;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
