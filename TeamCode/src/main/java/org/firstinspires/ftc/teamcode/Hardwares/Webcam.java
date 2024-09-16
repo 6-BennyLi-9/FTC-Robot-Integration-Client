@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -16,7 +18,7 @@ public class Webcam {
 	Camera detector;
 	OpenCvCamera camera;
 
-	public Webcam(HardwareMap hardwareMap){
+	public Webcam(@NonNull HardwareMap hardwareMap){
 		//TODO：根据需要更改名称
 		int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 		camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);

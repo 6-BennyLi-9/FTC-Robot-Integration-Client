@@ -3,15 +3,15 @@ package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.Mathematics;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 
 public class Motors {
-	public DeviceMap hardware;
+	public IntegrationHardwareMap hardware;
 
 	//除非在手动程序中，不建议直接更改下列数值
 	public double LeftFrontPower,RightFrontPower,LeftRearPower,RightRearPower;
@@ -20,7 +20,7 @@ public class Motors {
 
 	private double ClassicBufPower =1, StructureBufPower =1;
 
-	public Motors(DeviceMap deviceMap){
+	public Motors(IntegrationHardwareMap deviceMap){
 		hardware= deviceMap;
 		LeftFrontPower=0;
 		RightFrontPower=0;
@@ -87,11 +87,11 @@ public class Motors {
 		LeftRearPower=Mathematics.intervalClip(LeftRearPower,-1,1);
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
-//		hardware.setPower(
-		hardware.setPower(HardwareDevices.LeftFront, LeftFrontPower* ClassicBufPower);
-		hardware.setPower(HardwareDevices.LeftRear, LeftRearPower* ClassicBufPower);
-		hardware.setPower(HardwareDevices.RightFront, RightFrontPower* ClassicBufPower);
-		hardware.setPower(HardwareDevices.RightRear, RightRearPower* ClassicBufPower);
+
+		hardware.setPowerSmooth(HardwareDevices.LeftFront, LeftFrontPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDevices.LeftRear, LeftRearPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDevices.RightFront, RightFrontPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDevices.RightRear, RightRearPower* ClassicBufPower);
 	}
 	public void updateStructureOptions(){
 		hardware.setPower(HardwareDevices.PlacementArm, PlacementArmPower* StructureBufPower);

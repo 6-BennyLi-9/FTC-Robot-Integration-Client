@@ -94,4 +94,17 @@ public class IntegrationHardwareMap {
 			throw new RuntimeException("Cannot get the position of other devices at DeviceMap.class");
 		}
 	}
+
+	@ExtractedInterfaces
+	public void setPowerSmooth(@NonNull HardwareDevices hardwareDevices, double power){
+		if(hardwareDevices.config.state==HardwareState.Disabled) {
+			throw new DeviceDisabledException(hardwareDevices.name());
+		}
+		IntegrationDevice device=getDevice(hardwareDevices);
+		if(device instanceof IntegrationMotor){
+			((IntegrationMotor) device).setTargetPowerSmooth(power);
+		}else if(device instanceof IntegrationServo){
+			throw new RuntimeException("Cannot set the power of a servo at DeviceMap.class");
+		}
+	}
 }

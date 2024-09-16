@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderBu
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
@@ -35,6 +36,7 @@ import java.util.Objects;
 
 public class Robot {
 	public DeviceMap devices;
+	public IntegrationHardwareMap lazyIntegratedDevices;
 
 	public final Motors motors;
 	public final Sensors sensors;
@@ -58,8 +60,9 @@ public class Robot {
 	}
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningStateType state, @NonNull Client client){
 		devices=new DeviceMap(hardwareMap);
+		lazyIntegratedDevices=new IntegrationHardwareMap(devices,pidProcessor);
 
-		motors=new Motors(devices);
+		motors=new Motors(lazyIntegratedDevices);
 		sensors=new Sensors(devices);
 		servos=new Servos(devices);
 
