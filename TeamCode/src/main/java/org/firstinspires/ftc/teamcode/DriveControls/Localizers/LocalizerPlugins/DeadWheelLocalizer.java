@@ -1,37 +1,34 @@
 package org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerPlugins;
 
-import androidx.annotation.NonNull;
-
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.DriveControls.Odometry.ArcOrganizedOdometer;
+import org.firstinspires.ftc.teamcode.DriveControls.Odometry.Odometry;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
-@Deprecated
+import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
+
 @LocalizationPlugin
 public class DeadWheelLocalizer implements PositionLocalizerPlugin {
-	public DeadWheelVectorPositionLocalizer vectorLocalizer;
-	public HeadingLocalizerPlugin headingLocalizer;
-	public Pose2d RobotPosition;
+	protected final Odometry odometry;
+	protected final Sensors sensors;
+	public Pose2d robotPosition;
 
-	public DeadWheelLocalizer(@NonNull Classic classic){
-		this(classic,new ImuHeadingLocalizer(classic));
-	}
-	public DeadWheelLocalizer(@NonNull Classic classic,@NonNull HeadingLocalizerPlugin plugin){
-		vectorLocalizer=new DeadWheelVectorPositionLocalizer(classic);
-		headingLocalizer=plugin;
-	}
-	@Override
-	public Pose2d getCurrentPose() {
-		return RobotPosition;
+	public DeadWheelLocalizer(Client client,Sensors sensors){
+		odometry=new ArcOrganizedOdometer(client);
+		this.sensors=sensors;
 	}
 
 	@Override
 	public void update() {
-		headingLocalizer.update();
-		vectorLocalizer.SetHeadingRad(headingLocalizer.getHeadingDeg());
-		vectorLocalizer.update();
-		RobotPosition=new Pose2d(vectorLocalizer.getCurrentVector(),Math.toRadians(headingLocalizer.getHeadingDeg()));
+		sensors.updateEncoders();//防止mspt过高
+		odometry.ProcessDeltaRelPose(sensors.getDeltaL(),sensors.getDeltaA(),sensors.getDeltaT());
+		robotPosition=odometry.getCurrentPose();
+	}
+
+	@Override
+	public Pose2d getCurrentPose() {
+		return robotPosition;
 	}
 }

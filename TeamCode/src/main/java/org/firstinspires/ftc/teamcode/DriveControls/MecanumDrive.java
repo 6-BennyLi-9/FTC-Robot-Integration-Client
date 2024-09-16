@@ -16,8 +16,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveAction;
 import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveActionBuilder;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerPlugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
@@ -63,7 +63,7 @@ public class MecanumDrive implements DriverProgram {
 		motors=classic.motors;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelSubassemblyLocalizer(classic);
+		localizer=new DeadWheelLocalizer(client,classic.sensors);
 
 		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
 

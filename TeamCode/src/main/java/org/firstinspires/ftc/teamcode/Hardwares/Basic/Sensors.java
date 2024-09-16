@@ -25,11 +25,14 @@ public class Sensors {
 		Right=new IntegrationDeadWheelEncoders(deviceMap,HardwareDevices.RightDeadWheel);
 	}
 
-	public void update(){
-		imu.update();
+	public void updateEncoders(){
 		Left.update();
 		Middle.update();
 		Right.update();
+	}
+	public void update(){
+		imu.update();
+		updateEncoders();
 	}
 
 	/**

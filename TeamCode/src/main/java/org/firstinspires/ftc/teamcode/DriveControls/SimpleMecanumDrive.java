@@ -12,8 +12,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
-import org.firstinspires.ftc.teamcode.DriveControls.Localizers.DeadWheelSubassemblyLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition.Localizer;
+import org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerPlugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
@@ -57,7 +57,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		this.pidProcessor=pidProcessor;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelSubassemblyLocalizer(classic);
+		localizer=new DeadWheelLocalizer(client,classic.sensors);
 
 		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
 

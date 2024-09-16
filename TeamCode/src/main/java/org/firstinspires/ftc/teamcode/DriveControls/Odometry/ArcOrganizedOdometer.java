@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 
 @OdometerPrograms
 public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
-	ArcOrganizedOdometer(Client client) {
+	public ArcOrganizedOdometer(Client client) {
 		super(client);
 	}
 

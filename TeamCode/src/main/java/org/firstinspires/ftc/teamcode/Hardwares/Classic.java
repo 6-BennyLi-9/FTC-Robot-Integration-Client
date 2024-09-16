@@ -50,7 +50,7 @@ public class Classic {
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
-			motors.update(sensors.FirstAngle);
+			motors.update(sensors.RobotAngle());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class Classic {
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
-			motors.update(sensors.FirstAngle);
+			motors.update(sensors.RobotAngle());
 		}
 	}
 
@@ -133,7 +133,7 @@ public class Classic {
 	public void STOP(){
 		motors.clearDriveOptions();
 		sensors.update();
-		motors.updateDriveOptions(sensors.FirstAngle);
+		motors.updateDriveOptions(sensors.RobotAngle());
 	}
 	public void operateThroughGamePad(@NonNull Gamepad gamepad){
 		if(Params.Configs.useRightStickYToConfigRobotSpeed){
