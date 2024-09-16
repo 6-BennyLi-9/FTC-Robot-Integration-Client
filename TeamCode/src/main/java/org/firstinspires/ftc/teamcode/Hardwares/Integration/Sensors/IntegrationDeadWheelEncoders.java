@@ -14,6 +14,8 @@ import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 public class IntegrationDeadWheelEncoders extends IntegrationSensor{
 	public final Encoder sensor;
 	public double encTick,velocity;
+	public double lastEncTick,lastVelocity;
+	public double deltaEncTicks,deltaVelocity;
 
 	public IntegrationDeadWheelEncoders(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType) {
 		super(deviceType.deviceName);
@@ -22,8 +24,14 @@ public class IntegrationDeadWheelEncoders extends IntegrationSensor{
 
 	@Override
 	public void update() {
+		lastEncTick=encTick;
+		lastVelocity=velocity;
+
 		PositionVelocityPair pair=sensor.getPositionAndVelocity();
 		encTick=pair.position;
 		velocity=pair.velocity;
+
+		deltaEncTicks=encTick-lastEncTick;
+		deltaVelocity=velocity-lastVelocity;
 	}
 }
