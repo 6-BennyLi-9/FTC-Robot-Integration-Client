@@ -121,7 +121,7 @@ public class Robot {
 		servos.update();
 
 		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
-			motors.update(sensors.FirstAngle);
+			motors.update(sensors.RobotAngle());
 		}else{
 			motors.update();
 		}

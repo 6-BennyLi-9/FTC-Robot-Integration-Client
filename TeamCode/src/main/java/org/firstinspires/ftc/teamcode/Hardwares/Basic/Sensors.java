@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationD
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DeadWheelsType;
 
 public class Sensors {
@@ -48,5 +49,10 @@ public class Sensors {
 	 */
 	public double getDeltaT(){
 		return (Right.deltaEncTicks-Left.deltaEncTicks)/Params.LateralPosition;
+	}
+
+	@ExtractedInterfaces
+	public double RobotAngle() {
+		return imu.RobotAngle;
 	}
 }
