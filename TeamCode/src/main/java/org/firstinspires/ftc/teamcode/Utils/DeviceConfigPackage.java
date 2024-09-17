@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
-
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 
 public class DeviceConfigPackage {
 	public HardwareState state;
+	public enum Direction{
+		Forward,
+		Reversed
+	}
 	public Direction direction;
 	public DeviceConfigPackage(){
 		state=null;
@@ -13,7 +15,7 @@ public class DeviceConfigPackage {
 	}
 	public DeviceConfigPackage AutoComplete(){
 		if(state==null)state=HardwareState.Enabled;
-		if(direction==null)direction= Direction.FORWARD;
+		if(direction==null)direction= Direction.Forward;
 		return this;
 	}
 	public DeviceConfigPackage AddConfig(HardwareState state){

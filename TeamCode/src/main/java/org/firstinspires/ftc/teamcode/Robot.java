@@ -35,7 +35,6 @@ import org.firstinspires.ftc.teamcode.Utils.Timer;
 import java.util.Objects;
 
 public class Robot {
-	public DeviceMap devices;
 	public IntegrationHardwareMap lazyIntegratedDevices;
 
 	public final Motors motors;
@@ -59,11 +58,10 @@ public class Robot {
 		this(hardwareMap,state,new Client(telemetry));
 	}
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningStateType state, @NonNull Client client){
-		devices=new DeviceMap(hardwareMap);
-		lazyIntegratedDevices=new IntegrationHardwareMap(devices,pidProcessor);
+		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
 		motors=new Motors(lazyIntegratedDevices);
-		sensors=new Sensors(devices);
+		sensors=new Sensors(lazyIntegratedDevices);
 		servos=new Servos(lazyIntegratedDevices);
 
 		classic=new Classic(motors,sensors);

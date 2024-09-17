@@ -1,17 +1,28 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad;
 
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.Intake;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.LeftFront;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.LeftRear;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.RightFront;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.RightRear;
+import static org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage.Direction.Reversed;
+
 import androidx.annotation.NonNull;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationDevice;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationServo;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceInterface;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Integrations;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.PositionalIntegrationMotor;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
@@ -21,25 +32,40 @@ import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import java.util.Map;
 
 public class IntegrationHardwareMap {
-	public Map<HardwareDevices, IntegrationDevice> devices;
+	public Map<HardwareDevices, Integrations> devices;
 	public HardwareMap lazyHardwareMap;
 
-	public IntegrationHardwareMap(@NonNull DeviceMap map, PidProcessor processor){
-		lazyHardwareMap=map.lazyHardwareMap;
-		for (Map.Entry<HardwareDevices, DeviceInterface> entry : map.devices.entrySet()) {
-			HardwareDevices key = entry.getKey();
-			DeviceInterface value = entry.getValue();
+	public IntegrationHardwareMap(@NonNull HardwareMap map,PidProcessor processor){
+		lazyHardwareMap=map;
 
-			if(value instanceof DcMotor){
-				devices.put(key,new IntegrationMotor(map,key,processor));
-			}else if(value instanceof Servo){
-				devices.put(key,new IntegrationMotor(map,key,processor));
+		for(HardwareDevices device: HardwareDevices.values()){
+			HardwareDevice object= (HardwareDevice) map.get(device.classType,device.deviceName);
+			if(device.classType==DcMotorEx.class){
+				DcMotorEx motor=(DcMotorEx) object;
+
+				if(device==LeftFront||device==LeftRear||
+						device==RightFront||device== RightRear||
+						device==Intake){//TODO 列举需要IntegrationMotor的类
+					motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+					if(device.config.direction== Reversed)motor.setDirection(Direction.REVERSE);
+					devices.put(device,new IntegrationMotor(motor,device,processor,this));
+				}else{
+					if(device.config.direction== Reversed)motor.setDirection(Direction.REVERSE);
+					devices.put(device,new PositionalIntegrationMotor(motor,device,processor));
+				}
+			}else if(device.classType== Servo.class){
+				Servo servo=(Servo) object;
+				if(device.config.direction== Reversed)servo.setDirection(Servo.Direction.REVERSE);
+				devices.put(device,new IntegrationServo(servo, device));
+			}else if(device.classType== BNO055IMU.class){
+				BNO055IMU imu=(BNO055IMU) object;
+				devices.put(device,new IntegrationBNO055(imu,device));
 			}
 		}
 	}
 
 	@ExtractedInterfaces
-	public IntegrationDevice getDevice(@NonNull HardwareDevices hardwareDevices){
+	public Integrations getDevice(@NonNull HardwareDevices hardwareDevices){
 		if(hardwareDevices.config.state== HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
@@ -50,11 +76,11 @@ public class IntegrationHardwareMap {
 		}
 	}
 	@ExtractedInterfaces
-	public void setDirection(@NonNull HardwareDevices hardwareDevices, DcMotorSimple.Direction direction){
+	public void setDirection(@NonNull HardwareDevices hardwareDevices, Direction direction){
 		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
-		IntegrationDevice device=getDevice(hardwareDevices);
+		Integrations device=getDevice(hardwareDevices);
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).motor.setDirection(direction);
 		}else{
@@ -66,7 +92,7 @@ public class IntegrationHardwareMap {
 		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
-		IntegrationDevice device=getDevice(hardwareDevices);
+		Integrations device=getDevice(hardwareDevices);
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setPower(power);
 		}else if(device instanceof IntegrationServo){
@@ -78,7 +104,7 @@ public class IntegrationHardwareMap {
 		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
-		IntegrationDevice device=getDevice(hardwareDevices);
+		Integrations device=getDevice(hardwareDevices);
 		if(device instanceof IntegrationServo){
 			((IntegrationServo) device).setTargetPose(position);
 		}else{
@@ -90,9 +116,9 @@ public class IntegrationHardwareMap {
 		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
-		IntegrationDevice device=getDevice(hardwareDevices);
+		Integrations device=getDevice(hardwareDevices);
 		if (device instanceof IntegrationServo || device instanceof IntegrationMotor) {
-			return device.getPosition();
+			return ((IntegrationDevice) device).getPosition();
 		}else{
 			throw new RuntimeException("Cannot get the position of other devices at DeviceMap.class");
 		}
@@ -103,11 +129,15 @@ public class IntegrationHardwareMap {
 		if(hardwareDevices.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDevices.name());
 		}
-		IntegrationDevice device=getDevice(hardwareDevices);
+		Integrations device=getDevice(hardwareDevices);
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setTargetPowerSmooth(power);
 		}else if(device instanceof IntegrationServo){
 			throw new RuntimeException("Cannot set the power of a servo at DeviceMap.class");
 		}
+	}
+
+	public double getVoltage(){
+		return lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
 	}
 }

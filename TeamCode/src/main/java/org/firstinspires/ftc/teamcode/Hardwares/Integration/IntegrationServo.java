@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
@@ -17,23 +16,23 @@ public class IntegrationServo extends IntegrationDevice{
 	public final Servo servo;
 
 	@UserRequirementFunctions
-	public IntegrationServo(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType){
-		super(deviceType.deviceName);
-		servo= (Servo) deviceMap.getDevice(deviceType);
-		lazyMode=true;
-		speed=1;
-		positionPerRadian=1;
-		basePose=0;
-	}
-	@UserRequirementFunctions
-	public IntegrationServo(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType,
+	public IntegrationServo(@NonNull Servo servo, @NonNull HardwareDevices deviceType,
 	                        double positionPerRadian, double speed, double basePose){
 		super(deviceType.deviceName);
-		servo= (Servo) deviceMap.getDevice(deviceType);
+		this.servo= servo;
 		this.positionPerRadian=positionPerRadian;
 		this.speed=speed;
 		this.basePose=basePose;
 		lazyMode=false;
+	}
+	@UserRequirementFunctions
+	public IntegrationServo(@NonNull Servo servo, @NonNull HardwareDevices deviceType){
+		super(deviceType.deviceName);
+		this.servo= servo;
+		positionPerRadian=0;
+		speed=0;
+		basePose=0;
+		lazyMode=true;
 	}
 
 	@UserRequirementFunctions

@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Integration;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
@@ -17,24 +15,19 @@ import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 public class IntegrationMotor extends IntegrationDevice{
 	private boolean PID_ENABLED =true;
 
-	public final DcMotor motor;
+	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
 	private double power=1f,lastPower;
-	private final DeviceMap lazyDeviceMap;
+	private final IntegrationHardwareMap lazyIntegrationHardwareMap;
 	public double minPowerToOvercomeKineticFriction=0;
 	public double minPowerToOvercomeStaticFriction=0;
 
-	@UserRequirementFunctions
-	public IntegrationMotor(DeviceMap deviceMap, HardwareDevices deviceType){
-		this(deviceMap,deviceType,new PidProcessor());
-		Log.e("Error","PidProcessor Not Given");
-	}
-	public IntegrationMotor(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor){
+	public IntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor,
+	                        @NonNull IntegrationHardwareMap integrationHardwareMap){
 		super(deviceType.deviceName);
-		motor= (DcMotor) deviceMap.getDevice(deviceType);
+		this.motor= motor;
 		this.pidProcessor=pidProcessor;
-//		mainVoltage=deviceMap.getVoltage();
-		lazyDeviceMap=deviceMap;
+		lazyIntegrationHardwareMap = integrationHardwareMap;
 	}
 
 	@UserRequirementFunctions
@@ -53,7 +46,7 @@ public class IntegrationMotor extends IntegrationDevice{
 
 		double m = (timer.getCurrentTime() > Params.switchFromStaticToKinetic + timer.getTimeTag("LastZeroTime") ?
 				   minPowerToOvercomeKineticFriction : minPowerToOvercomeStaticFriction)
-				* (12/lazyDeviceMap.getVoltage());
+				* (12/ lazyIntegrationHardwareMap.getVoltage());
 		power *= 1-m;
 
 		this.power = power + m * Math.signum(power);
@@ -73,7 +66,7 @@ public class IntegrationMotor extends IntegrationDevice{
 		power = Functions.intervalClip(power, -1, 1);
 		double m = (System.currentTimeMillis() > Params.switchFromStaticToKinetic + timer.getTimeTag("LastZeroTime") ?
 				   minPowerToOvercomeKineticFriction : minPowerToOvercomeStaticFriction)
-				* (13.5/lazyDeviceMap.getVoltage());
+				* (13.5/ lazyIntegrationHardwareMap.getVoltage());
 		power *= 1-m;
 		power = power + m * Math.signum(power);
 		// 0.5

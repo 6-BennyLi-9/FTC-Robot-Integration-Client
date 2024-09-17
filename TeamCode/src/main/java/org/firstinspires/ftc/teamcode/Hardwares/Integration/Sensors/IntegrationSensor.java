@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors;
 
-public abstract class IntegrationSensor {
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Integrations;
+
+public abstract class IntegrationSensor implements Integrations {
 	public final String name;
 
 	public IntegrationSensor(String name){

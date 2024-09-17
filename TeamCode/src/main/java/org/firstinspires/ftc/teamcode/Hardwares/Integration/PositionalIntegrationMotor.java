@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Integration;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
@@ -17,23 +15,16 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	private boolean PID_ENABLED =true;
 	private boolean LAZY_MODE = false;
 
-	public final DcMotor motor;
+	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
 	private double bufPower=1f;
 	private int targetPosition;
 
-	@UserRequirementFunctions
-	public PositionalIntegrationMotor(DeviceMap deviceMap, HardwareDevices deviceType){
-		this(deviceMap,deviceType,new PidProcessor());
-		Log.e("Error","PidProcessor Not Given");
-	}
-	public PositionalIntegrationMotor(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor){
+	public PositionalIntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor){
 		super(deviceType.deviceName);
-		motor= (DcMotor) deviceMap.getDevice(deviceType);
+		this.motor=motor;
 		this.pidProcessor=pidProcessor;
-		if(LAZY_MODE) {
-			motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		}
+		motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 	}
 
 	@UserRequirementFunctions

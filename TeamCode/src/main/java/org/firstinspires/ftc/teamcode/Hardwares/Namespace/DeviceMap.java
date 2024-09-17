@@ -31,17 +31,19 @@ public class DeviceMap {
 	public void register(HardwareMap hardwareMap){
 		lazyHardwareMap=hardwareMap;
 		for(HardwareDevices device: HardwareDevices.values()){
-			DcMotorEx hardwareDevice= (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
-			if(device.config.state== HardwareState.Enabled) {
-				if(device==HardwareDevices.LeftFront||device==HardwareDevices.LeftRear||
-						device==HardwareDevices.RightFront||device==HardwareDevices.RightRear){
-					hardwareDevice.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-					devices.put(device, (DeviceInterface) hardwareDevice);
+			if(device.getClass() ) {
+				DcMotorEx hardwareDevice = (DcMotorEx) hardwareMap.get(device.classType, device.deviceName);
+				if (device.config.state == HardwareState.Enabled) {
+					if (device == HardwareDevices.LeftFront || device == HardwareDevices.LeftRear ||
+							device == HardwareDevices.RightFront || device == HardwareDevices.RightRear) {
+						hardwareDevice.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+						devices.put(device, (DeviceInterface) hardwareDevice);
+					}
+					if (device.config.direction == DcMotorSimple.Direction.REVERSE) {
+						hardwareDevice.setDirection(DcMotorSimple.Direction.REVERSE);
+					}
+					devices.put(device, (DeviceInterface) hardwareMap.get(device.classType, device.deviceName));
 				}
-				if(device.config.direction== DcMotorSimple.Direction.REVERSE){
-					hardwareDevice.setDirection(DcMotorSimple.Direction.REVERSE);
-				}
-				devices.put(device, (DeviceInterface) hardwareMap.get(device.classType, device.deviceName));
 			}
 		}
 	}
