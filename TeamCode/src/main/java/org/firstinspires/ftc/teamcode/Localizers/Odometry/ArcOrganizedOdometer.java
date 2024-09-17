@@ -11,10 +11,10 @@ public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
 	}
 
 	@Override
-	public void ProcessDeltaRelPose(double relX, double relY, double relTheta) {
-		double REL_X=GetArcRelX(relX,relY,relTheta);
-		double REL_Y=GetArcRelY(relX,relY,relTheta);
-		AddDelta(Functions.Alignment2d(REL_X,REL_Y,relTheta));
+	public void update(double relDeltaX, double relDeltaY, double relDeltaTheta) {
+		double REL_X=GetArcRelX(relDeltaX, relDeltaY, relDeltaTheta);
+		double REL_Y=GetArcRelY(relDeltaX, relDeltaY, relDeltaTheta);
+		AddDelta(Functions.Alignment2d(REL_X,REL_Y, relDeltaTheta));
 	}
 
 	protected double GetArcRelX(double relX,double relY,double relTheta){

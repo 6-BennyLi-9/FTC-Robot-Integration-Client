@@ -81,4 +81,9 @@ public final class Functions extends Mathematics{
     public static Pose2d Alignment2d(@NonNull Pose2d pose){
 		return Alignment2d(pose.position.x,pose.position.y,Math.toDegrees(pose.heading.toDouble()));
     }
+
+	@UtilFunctions
+	public static double distance(double deltaX,double deltaY){
+		return Math.sqrt(deltaX*deltaX+deltaY*deltaY);
+	}
 }

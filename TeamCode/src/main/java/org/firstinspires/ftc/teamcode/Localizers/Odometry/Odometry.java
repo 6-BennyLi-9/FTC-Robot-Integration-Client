@@ -2,18 +2,22 @@ package org.firstinspires.ftc.teamcode.Localizers.Odometry;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 
 public interface Odometry {
 	/**
-	 * @param relTheta 默认0°为X轴正方向
+	 * @param relDeltaTheta 默认0°为X轴正方向
 	 */
 	@UtilFunctions
-	void ProcessDeltaRelPose(double relX,double relY,double relTheta);
+	void update(double relDeltaX, double relDeltaY, double relDeltaTheta);
 	@UtilFunctions
-	default void RegisterLineToDashBoard(){}
+	default void registerLineToDashBoard(){}
 	@UtilFunctions
-	void RegisterRobotToDashBoard();
+	void registerRobotToDashBoard();
 	@UtilFunctions
 	Pose2d getCurrentPose();
+
+	@UserRequirementFunctions
+	void setColor(String color);
 }

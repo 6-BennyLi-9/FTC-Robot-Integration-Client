@@ -23,7 +23,7 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	@Override
 	public void update() {
 		sensors.updateEncoders();//防止mspt过高
-		odometry.ProcessDeltaRelPose(sensors.getDeltaL(),sensors.getDeltaA(),sensors.getDeltaT());
+		odometry.update(sensors.getDeltaL(),sensors.getDeltaA(),sensors.getDeltaT());
 		robotPosition=odometry.getCurrentPose();
 	}
 
