@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.Localizers.LocalizerPlugins;
+package org.firstinspires.ftc.teamcode.Localizers.Plugin;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition.HeadingLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.Localizers.Definition.HeadingLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;

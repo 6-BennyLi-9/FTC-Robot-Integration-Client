@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition;
+package org.firstinspires.ftc.teamcode.Localizers.Definition;
 
 import androidx.annotation.NonNull;
 

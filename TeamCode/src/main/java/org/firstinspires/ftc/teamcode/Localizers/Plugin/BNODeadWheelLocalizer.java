@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.Localizers.LocalizerPlugins;
+package org.firstinspires.ftc.teamcode.Localizers.Plugin;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-import org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition.PositionLocalizerPlugin;
+import org.firstinspires.ftc.teamcode.Localizers.Definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 

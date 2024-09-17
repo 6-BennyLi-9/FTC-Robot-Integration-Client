@@ -12,8 +12,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
-import org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition.Localizer;
-import org.firstinspires.ftc.teamcode.Localizers.LocalizerPlugins.DeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.Localizers.Definition.Localizer;
+import org.firstinspires.ftc.teamcode.Localizers.Plugin.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;

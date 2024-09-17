@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition;
+package org.firstinspires.ftc.teamcode.Localizers.Definition;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
