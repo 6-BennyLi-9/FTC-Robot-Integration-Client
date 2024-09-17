@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Localizers.Odometry;
 
 import org.firstinspires.ftc.teamcode.Utils.Annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
+import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 @OdometerPrograms
 public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
@@ -13,11 +14,7 @@ public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
 	public void ProcessDeltaRelPose(double relX, double relY, double relTheta) {
 		double REL_X=GetArcRelX(relX,relY,relTheta);
 		double REL_Y=GetArcRelY(relX,relY,relTheta);
-		AddDelta(
-				REL_X*Math.cos(Math.toRadians(relTheta))-REL_Y*Math.sin(Math.toRadians(relTheta)),
-				REL_Y*Math.cos(Math.toRadians(relTheta))+REL_X*Math.sin(Math.toRadians(relTheta)),
-				relTheta
-		);
+		AddDelta(Functions.Alignment2d(REL_X,REL_Y,relTheta));
 	}
 
 	protected double GetArcRelX(double relX,double relY,double relTheta){

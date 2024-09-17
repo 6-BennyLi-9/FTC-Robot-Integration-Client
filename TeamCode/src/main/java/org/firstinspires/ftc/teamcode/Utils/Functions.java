@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.jetbrains.annotations.Contract;
 
 public final class Functions extends Mathematics{
     @UtilFunctions
@@ -59,5 +60,25 @@ public final class Functions extends Mathematics{
                 return new Pose2d(0, 0, 0);
         }
         throw new RuntimeException("If you see this Exception on DriverHub, please let us know in the issue");
+    }
+
+    /**
+     * @param theta 为角度制
+     */
+    @NonNull
+    @Contract("_, _, _ -> new")
+    @UtilFunctions
+    public static Pose2d Alignment2d(double x, double y, double theta){
+        return new Pose2d(
+                x*Math.cos(Math.toRadians(theta))-y*Math.sin(Math.toRadians(theta)),
+                y*Math.cos(Math.toRadians(theta))+x*Math.sin(Math.toRadians(theta)),
+                theta
+        );
+    }
+    @NonNull
+    @Contract("_ -> new")
+    @UtilFunctions
+    public static Pose2d Alignment2d(@NonNull Pose2d pose){
+		return Alignment2d(pose.position.x,pose.position.y,Math.toDegrees(pose.heading.toDouble()));
     }
 }
