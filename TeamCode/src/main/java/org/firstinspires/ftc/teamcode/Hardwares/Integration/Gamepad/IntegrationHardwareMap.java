@@ -40,6 +40,8 @@ public class IntegrationHardwareMap {
 
 		for(HardwareDevices device: HardwareDevices.values()){
 			HardwareDevice object= (HardwareDevice) map.get(device.classType,device.deviceName);
+			if(device.config.state==HardwareState.Disabled) continue;
+
 			if(device.classType==DcMotorEx.class){
 				DcMotorEx motor=(DcMotorEx) object;
 
@@ -47,15 +49,21 @@ public class IntegrationHardwareMap {
 						device==RightFront||device== RightRear||
 						device==Intake){//TODO 列举需要IntegrationMotor的类
 					motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 					if(device.config.direction== Reversed)motor.setDirection(Direction.REVERSE);
+
 					devices.put(device,new IntegrationMotor(motor,device,processor,this));
 				}else{
+
 					if(device.config.direction== Reversed)motor.setDirection(Direction.REVERSE);
+
 					devices.put(device,new PositionalIntegrationMotor(motor,device,processor));
 				}
 			}else if(device.classType== Servo.class){
 				Servo servo=(Servo) object;
+
 				if(device.config.direction== Reversed)servo.setDirection(Servo.Direction.REVERSE);
+
 				devices.put(device,new IntegrationServo(servo, device));
 			}else if(device.classType== BNO055IMU.class){
 				BNO055IMU imu=(BNO055IMU) object;
