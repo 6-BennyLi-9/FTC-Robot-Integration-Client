@@ -5,8 +5,6 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
 import java.util.ArrayDeque;
@@ -18,9 +16,9 @@ public class IntegrationDistanceSensor extends IntegrationSensor {
 	private final Queue<Double> DistanceHistory;
 
 	@UserRequirementFunctions
-	public IntegrationDistanceSensor(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType) {
-		super(deviceType.deviceName);
-		sensor= (DistanceSensor) deviceMap.getDevice(deviceType);
+	public IntegrationDistanceSensor(@NonNull DistanceSensor sensor) {
+		super(sensor.getDeviceName());
+		this.sensor=sensor;
 		DistanceHistory=new ArrayDeque<>();
 	}
 

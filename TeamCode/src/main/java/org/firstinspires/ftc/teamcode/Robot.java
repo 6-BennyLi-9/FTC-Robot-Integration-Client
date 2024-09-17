@@ -23,7 +23,6 @@ import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;

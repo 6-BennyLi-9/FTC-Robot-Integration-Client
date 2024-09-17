@@ -8,18 +8,15 @@ import com.acmerobotics.roadrunner.ftc.PositionVelocityPair;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
-
 public class IntegrationDeadWheelEncoders extends IntegrationSensor{
 	public final Encoder sensor;
 	public double encTick,velocity;
 	public double lastEncTick,lastVelocity;
 	public double deltaEncTicks,deltaVelocity;
 
-	public IntegrationDeadWheelEncoders(@NonNull DeviceMap deviceMap, @NonNull HardwareDevices deviceType) {
-		super(deviceType.deviceName);
-		sensor=new OverflowEncoder(new RawEncoder((DcMotorEx)deviceMap.getDevice(deviceType)));
+	public IntegrationDeadWheelEncoders(@NonNull DcMotorEx motor) {
+		super(motor.getDeviceName());
+		sensor=new OverflowEncoder(new RawEncoder(motor));
 	}
 
 	@Override
