@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition;
+package org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;

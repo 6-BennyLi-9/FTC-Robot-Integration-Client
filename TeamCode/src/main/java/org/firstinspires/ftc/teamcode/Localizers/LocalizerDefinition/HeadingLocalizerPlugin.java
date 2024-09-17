@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.DriveControls.Localizers.LocalizerDefinition;
+package org.firstinspires.ftc.teamcode.Localizers.LocalizerDefinition;
 
 public interface HeadingLocalizerPlugin extends LocalizerPlugin{
 	double getHeadingDeg();
