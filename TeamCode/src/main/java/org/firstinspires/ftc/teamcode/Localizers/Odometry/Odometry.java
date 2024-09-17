@@ -11,7 +11,9 @@ public interface Odometry {
 	@UtilFunctions
 	void ProcessDeltaRelPose(double relX,double relY,double relTheta);
 	@UtilFunctions
-	default void RegisterToDashBoard(){}
+	default void RegisterLineToDashBoard(){}
+	@UtilFunctions
+	void RegisterRobotToDashBoard();
 	@UtilFunctions
 	Pose2d getCurrentPose();
 }

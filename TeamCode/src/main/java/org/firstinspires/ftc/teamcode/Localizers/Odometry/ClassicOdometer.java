@@ -13,7 +13,7 @@ public class ClassicOdometer implements Odometry{
 	protected Vector < Pose2d > PoseHistory;
 	private final Client client;
 
-	ClassicOdometer(Client client){
+	public ClassicOdometer(Client client){
 		this.client=client;
 	}
 
@@ -27,7 +27,7 @@ public class ClassicOdometer implements Odometry{
 	}
 
 	@Override
-	public void RegisterToDashBoard() {
+	public void RegisterLineToDashBoard() {
 		client.dashboard.deletePacketByTag("Odometer");
 		for (int i = 0, poseHistorySize = PoseHistory.size(); i < poseHistorySize - 1; i++) {
 			client.dashboard.DrawLine(PoseHistory.get(i),PoseHistory.get(i+1),"Odometer", DashboardClient.Blue);
@@ -35,8 +35,14 @@ public class ClassicOdometer implements Odometry{
 	}
 
 	@Override
+	public void RegisterRobotToDashBoard() {
+		client.dashboard.deletePacketByTag("Odometer Robot");
+		client.dashboard.DrawRobot(PoseHistory.lastElement(),DashboardClient.Blue,"Odometer Robot");
+	}
+
+	@Override
 	public Pose2d getCurrentPose() {
-		return null;
+		return PoseHistory.lastElement();
 	}
 
 	protected Pose2d LastPose(){
