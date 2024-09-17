@@ -55,7 +55,7 @@ class KeyMapRodContent extends KeyMapContent{
 	}
 }
 
-public class KeyMap {
+public final class KeyMap {
 	private final Map<KeyTag, KeyMapContent> contents;
 	public KeyMap(){
 		contents=new HashMap<>();
