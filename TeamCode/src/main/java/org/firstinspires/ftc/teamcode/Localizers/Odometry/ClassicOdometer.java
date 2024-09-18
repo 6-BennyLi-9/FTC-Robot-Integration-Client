@@ -58,7 +58,7 @@ public class ClassicOdometer implements Odometry{
 		PoseHistory.add(new Pose2d(
 				cache.position.x+ DeltaGlobalX,
 				cache.position.y+ DeltaGlobalY,
-				cache.heading.toDouble()+ DeltaGlobalTheta
+				cache.heading.toDouble()+ Math.toRadians(DeltaGlobalTheta)
 		));
 	}
 	protected void AddDelta(@NonNull Pose2d delta){

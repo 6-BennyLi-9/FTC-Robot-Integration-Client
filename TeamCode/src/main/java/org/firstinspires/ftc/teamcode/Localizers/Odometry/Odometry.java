@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 
 public interface Odometry {
 	/**
-	 * @param relDeltaTheta 默认0°为X轴正方向
+	 * @param relDeltaTheta 默认0°为X轴正方向，为角度制
 	 */
 	@UtilFunctions
 	void update(double relDeltaX, double relDeltaY, double relDeltaTheta);

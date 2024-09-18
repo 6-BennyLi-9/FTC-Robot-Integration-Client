@@ -20,7 +20,7 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 		robotPose=new Pose2d(
 				robotPose.position.x+ relDeltaX,
 				robotPose.position.y+ relDeltaY,
-				robotPose.heading.toDouble()+ relDeltaTheta
+				robotPose.heading.toDouble()+ Math.toRadians(relDeltaTheta)
 		);
 	}
 

@@ -5,15 +5,20 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Vector;
 
 public class Timer {
     public double StartTime,EndTime;
     public final Map<String, Double> Tags;
     public final Map<String, Object> TagMeaning;
+    public final Map<String, Vector<Double>> MileageTags;
+
     public Timer(){
         StartTime=Functions.getCurrentTimeMills();
         Tags=new HashMap<>();
         TagMeaning=new HashMap<>();
+        MileageTags=new HashMap<>();
     }
     @UserRequirementFunctions
     @ExtractedInterfaces
@@ -85,5 +90,21 @@ public class Timer {
     public Object getTimeTagObjection(String tag){
         Object v = TagMeaning.get(tag);
         return v == null ? 0 : v;
+    }
+
+    @UserRequirementFunctions
+    public void pushMileageTimeTag(String tag){
+        pushTimeTag(tag);
+        if (MileageTags.containsKey(tag)){
+            Objects.requireNonNull(MileageTags.get(tag)).add(getCurrentTime());
+        }else{
+            Vector<Double> cache=new Vector<>();
+            cache.add(getCurrentTime());
+            MileageTags.put(tag,cache);
+        }
+    }
+    @UserRequirementFunctions
+    public Vector<Double> getMileageTimeTag(String tag){
+        return MileageTags.get(tag);
     }
 }
