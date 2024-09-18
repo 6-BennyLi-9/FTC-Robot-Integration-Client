@@ -8,6 +8,7 @@ public class Params {
 	public static class PIDParams{
 		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
 		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
+		//TODO:若要更改，则请查看对该类型的访问中的序数是否需要改变
 		public static double[] kP= new double[]{0.12, 0.15, 0.12};
 		public static double[] kI= new double[]{0, 0, 0};
 		public static double[] kD= new double[]{0.04, 0.05, 0.04};
@@ -47,27 +48,27 @@ public class Params {
 	}
 	/**
 	 * 每Tick机器所旋转的角度
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.TurningDegPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.TurningDegPerTickTest
 	 */
 	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所前进的距离
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.AxialInchPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.AxialInchPerTickTest
 	 */
 	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * 每Tick机器所平移的距离
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.LateralInchPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.LateralInchPerTickTest
 	 */
 	public static double LateralInchPerTick=AxialInchPerTick;
 	/**
 	 * IMU相较于机器的正中心在X轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
+	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
 	 */
 	public static double X_error=0;
 	/**
 	 * IMU相较于机器的正中心在Y轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.RIC_tuning.IMUPositionTuner
+	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
 	 */
 	public static double Y_error=0;
 	/**
@@ -114,4 +115,8 @@ public class Params {
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
 	public static double factorSuspensionArmPower=1;
+	/**
+	 * 电机的转力从0到其余数的保护时间，单位：ms
+	 */
+	public static double switchFromStaticToKinetic =75;
 }

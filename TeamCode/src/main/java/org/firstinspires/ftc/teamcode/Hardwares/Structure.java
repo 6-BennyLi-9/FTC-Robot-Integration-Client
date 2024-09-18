@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.Hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
