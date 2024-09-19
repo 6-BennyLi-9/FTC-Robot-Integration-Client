@@ -41,6 +41,8 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		updateVelocity();
 	}
 
+	SimplePosition relCurrentVel,currentVel;
+
 	public void updateVelocity(){
 		double targetVelTimeEstimate=0.2;
 		double actualVelTime=0,relDeltaXTotal=0,relDeltaYTotal=0,totalTime=0;
@@ -59,12 +61,18 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		}
 
 		if(actualVelTime!=0){
-			SimplePosition relCurrentVel =new SimplePosition(
+			relCurrentVel =new SimplePosition(
 				relDeltaXTotal/actualVelTime,
 					relDeltaYTotal/actualVelTime,
 					LastPose().heading.toDouble()-relHistory.get(lastIndex).heading.toDouble()/actualVelTime
 			);
-			SimplePosition currentVel=new SimplePosition(Functions.Alignment2d(relCurrentVel.asPose2d()));
+			currentVel=new SimplePosition(Functions.Alignment2d(relCurrentVel.asPose2d()));
+		}
+
+		//pop
+		while (lastIndex>=0){
+			relHistory.remove(0);
+			--lastIndex;
 		}
 	}
 }
