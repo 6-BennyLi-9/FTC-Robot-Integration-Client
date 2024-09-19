@@ -59,9 +59,12 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		}
 
 		if(actualVelTime!=0){
-			Pose2d relCurrentVal=new Pose2d(
-
+			SimplePosition relCurrentVel =new SimplePosition(
+				relDeltaXTotal/actualVelTime,
+					relDeltaYTotal/actualVelTime,
+					LastPose().heading.toDouble()-relHistory.get(lastIndex).heading.toDouble()/actualVelTime
 			);
+			SimplePosition currentVel=new SimplePosition(Functions.Alignment2d(relCurrentVel.asPose2d()));
 		}
 	}
 }
