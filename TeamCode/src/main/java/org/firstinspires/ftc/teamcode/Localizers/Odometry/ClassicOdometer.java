@@ -24,17 +24,17 @@ public class ClassicOdometer implements Odometry{
 	}
 
 	@Override
-	public void registerLineToDashBoard() {
-		client.dashboard.deletePacketByTag("Odometer");
+	public void registerLineToDashBoard(String tag) {
+		client.dashboard.deletePacketByTag(tag);
 		for (int i = 0, poseHistorySize = PoseHistory.size(); i < poseHistorySize - 1; i++) {
-			client.dashboard.DrawLine(PoseHistory.get(i),PoseHistory.get(i+1),"Odometer", color);
+			client.dashboard.DrawLine(PoseHistory.get(i),PoseHistory.get(i+1),tag, color);
 		}
 	}
 
 	@Override
-	public void registerRobotToDashBoard() {
-		client.dashboard.deletePacketByTag("Odometer Robot");
-		client.dashboard.DrawRobot(LastPose(),color,"Odometer Robot");
+	public void registerRobotToDashBoard(String tag) {
+		client.dashboard.deletePacketByTag(tag);
+		client.dashboard.DrawRobot(LastPose(),color,tag);
 	}
 
 	@Override

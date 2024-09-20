@@ -25,14 +25,14 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 	}
 
 	@Override
-	public void registerLineToDashBoard() {
+	public void registerLineToDashBoard(String tag) {
 		//Cannot Draw
 	}
 
 	@Override
-	public void registerRobotToDashBoard() {
-		client.dashboard.deletePacketByTag("Odometer Robot");
-		client.dashboard.DrawRobot(robotPose, color,"Odometer Robot");
+	public void registerRobotToDashBoard(String tag) {
+		client.dashboard.deletePacketByTag(tag);
+		client.dashboard.DrawRobot(robotPose, color,tag);
 	}
 
 	@Override

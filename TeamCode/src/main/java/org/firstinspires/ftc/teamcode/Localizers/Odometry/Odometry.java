@@ -12,9 +12,14 @@ public interface Odometry {
 	@UtilFunctions
 	void update(double relDeltaX, double relDeltaY, double relDeltaTheta);
 	@UtilFunctions
-	default void registerLineToDashBoard(){}
+	default void registerLineToDashBoard(String tag){}
 	@UtilFunctions
-	void registerRobotToDashBoard();
+	void registerRobotToDashBoard(String tag);
+	@UtilFunctions
+	default void registerToDashBoard(String tag){
+		registerLineToDashBoard(tag);
+		registerRobotToDashBoard(tag+" robot");
+	}
 	@UtilFunctions
 	Pose2d getCurrentPose();
 

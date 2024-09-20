@@ -23,6 +23,9 @@ import java.util.Vector;
 public class DashboardClient {
 	public static final String Blue="#3F51B5";
 	public static final String Green="#4CAF50";
+	public static final String Red="#DEB887";
+	public static final String Gray="#808080";
+
 	public static final class Drawing {
 		/**
 		 * 智能地根据机器的点位，但是需要搭配相应的配套操作
