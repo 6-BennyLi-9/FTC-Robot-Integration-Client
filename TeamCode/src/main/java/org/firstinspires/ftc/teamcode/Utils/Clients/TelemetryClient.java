@@ -12,8 +12,8 @@ import java.util.Vector;
 
 public class TelemetryClient {
 	public Telemetry telemetry;
-	private final Map < String , Pair< String , Integer >> data;
-	private int ID=0;
+	protected final Map < String , Pair< String , Integer >> data;
+	protected int ID=0;
 	public boolean showIndex=false;
 
 	public TelemetryClient(Telemetry telemetry){
