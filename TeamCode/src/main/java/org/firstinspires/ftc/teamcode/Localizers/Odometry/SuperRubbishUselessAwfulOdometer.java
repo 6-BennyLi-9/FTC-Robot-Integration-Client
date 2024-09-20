@@ -13,6 +13,7 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 
 	public SuperRubbishUselessAwfulOdometer(Client client){
 		robotPose=new Pose2d(0,0,0);
+		this.client=client;
 	}
 
 	@Override
