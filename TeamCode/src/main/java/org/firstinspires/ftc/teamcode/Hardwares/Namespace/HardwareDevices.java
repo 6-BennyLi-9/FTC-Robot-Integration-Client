@@ -9,8 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Params.namespace;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage;
-import org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage.Direction;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceConfigPackage.Direction;
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 
 /**

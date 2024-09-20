@@ -6,7 +6,7 @@ import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.LeftRear;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.RightFront;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices.RightRear;
-import static org.firstinspires.ftc.teamcode.Utils.DeviceConfigPackage.Direction.Reversed;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceConfigPackage.Direction.Reversed;
 
 import androidx.annotation.NonNull;
 

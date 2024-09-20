@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utils;
+package org.firstinspires.ftc.teamcode.Hardwares.Namespace;
 
 import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
 
