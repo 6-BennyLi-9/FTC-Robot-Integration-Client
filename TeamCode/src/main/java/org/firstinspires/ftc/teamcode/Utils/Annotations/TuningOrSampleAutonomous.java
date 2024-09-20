@@ -17,9 +17,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface TuningOrSampleAutonomous {
-	@UserRequirementFunctions
-	boolean DISABLED() default false;
 	String name();
 	String group() default "";
 }

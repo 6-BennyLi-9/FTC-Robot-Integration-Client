@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
-@TuningOrSampleTeleOPs(name = "LocalizationTest",group = "tune")
+@TeleOp(name = "LocalizationTest",group = "tune")
 public class LocalizationTest extends TeleopProgramTemplate {
 	SimpleMecanumDrive drive;
 	@Override

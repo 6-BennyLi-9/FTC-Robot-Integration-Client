@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
-@TuningOrSampleTeleOPs(name = "TurningDegPerTickTest",group = "tune")
+@TeleOp(name = "TurningDegPerTickTest",group = "tune")
 public class TurningDegPerTickTest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {

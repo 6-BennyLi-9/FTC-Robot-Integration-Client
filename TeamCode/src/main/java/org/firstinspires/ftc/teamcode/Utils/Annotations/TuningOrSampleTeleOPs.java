@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface TuningOrSampleTeleOPs {
 	@UserRequirementFunctions
 	boolean DISABLED() default false;

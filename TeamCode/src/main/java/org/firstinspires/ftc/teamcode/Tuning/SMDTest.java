@@ -2,15 +2,15 @@ package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
+import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
 
-@TuningOrSampleTeleOPs(name = "SimpleMecanumDrive_Test",group = "tune")
+@TeleOp(name = "SimpleMecanumDrive_Test",group = "tune")
 public class SMDTest extends AutonomousProgramTemplate {
 	Robot robot;
 	SimpleMecanumDrive drive;

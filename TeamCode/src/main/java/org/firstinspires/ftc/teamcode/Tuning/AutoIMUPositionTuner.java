@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleAutonomous;
+import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
 
@@ -13,8 +13,9 @@ import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
  * <p>
  * 2.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
  */
-@Autonomous()
-@TuningOrSampleAutonomous(name = "AutoIMUPositionTuner",group = "tune")
+@Autonomous(name = "AutoIMUPositionTuner",group = "tune")
+@Disabled
+@Deprecated
 public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 	public Robot robot;
 
@@ -36,9 +37,9 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 
 		robot.classic.STOP();
 		robot.update();
-		r=robot.sensors.XMoved/2;
+		r=robot.sensors.getDeltaL()/2;
 		xP=r;
-		yP=robot.sensors.YMoved-2*r;
+		yP=robot.sensors.getDeltaA()-2*r;
 		robot.changeData("xError",xP);
 		robot.changeData("yError", yP);
 

@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
 
 /**
  * 1.把机器的正方向的边缘对齐放在地垫的交界处
@@ -14,7 +15,9 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.TuningOrSampleTeleOPs;
  * <p>
  * 4.查看xError和yError，填入{@link org.firstinspires.ftc.teamcode.Params}
  */
-@TuningOrSampleTeleOPs(name = "IMUPositionTuner",group = "tune")
+@TeleOp(name = "IMUPositionTuner",group = "tune")
+@Disabled
+@Deprecated
 public class IMUPositionTuner extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
@@ -29,15 +32,15 @@ public class IMUPositionTuner extends AutonomousProgramTemplate {
 
 		while(!isStopRequested()){
 			robot.update();
-			r=robot.sensors.XMoved/2;
+			r=robot.sensors.getDeltaL()/2;
 			xP=r;
-			yP=robot.sensors.YMoved-2*r;
+			yP=robot.sensors.getDeltaA()-2*r;
 			robot.changeData ("xError",xP);
 			robot.changeData("yError", yP);
 			robot.changeData("R",r);
-			robot.changeData("X", robot.sensors.XMoved);
-			robot.changeData("Y", robot.sensors.YMoved);
-			robot.changeData("Heading", robot.sensors.FirstAngle);
+			robot.changeData("X", robot.sensors.getDeltaL());
+			robot.changeData("Y", robot.sensors.getDeltaA());
+			robot.changeData("Heading", robot.sensors.getDeltaT());
 		}
 	}
 }
