@@ -13,26 +13,16 @@ import java.util.Vector;
 public class TelemetryClient {
 	public Telemetry telemetry;
 	private final Map < String , Pair< String , Integer >> data;
-	private final Map < String , Integer > lines;
 	private int ID=0;
+	public boolean showIndex=false;
 
 	public TelemetryClient(Telemetry telemetry){
 		this.telemetry=telemetry;
-		data =new HashMap<>();
-		lines=new HashMap<>();
-		update();
-	}
-	public void clearInfo(){
-		data.clear();
-		update();
-	}
-	public void clearLines(){
-		lines.clear();
-		update();
+		data = new HashMap<>();
+//		update();
 	}
 	public void clear(){
-		clearInfo();
-		clearLines();
+		data.clear();
 		update();
 	}
 
@@ -80,7 +70,7 @@ public class TelemetryClient {
 	}
 
 	public void addLine(String key){
-		lines.put(key,++ID);
+		data.put(key,new Pair<>("",++ID));
 		update();
 	}
 	public void addLine(Object key){
@@ -90,27 +80,19 @@ public class TelemetryClient {
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	public void deleteLine(String key){
-		if(lines.containsKey(key)){
-			data.remove(key);
-		}else{
-			throw new RuntimeException("can't find the key \""+key+"\".");
-		}
+		data.remove(key);
 		update();
 	}
 
 	/**
 	 * 将key行替代为val，自动创建新的行如果key所指向的值不存在
-	 * @param oldDate 目标行
+	 * @param oldData 目标行
 	 * @param newData 替换行
 	 */
-	public void changeLine(String oldDate, String newData){
-		if(lines.containsKey(oldDate)){
-			int cache=Objects.requireNonNull(lines.get(oldDate));
-			lines.remove(oldDate);
-			lines.put(newData,cache);
-		}else{
-			addLine(newData);
-		}
+	public void changeLine(String oldData, String newData){
+		int cache=Objects.requireNonNull(data.get(oldData)).second;
+		data.remove(oldData);
+		data.put(newData,new Pair<>("",cache));
 		update();
 	}
 
@@ -119,16 +101,19 @@ public class TelemetryClient {
 		for (Map.Entry<String, Pair<String, Integer>> i : data.entrySet() ) {
 			String key = i.getKey(),val=i.getValue().first;
 			Integer IDCache=i.getValue().second;
-			outputData.add(new Pair<>(IDCache,key+":"+val));
-		}
-		for ( Map.Entry<String, Integer> entry : lines.entrySet() ) {
-			String key = entry.getKey();
-			Integer val = entry.getValue();
-			outputData.add(new Pair<>(val, key));
+			if(!Objects.equals(i.getValue().first, "")) {
+				outputData.add(new Pair<>(IDCache,key+":"+val));
+			}else{//line
+				outputData.add(new Pair<>(IDCache,key));
+			}
 		}
 		outputData.sort(Comparator.comparingInt(x -> x.first));
 		for ( Pair<Integer, String> outputLine : outputData ) {
-			telemetry.addLine("["+ outputLine.first+"]"+ outputLine.second);
+			if(showIndex) {
+				telemetry.addLine("["+ outputLine.first+"]"+ outputLine.second);
+			}else{
+				telemetry.addLine(outputLine.second);
+			}
 		}
 		telemetry.update();
 	}
