@@ -33,7 +33,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		SimplePosition curr=new SimplePosition(LastPose());
 		processor.calculate(loopTime,relDelta,curr);
 
-		AddDelta(curr.asPose2d());
+		AddDelta(curr.x,curr.y,curr.heading);
 
 		relHistory.add(0,relDelta.asPose2d());
 		timer.pushMileageTimeTag("updateTime");

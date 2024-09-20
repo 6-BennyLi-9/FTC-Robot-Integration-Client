@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Localizers.Odometry;
 
-import androidx.annotation.NonNull;
-
 import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.Utils.Annotations.OdometerPrograms;
@@ -22,7 +20,7 @@ public class ClassicOdometer implements Odometry{
 
 	@Override
 	public void update(double relDeltaX, double relDeltaY, double relDeltaTheta) {
-		AddDelta(Functions.Alignment2d(relDeltaX, relDeltaY, relDeltaTheta));
+		AddUnAlignmentDelta(relDeltaX, relDeltaY, relDeltaTheta);
 	}
 
 	@Override
@@ -53,15 +51,16 @@ public class ClassicOdometer implements Odometry{
 		return PoseHistory.lastElement();
 	}
 
-	protected void AddDelta(double DeltaGlobalX, double DeltaGlobalY, double DeltaGlobalTheta){
+	protected void AddDelta(double DeltaGlobalX, double DeltaGlobalY, double DeltaTheta){
 		Pose2d cache=LastPose();
 		PoseHistory.add(new Pose2d(
 				cache.position.x+ DeltaGlobalX,
 				cache.position.y+ DeltaGlobalY,
-				cache.heading.toDouble()+ Math.toRadians(DeltaGlobalTheta)
+				cache.heading.toDouble()+ Math.toRadians(DeltaTheta)
 		));
 	}
-	protected void AddDelta(@NonNull Pose2d delta){
-		AddDelta(delta.position.x,delta.position.y,delta.heading.toDouble());
+	protected void AddUnAlignmentDelta(double DeltaGlobalX, double DeltaGlobalY, double DeltaTheta){
+		Pose2d pose=Functions.Alignment2d(DeltaGlobalX,DeltaGlobalY,DeltaTheta+LastPose().heading.toDouble());
+		AddDelta(pose.position.x,pose.position.y,DeltaTheta);
 	}
 }

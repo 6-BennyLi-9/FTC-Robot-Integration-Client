@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Localizers.Odometry;
 
 import org.firstinspires.ftc.teamcode.Utils.Annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
-import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 @OdometerPrograms
 public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
@@ -14,7 +13,7 @@ public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
 	public void update(double relDeltaX, double relDeltaY, double relDeltaTheta) {
 		double REL_X=GetArcRelX(relDeltaX, relDeltaY, relDeltaTheta);
 		double REL_Y=GetArcRelY(relDeltaX, relDeltaY, relDeltaTheta);
-		AddDelta(Functions.Alignment2d(REL_X,REL_Y, relDeltaTheta));
+		AddUnAlignmentDelta(REL_X,REL_Y, relDeltaTheta);
 	}
 
 	/**
