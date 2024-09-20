@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Tuning;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "LateralInchPerTickTest",group = "tune")
+@Disabled
 public class LateralInchPerTickTest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {

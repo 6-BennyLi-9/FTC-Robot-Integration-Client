@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "DeadWheelEncoders_Test",group = "tune")
-public class DWETest extends AutonomousProgramTemplate {
+public class DeadWheelEncoders extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		Init(new Pose2d(0,0,0));

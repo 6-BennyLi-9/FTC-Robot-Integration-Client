@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Localizers.Definition.PositionLocalizerPlu
 import org.firstinspires.ftc.teamcode.Localizers.Odometry.ArcOrganizedOdometer;
 import org.firstinspires.ftc.teamcode.Localizers.Odometry.Odometry;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 
@@ -23,7 +24,8 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	@Override
 	public void update() {
 		sensors.updateEncoders();//防止mspt过高
-		odometry.update(sensors.getDeltaL(),sensors.getDeltaA(),sensors.getDeltaT());
+		odometry.update(sensors.getDeltaL()* Params.LateralInchPerTick ,sensors.getDeltaA() * Params.AxialInchPerTick,
+				sensors.getDeltaT() * Params.TurningDegPerTick);
 		robotPosition=odometry.getCurrentPose();
 	}
 

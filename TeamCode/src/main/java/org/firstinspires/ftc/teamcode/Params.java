@@ -48,17 +48,17 @@ public class Params {
 	}
 	/**
 	 * 每Tick机器所旋转的角度
-	 * @see org.firstinspires.ftc.teamcode.Tuning.TurningDegPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
 	 */
 	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所前进的距离
-	 * @see org.firstinspires.ftc.teamcode.Tuning.AxialInchPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
 	 */
 	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * 每Tick机器所平移的距离
-	 * @see org.firstinspires.ftc.teamcode.Tuning.LateralInchPerTickTest
+	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
 	 */
 	public static double LateralInchPerTick=AxialInchPerTick;
 	/**

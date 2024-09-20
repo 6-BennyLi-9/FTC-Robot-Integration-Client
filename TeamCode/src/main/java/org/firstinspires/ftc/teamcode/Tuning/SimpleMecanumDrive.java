@@ -5,15 +5,14 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
-import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
 
 @TeleOp(name = "SimpleMecanumDrive_Test",group = "tune")
-public class SMDTest extends AutonomousProgramTemplate {
+public class SimpleMecanumDrive extends AutonomousProgramTemplate {
 	Robot robot;
-	SimpleMecanumDrive drive;
+	org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive drive;
 
 	@Override
 	public void runOpMode() {
@@ -25,7 +24,7 @@ public class SMDTest extends AutonomousProgramTemplate {
 
 		if (!opModeIsActive() || isStopRequested())return;
 
-		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(new Pose2d(0,0,0));
+		drive= (org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive) robot.InitMecanumDrive(new Pose2d(0,0,0));
 
 		DriveCommandPackage trajectory= (DriveCommandPackage) robot.DrivingOrderBuilder()
 				.StrafeInDistance(0,24)
