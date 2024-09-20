@@ -63,16 +63,16 @@ public final class Functions extends Mathematics{
     }
 
     /**
-     * @param theta 为角度制
+     * @param globalTheta 为角度制
      */
     @NonNull
     @Contract("_, _, _ -> new")
     @UtilFunctions
-    public static Pose2d Alignment2d(double x, double y, double theta){
+    public static Pose2d Alignment2d(double deltaX, double deltaY, double globalTheta){
         return new Pose2d(
-                x*Math.cos(Math.toRadians(theta))-y*Math.sin(Math.toRadians(theta)),
-                y*Math.cos(Math.toRadians(theta))+x*Math.sin(Math.toRadians(theta)),
-                theta
+                deltaX *Math.cos(Math.toRadians(globalTheta))- deltaY *Math.sin(Math.toRadians(globalTheta)),
+                deltaY *Math.cos(Math.toRadians(globalTheta))+ deltaX *Math.sin(Math.toRadians(globalTheta)),
+                globalTheta
         );
     }
     @NonNull
@@ -80,6 +80,13 @@ public final class Functions extends Mathematics{
     @UtilFunctions
     public static Pose2d Alignment2d(@NonNull Pose2d pose){
 		return Alignment2d(pose.position.x,pose.position.y,Math.toDegrees(pose.heading.toDouble()));
+    }
+
+    @NonNull
+    @Contract("_ -> new")
+    @UtilFunctions
+    public static Pose2d Alignment2d(@NonNull SimplePosition pose){
+        return Alignment2d(pose.x,pose.y,pose.heading);
     }
 
 	@UtilFunctions
