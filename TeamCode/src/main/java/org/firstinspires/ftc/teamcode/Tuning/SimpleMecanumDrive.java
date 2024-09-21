@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 
 @TeleOp(name = "SimpleMecanumDrive_Test",group = "tune")
 public class SimpleMecanumDrive extends AutonomousProgramTemplate {
@@ -16,7 +16,7 @@ public class SimpleMecanumDrive extends AutonomousProgramTemplate {
 
 	@Override
 	public void runOpMode() {
-		robot=new Robot(hardwareMap, RunningStateType.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningMode.Autonomous,telemetry);
 
 		while(!opModeIsActive()&&!isStopRequested()){
 			sleep(50);

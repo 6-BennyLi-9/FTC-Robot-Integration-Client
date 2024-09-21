@@ -11,4 +11,12 @@ public enum KeyTag {
 	ClassicRunForward,
 	ClassicRunStrafe,
 	ClassicTurn,
+	/**
+	 * 必须为 Rod 控制
+	 */
+	ClassicSpeedControl,
+	/**
+	 * 必须为 Button 控制
+	 */
+	ClassicSpeedConfig,
 }

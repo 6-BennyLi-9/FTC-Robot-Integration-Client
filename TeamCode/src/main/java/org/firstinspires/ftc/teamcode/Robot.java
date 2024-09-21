@@ -16,22 +16,22 @@ import org.firstinspires.ftc.teamcode.DriveControls.MecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Structure;
-import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
+import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
+import org.firstinspires.ftc.teamcode.Hardwares.Structure;
+import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
-
-import java.util.Objects;
 
 public class Robot {
 	public IntegrationHardwareMap lazyIntegratedDevices;
@@ -48,15 +48,16 @@ public class Robot {
 	public PidProcessor pidProcessor;
 
 	public State state;
-	public RunningStateType RunningState;
+	public RunningMode RunningState;
+	public IntegrationGamepad gamepad=null;
 	private DriverProgram drive=null;
 
 	public Timer timer;
 
-	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningStateType state, @NonNull Telemetry telemetry){
+	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
-	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningStateType state, @NonNull Client client){
+	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
 		motors=new Motors(lazyIntegratedDevices);
@@ -70,16 +71,21 @@ public class Robot {
 		this.client=client;
 		pidProcessor=new PidProcessor();
 
-		//TODO:如果需要，在这里修改RuntimeOption中的值
-		if (Objects.requireNonNull(state) == RunningStateType.Autonomous) {
-			InitInAutonomous();
-		} else if (state == RunningStateType.ManualDrive) {
-			Params.Configs.runUpdateWhenAnyNewOptionsAdded=true;
-			Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=false;
+		//TODO:如果需要，在这里修改 Params.Config 中的值
+		switch (state) {
+			case Autonomous:
+				InitInAutonomous();
+				break;
+			case ManualDrive:
+				Params.Configs.runUpdateWhenAnyNewOptionsAdded=true;
+				Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
-			InitInManualDrive();
-		} else {
-			throw new NullPointerException("Unexpected runningState value???");
+				InitInManualDrive();
+				break;
+			case Debug:case Sample:case TestOrTune:
+				break;
+			default:
+				throw new UnKnownErrorsException("Unexpected runningState value:"+state.name());
 		}
 
 		RunningState=state;
@@ -93,7 +99,7 @@ public class Robot {
 	 */
 	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
-		if(RunningState!= RunningStateType.Autonomous) {
+		if(RunningState!= RunningMode.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving State.");
 		}
 		return drive;
@@ -107,6 +113,10 @@ public class Robot {
 		structure.ClipOption(ClipPosition.Open);
 		state= State.ManualDriving;
 		SetGlobalBufPower(0.9f);
+	}
+
+	public void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
+		gamepad=new IntegrationGamepad(gamepad1,gamepad2);
 	}
 
 	public void update()  {
@@ -129,10 +139,13 @@ public class Robot {
 			Actions.runBlocking(new SleepAction(0.1));
 		}
 	}
-	
-	public void operateThroughGamePad(Gamepad gamepad1,Gamepad gamepad2){
-		classic.operateThroughGamePad(gamepad1);
-		structure.operateThroughGamePad(gamepad2);
+
+	/**
+	 * 不会自动 update()
+	 */
+	public void operateThroughGamePad() {
+		classic.operateThroughGamePad(gamepad);
+		structure.operateThroughGamePad(gamepad);
 	}
 	public DriveOrderBuilder DrivingOrderBuilder(){
 		if(drive instanceof SimpleMecanumDrive)
@@ -147,11 +160,11 @@ public class Robot {
 	 * @param angle 要转的角度[-180,180)
 	 */
 	public void turnAngle(double angle){
-		if(RunningState== RunningStateType.ManualDrive)return;
+		if(RunningState== RunningMode.ManualDrive)return;
 		drive.runOrderPackage(DrivingOrderBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
-		if(RunningState== RunningStateType.ManualDrive)return;
+		if(RunningState== RunningMode.ManualDrive)return;
 		drive.runOrderPackage(DrivingOrderBuilder().StrafeTo(pose).END());
 	}
 

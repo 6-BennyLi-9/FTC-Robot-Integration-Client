@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
 import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
@@ -135,6 +137,7 @@ public class Classic {
 		sensors.update();
 		motors.updateDriveOptions(sensors.RobotAngle());
 	}
+	@Deprecated
 	public void operateThroughGamePad(@NonNull Gamepad gamepad){
 		if(Params.Configs.useRightStickYToConfigRobotSpeed){
 			BufPower+=gamepad.right_stick_y*0.6;
@@ -151,5 +154,23 @@ public class Classic {
 					gamepad.right_stick_x* Params.factorHeadingPower
 			        );
 		}
+	}
+	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
+		if(gamepad.map.ContainsKeySetting(KeyTag.ClassicSpeedControl)){
+			BufPower+=gamepad.getRodState(KeyTag.ClassicSpeedControl)*0.6;
+		}else if(gamepad.map.ContainsKeySetting(KeyTag.ClassicSpeedConfig)){
+			if(gamepad.getButtonRunAble(KeyTag.ClassicSpeedConfig)){
+				BufPower=0.9;
+			}else{
+				BufPower=0.3;
+			}
+		}
+		BufPower=Functions.intervalClip(BufPower,-1,1);
+
+		motors.simpleMotorPowerController(
+				gamepad.getRodState(KeyTag.ClassicRunForward)*BufPower* Params.factorXPower,
+				gamepad.getRodState(KeyTag.ClassicRunStrafe)*BufPower* Params.factorYPower,
+				gamepad.getRodState(KeyTag.ClassicTurn)*BufPower* Params.factorHeadingPower
+		);
 	}
 }

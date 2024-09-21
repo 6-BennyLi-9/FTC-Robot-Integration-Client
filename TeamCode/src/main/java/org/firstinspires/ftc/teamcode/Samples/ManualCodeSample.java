@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
 @TeleOp(name = "ManualCodeSample",group = "samples")
@@ -14,16 +14,17 @@ public class ManualCodeSample extends OpMode {
 
 	@Override
 	public void init() {
-		robot=new Robot(hardwareMap, RunningStateType.ManualDrive,telemetry);
+		robot=new Robot(hardwareMap, RunningMode.ManualDrive,telemetry);
 		robot.client.addData("TPS","NEED TO START THE OpMode TO SEE THE VALUE.");
 		timer=new Timer();
+		robot.registerGamepad(gamepad1,gamepad2);
 	}
 
 	@Override
 	public void loop() {
 		updateTPS();
 
-		robot.operateThroughGamePad(gamepad1,gamepad2);
+		robot.operateThroughGamePad();
 		robot.update();
 	}
 

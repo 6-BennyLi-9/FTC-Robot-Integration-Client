@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 
 public abstract class AutonomousProgramTemplate extends LinearOpMode {
 	public Robot robot;
 	public SimpleMecanumDrive drive;
 
 	public void Init(Pose2d position){
-		robot=new Robot(hardwareMap, RunningStateType.Autonomous,telemetry);
+		robot=new Robot(hardwareMap, RunningMode.Autonomous,telemetry);
 		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(position);
 	}
 

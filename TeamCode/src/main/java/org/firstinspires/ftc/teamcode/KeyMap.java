@@ -112,4 +112,9 @@ public final class KeyMap {
 	public boolean IsControlledByGamepad1(KeyTag tag){
 		return Objects.requireNonNull(contents.get(tag)).IsControlledByGamePad1;
 	}
+
+	@ExtractedInterfaces
+	public boolean ContainsKeySetting(KeyTag tag){
+		return contents.containsKey(tag);
+	}
 }

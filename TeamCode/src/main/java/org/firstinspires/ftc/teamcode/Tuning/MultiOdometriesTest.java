@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Localizers.Odometry.SuperRubbishUselessAwf
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningStateType;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 
 @TeleOp(name = "MultiOdometriesTest",group = "tune")
 public class MultiOdometriesTest extends OpMode {
@@ -23,7 +23,7 @@ public class MultiOdometriesTest extends OpMode {
 	public Robot robot;
 	@Override
 	public void init() {
-		robot=new Robot(hardwareMap, RunningStateType.ManualDrive,telemetry);
+		robot=new Robot(hardwareMap, RunningMode.ManualDrive,telemetry);
 		client=robot.client;
 
 		arc=new ArcOrganizedOdometer(client);

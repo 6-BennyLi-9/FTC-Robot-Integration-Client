@@ -14,6 +14,10 @@ public class Params {
 		public static double[] kD= new double[]{0.04, 0.05, 0.04};
 		public static double[] MAX_I= new double[]{100, 100, 0};
 	}
+	/**
+	 * 会在 Robot 的构造函数中修改
+	 * @see Robot
+	 * */
 	@Config
 	public static class Configs{
 		/**让机器自动在运行<code>update()</code>时，自动清除所有电机的<code>power</code>*/
@@ -65,11 +69,13 @@ public class Params {
 	 * IMU相较于机器的正中心在X轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
 	 */
+	@Deprecated
 	public static double X_error=0;
 	/**
 	 * IMU相较于机器的正中心在Y轴上的偏差
 	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
 	 */
+	@Deprecated
 	public static double Y_error=0;
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
