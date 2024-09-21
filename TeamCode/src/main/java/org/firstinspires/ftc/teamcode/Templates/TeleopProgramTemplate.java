@@ -18,7 +18,6 @@ public abstract class TeleopProgramTemplate extends OpMode {
 
 	@Override
 	public void start() {
-		super.start();
 		timer.restart();
 		robot.client.addData("TPS","WAIT FOR START");
 	}
