@@ -1,34 +1,20 @@
 package org.firstinspires.ftc.teamcode.Samples;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
-import org.firstinspires.ftc.teamcode.Utils.Timer;
+import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
 
 @TeleOp(name = "ManualCodeSample",group = "samples")
-public class ManualCodeSample extends OpMode {
-	public Robot robot;
-	public Timer timer;
-
+public class ManualCodeSample extends TeleopProgramTemplate {
 	@Override
-	public void init() {
-		robot=new Robot(hardwareMap, RunningMode.ManualDrive,telemetry);
-		robot.client.addData("TPS","NEED TO START THE OpMode TO SEE THE VALUE.");
-		timer=new Timer();
+	public void whenInit() {
 		robot.registerGamepad(gamepad1,gamepad2);
 	}
 
 	@Override
-	public void loop() {
-		updateTPS();
-
+	public void whileActivating() {
 		robot.operateThroughGamePad();
 		robot.update();
 	}
 
-	public void updateTPS(){
-		robot.client.changeData("TPS", 1000/(timer.restartAndGetDeltaTime()));
-	}
 }
