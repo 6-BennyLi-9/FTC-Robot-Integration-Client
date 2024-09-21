@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.MecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderBuilder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
+import org.firstinspires.ftc.teamcode.DriveControls.TrajectoryType;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DriveActionBuilder implements DriveOrderBuilder {

@@ -5,9 +5,6 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyButtonType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyMapSettingType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyRodType;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient;
-import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RobotState;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
@@ -51,14 +51,14 @@ public class MecanumDrive implements DriverProgram {
 
 	public final Localizer localizer;
 
-	public State state;
+	public RobotState robotState;
 
 	public MecanumDrive(@NonNull Classic classic, Client client,
-	                    PidProcessor pidProcessor, State state, Pose2d RobotPosition){
+	                    PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
 		this.classic=classic;
 		this.client=client;
 		this.pidProcessor=pidProcessor;
-		this.state=state;
+		this.robotState = robotState;
 		this.RobotPosition=RobotPosition;
 		motors=classic.motors;
 
@@ -73,7 +73,7 @@ public class MecanumDrive implements DriverProgram {
 	}
 	@ExtractedInterfaces
 	public MecanumDrive(@NonNull Robot robot,Pose2d RobotPosition){
-		this(robot.classic,robot.client,robot.pidProcessor,robot.state,RobotPosition);
+		this(robot.classic,robot.client,robot.pidProcessor,robot.robotState,RobotPosition);
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class MecanumDrive implements DriverProgram {
 					Pose2d aim= Functions.getAimPositionThroughTrajectory(singleAction,RobotPosition,progress);
 
 					if(timer.getDeltaTime()>estimatedTime+ timeOutProtectionMills&& Params.Configs.useOutTimeProtection){//保护机制
-						state=State.BrakeDown;
+						robotState = RobotState.BrakeDown;
 						motors.updateDriveOptions();
 						break;
 					}
@@ -201,7 +201,7 @@ public class MecanumDrive implements DriverProgram {
 		client.deleteData("DELTA");
 
 		classic.STOP();
-		state= State.IDLE;
+		robotState = RobotState.IDLE;
 	}
 
 	@Override

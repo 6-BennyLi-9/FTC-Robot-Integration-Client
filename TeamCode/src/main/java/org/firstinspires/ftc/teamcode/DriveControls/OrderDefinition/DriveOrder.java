@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
+import org.firstinspires.ftc.teamcode.DriveControls.TrajectoryType;
 
 public interface DriveOrder {
 	/**

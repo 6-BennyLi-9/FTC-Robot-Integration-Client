@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utils.Enums;
+package org.firstinspires.ftc.teamcode.DriveControls;
 
 public enum TrajectoryType {
 	LinerStrafe,

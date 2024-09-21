@@ -1,19 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.Utils.Enums.KeyButtonType.*;
-import static org.firstinspires.ftc.teamcode.Utils.Enums.KeyMapSettingType.*;
-import static org.firstinspires.ftc.teamcode.Utils.Enums.KeyRodType.*;
-import static org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag.*;
+import static org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyButtonType.*;
+import static org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyMapSettingType.*;
+import static org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyRodType.*;
+import static org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag.*;
 
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.BasicIntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyButtonType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyMapSettingType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyRodType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyButtonType;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyMapSettingType;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyRodType;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.PositionalIntegratio
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 

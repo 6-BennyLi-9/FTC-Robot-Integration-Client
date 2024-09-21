@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.DrivingPrograms;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
-import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RobotState;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
@@ -45,14 +45,14 @@ public class SimpleMecanumDrive implements DriverProgram {
 
 	public final Localizer localizer;
 
-	public static State state;
+	public static RobotState robotState;
 
 	public SimpleMecanumDrive(@NonNull Classic classic, Client client,
-	                          PidProcessor pidProcessor, State state, Pose2d RobotPosition){
+	                          PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
 		this.classic=classic;
 		this.RobotPosition = RobotPosition;
 		this.client=client;
-		SimpleMecanumDrive.state =state;
+		SimpleMecanumDrive.robotState = robotState;
 		motors=classic.motors;
 		this.pidProcessor=pidProcessor;
 
@@ -66,7 +66,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		pidProcessor.loadContent(new PidContent(ContentTags[2],2));
 	}
 	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
-		this(robot.classic, robot.client, robot.pidProcessor, robot.state, RobotPosition);
+		this(robot.classic, robot.client, robot.pidProcessor, robot.robotState, RobotPosition);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 				Pose2d aim = Functions.getAimPositionThroughTrajectory(singleCommand, RobotPosition, progress);
 
 				if (timer.getDeltaTime() > estimatedTime + timeOutProtectionMills && Params.Configs.useOutTimeProtection) {//保护机制
-					state = State.BrakeDown;
+					robotState = RobotState.BrakeDown;
 					motors.updateDriveOptions();
 					break;
 				}
@@ -151,7 +151,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 				motors.updateDriveOptions(RobotPosition.heading.toDouble());
 			}
 
-			state= State.WaitingAtPoint;
+			robotState = RobotState.WaitingAtPoint;
 		}
 		client.deleteData("distance");
 		client.deleteData("estimatedTime");
@@ -160,7 +160,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		client.dashboard.deletePacketByTag("TargetLine");
 
 		classic.STOP();
-		state= State.IDLE;
+		robotState = RobotState.IDLE;
 	}
 
 	@Override

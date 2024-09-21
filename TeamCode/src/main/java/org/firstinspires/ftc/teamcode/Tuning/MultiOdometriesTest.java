@@ -15,10 +15,10 @@ import org.firstinspires.ftc.teamcode.Localizers.Odometry.SuperRubbishUselessAwf
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Clients.DashboardClient;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyButtonType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyMapSettingType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyRodType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyButtonType;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyMapSettingType;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyRodType;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 
 @TeleOp(name = "MultiOdometriesTest",group = "tune")

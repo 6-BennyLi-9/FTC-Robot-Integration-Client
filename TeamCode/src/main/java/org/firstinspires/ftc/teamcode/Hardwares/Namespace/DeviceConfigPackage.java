@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Namespace;
 
-import org.firstinspires.ftc.teamcode.Utils.Enums.HardwareState;
-
 public class DeviceConfigPackage {
 	public HardwareState state;
 	public enum Direction{

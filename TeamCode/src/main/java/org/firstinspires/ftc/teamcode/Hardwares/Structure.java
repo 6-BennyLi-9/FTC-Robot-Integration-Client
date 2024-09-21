@@ -9,8 +9,8 @@ import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.ClipPosition;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
 public class Structure {

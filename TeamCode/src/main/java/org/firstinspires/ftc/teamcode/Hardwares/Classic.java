@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
-import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 

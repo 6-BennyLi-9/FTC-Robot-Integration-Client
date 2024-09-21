@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPa
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
+import org.firstinspires.ftc.teamcode.DriveControls.TrajectoryType;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DriveAction implements DriveOrder {

@@ -8,8 +8,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
-import org.firstinspires.ftc.teamcode.Utils.Enums.TrajectoryType;
-import org.firstinspires.ftc.teamcode.Utils.Enums.DriveDirection;
+import org.firstinspires.ftc.teamcode.DriveControls.TrajectoryType;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DriveCommand implements DriveOrder {

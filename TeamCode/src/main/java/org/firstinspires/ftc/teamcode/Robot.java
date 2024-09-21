@@ -26,9 +26,9 @@ import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
-import org.firstinspires.ftc.teamcode.Utils.Enums.ClipPosition;
+import org.firstinspires.ftc.teamcode.Hardwares.Basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
-import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RobotState;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
@@ -47,7 +47,7 @@ public class Robot {
 	public Client client;
 	public PidProcessor pidProcessor;
 
-	public State state;
+	public RobotState robotState;
 	public RunningMode RunningState;
 	public IntegrationGamepad gamepad=null;
 	private DriverProgram drive=null;
@@ -90,7 +90,7 @@ public class Robot {
 
 		RunningState=state;
 		timer=new Timer();
-		client.addData("State","UnKnow");
+		client.addData("RobotState","UnKnow");
 	}
 
 	/**
@@ -100,18 +100,18 @@ public class Robot {
 	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
 		if(RunningState!= RunningMode.Autonomous) {
-			Log.w("Robot.java","Initialized Driving Program in Manual Driving State.");
+			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}
 		return drive;
 	}
 	private void InitInAutonomous(){
 		structure.ClipOption(ClipPosition.Close);
-		state= State.IDLE;
+		robotState = RobotState.IDLE;
 		SetGlobalBufPower(0.9f);
 	}
 	private void InitInManualDrive(){
 		structure.ClipOption(ClipPosition.Open);
-		state= State.ManualDriving;
+		robotState = RobotState.ManualDriving;
 		SetGlobalBufPower(0.9f);
 	}
 
@@ -121,7 +121,7 @@ public class Robot {
 
 	public void update()  {
 		if(timer.stopAndGetDeltaTime()>=90000){
-			state=State.FinalState;
+			robotState = RobotState.FinalState;
 		}
 
 		sensors.update();
@@ -133,7 +133,7 @@ public class Robot {
 			motors.update();
 		}
 
-		client.changeData("State",state.name());
+		client.changeData("RobotState", robotState.name());
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));

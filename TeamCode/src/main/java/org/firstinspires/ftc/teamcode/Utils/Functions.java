@@ -8,7 +8,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Enums.State;
+import org.firstinspires.ftc.teamcode.Utils.Enums.RobotState;
 import org.jetbrains.annotations.Contract;
 
 public final class Functions extends Mathematics{
@@ -51,10 +51,10 @@ public final class Functions extends Mathematics{
             case LinerStrafe:
             case LinerWithTurn:
             case TurnOnly:
-                SimpleMecanumDrive.state= State.StrafeToPoint;
+                SimpleMecanumDrive.robotState = RobotState.StrafeToPoint;
                 return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.NEXT(), RobotPosition , progress);
             case Spline://TODO:功能仍在开发中
-                SimpleMecanumDrive.state= State.FollowSpline;
+                SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;
             default:
                 return new Pose2d(0, 0, 0);

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Utils.Enums;
 
-public enum State {
+public enum RobotState {
 	FollowSpline,
 	StrafeToPoint,
 	ManualDriving,
