@@ -4,5 +4,6 @@ public enum KeyMapSettingType {
 	RunWhenButtonPressed,
 	RunWhenButtonPressingBooleanChanged,
 	RunWhenButtonHold,
+	SinglePressToChangeRunAble,
 	PullRod
 }

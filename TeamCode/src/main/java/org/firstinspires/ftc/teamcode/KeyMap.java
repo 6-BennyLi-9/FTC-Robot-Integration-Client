@@ -59,10 +59,9 @@ public final class KeyMap {
 	private final Map<KeyTag, KeyMapContent> contents;
 	public KeyMap(){
 		contents=new HashMap<>();
-		init();
 	}
 
-	public void init(){
+	public void initKeys(){
 		contents.clear();
 
 		//TODO: 填入需求键位
@@ -114,7 +113,7 @@ public final class KeyMap {
 	}
 
 	@ExtractedInterfaces
-	public boolean ContainsKeySetting(KeyTag tag){
+	public boolean containsKeySetting(KeyTag tag){
 		return contents.containsKey(tag);
 	}
 }

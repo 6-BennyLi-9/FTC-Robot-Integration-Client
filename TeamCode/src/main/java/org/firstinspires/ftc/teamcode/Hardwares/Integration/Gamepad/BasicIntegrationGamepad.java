@@ -15,6 +15,7 @@ import java.util.Map;
 public class BasicIntegrationGamepad{
 	public final Gamepad gamepad;
 	public final Map<KeyButtonType,Boolean> LastState;
+	private boolean flag=false;
 
 	public BasicIntegrationGamepad(Gamepad gamepad){
 		this.gamepad=gamepad;
@@ -96,6 +97,10 @@ public class BasicIntegrationGamepad{
 				break;
 			case RunWhenButtonHold:
 				res=now;
+				break;
+			case SinglePressToChangeRunAble:
+				flag= (lst == now) == flag;
+				res=flag;
 				break;
 			case PullRod:
 				throw new RuntimeException("Cannot Get The STATE Of A PullRod");

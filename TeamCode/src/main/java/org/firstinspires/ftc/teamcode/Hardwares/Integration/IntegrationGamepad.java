@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Utils.Enums.KeyTag;
 
 public class IntegrationGamepad {
 	public BasicIntegrationGamepad gamepad1,gamepad2;
-	public final KeyMap map;
+	public KeyMap map;
 
 	@UserRequirementFunctions
 	public IntegrationGamepad(Gamepad gamepad1,Gamepad gamepad2){
@@ -19,6 +19,7 @@ public class IntegrationGamepad {
 		this.gamepad1=gamepad1;
 		this.gamepad2=gamepad2;
 		map=new KeyMap();
+		map.initKeys();
 	}
 
 	@UserRequirementFunctions

@@ -19,4 +19,9 @@ public enum KeyTag {
 	 * 必须为 Button 控制
 	 */
 	ClassicSpeedConfig,
+
+	TuningButton1,
+	TuningButton2,
+	TuningButton3,
+	TuningButton4,
 }
