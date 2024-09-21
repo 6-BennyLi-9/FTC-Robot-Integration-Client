@@ -28,7 +28,7 @@ public class Servos {
 	/**
 	 * @return 是否所有舵机都到位了
 	 */
-	public boolean InPlace(){
+	public boolean inPlace(){
 		return PositionInPlace;
 	}
 }

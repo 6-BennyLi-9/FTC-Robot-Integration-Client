@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions
 public class IntegrationServo extends IntegrationDevice{
 	public final double positionPerRadian,speed,basePose;
 	private final boolean lazyMode;
-	private boolean smoothMode=false;
+	public boolean smoothMode=false;
 
 	private double targetPose,targetVelocity;
 	public final Servo servo;

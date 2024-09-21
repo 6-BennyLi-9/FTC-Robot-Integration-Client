@@ -24,30 +24,30 @@ public class Structure {
 		this.servos=servos;
 	}
 //  TODO:测量这些值
-	public void OpenFrontClip(){
+	public void openFrontClip(){
 		servos.FrontClipPosition=0;
 	}
-	public void OpenRearClip(){
+	public void openRearClip(){
 		servos.FrontClipPosition=0;
 	}
-	public void CloseFrontClip(){
+	public void closeFrontClip(){
 		servos.FrontClipPosition=0;
 	}
-	public void CloseRearClip(){
+	public void closeRearClip(){
 		servos.FrontClipPosition=0;
 	}
 
 	private void openClips(){
-		OpenFrontClip();
-		OpenRearClip();
+		openFrontClip();
+		openRearClip();
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();
 		}
 	}
 	private void closeClips(){
-		CloseFrontClip();
-		CloseRearClip();
+		closeFrontClip();
+		closeRearClip();
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			servos.update();

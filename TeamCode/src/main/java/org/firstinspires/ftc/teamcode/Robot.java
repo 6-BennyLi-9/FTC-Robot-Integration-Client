@@ -134,7 +134,7 @@ public class Robot {
 		}
 
 		client.changeData("RobotState", robotState.name());
-		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.InPlace()){
+		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.inPlace()){
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}
