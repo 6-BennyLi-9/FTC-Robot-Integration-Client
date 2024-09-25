@@ -187,23 +187,17 @@ public class Robot {
 	@ExtractedInterfaces
 	public void addData(String key, String val){client.addData(key, val);}
 	@ExtractedInterfaces
-	public void addData(String key,int val){client.addData(key, val);}
-	@ExtractedInterfaces
-	public void addData(String key,double val){client.addData(key, val);}
+	public void addData(String key,Object val){client.addData(key, val);}
 	@ExtractedInterfaces
 	public void deleteDate(String key){try{client.deleteData(key);}catch (Exception ignored){}}
 	@ExtractedInterfaces
 	public void changeData(String key, String val){client.changeData(key, val);}
 	@ExtractedInterfaces
-	public void changeData(String key,int val){client.changeData(key, val);}
-	@ExtractedInterfaces
-	public void changeData(String key,double val){client.changeData(key, val);}
+	public void changeData(String key,Object val){client.changeData(key, val);}
 	@ExtractedInterfaces
 	public void addLine(String val){client.addLine(val);}
 	@ExtractedInterfaces
-	public void addLine(int val){client.addLine(val);}
-	@ExtractedInterfaces
-	public void addLine(double val){client.addLine(val);}
+	public void addLine(Object val){client.addLine(val);}
 	@ExtractedInterfaces
 	public void changeLine(@NonNull Object key, @NonNull Object val){client.changeLine(key.toString(),val.toString());}
 	@ExtractedInterfaces
