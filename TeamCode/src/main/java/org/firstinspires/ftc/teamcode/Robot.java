@@ -104,6 +104,7 @@ public class Robot {
 		}
 		return drive;
 	}
+
 	private void InitInAutonomous(){
 		structure.ClipOption(ClipPosition.Close);
 		robotState = RobotState.IDLE;
