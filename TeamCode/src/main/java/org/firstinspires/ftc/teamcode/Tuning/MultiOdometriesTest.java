@@ -44,12 +44,12 @@ public class MultiOdometriesTest extends OpMode {
 		classic.setColor(DashboardClient.Gray);
 
 		robot.registerGamepad(gamepad1,gamepad2);
-		robot.gamepad.map=new KeyMap();
-		robot.gamepad.map.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.SinglePressToChangeRunAble);
-		robot.gamepad.map.loadRodContent(KeyTag.ClassicRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod);
-		robot.gamepad.map.loadRodContent(KeyTag.ClassicRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod);
-		robot.gamepad.map.loadRodContent(KeyTag.ClassicTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
-		robot.gamepad.map.loadButtonContent(KeyTag.ClassicSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
+		robot.gamepad.keyMap =new KeyMap();
+		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.SinglePressToChangeRunAble);
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ClassicRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod);
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ClassicRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod);
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ClassicTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
+		robot.gamepad.keyMap.loadButtonContent(KeyTag.ClassicSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
 	}
 
 	boolean LinerMode=false;

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 
 public class IntegrationGamepad {
 	public BasicIntegrationGamepad gamepad1,gamepad2;
-	public KeyMap map;
+	public KeyMap keyMap;
 
 	@UserRequirementFunctions
 	public IntegrationGamepad(Gamepad gamepad1,Gamepad gamepad2){
@@ -18,11 +18,12 @@ public class IntegrationGamepad {
 	public IntegrationGamepad(BasicIntegrationGamepad gamepad1,BasicIntegrationGamepad gamepad2){
 		this.gamepad1=gamepad1;
 		this.gamepad2=gamepad2;
-		map=new KeyMap();
-		map.initKeys();
+		keyMap =new KeyMap();
+		keyMap.initKeys();
 	}
 
 	@UserRequirementFunctions
+	@Deprecated
 	public void swap(){
 		BasicIntegrationGamepad tmp=gamepad1;
 		gamepad1=gamepad2;
@@ -31,18 +32,18 @@ public class IntegrationGamepad {
 
 	@UserRequirementFunctions
 	public boolean getButtonRunAble(KeyTag tag){
-		if(map.IsControlledByGamepad1(tag)){
-			return map.getButtonStateFromTagAndGamePad(tag,gamepad1);
+		if(keyMap.IsControlledByGamepad1(tag)){
+			return keyMap.getButtonStateFromTagAndGamePad(tag,gamepad1);
 		}else {
-			return map.getButtonStateFromTagAndGamePad(tag,gamepad2);
+			return keyMap.getButtonStateFromTagAndGamePad(tag,gamepad2);
 		}
 	}
 	@UserRequirementFunctions
 	public double getRodState(KeyTag tag){
-		if(map.IsControlledByGamepad1(tag)){
-			return map.getRodStateFromTagAndGamePad(tag,gamepad1);
+		if(keyMap.IsControlledByGamepad1(tag)){
+			return keyMap.getRodStateFromTagAndGamePad(tag,gamepad1);
 		}else {
-			return map.getRodStateFromTagAndGamePad(tag,gamepad2);
+			return keyMap.getRodStateFromTagAndGamePad(tag,gamepad2);
 		}
 	}
 }

@@ -55,7 +55,8 @@ public class Robot {
 
 	public Timer timer;
 
-	public ParamsController controller;
+	public ParamsController paramsController =new VoidParamsController();
+	public KeyMapController keyMapController =new VoidKeyMapController();
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
@@ -74,8 +75,6 @@ public class Robot {
 		this.client=client;
 		pidProcessor=new PidProcessor();
 
-		controller=new VoidParamsController();
-		controller.PramsOverride();
 
 		//TODO:如果需要，在这里修改 Params.Config 中的值
 		switch (state) {
@@ -101,8 +100,13 @@ public class Robot {
 
 	@UserRequirementFunctions
 	public void setParamsOverride(ParamsController controller){
-		this.controller=controller;
-		this.controller.PramsOverride();
+		this.paramsController =controller;
+		this.paramsController.PramsOverride();
+	}
+	@UserRequirementFunctions
+	public void setKeyMapController(KeyMapController controller){
+		keyMapController=controller;
+		keyMapController.KeyMapOverride(gamepad.keyMap);
 	}
 
 	/**

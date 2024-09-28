@@ -4,9 +4,9 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions
 
 /**
  * @see Robot
- * @see Params
- */
-public abstract class ParamsController {
+ * @see KeyMap
+ * */
+public abstract class KeyMapController {
 	@UserRequirementFunctions
-	public abstract void PramsOverride();
+	public abstract void KeyMapOverride(KeyMap keyMap);
 }

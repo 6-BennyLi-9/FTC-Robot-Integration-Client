@@ -136,9 +136,9 @@ public class Classic {
 		motors.updateDriveOptions(sensors.RobotAngle());
 	}
 	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
-		if(gamepad.map.containsKeySetting(KeyTag.ClassicSpeedControl)){
+		if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedControl)){
 			BufPower+=gamepad.getRodState(KeyTag.ClassicSpeedControl)*0.6;
-		}else if(gamepad.map.containsKeySetting(KeyTag.ClassicSpeedConfig)){
+		}else if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedConfig)){
 			if(gamepad.getButtonRunAble(KeyTag.ClassicSpeedConfig)){
 				BufPower=0.9;
 			}else{
