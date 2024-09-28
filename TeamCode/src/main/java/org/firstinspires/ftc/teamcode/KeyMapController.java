@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
 /**
@@ -8,5 +10,5 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions
  * */
 public abstract class KeyMapController {
 	@UserRequirementFunctions
-	public abstract void KeyMapOverride(KeyMap keyMap);
+	public abstract void KeyMapOverride(@NonNull KeyMap keyMap);
 }
