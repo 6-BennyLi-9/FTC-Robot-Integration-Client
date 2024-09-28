@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
@@ -54,6 +55,8 @@ public class Robot {
 
 	public Timer timer;
 
+	public ParamsController controller;
+
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
@@ -70,6 +73,9 @@ public class Robot {
 
 		this.client=client;
 		pidProcessor=new PidProcessor();
+
+		controller=new VoidParamsController();
+		controller.PramsOverride();
 
 		//TODO:如果需要，在这里修改 Params.Config 中的值
 		switch (state) {
@@ -91,6 +97,12 @@ public class Robot {
 		RunningState=state;
 		timer=new Timer();
 		client.addData("RobotState","UnKnow");
+	}
+
+	@UserRequirementFunctions
+	public void setParamsOverride(ParamsController controller){
+		this.controller=controller;
+		this.controller.PramsOverride();
 	}
 
 	/**
