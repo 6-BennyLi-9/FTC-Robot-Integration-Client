@@ -78,24 +78,52 @@ public final class KeyMap {
 		loadButtonContent(ArmHigherPlacement,   DpadUp,     RunWhenButtonPressed,   false);
 	}
 
+	/**
+	 * 冲突解决：replace
+	 */
 	@UserRequirementFunctions
 	public void loadButtonContent(KeyTag tag, KeyButtonType type, KeyMapSettingType setting){
-		contents.put(tag,new KeyMapButtonContent(tag,type,setting));
+		if(contents.containsKey(tag)){
+			contents.replace(tag,new KeyMapButtonContent(tag,type,setting));
+		}else{
+			contents.put(tag,new KeyMapButtonContent(tag,type,setting));
+		}
 	}
+	/**
+	 * 冲突解决：replace
+	 */
 	@UserRequirementFunctions
 	public void loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting){
-		contents.put(tag,new KeyMapRodContent(tag,type,setting));
+		if(contents.containsKey(tag)){
+			contents.replace(tag,new KeyMapRodContent(tag,type,setting));
+		}else{
+			contents.put(tag,new KeyMapRodContent(tag,type,setting));
+		}
 	}
 
+	/**
+	 * 冲突解决：replace
+	 */
 	@UserRequirementFunctions
 	@ExtractedInterfaces
 	public void loadButtonContent(KeyTag tag, KeyButtonType type, KeyMapSettingType setting,boolean IsGamePad1){
-		contents.put(tag,new KeyMapButtonContent(tag,type,setting,IsGamePad1));
+		if(contents.containsKey(tag)){
+			contents.replace(tag,new KeyMapButtonContent(tag,type,setting,IsGamePad1));
+		}else{
+			contents.put(tag,new KeyMapButtonContent(tag,type,setting,IsGamePad1));
+		}
 	}
+	/**
+	 * 冲突解决：replace
+	 */
 	@UserRequirementFunctions
 	@ExtractedInterfaces
 	public void loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting,boolean IsGamePad1){
-		contents.put(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
+		if(contents.containsKey(tag)){
+			contents.replace(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
+		}else{
+			contents.put(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
+		}
 	}
 
 	@ExtractedInterfaces

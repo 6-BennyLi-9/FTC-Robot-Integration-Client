@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
-import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
+import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -26,6 +26,9 @@ public class DashboardClient {
 	public static final String Red="#DEB887";
 	public static final String Gray="#808080";
 
+	/**
+	 * @author roadrunner
+	 */
 	public static final class Drawing {
 		/**
 		 * 智能地根据机器的点位，但是需要搭配相应的配套操作
@@ -137,24 +140,11 @@ public class DashboardClient {
 	}
 	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag,String color){
 		double sx,sy,ex,ey;
-		if(start.getClass()==Vector2d.class){
-			sx=((Vector2d) start).x;
-			sy=((Vector2d) start).y;
-		}else if(start.getClass()==Pose2d.class){
-			sx=((Pose2d) start).position.x;
-			sy=((Pose2d) start).position.y;
-		}else{
-			throw new UnKnownErrorsException(start.getClass().toString());
-		}
-		if(end.getClass()==Vector2d.class){
-			ex=((Vector2d) end).x;
-			ey=((Vector2d) end).y;
-		}else if(end.getClass()==Pose2d.class){
-			ex=((Pose2d) end).position.x;
-			ey=((Pose2d) end).position.y;
-		}else{
-			throw new UnKnownErrorsException(end.getClass().toString());
-		}
+		sx= Functions.getX(start);
+		sy= Functions.getX(start);
+		ex= Functions.getX(end);
+		ey= Functions.getX(end);
+
 		TelemetryPacket packet=new TelemetryPacket();
 		Canvas c=packet.fieldOverlay();
 		c.setStroke(color);

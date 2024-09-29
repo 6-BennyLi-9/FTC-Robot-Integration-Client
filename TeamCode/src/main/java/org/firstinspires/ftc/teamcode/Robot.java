@@ -25,6 +25,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
@@ -54,6 +55,9 @@ public class Robot {
 
 	public Timer timer;
 
+	public ParamsController paramsController =new VoidParamsController();
+	public KeyMapController keyMapController =new VoidKeyMapController();
+
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
@@ -70,6 +74,7 @@ public class Robot {
 
 		this.client=client;
 		pidProcessor=new PidProcessor();
+
 
 		//TODO:如果需要，在这里修改 Params.Config 中的值
 		switch (state) {
@@ -93,6 +98,17 @@ public class Robot {
 		client.addData("RobotState","UnKnow");
 	}
 
+	@UserRequirementFunctions
+	public void setParamsOverride(ParamsController controller){
+		this.paramsController =controller;
+		this.paramsController.PramsOverride();
+	}
+	@UserRequirementFunctions
+	public void setKeyMapController(KeyMapController controller){
+		keyMapController=controller;
+		keyMapController.KeyMapOverride(gamepad.keyMap);
+	}
+
 	/**
 	 * 自动初始化SimpleMecanumDrive
 	 * @return 返回定义好的SimpleMecanumDrive
@@ -104,6 +120,7 @@ public class Robot {
 		}
 		return drive;
 	}
+
 	private void InitInAutonomous(){
 		structure.ClipOption(ClipPosition.Close);
 		robotState = RobotState.IDLE;
@@ -187,23 +204,17 @@ public class Robot {
 	@ExtractedInterfaces
 	public void addData(String key, String val){client.addData(key, val);}
 	@ExtractedInterfaces
-	public void addData(String key,int val){client.addData(key, val);}
-	@ExtractedInterfaces
-	public void addData(String key,double val){client.addData(key, val);}
+	public void addData(String key,Object val){client.addData(key, val);}
 	@ExtractedInterfaces
 	public void deleteDate(String key){try{client.deleteData(key);}catch (Exception ignored){}}
 	@ExtractedInterfaces
 	public void changeData(String key, String val){client.changeData(key, val);}
 	@ExtractedInterfaces
-	public void changeData(String key,int val){client.changeData(key, val);}
-	@ExtractedInterfaces
-	public void changeData(String key,double val){client.changeData(key, val);}
+	public void changeData(String key,Object val){client.changeData(key, val);}
 	@ExtractedInterfaces
 	public void addLine(String val){client.addLine(val);}
 	@ExtractedInterfaces
-	public void addLine(int val){client.addLine(val);}
-	@ExtractedInterfaces
-	public void addLine(double val){client.addLine(val);}
+	public void addLine(Object val){client.addLine(val);}
 	@ExtractedInterfaces
 	public void changeLine(@NonNull Object key, @NonNull Object val){client.changeLine(key.toString(),val.toString());}
 	@ExtractedInterfaces

@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Integration;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
 public class IntegrationServo extends IntegrationDevice{
@@ -45,7 +48,16 @@ public class IntegrationServo extends IntegrationDevice{
 	public void setTargetPoseInTime(double targetPose,double TimeMills){
 		smoothMode=true;
 		targetVelocity=(targetPose-servo.getPosition())/TimeMills;
+		if(!lazyMode&&targetVelocity>speed){
+			targetVelocity=speed;
+		}
+		Log.w("W","建议提供 speed");
 		timer.pushObjectionTimeTag("InTimeStartTag",TimeMills);
+	}
+
+	@ExtractedInterfaces
+	public void reset(){
+		setTargetPose(basePose);
 	}
 
 	@Override
