@@ -1,0 +1,178 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+<block type="procedures_defnoreturn" id="WtpyD@tEu+EoY=P9iY,D" deletable="false" x="25" y="169">
+<field name="NAME">runOpMode</field>
+<comment pinned="false" h="141" w="577">This sample contains the bare minimum Blocks for any regular OpMode. The 3 blue
+Comment Blocks show where to place Initialization code (runs once, after touching the
+DS INIT button, and before touching the DS Start arrow), Run code (runs once, after
+touching Start), and Loop code (runs repeatedly while the OpMode is active, namely not
+Stopped).</comment>
+<data>{"commentPositionLeft":-20,"commentPositionTop":-169}</data>
+<statement name="STACK">
+<block type="comment" id="Lc#BFtj*NTB48YL;eBl.">
+<field name="COMMENT">Put initialization blocks here.</field>
+<next>
+<block type="linearOpMode_waitForStart" id=":`$wN_ci`O;o6P0~.(+g">
+<next>
+<block type="dcMotor_setProperty_RunMode" id="wRr;(3*KFlL4_Po[5hNw">
+<field name="IDENTIFIER">leftBackAsDcMotor</field>
+<field name="PROP">Mode</field>
+<data>{"IDENTIFIER":"leftBack"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_runMode" id=")jw}Uc2[j+0X[c8zXc5!">
+<field name="RUN_MODE">STOP_AND_RESET_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="dcMotor_setProperty_RunMode" id="R+9[W0ZJTE_F+bdWBAyk">
+<field name="IDENTIFIER">leftFrontAsDcMotor</field>
+<field name="PROP">Mode</field>
+<data>{"IDENTIFIER":"leftFront"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_runMode" id="(4G|}zfC@^4!.9FH0)g3">
+<field name="RUN_MODE">STOP_AND_RESET_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="dcMotor_setProperty_RunMode" id="=6T|H(5]N|CXO+P5*]t;">
+<field name="IDENTIFIER">rightBackAsDcMotor</field>
+<field name="PROP">Mode</field>
+<data>{"IDENTIFIER":"rightBack"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_runMode" id="L!V+1BI/+{aa5V,zA^}d">
+<field name="RUN_MODE">STOP_AND_RESET_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="dcMotor_setProperty_RunMode" id="dL8}o)K81gMRZxy(F.r9">
+<field name="IDENTIFIER">rightFrontAsDcMotor</field>
+<field name="PROP">Mode</field>
+<data>{"IDENTIFIER":"rightFront"}</data>
+<value name="VALUE">
+<shadow type="dcMotor_typedEnum_runMode" id="00Lucjm)M-,;!`q+*5Y9">
+<field name="RUN_MODE">STOP_AND_RESET_ENCODER</field>
+</shadow>
+</value>
+<next>
+<block type="controls_if" id="}Q?5mbxSO8Di;i!__6[y">
+<value name="IF0">
+<block type="linearOpMode_opModeIsActive" id=")o%YFX/#9kvv^sgXr4~5"/>
+</value>
+<statement name="DO0">
+<block type="comment" id="(rU-p_T_/B|vExcs}liL">
+<field name="COMMENT">Put run blocks here.</field>
+<next>
+<block type="controls_whileUntil" id="^0Kagy/e+Ea{rbZPv2G6">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="e)cr{!2VIET83s,JWC.="/>
+</value>
+<statement name="DO">
+<block type="comment" id="Jh/;L$n@JuX8AQJDFCul">
+<field name="COMMENT">Put loop blocks here.</field>
+<next>
+<block type="telemetry_update" id="exvivmft-pX$n!1,8Ea$">
+<next>
+<block type="telemetry_addNumericData_Number" id="-rRfjKn_L:r*Ib{FCT,i">
+<value name="KEY">
+<shadow type="text" id="L@-FpC~YorRd0W#biOJ5">
+<field name="TEXT">leftFront</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="!:0N%elhHv0:m#TOX,z5">
+<field name="NUM">123</field>
+</shadow>
+<block type="dcMotor_getProperty_Number" id="8G2TFm8)eC4{0gXGeK7d">
+<field name="IDENTIFIER">leftFrontAsDcMotor</field>
+<field name="PROP">CurrentPosition</field>
+<data>{"IDENTIFIER":"leftFront"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="ur8k(6Cgr^xc|?PTyfNm">
+<value name="KEY">
+<shadow type="text" id="nE+Zv9JKuU^BqfT{[[*Y">
+<field name="TEXT">leftBack</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number">
+<field name="NUM">123</field>
+</shadow>
+<block type="dcMotor_getProperty_Number" id="I;lc`+jdWmpKF`H).+`/">
+<field name="IDENTIFIER">leftBackAsDcMotor</field>
+<field name="PROP">CurrentPosition</field>
+<data>{"IDENTIFIER":"leftBack"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="Wydicjqjs$M.:bnC4?4C">
+<value name="KEY">
+<shadow type="text" id="m34r(wXECb{LofL.z`^=">
+<field name="TEXT">rightFront</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number">
+<field name="NUM">123</field>
+</shadow>
+<block type="dcMotor_getProperty_Number" id="ZvmfM5;+I6U?al{9Gk|*">
+<field name="IDENTIFIER">rightFrontAsDcMotor</field>
+<field name="PROP">CurrentPosition</field>
+<data>{"IDENTIFIER":"rightFront"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="w,SrEa^0!;.AiFQO2+JJ">
+<value name="KEY">
+<shadow type="text" id="aX_^~T;YS*+=.7-gX=OH">
+<field name="TEXT">rightBack</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number">
+<field name="NUM">123</field>
+</shadow>
+<block type="dcMotor_getProperty_Number" id="5+k79M|CFF26cM[Aw6DP">
+<field name="IDENTIFIER">rightBackAsDcMotor</field>
+<field name="PROP">CurrentPosition</field>
+<data>{"IDENTIFIER":"rightBack"}</data>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</xml>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Extra>
+<OpModeMeta flavor="TELEOP" group="" autoTransition="" />
+<Enabled value="true" />
+</Extra>
