@@ -29,6 +29,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class IntegrationHardwareMap {
@@ -36,6 +37,7 @@ public class IntegrationHardwareMap {
 	public HardwareMap lazyHardwareMap;
 
 	public IntegrationHardwareMap(@NonNull HardwareMap map,PidProcessor processor){
+		devices=new HashMap<>();
 		lazyHardwareMap=map;
 
 		for(HardwareDevices device: HardwareDevices.values()){
