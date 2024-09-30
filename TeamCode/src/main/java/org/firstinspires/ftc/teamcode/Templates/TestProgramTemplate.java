@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.Templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Utils.Annotations.Templates;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 
+@Templates
 public abstract class TestProgramTemplate extends LinearOpMode {
 	public Client client;
 

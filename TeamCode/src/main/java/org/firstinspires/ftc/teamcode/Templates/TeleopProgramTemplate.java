@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode.Templates;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.Templates;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
+@Templates
 public abstract class TeleopProgramTemplate extends OpMode {
 	public Robot robot;
 	public Timer timer;

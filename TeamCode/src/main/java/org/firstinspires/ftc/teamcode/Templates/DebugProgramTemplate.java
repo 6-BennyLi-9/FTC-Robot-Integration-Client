@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode.Templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Utils.Annotations.Templates;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
+@Templates
 public abstract class DebugProgramTemplate extends OpMode {
 	public Client client;
 	public Timer timer;
