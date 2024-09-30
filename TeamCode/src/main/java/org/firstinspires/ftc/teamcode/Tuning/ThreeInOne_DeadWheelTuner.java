@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Tuning;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
+import org.firstinspires.ftc.teamcode.Templates.TuningProgramTemplate;
 
 /**
  * @see AxialInchPerTickTest
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
  * @see TurningDegPerTickTest
  * */
 @TeleOp(name = "[3 in one!]DeadWheelTuner")
-public class ThreeInOne_DeadWheelTuner extends TeleopProgramTemplate {
+public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
 		robot.addLine("该调参程序不具备定位和直接数据处理能力，以下所能看到的辅助调参数据都是直接相乘得到的，因此不具备定位能力！！！");
