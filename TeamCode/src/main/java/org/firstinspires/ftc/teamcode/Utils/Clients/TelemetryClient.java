@@ -43,11 +43,7 @@ public class TelemetryClient {
 	 * @throws RuntimeException 如果未能找到key所指向的值，将会抛出异常
 	 */
 	public void deleteData(String key){
-		if( data.containsKey(key)){
-			data.remove(key);
-		}else{
-			throw new RuntimeException("can't find the key \""+key+"\".");
-		}
+		data.remove(key);
 		update();
 	}
 
