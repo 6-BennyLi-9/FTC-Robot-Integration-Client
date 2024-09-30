@@ -201,22 +201,22 @@ public class Robot {
 		motors.setBufPower(BufPower);
 	}
 
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void addData(String key, String val){client.addData(key, val);}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void addData(String key,Object val){client.addData(key, val);}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void deleteDate(String key){try{client.deleteData(key);}catch (Exception ignored){}}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void changeData(String key, String val){client.changeData(key, val);}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void changeData(String key,Object val){client.changeData(key, val);}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void addLine(String val){client.addLine(val);}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void addLine(Object val){client.addLine(val);}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void changeLine(@NonNull Object key, @NonNull Object val){client.changeLine(key.toString(),val.toString());}
-	@ExtractedInterfaces
+	@ExtractedInterfaces@UserRequirementFunctions
 	public void deleteLine(String key){try{client.deleteLine(key);}catch (Exception ignored){}}
 }
