@@ -6,14 +6,14 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.DriveControls.TrajectoryType;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DriveCommand implements DriveOrder {
-	private final Classic classic;
+	private final Chassis chassis;
 
 	/**
 	 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
@@ -33,10 +33,10 @@ public class DriveCommand implements DriveOrder {
 	 */
 	public TrajectoryType trajectoryType = null;
 
-	public DriveCommand(final Classic classic, double BufPower, Pose2d pose) {
+	public DriveCommand(final Chassis chassis, double BufPower, Pose2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
-		this.classic = classic;
+		this.chassis = chassis;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class DriveCommand implements DriveOrder {
 		MEAN = new commandRunningNode() {
 			@Override
 			public void runCommand() {
-				classic.drive(DriveDirection.turn, BufPower);
+				chassis.drive(DriveDirection.turn, BufPower);
 			}
 		};
 		DeltaTrajectory = new Pose2d(new Vector2d(0, 0), radians);
@@ -66,7 +66,7 @@ public class DriveCommand implements DriveOrder {
 		MEAN = new commandRunningNode() {
 			@Override
 			public void runCommand() {
-				classic.SimpleRadiansDrive(BufPower, radians);
+				chassis.SimpleRadiansDrive(BufPower, radians);
 			}
 		};
 		DeltaTrajectory = new Pose2d(
@@ -82,7 +82,7 @@ public class DriveCommand implements DriveOrder {
 		MEAN = new commandRunningNode() {
 			@Override
 			public void runCommand() {
-				classic.SimpleRadiansDrive(BufPower, Math.toRadians(cache.toDegree()));
+				chassis.SimpleRadiansDrive(BufPower, Math.toRadians(cache.toDegree()));
 			}
 		};
 		DeltaTrajectory = new Pose2d(cache.toVector2d(), this.pose.heading);

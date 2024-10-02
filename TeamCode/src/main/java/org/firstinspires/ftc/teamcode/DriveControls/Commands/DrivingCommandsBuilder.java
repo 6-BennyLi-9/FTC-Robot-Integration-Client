@@ -17,7 +17,7 @@ public class DrivingCommandsBuilder implements DriveOrderBuilder {
 
 	public DrivingCommandsBuilder(@NonNull SimpleMecanumDrive drive) {
 		commandPackage = new DriveCommandPackage();
-		commandPackage.commands.add(new DriveCommand(drive.classic, drive.BufPower, drive.poseHistory.getLast()));
+		commandPackage.commands.add(new DriveCommand(drive.chassis, drive.BufPower, drive.poseHistory.getLast()));
 		this.drive = drive;
 	}
 

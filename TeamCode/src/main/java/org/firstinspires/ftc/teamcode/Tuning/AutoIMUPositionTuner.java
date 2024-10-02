@@ -31,11 +31,11 @@ public class AutoIMUPositionTuner extends AutonomousProgramTemplate {
 		if (!opModeIsActive() || isStopRequested())return;
 
 		robot.turnAngle(180);
-		robot.classic.drive(DriveDirection.back,0.6f);
+		robot.chassis.drive(DriveDirection.back,0.6f);
 
 		sleep(5000);
 
-		robot.classic.STOP();
+		robot.chassis.STOP();
 		robot.update();
 		r=robot.sensors.getDeltaL()/2;
 		xP=r;

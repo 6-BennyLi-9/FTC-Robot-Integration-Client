@@ -12,9 +12,9 @@ public class DeadWheelEncoders extends TuningProgramTemplate {
 	@Override
 	public void whileActivating() {
 		robot.update();
-		robot.changeData("L",robot.classic.sensors.Left.encTick);
-		robot.changeData("M",robot.classic.sensors.Middle.encTick);
-		robot.changeData("R",robot.classic.sensors.Right.encTick);
+		robot.changeData("L",robot.chassis.sensors.Left.encTick);
+		robot.changeData("M",robot.chassis.sensors.Middle.encTick);
+		robot.changeData("R",robot.chassis.sensors.Right.encTick);
 	}
 
 	@Override

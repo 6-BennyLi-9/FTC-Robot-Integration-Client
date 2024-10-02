@@ -12,12 +12,12 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DrivingCommandsBuilder;
+import org.firstinspires.ftc.teamcode.Hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.Localizers.Definition.Localizer;
 import org.firstinspires.ftc.teamcode.Localizers.Plugin.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -33,7 +33,7 @@ import java.util.LinkedList;
 
 @DrivingPrograms
 public class SimpleMecanumDrive implements DriverProgram {
-	public final Classic classic;
+	public final Chassis chassis;
 	private final Motors motors;
 	private final Client client;
 	private final PidProcessor pidProcessor;
@@ -47,17 +47,17 @@ public class SimpleMecanumDrive implements DriverProgram {
 
 	public static RobotState robotState;
 
-	public SimpleMecanumDrive(@NonNull Classic classic, Client client,
+	public SimpleMecanumDrive(@NonNull Chassis chassis, Client client,
 	                          PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
-		this.classic=classic;
+		this.chassis = chassis;
 		this.RobotPosition = RobotPosition;
 		this.client=client;
 		SimpleMecanumDrive.robotState = robotState;
-		motors=classic.motors;
+		motors= chassis.motors;
 		this.pidProcessor=pidProcessor;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelLocalizer(client,classic.sensors);
+		localizer=new DeadWheelLocalizer(client, chassis.sensors);
 
 		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
 
@@ -66,7 +66,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		pidProcessor.loadContent(new PidContent(ContentTags[2],2));
 	}
 	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
-		this(robot.classic, robot.client, robot.pidProcessor, robot.robotState, RobotPosition);
+		this(robot.chassis, robot.client, robot.pidProcessor, robot.robotState, RobotPosition);
 	}
 
 	/**
@@ -159,13 +159,13 @@ public class SimpleMecanumDrive implements DriverProgram {
 		client.deleteData("DELTA");
 		client.dashboard.deletePacketByTag("TargetLine");
 
-		classic.STOP();
+		chassis.STOP();
 		robotState = RobotState.IDLE;
 	}
 
 	@Override
-	public Classic getClassic() {
-		return classic;
+	public Chassis getClassic() {
+		return chassis;
 	}
 
 	@Override

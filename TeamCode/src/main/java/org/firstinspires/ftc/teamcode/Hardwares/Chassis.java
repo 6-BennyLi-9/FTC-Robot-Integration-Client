@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
-public class Classic {
+public class Chassis {
 	public Motors motors;
 	public Sensors sensors;
 	
@@ -22,7 +22,7 @@ public class Classic {
 	 */
 	private double BufPower=1;
 
-	public Classic(Motors motors,Sensors sensors) {
+	public Chassis(Motors motors, Sensors sensors) {
 		this.motors     =motors;
 		this.sensors    =sensors;
 	}

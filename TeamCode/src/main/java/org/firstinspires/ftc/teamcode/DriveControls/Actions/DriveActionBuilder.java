@@ -18,7 +18,7 @@ public class DriveActionBuilder implements DriveOrderBuilder {
 
 	public DriveActionBuilder(@NonNull MecanumDrive drive) {
 		actionPackage = new DriveActionPackage();
-		actionPackage.actions.add(new DriveAction(drive.classic, drive.BufPower, drive.poseHistory.getLast()));
+		actionPackage.actions.add(new DriveAction(drive.chassis, drive.BufPower, drive.poseHistory.getLast()));
 		this.drive = drive;
 	}
 	DriveActionBuilder(DriverProgram drive, DriveActionPackage actionPackage) {

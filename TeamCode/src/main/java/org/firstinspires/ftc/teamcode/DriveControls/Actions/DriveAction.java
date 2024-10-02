@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import org.firstinspires.ftc.teamcode.DriveControls.MecanumDrive;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.DriveControls.TrajectoryType;
@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
 public class DriveAction implements DriveOrder {
-	private final Classic classic;
+	private final Chassis chassis;
 
 	/**
 	 * 为了简化代码书写，我们使用了<code>@Override</code>的覆写来保存数据。
@@ -36,10 +36,10 @@ public class DriveAction implements DriveOrder {
 	 */
 	public TrajectoryType trajectoryType = null;
 
-	DriveAction(final Classic classic, double BufPower, Pose2d pose) {
+	DriveAction(final Chassis chassis, double BufPower, Pose2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
-		this.classic = classic;
+		this.chassis = chassis;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class DriveAction implements DriveOrder {
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-				classic.drive(DriveDirection.turn, BufPower);
+				chassis.drive(DriveDirection.turn, BufPower);
 				return false;
 			}
 		};
@@ -71,7 +71,7 @@ public class DriveAction implements DriveOrder {
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-				classic.SimpleRadiansDrive(BufPower, radians);
+				chassis.SimpleRadiansDrive(BufPower, radians);
 				return false;
 			}
 		};
@@ -89,7 +89,7 @@ public class DriveAction implements DriveOrder {
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-				classic.SimpleRadiansDrive(BufPower, Math.toRadians(cache.toDegree()));
+				chassis.SimpleRadiansDrive(BufPower, Math.toRadians(cache.toDegree()));
 				return false;
 			}
 		};

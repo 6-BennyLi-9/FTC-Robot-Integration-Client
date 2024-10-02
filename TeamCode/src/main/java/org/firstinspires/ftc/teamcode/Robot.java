@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.DriveControls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
+import org.firstinspires.ftc.teamcode.Hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
@@ -41,7 +41,7 @@ public class Robot {
 	public final Sensors sensors;
 	public final Servos servos;
 
-	public Classic classic;
+	public Chassis chassis;
 	public Structure structure;
 	public Webcam webcam;
 
@@ -68,7 +68,7 @@ public class Robot {
 		sensors=new Sensors(lazyIntegratedDevices);
 		servos=new Servos(lazyIntegratedDevices);
 
-		classic=new Classic(motors,sensors);
+		chassis =new Chassis(motors,sensors);
 		structure=new Structure(motors,servos);
 		webcam=new Webcam(hardwareMap);
 
@@ -161,7 +161,7 @@ public class Robot {
 	 * 不会自动 update()
 	 */
 	public void operateThroughGamePad() {
-		classic.operateThroughGamePad(gamepad);
+		chassis.operateThroughGamePad(gamepad);
 		structure.operateThroughGamePad(gamepad);
 	}
 	public DriveOrderBuilder DrivingOrderBuilder(){

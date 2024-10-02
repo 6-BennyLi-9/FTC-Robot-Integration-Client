@@ -16,12 +16,12 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveAction;
 import org.firstinspires.ftc.teamcode.DriveControls.Actions.DriveActionBuilder;
+import org.firstinspires.ftc.teamcode.Hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.Localizers.Definition.Localizer;
 import org.firstinspires.ftc.teamcode.Localizers.Plugin.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrder;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.DriveControls.OrderDefinition.DriverProgram;
-import org.firstinspires.ftc.teamcode.Hardwares.Classic;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -39,7 +39,7 @@ import java.util.LinkedList;
 
 @DrivingPrograms
 public class MecanumDrive implements DriverProgram {
-	public final Classic classic;
+	public final Chassis chassis;
 	private final Motors motors;
 	private final Client client;
 	private final PidProcessor pidProcessor;
@@ -53,17 +53,17 @@ public class MecanumDrive implements DriverProgram {
 
 	public RobotState robotState;
 
-	public MecanumDrive(@NonNull Classic classic, Client client,
+	public MecanumDrive(@NonNull Chassis chassis, Client client,
 	                    PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
-		this.classic=classic;
+		this.chassis = chassis;
 		this.client=client;
 		this.pidProcessor=pidProcessor;
 		this.robotState = robotState;
 		this.RobotPosition=RobotPosition;
-		motors=classic.motors;
+		motors= chassis.motors;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelLocalizer(client,classic.sensors);
+		localizer=new DeadWheelLocalizer(client, chassis.sensors);
 
 		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
 
@@ -73,7 +73,7 @@ public class MecanumDrive implements DriverProgram {
 	}
 	@ExtractedInterfaces
 	public MecanumDrive(@NonNull Robot robot,Pose2d RobotPosition){
-		this(robot.classic,robot.client,robot.pidProcessor,robot.robotState,RobotPosition);
+		this(robot.chassis,robot.client,robot.pidProcessor,robot.robotState,RobotPosition);
 	}
 
 	@Override
@@ -200,13 +200,13 @@ public class MecanumDrive implements DriverProgram {
 		client.deleteData("progress");
 		client.deleteData("DELTA");
 
-		classic.STOP();
+		chassis.STOP();
 		robotState = RobotState.IDLE;
 	}
 
 	@Override
-	public Classic getClassic() {
-		return classic;
+	public Chassis getClassic() {
+		return chassis;
 	}
 
 	@Override
