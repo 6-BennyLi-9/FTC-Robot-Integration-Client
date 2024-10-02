@@ -123,7 +123,7 @@ public class IntegrationHardwareMap {
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).motor.setDirection(direction);
 		}else{
-			throw new RuntimeException("DcMotor's Direction Only Matches To DcMotor");
+			throw new RuntimeException("Not Allowed");
 		}
 	}
 	@ExtractedInterfaces
@@ -135,7 +135,7 @@ public class IntegrationHardwareMap {
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setPower(power);
 		}else if(device instanceof IntegrationServo){
-			throw new RuntimeException("Cannot set the power of a servo at DeviceMap.class");
+			throw new RuntimeException("Not Allowed");
 		}
 	}
 	@ExtractedInterfaces
@@ -147,7 +147,7 @@ public class IntegrationHardwareMap {
 		if(device instanceof IntegrationServo){
 			((IntegrationServo) device).setTargetPose(position);
 		}else{
-			throw new RuntimeException("Not allowed to set the position of a device witch isn't a Servo");
+			throw new RuntimeException("Not Allowed");
 		}
 	}
 	@ExtractedInterfaces
@@ -159,7 +159,7 @@ public class IntegrationHardwareMap {
 		if (device instanceof IntegrationServo || device instanceof IntegrationMotor) {
 			return ((IntegrationDevice) device).getPosition();
 		}else{
-			throw new RuntimeException("Cannot get the position of other devices at DeviceMap.class");
+			throw new RuntimeException("Not Allowed");
 		}
 	}
 
@@ -172,11 +172,23 @@ public class IntegrationHardwareMap {
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setTargetPowerSmooth(power);
 		}else if(device instanceof IntegrationServo){
-			throw new RuntimeException("Cannot set the power of a servo at DeviceMap.class");
+			throw new RuntimeException("Not Allowed");
 		}
 	}
 
 	public double getVoltage(){
 		return lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
+	}
+	
+	@ExtractedInterfaces
+	public boolean isInPlace(HardwareDeviceTypes hardwareDeviceTypes){
+		Integrations device=getDevice(hardwareDeviceTypes);
+		if(device instanceof PositionalIntegrationMotor){
+			return ((PositionalIntegrationMotor)device).inPlace();
+		}else if(device instanceof IntegrationServo){
+			return ((IntegrationServo) device).inPlace();
+		}else{
+			throw new RuntimeException("Not Allowed");
+		}
 	}
 }

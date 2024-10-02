@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
 public class IntegrationServo extends IntegrationDevice{
+	private final static double AllowErrorPosition=0.1;
+
 	public final double positionPerRadian,speed,basePose;
 	private final boolean lazyMode;
 	public boolean smoothMode=false;
@@ -79,6 +81,10 @@ public class IntegrationServo extends IntegrationDevice{
 		}
 		timer.pushTimeTag("LastUpdateTime");
 		updated=true;
+	}
+
+	public boolean inPlace(){
+		return Math.abs(servo.getPosition() - targetPose) < AllowErrorPosition;
 	}
 
 	@Override

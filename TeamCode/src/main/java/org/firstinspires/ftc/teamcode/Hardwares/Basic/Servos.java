@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.FrontClip;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.RearClip;
+
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 
 public class Servos {
 	public IntegrationHardwareMap hardware;
 	public double FrontClipPosition,RearClipPosition;
-
-	private final static double AllowErrorPosition=0.1;
 	private boolean PositionInPlace;
 
 	public Servos(IntegrationHardwareMap hardware){
@@ -17,11 +17,10 @@ public class Servos {
 
 	public void update(){
 		try {
-			hardware.setPosition(HardwareDeviceTypes.FrontClip,FrontClipPosition);
-			hardware.setPosition(HardwareDeviceTypes.RearClip,RearClipPosition);
+			hardware.setPosition(FrontClip,FrontClipPosition);
+			hardware.setPosition(RearClip,RearClipPosition);
 
-			PositionInPlace=(Math.abs(hardware.getPosition(HardwareDeviceTypes.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
-					(Math.abs(hardware.getPosition(HardwareDeviceTypes.FrontClip)- FrontClipPosition) < AllowErrorPosition);
+			PositionInPlace=hardware.isInPlace(FrontClip)&&hardware.isInPlace(RearClip);
 		}catch (Exception ignored){}
 	}
 

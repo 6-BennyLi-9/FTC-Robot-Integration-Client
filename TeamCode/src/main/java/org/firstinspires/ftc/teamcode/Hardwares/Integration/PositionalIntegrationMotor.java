@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 
 public class PositionalIntegrationMotor extends IntegrationDevice{
+	private final static double AllowErrorPosition=15;
+
 	private boolean PID_ENABLED =true;
 	private boolean LAZY_MODE = false;
 
@@ -61,6 +63,11 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 			}
 		}
 		updated=true;
+	}
+
+	@UserRequirementFunctions
+	public boolean inPlace(){
+		return Math.abs(motor.getCurrentPosition() - targetPosition) < AllowErrorPosition;
 	}
 
 	@Override
