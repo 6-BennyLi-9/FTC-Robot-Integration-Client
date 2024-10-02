@@ -74,7 +74,7 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	}
 
 	@UserRequirementFunctions
-	public void ConfigPidEnable(boolean val) {
+	public void configPidEnable(boolean val) {
 		PID_ENABLED = val;
 	}
 }

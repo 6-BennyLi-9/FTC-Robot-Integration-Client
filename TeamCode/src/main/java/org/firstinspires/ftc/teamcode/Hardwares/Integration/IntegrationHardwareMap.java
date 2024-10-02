@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode.Hardwares.Integration;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceConfigPackage.Direction.Reversed;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.Intake;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.LeftDeadWheel;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.LeftFront;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.LeftRear;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.MiddleDeadWheel;
+import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.RightDeadWheel;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.RightFront;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes.RightRear;
 
@@ -17,6 +20,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationDeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.CustomizedHardwareRegisterOptions;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareState;
@@ -33,7 +37,7 @@ import java.util.Set;
 
 public class IntegrationHardwareMap {
 	public Map<HardwareDeviceTypes, Integrations> devices;
-	private final Set<HardwareDeviceTypes> IsIntegrationMotor;
+	private final Set<HardwareDeviceTypes> IsIntegrationMotor,IsDeadWheel;
 	public HardwareMap lazyHardwareMap;
 	public PidProcessor lazyProcessor;
 
@@ -47,12 +51,18 @@ public class IntegrationHardwareMap {
 		}
 
 		IsIntegrationMotor=new HashSet<>();
+		IsDeadWheel=new HashSet<>();
 		//TODO 列举需要IntegrationMotor而非PositionalIntegrationMotor的类
 		IsIntegrationMotor.add(LeftFront);
 		IsIntegrationMotor.add(LeftRear);
 		IsIntegrationMotor.add(RightFront);
 		IsIntegrationMotor.add(RightRear);
 		IsIntegrationMotor.add(Intake);
+
+		//TODO 列举死轮
+		IsDeadWheel.add(LeftDeadWheel);
+		IsDeadWheel.add(MiddleDeadWheel);
+		IsDeadWheel.add(RightDeadWheel);
 	}
 
 	public void loadHardwareObject(@NonNull HardwareDeviceTypes device){
@@ -65,7 +75,9 @@ public class IntegrationHardwareMap {
 			}
 			if (IsIntegrationMotor.contains(device)){
 				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor,this));
-			}else{
+			}else if(IsDeadWheel.contains(device)){
+				devices.put(device,new IntegrationDeadWheelEncoders(motor));
+			}else {
 				devices.put(device,new PositionalIntegrationMotor(motor,device,lazyProcessor));
 			}
 		}else if (device.classType == Servo.class){

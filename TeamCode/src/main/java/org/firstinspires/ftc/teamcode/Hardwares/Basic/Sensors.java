@@ -16,7 +16,7 @@ public class Sensors {
 	public IntegrationDeadWheelEncoders Left,Middle,Right;
 
 	public Sensors(@NonNull IntegrationHardwareMap hardwareMap){
-		imu=(IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
+		imu= (IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
 		Left=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
 		Middle=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
 		Right=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);

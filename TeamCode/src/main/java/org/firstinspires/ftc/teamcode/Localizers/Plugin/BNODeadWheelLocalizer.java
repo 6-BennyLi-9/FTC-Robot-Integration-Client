@@ -4,11 +4,13 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.Localizers.Definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
 
 /**
  * 使用imu获取机器的角度
  */
+@LocalizationPlugin
 public class BNODeadWheelLocalizer extends DeadWheelLocalizer implements PositionLocalizerPlugin {
 	public BNODeadWheelLocalizer(Client client, Sensors sensors) {
 		super(client, sensors);
