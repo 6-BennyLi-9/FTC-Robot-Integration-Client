@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Hardwares;
 
+import static org.firstinspires.ftc.teamcode.Params.PositionalMotorConfigs.HighPlacement;
+import static org.firstinspires.ftc.teamcode.Params.PositionalMotorConfigs.IDLEPlacement;
+import static org.firstinspires.ftc.teamcode.Params.PositionalMotorConfigs.LowPlacement;
 import static org.firstinspires.ftc.teamcode.Params.factorIntakePower;
 import static org.firstinspires.ftc.teamcode.Params.factorSuspensionArmPower;
 
@@ -7,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Action;
 
+import org.firstinspires.ftc.teamcode.Actions.MotorControllerAction;
 import org.firstinspires.ftc.teamcode.Actions.StructureActions;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
@@ -14,6 +18,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
@@ -22,6 +27,7 @@ public class Structure {
 	public Servos servos;
 	
 	public ClipPosition clipPosition;
+	public LiftPosition liftPosition;
 	public StructureActions actions;
 
 	public Structure(Motors motors,Servos servos){
@@ -63,6 +69,8 @@ public class Structure {
 			servos.update();
 		}
 	}
+
+	@UserRequirementFunctions
 	public void clipOption(@NonNull ClipPosition clipPosition){
 		this.clipPosition=clipPosition;
 		switch (clipPosition){
@@ -77,6 +85,7 @@ public class Structure {
 		}
 	}
 	@UserRequirementFunctions
+	@ExtractedInterfaces
 	public Action clipOptionAction(@NonNull ClipPosition clipPosition){
 		if(this.clipPosition==clipPosition){
 			return null;
@@ -88,6 +97,43 @@ public class Structure {
 					return actions.closeClips();
 				default:
 					throw new UnKnownErrorsException("UnKnown ClipPosition");
+			}
+		}
+	}
+
+
+	@UserRequirementFunctions
+	public void armOption(@NonNull LiftPosition liftPosition){
+		this.liftPosition=liftPosition;
+		switch (liftPosition) {
+			case IDLE:
+				motors.placementArm().setTargetPosition(IDLEPlacement);
+				break;
+			case Low:
+				motors.placementArm().setTargetPosition(LowPlacement);
+				break;
+			case High:
+				motors.placementArm().setTargetPosition(HighPlacement);
+				break;
+			default:
+				throw new UnKnownErrorsException("UnKnown LiftPosition");
+		}
+	}
+	@UserRequirementFunctions
+	@ExtractedInterfaces
+	public Action armOptionAction(@NonNull LiftPosition liftPosition){
+		if(this.liftPosition==liftPosition){
+			return null;
+		}else{
+			switch (liftPosition){
+				case IDLE:
+					return new MotorControllerAction(motors.placementArm(), IDLEPlacement);
+				case Low:
+					return new MotorControllerAction(motors.placementArm(), LowPlacement);
+				case High:
+					return new MotorControllerAction(motors.placementArm(), HighPlacement);
+				default:
+					throw new UnKnownErrorsException("UnKnown LiftPosition");
 			}
 		}
 	}

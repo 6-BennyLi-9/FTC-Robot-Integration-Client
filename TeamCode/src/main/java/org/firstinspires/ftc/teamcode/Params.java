@@ -59,6 +59,12 @@ public class Params {
 		public static double frontClipClose=0;
 		public static double rearClipClose=0;
 	}
+	@Config
+	public static class PositionalMotorConfigs{
+		public static int IDLEPlacement=0;
+		public static int LowPlacement=0;
+		public static int HighPlacement=0;
+	}
 	/**
 	 * 每Tick机器所旋转的角度
 	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner

@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
 import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.PositionalIntegrationMotor;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
@@ -16,7 +16,7 @@ public class Motors {
 	//除非在手动程序中，不建议直接更改下列数值
 	public double LeftFrontPower,RightFrontPower,LeftRearPower,RightRearPower;
 	public double xAxisPower,yAxisPower,headingPower;
-	public double PlacementArmPower,SuspensionArmPower,IntakePower;
+	public double SuspensionArmPower,IntakePower;
 
 	private double ChassisBufPower =1, StructureBufPower =1;
 
@@ -27,21 +27,8 @@ public class Motors {
 		LeftRearPower=0;
 		RightRearPower=0;
 
-		PlacementArmPower=0;
 		SuspensionArmPower=0;
 		IntakePower=0;
-
-		//TODO:根据实际情况修改
-		hardware.setDirection(HardwareDeviceTypes.LeftFront, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(HardwareDeviceTypes.LeftRear, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(HardwareDeviceTypes.RightFront, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(HardwareDeviceTypes.RightRear, DcMotorSimple.Direction.REVERSE);
-
-		try {
-			hardware.setDirection(HardwareDeviceTypes.PlacementArm, DcMotorSimple.Direction.REVERSE);
-			hardware.setDirection(HardwareDeviceTypes.Intake, DcMotorSimple.Direction.REVERSE);
-			hardware.setDirection(HardwareDeviceTypes.SuspensionArm, DcMotorSimple.Direction.FORWARD);
-		}catch (Exception ignored){}
 	}
 
 	public void clearDriveOptions(){
@@ -94,10 +81,14 @@ public class Motors {
 		hardware.setPowerSmooth(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
 	}
 	public void updateStructureOptions(){
-		hardware.setPower(HardwareDeviceTypes.PlacementArm, PlacementArmPower* StructureBufPower);
 		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower* StructureBufPower);
 		hardware.setPower(HardwareDeviceTypes.SuspensionArm, SuspensionArmPower* StructureBufPower);
 	}
+
+	public PositionalIntegrationMotor placementArm(){
+		return (PositionalIntegrationMotor) hardware.getDevice(HardwareDeviceTypes.PlacementArm);
+	}
+
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
 	 * @see org.firstinspires.ftc.teamcode.Params
