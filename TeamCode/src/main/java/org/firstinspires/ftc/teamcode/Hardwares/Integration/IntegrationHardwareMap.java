@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceDisabledException;
+import org.firstinspires.ftc.teamcode.Utils.Exceptions.DeviceNotFoundException;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidProcessor;
 
 import java.util.HashMap;
@@ -98,7 +99,7 @@ public class IntegrationHardwareMap {
 		if(devices.containsKey(hardwareDeviceTypes)){
 			return devices.get(hardwareDeviceTypes);
 		}else{
-			throw new NullPointerException("Device Not Found:"+ hardwareDeviceTypes);
+			throw new DeviceNotFoundException(hardwareDeviceTypes.deviceName);
 		}
 	}
 	@ExtractedInterfaces
