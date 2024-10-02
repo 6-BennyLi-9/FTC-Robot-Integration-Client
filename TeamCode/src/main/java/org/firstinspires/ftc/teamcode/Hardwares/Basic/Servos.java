@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 
 public class Servos {

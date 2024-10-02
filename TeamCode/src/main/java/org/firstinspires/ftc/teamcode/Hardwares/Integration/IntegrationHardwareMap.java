@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad;
+package org.firstinspires.ftc.teamcode.Hardwares.Integration;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import static org.firstinspires.ftc.teamcode.Hardwares.Namespace.DeviceConfigPackage.Direction.Reversed;
@@ -16,11 +16,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationDevice;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationMotor;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationServo;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Integrations;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.PositionalIntegrationMotor;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.CustomizedHardwareRegisterOptions;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;

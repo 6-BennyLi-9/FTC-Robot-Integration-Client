@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationDeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Complex;

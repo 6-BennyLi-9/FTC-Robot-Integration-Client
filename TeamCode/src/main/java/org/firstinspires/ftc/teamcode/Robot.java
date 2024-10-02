@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Servos;
 import org.firstinspires.ftc.teamcode.Hardwares.Classic;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
