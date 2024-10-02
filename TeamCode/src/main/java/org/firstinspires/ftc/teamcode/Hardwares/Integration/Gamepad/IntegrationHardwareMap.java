@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Integrations;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.PositionalIntegrationMotor;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.CustomizedHardwareRegisterOptions;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.Params;
@@ -83,10 +84,15 @@ public class IntegrationHardwareMap {
 		}
 	}
 
+	@ExtractedInterfaces
 	public void registerAllDevices(){
 		for(HardwareDeviceTypes device: HardwareDeviceTypes.values()){
 			loadHardwareObject(device);
 		}
+	}
+	@ExtractedInterfaces
+	public void registerByOptions(@NonNull CustomizedHardwareRegisterOptions options){
+		options.run(this);
 	}
 
 	@ExtractedInterfaces
