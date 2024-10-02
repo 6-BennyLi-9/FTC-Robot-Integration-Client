@@ -122,12 +122,12 @@ public class Robot {
 	}
 
 	private void InitInAutonomous(){
-		structure.ClipOption(ClipPosition.Close);
+		structure.clipOption(ClipPosition.Close);
 		robotState = RobotState.IDLE;
 		SetGlobalBufPower(0.9f);
 	}
 	private void InitInManualDrive(){
-		structure.ClipOption(ClipPosition.Open);
+		structure.clipOption(ClipPosition.Open);
 		robotState = RobotState.ManualDriving;
 		SetGlobalBufPower(0.9f);
 	}

@@ -124,7 +124,7 @@ public class MecanumDrive implements DriverProgram {
 				double dY = singleAction.getDeltaTrajectory().position.y;
 				double dX = singleAction.getDeltaTrajectory().position.x;
 				final double distance=Math.sqrt(dX * dX + dY * dY);
-				final double estimatedTime=distance/(Params.vP*BufPower);
+				final double estimatedTime=distance/(Params.secPowerPerInch *BufPower);
 				client.changeData("distance",distance);
 				client.changeData("estimatedTime",estimatedTime);
 				client.changeData("progress","0%");
@@ -165,8 +165,8 @@ public class MecanumDrive implements DriverProgram {
 								|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
 								|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem){
 							double[] fulfillment=new double[]{
-									(aim.position.x- RobotPosition.position.x)*(Params.vP)*BufPower/2,
-									(aim.position.y- RobotPosition.position.y)*(Params.vP)*BufPower/2,
+									(aim.position.x- RobotPosition.position.x)*(Params.secPowerPerInch)*BufPower/2,
+									(aim.position.y- RobotPosition.position.y)*(Params.secPowerPerInch)*BufPower/2,
 									(aim.heading.toDouble()> RobotPosition.heading.toDouble()? BufPower/2:-BufPower/2)
 							};
 

@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
 import org.firstinspires.ftc.teamcode.Utils.Exceptions.UnKnownErrorsException;
 
 public class Structure {
-	Motors motors;
-	Servos servos;
+	public Motors motors;
+	public Servos servos;
 	
 	ClipPosition clipPosition;
 
@@ -23,21 +23,21 @@ public class Structure {
 		this.motors=motors;
 		this.servos=servos;
 	}
-//  TODO:测量这些值
+
 	public void openFrontClip(){
-		servos.FrontClipPosition=0;
+		servos.FrontClipPosition=Params.ServoConfigs.frontClipOpen;
 	}
 	public void openRearClip(){
-		servos.FrontClipPosition=0;
+		servos.FrontClipPosition=Params.ServoConfigs.rearClipOpen;
 	}
 	public void closeFrontClip(){
-		servos.FrontClipPosition=0;
+		servos.FrontClipPosition=Params.ServoConfigs.frontClipClose;
 	}
 	public void closeRearClip(){
-		servos.FrontClipPosition=0;
+		servos.FrontClipPosition=Params.ServoConfigs.rearClipClose;
 	}
 
-	private void openClips(){
+	public void openClips(){
 		openFrontClip();
 		openRearClip();
 
@@ -45,7 +45,7 @@ public class Structure {
 			servos.update();
 		}
 	}
-	private void closeClips(){
+	public void closeClips(){
 		closeFrontClip();
 		closeRearClip();
 
@@ -53,7 +53,7 @@ public class Structure {
 			servos.update();
 		}
 	}
-	public void ClipOption(@NonNull ClipPosition clipPosition){
+	public void clipOption(@NonNull ClipPosition clipPosition){
 		this.clipPosition=clipPosition;
 		switch (clipPosition){
 			case Open:

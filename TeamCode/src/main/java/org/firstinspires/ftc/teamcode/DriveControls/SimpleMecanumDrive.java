@@ -96,7 +96,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 			double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
 			double dX = Math.abs(PoseList[i + 1].x - PoseList[i].x);
 			final double distance=Math.sqrt(dX * dX + dY * dY);
-			final double estimatedTime=distance/(Params.vP /(1f/BufPower));
+			final double estimatedTime=distance/(Params.secPowerPerInch /(1f/BufPower));
 			client.changeData("distance",distance);
 			client.changeData("estimatedTime",estimatedTime);
 			client.changeData("progress","0%");
@@ -137,8 +137,8 @@ public class SimpleMecanumDrive implements DriverProgram {
 							|| Math.abs(aim.position.y - RobotPosition.position.y) > pem
 							|| Math.abs(aim.heading.toDouble() - RobotPosition.heading.toDouble()) > aem) {
 						double[] fulfillment = new double[]{
-								(aim.position.x - RobotPosition.position.x) * (Params.vP) * BufPower / 2,
-								(aim.position.y - RobotPosition.position.y) * (Params.vP) * BufPower / 2,
+								(aim.position.x - RobotPosition.position.x) * (Params.secPowerPerInch) * BufPower / 2,
+								(aim.position.y - RobotPosition.position.y) * (Params.secPowerPerInch) * BufPower / 2,
 								(aim.heading.toDouble() > RobotPosition.heading.toDouble() ? BufPower / 2 : -BufPower / 2)
 						};
 

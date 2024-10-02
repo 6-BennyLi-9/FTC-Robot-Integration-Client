@@ -6,7 +6,7 @@ import com.acmerobotics.dashboard.config.Config;
 public class Params {
 	@Config
 	public static class PIDParams{
-		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.vP
+		//与底盘相关的kP理论值：SimpleMecanumDrive.Params.secPowerPerInch
 		//TODO:预设...[0]为底盘X，[1]为底盘Y，[2]为底盘方向
 		//TODO:若要更改，则请查看对该类型的访问中的序数是否需要改变
 		public static double[] kP= new double[]{0.12, 0.15, 0.12};
@@ -52,6 +52,13 @@ public class Params {
 		public static String SuspensionArm="rack";
 		public static String Imu="imu";
 	}
+	@Config
+	public static class ServoConfigs{
+		public static double frontClipOpen=0;
+		public static double rearClipOpen=0;
+		public static double frontClipClose=0;
+		public static double rearClipClose=0;
+	}
 	/**
 	 * 每Tick机器所旋转的角度
 	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
@@ -82,7 +89,7 @@ public class Params {
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 */
-	public static double vP=0;
+	public static double secPowerPerInch =0;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */
