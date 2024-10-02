@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 
 public class IntegrationBNO055 extends IntegrationSensor{
 	public final BNO055IMU sensor;
-	public double RobotAngle,xAccel,yAccel;
+	public double robotAngle,xAccel,yAccel;
 	public boolean knockedWarn=false;
 
 	public IntegrationBNO055(@NonNull BNO055IMU imu, @NonNull HardwareDeviceTypes deviceType) {
@@ -28,7 +28,7 @@ public class IntegrationBNO055 extends IntegrationSensor{
 
 	@Override
 	public void update() {
-		RobotAngle=sensor.getAngularOrientation().firstAngle;
+		robotAngle =sensor.getAngularOrientation().firstAngle;
 		xAccel=sensor.getGravity().xAccel;
 		yAccel=sensor.getGravity().yAccel;
 		knockedWarn= xAccel > 10 || yAccel > 10;

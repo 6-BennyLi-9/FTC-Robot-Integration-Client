@@ -18,7 +18,7 @@ public class Motors {
 	public double xAxisPower,yAxisPower,headingPower;
 	public double PlacementArmPower,SuspensionArmPower,IntakePower;
 
-	private double ClassicBufPower =1, StructureBufPower =1;
+	private double ChassisBufPower =1, StructureBufPower =1;
 
 	public Motors(IntegrationHardwareMap deviceMap){
 		hardware= deviceMap;
@@ -88,10 +88,10 @@ public class Motors {
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
 
-		hardware.setPowerSmooth(HardwareDeviceTypes.LeftFront, LeftFrontPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDeviceTypes.LeftRear, LeftRearPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDeviceTypes.RightFront, RightFrontPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDeviceTypes.RightRear, RightRearPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
 	}
 	public void updateStructureOptions(){
 		hardware.setPower(HardwareDeviceTypes.PlacementArm, PlacementArmPower* StructureBufPower);
@@ -104,9 +104,7 @@ public class Motors {
 	 */
 	public void update(double headingDeg){
 		updateDriveOptions(headingDeg);
-		try{
-			updateStructureOptions();
-		}catch (Exception ignored){}
+		updateStructureOptions();
 
 		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
@@ -114,9 +112,7 @@ public class Motors {
 	}
 	public void update(){
 		updateDriveOptions();
-		try{
-			updateStructureOptions();
-		}catch (Exception ignored){}
+		updateStructureOptions();
 
 		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
 			clearDriveOptions();
@@ -134,14 +130,14 @@ public class Motors {
 		RightFrontPower += yAxisPower-xPoser+headingPower;
 		RightRearPower  += yAxisPower+xPoser+headingPower;
 	}
-	public void setClassicBufPower(double BufPower){
-		ClassicBufPower =BufPower;
+	public void setChassisBufPower(double BufPower){
+		ChassisBufPower =BufPower;
 	}
 	public void setStructureBufPower(double BufPower){
 		StructureBufPower =BufPower;
 	}
 	public void setBufPower(double BudPower){
-		setClassicBufPower(BudPower);
+		setChassisBufPower(BudPower);
 		setStructureBufPower(BudPower);
 	}
 }

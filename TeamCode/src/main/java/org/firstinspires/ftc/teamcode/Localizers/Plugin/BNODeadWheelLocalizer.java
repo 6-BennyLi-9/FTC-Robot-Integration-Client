@@ -18,7 +18,7 @@ public class BNODeadWheelLocalizer extends DeadWheelLocalizer implements Positio
 	public void update() {
 		super.update();
 		sensors.imu.update();
-		robotPosition=new Pose2d(robotPosition.position,Math.toRadians(sensors.imu.RobotAngle));
+		robotPosition=new Pose2d(robotPosition.position,Math.toRadians(sensors.imu.robotAngle));
 	}
 
 	@Override

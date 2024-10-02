@@ -24,6 +24,6 @@ public class BNOHeadingLocalizer implements HeadingLocalizerPlugin {
 	@Override
 	public void update() {
 		sensors.imu.update();
-		RobotHeading=sensors.RobotAngle();
+		RobotHeading=sensors.robotAngle();
 	}
 }

@@ -55,7 +55,7 @@ public class Sensors {
 	}
 
 	@ExtractedInterfaces
-	public double RobotAngle() {
-		return imu.RobotAngle;
+	public double robotAngle() {
+		return imu.robotAngle;
 	}
 }

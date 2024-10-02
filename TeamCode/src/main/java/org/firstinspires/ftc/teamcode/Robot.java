@@ -24,6 +24,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareM
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
+import org.firstinspires.ftc.teamcode.Utils.ActionRunningSofa;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
@@ -49,8 +50,9 @@ public class Robot {
 	public PidProcessor pidProcessor;
 
 	public RobotState robotState;
-	public RunningMode RunningState;
+	public RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
+	public final ActionRunningSofa runningSofa;
 	private DriverProgram drive=null;
 
 	public Timer timer;
@@ -93,7 +95,8 @@ public class Robot {
 				throw new UnKnownErrorsException("Unexpected runningState value:"+state.name());
 		}
 
-		RunningState=state;
+		runningState = state;
+		runningSofa = new ActionRunningSofa();
 		timer=new Timer();
 		client.addData("RobotState","UnKnow");
 	}
@@ -115,7 +118,7 @@ public class Robot {
 	 */
 	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
 		drive=new SimpleMecanumDrive(this,RobotPosition);
-		if(RunningState!= RunningMode.Autonomous) {
+		if(runningState != RunningMode.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}
 		return drive;
@@ -145,11 +148,12 @@ public class Robot {
 		servos.update();
 
 		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
-			motors.update(sensors.RobotAngle());
+			motors.update(sensors.robotAngle());
 		}else{
 			motors.update();
 		}
 
+		Actions.runBlocking(runningSofa.output());
 		client.changeData("RobotState", robotState.name());
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.inPlace()){
 			//当前最方便的Sleep方案
@@ -177,14 +181,17 @@ public class Robot {
 	 * @param angle 要转的角度[-180,180)
 	 */
 	public void turnAngle(double angle){
-		if(RunningState== RunningMode.ManualDrive)return;
+		if(runningState == RunningMode.ManualDrive)return;
 		drive.runOrderPackage(DrivingOrderBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(Vector2d pose){
-		if(RunningState== RunningMode.ManualDrive)return;
+		if(runningState == RunningMode.ManualDrive)return;
 		drive.runOrderPackage(DrivingOrderBuilder().StrafeTo(pose).END());
 	}
 
+	/**
+	 * 会自动update()
+	 */
 	public Pose2d pose(){
 		drive.update();
 		return drive.getCurrentPose();

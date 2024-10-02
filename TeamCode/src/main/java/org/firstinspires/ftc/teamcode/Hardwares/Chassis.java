@@ -50,7 +50,7 @@ public class Chassis {
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
-			motors.update(sensors.RobotAngle());
+			motors.update(sensors.robotAngle());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class Chassis {
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
-			motors.update(sensors.RobotAngle());
+			motors.update(sensors.robotAngle());
 		}
 	}
 
@@ -133,7 +133,7 @@ public class Chassis {
 	public void STOP(){
 		motors.clearDriveOptions();
 		sensors.update();
-		motors.updateDriveOptions(sensors.RobotAngle());
+		motors.updateDriveOptions(sensors.robotAngle());
 	}
 	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
 		if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedControl)){

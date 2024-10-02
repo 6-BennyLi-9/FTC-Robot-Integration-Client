@@ -24,6 +24,8 @@ public class ActionRunningSofa {
 	@ExtractedInterfaces
 	@UserRequirementFunctions
 	public ParallelAction output(){
-		return new ParallelAction(actions);
+		ParallelAction res=new ParallelAction(actions);
+		actions.clear();
+		return res;
 	}
 }
