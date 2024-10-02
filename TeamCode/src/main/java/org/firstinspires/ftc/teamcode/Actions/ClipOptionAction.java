@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
+@Deprecated
 public class ClipOptionAction implements Action {
 	private Structure structure=null;
 	private Servos servos=null;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardwares;
+package org.firstinspires.ftc.teamcode.Actions;
 
 import androidx.annotation.NonNull;
 
@@ -7,10 +7,15 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationServo;
+import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 
 public class StructureActions {
 	public Structure controller;
+
+	public StructureActions(Structure controller){
+		this.controller=controller;
+	}
 
 	protected class OpenFrontClip implements Action {
 		@Override
