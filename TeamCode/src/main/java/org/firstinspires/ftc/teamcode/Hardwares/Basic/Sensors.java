@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Sensors.IntegrationDeadWheelEncoders;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 
@@ -16,10 +16,10 @@ public class Sensors {
 	public IntegrationDeadWheelEncoders Left,Middle,Right;
 
 	public Sensors(@NonNull IntegrationHardwareMap hardwareMap){
-		imu=(IntegrationBNO055) hardwareMap.getDevice(HardwareDevices.imu);
-		Left=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDevices.LeftDeadWheel);
-		Middle=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDevices.MiddleDeadWheel);
-		Right=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDevices.RightDeadWheel);
+		imu=(IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
+		Left=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
+		Middle=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
+		Right=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);
 	}
 
 	public void updateEncoders(){

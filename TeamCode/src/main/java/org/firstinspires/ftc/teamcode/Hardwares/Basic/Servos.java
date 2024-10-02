@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardwares.Basic;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 
 public class Servos {
 	public IntegrationHardwareMap hardware;
@@ -17,11 +17,11 @@ public class Servos {
 
 	public void update(){
 		try {
-			hardware.setPosition(HardwareDevices.FrontClip,FrontClipPosition);
-			hardware.setPosition(HardwareDevices.RearClip,RearClipPosition);
+			hardware.setPosition(HardwareDeviceTypes.FrontClip,FrontClipPosition);
+			hardware.setPosition(HardwareDeviceTypes.RearClip,RearClipPosition);
 
-			PositionInPlace=(Math.abs(hardware.getPosition(HardwareDevices.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
-					(Math.abs(hardware.getPosition(HardwareDevices.FrontClip)- FrontClipPosition) < AllowErrorPosition);
+			PositionInPlace=(Math.abs(hardware.getPosition(HardwareDeviceTypes.RearClip) - RearClipPosition)  < AllowErrorPosition) &&
+					(Math.abs(hardware.getPosition(HardwareDeviceTypes.FrontClip)- FrontClipPosition) < AllowErrorPosition);
 		}catch (Exception ignored){}
 	}
 

@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.IntegrationHardwareMap;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Utils.Complex;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
@@ -32,15 +32,15 @@ public class Motors {
 		IntakePower=0;
 
 		//TODO:根据实际情况修改
-		hardware.setDirection(HardwareDevices.LeftFront, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(HardwareDevices.LeftRear, DcMotorSimple.Direction.FORWARD);
-		hardware.setDirection(HardwareDevices.RightFront, DcMotorSimple.Direction.REVERSE);
-		hardware.setDirection(HardwareDevices.RightRear, DcMotorSimple.Direction.REVERSE);
+		hardware.setDirection(HardwareDeviceTypes.LeftFront, DcMotorSimple.Direction.FORWARD);
+		hardware.setDirection(HardwareDeviceTypes.LeftRear, DcMotorSimple.Direction.FORWARD);
+		hardware.setDirection(HardwareDeviceTypes.RightFront, DcMotorSimple.Direction.REVERSE);
+		hardware.setDirection(HardwareDeviceTypes.RightRear, DcMotorSimple.Direction.REVERSE);
 
 		try {
-			hardware.setDirection(HardwareDevices.PlacementArm, DcMotorSimple.Direction.REVERSE);
-			hardware.setDirection(HardwareDevices.Intake, DcMotorSimple.Direction.REVERSE);
-			hardware.setDirection(HardwareDevices.SuspensionArm, DcMotorSimple.Direction.FORWARD);
+			hardware.setDirection(HardwareDeviceTypes.PlacementArm, DcMotorSimple.Direction.REVERSE);
+			hardware.setDirection(HardwareDeviceTypes.Intake, DcMotorSimple.Direction.REVERSE);
+			hardware.setDirection(HardwareDeviceTypes.SuspensionArm, DcMotorSimple.Direction.FORWARD);
 		}catch (Exception ignored){}
 	}
 
@@ -88,15 +88,15 @@ public class Motors {
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
 
-		hardware.setPowerSmooth(HardwareDevices.LeftFront, LeftFrontPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDevices.LeftRear, LeftRearPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDevices.RightFront, RightFrontPower* ClassicBufPower);
-		hardware.setPowerSmooth(HardwareDevices.RightRear, RightRearPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.LeftFront, LeftFrontPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.LeftRear, LeftRearPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.RightFront, RightFrontPower* ClassicBufPower);
+		hardware.setPowerSmooth(HardwareDeviceTypes.RightRear, RightRearPower* ClassicBufPower);
 	}
 	public void updateStructureOptions(){
-		hardware.setPower(HardwareDevices.PlacementArm, PlacementArmPower* StructureBufPower);
-		hardware.setPower(HardwareDevices.Intake, IntakePower* StructureBufPower);
-		hardware.setPower(HardwareDevices.SuspensionArm, SuspensionArmPower* StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.PlacementArm, PlacementArmPower* StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower* StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.SuspensionArm, SuspensionArmPower* StructureBufPower);
 	}
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的

@@ -5,14 +5,14 @@ import androidx.annotation.NonNull;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 
 public class IntegrationBNO055 extends IntegrationSensor{
 	public final BNO055IMU sensor;
 	public double RobotAngle,xAccel,yAccel;
 	public boolean knockedWarn=false;
 
-	public IntegrationBNO055(@NonNull BNO055IMU imu, @NonNull HardwareDevices deviceType) {
+	public IntegrationBNO055(@NonNull BNO055IMU imu, @NonNull HardwareDeviceTypes deviceType) {
 		super(deviceType.deviceName);
 		sensor= imu;
 		BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

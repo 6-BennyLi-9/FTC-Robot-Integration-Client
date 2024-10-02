@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDevices;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 import org.firstinspires.ftc.teamcode.Utils.PID.PidContent;
@@ -20,7 +20,7 @@ public class PositionalIntegrationMotor extends IntegrationDevice{
 	private double bufPower=1f;
 	private int targetPosition;
 
-	public PositionalIntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDevices deviceType, PidProcessor pidProcessor){
+	public PositionalIntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDeviceTypes deviceType, PidProcessor pidProcessor){
 		super(deviceType.deviceName);
 		this.motor=motor;
 		this.pidProcessor=pidProcessor;
