@@ -32,8 +32,6 @@ public class Params {
 		public static boolean usePIDInAutonomous = true;
 		/**必须在自动程序中保持改变量为<code>true</code>*/
 		public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
-		/**在手动程序中，使用<code>gamepad1</code>的<code>right_stick_y</code>来控制底盘速度*/
-		public static boolean useRightStickYToConfigRobotSpeed = true;
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
@@ -80,18 +78,6 @@ public class Params {
 	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
 	 */
 	public static double LateralInchPerTick=AxialInchPerTick;
-	/**
-	 * IMU相较于机器的正中心在X轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
-	 */
-	@Deprecated
-	public static double X_error=0;
-	/**
-	 * IMU相较于机器的正中心在Y轴上的偏差
-	 * @see org.firstinspires.ftc.teamcode.Tuning.IMUPositionTuner
-	 */
-	@Deprecated
-	public static double Y_error=0;
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 */
