@@ -165,6 +165,8 @@ public class Robot {
 	/**
 	 * 不会自动 update()
 	 */
+	@UserRequirementFunctions
+	@ExtractedInterfaces
 	public void operateThroughGamePad() {
 		chassis.operateThroughGamePad(gamepad);
 		structure.operateThroughGamePad(gamepad);

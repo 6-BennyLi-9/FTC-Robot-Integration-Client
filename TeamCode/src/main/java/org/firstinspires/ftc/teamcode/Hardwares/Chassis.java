@@ -1,15 +1,19 @@
 package org.firstinspires.ftc.teamcode.Hardwares;
 
+import static org.firstinspires.ftc.teamcode.Params.Configs;
+import static org.firstinspires.ftc.teamcode.Params.factorHeadingPower;
+import static org.firstinspires.ftc.teamcode.Params.factorXPower;
+import static org.firstinspires.ftc.teamcode.Params.factorYPower;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Motors;
 import org.firstinspires.ftc.teamcode.Hardwares.Basic.Sensors;
-import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.Gamepad.KeyTag;
+import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
+import org.firstinspires.ftc.teamcode.Hardwares.Namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.Utils.Enums.Quadrant;
 import org.firstinspires.ftc.teamcode.Utils.Functions;
 
@@ -48,7 +52,7 @@ public class Chassis {
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
+		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.robotAngle());
 		}
@@ -88,7 +92,7 @@ public class Chassis {
 				break;
 		}
 
-		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
+		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
 			sensors.update();
 			motors.update(sensors.robotAngle());
 		}
@@ -126,16 +130,7 @@ public class Chassis {
 
 		SimpleDrive(power,Math.toDegrees(radians));
 	}
-
-	/**
-	 * 停止机器的移动程序，updateDriveOptions
-	 */
-	public void STOP(){
-		motors.clearDriveOptions();
-		sensors.update();
-		motors.updateDriveOptions(sensors.robotAngle());
-	}
-	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
+	public void configureBufPower(@NonNull IntegrationGamepad gamepad){
 		if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedControl)){
 			BufPower+=gamepad.getRodState(KeyTag.ClassicSpeedControl)*0.6;
 		}else if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedConfig)){
@@ -146,11 +141,26 @@ public class Chassis {
 			}
 		}
 		BufPower=Functions.intervalClip(BufPower,-1,1);
-
+	}
+	public void driveFromGamepad(@NonNull IntegrationGamepad gamepad){
 		motors.simpleMotorPowerController(
-				gamepad.getRodState(KeyTag.ClassicRunForward)*BufPower* Params.factorXPower,
-				gamepad.getRodState(KeyTag.ClassicRunStrafe)*BufPower* Params.factorYPower,
-				gamepad.getRodState(KeyTag.ClassicTurn)*BufPower* Params.factorHeadingPower
+				gamepad.getRodState(KeyTag.ClassicRunForward)*BufPower* factorXPower,
+				gamepad.getRodState(KeyTag.ClassicRunStrafe)*BufPower* factorYPower,
+				gamepad.getRodState(KeyTag.ClassicTurn)*BufPower* factorHeadingPower
 		);
+	}
+
+	/**
+	 * 停止机器的移动程序，updateDriveOptions
+	 */
+	public void STOP(){
+		motors.clearDriveOptions();
+		sensors.update();
+		motors.updateDriveOptions(sensors.robotAngle());
+	}
+	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
+		configureBufPower(gamepad);
+
+		driveFromGamepad(gamepad);
 	}
 }
