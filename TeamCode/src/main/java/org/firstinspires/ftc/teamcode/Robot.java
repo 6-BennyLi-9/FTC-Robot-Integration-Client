@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationHardwareM
 import org.firstinspires.ftc.teamcode.Hardwares.Integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Hardwares.Structure;
 import org.firstinspires.ftc.teamcode.Hardwares.Webcam;
-import org.firstinspires.ftc.teamcode.Utils.ActionRunningSofa;
+import org.firstinspires.ftc.teamcode.Utils.ActionBox;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
@@ -52,7 +52,7 @@ public class Robot {
 	public RobotState robotState;
 	public RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
-	public final ActionRunningSofa runningSofa;
+	public final ActionBox actionBox;
 	private DriverProgram drive=null;
 
 	public Timer timer;
@@ -96,7 +96,7 @@ public class Robot {
 		}
 
 		runningState = state;
-		runningSofa = new ActionRunningSofa();
+		actionBox = new ActionBox();
 		timer=new Timer();
 		client.addData("RobotState","UnKnow");
 	}
@@ -153,9 +153,10 @@ public class Robot {
 			motors.update();
 		}
 
-		Actions.runBlocking(runningSofa.output());
+		Actions.runBlocking(actionBox.output());
 		client.changeData("RobotState", robotState.name());
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.inPlace()){
+			servos.update();
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}

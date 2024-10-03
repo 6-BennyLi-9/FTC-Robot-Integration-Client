@@ -9,10 +9,10 @@ import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionRunningSofa {
+public class ActionBox {
 	protected List<Action> actions;
 
-	public ActionRunningSofa(){
+	public ActionBox(){
 		actions=new ArrayList<>();
 	}
 
