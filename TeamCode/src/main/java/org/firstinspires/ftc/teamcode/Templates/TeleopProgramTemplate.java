@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Utils.Annotations.Templates;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.Utils.Annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 import org.firstinspires.ftc.teamcode.Utils.Timer;
 
@@ -31,6 +33,11 @@ public abstract class TeleopProgramTemplate extends OpMode {
 		whileActivating();
 	}
 
+	@UserRequirementFunctions
+	@UtilFunctions
+	public void registerGamePad(){
+		robot.registerGamepad(gamepad1,gamepad2);
+	}
 
 	public abstract void whileActivating();
 	public abstract void whenInit();

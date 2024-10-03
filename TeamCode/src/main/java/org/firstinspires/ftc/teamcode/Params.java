@@ -80,6 +80,7 @@ public class Params {
 	public static double LateralInchPerTick=AxialInchPerTick;
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
+	 * @see org.firstinspires.ftc.teamcode.Tuning.SecPowerPerInchTuner
 	 */
 	public static double secPowerPerInch =0;
 	/**
