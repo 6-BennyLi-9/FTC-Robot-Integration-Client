@@ -5,18 +5,19 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Templates.TeleopProgramTemplate;
 
-@TeleOp(name = "ManualCodeSample",group = "samples")
+@TeleOp(name = "ManualCodeSample2",group = "samples")
 @Disabled
-public class ManualCodeSample extends TeleopProgramTemplate {
-	@Override
-	public void whenInit() {
-		robot.registerGamepad(gamepad1,gamepad2);
-	}
-
+public class ManualCodeSample2 extends TeleopProgramTemplate {
 	@Override
 	public void whileActivating() {
 		robot.operateThroughGamePad();
 		robot.update();
 	}
 
+	@Override
+	public void whenInit() {
+		robot.registerGamepad(gamepad1,gamepad2);
+//		robot.setKeyMapController(...);
+//		robot.setParamsOverride(...);
+	}
 }

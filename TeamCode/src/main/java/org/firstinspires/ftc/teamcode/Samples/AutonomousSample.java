@@ -3,12 +3,15 @@ package org.firstinspires.ftc.teamcode.Samples;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.DriveControls.Commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.AutonomousLocation;
 
 @Autonomous(name = "AutonomousSample",group = "SAMPLE")
+@Disabled
+@Deprecated
 public class AutonomousSample extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
