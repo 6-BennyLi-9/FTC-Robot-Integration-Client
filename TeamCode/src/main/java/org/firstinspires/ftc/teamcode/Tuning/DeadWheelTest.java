@@ -7,10 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "DeadWheelTest (Blocks to Java)")
 public class DeadWheelTest extends LinearOpMode {
 
-	private DcMotor leftBack;
-	private DcMotor leftFront;
-	private DcMotor rightBack;
-	private DcMotor rightFront;
+	public DcMotor leftBack;
+	public DcMotor leftFront;
+	public DcMotor rightBack;
+	public DcMotor rightFront;
 
 	/**
 	 * This sample contains the bare minimum Blocks for any regular OpMode. The 3 blue

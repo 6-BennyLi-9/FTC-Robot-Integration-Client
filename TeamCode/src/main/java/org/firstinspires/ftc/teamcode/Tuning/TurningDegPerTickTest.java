@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "TurningDegPerTickTest",group = "tune")
 @Disabled
+@Deprecated
 public class TurningDegPerTickTest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {

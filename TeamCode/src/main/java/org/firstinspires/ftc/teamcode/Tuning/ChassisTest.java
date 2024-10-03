@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Templates.TestProgramTemplate;
 import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
 
-@TeleOp(name = "ClassicTest",group = "tune")
-public class ClassicTest extends TestProgramTemplate {
+@TeleOp(name = "ChassisTest",group = "tune")
+public class ChassisTest extends TestProgramTemplate {
 	public Chassis chassis;
 	public Robot lazyRobot;
 

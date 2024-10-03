@@ -155,6 +155,7 @@ public class Robot {
 
 		Actions.runBlocking(actionBox.output());
 		client.changeData("RobotState", robotState.name());
+
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.inPlace()){
 			servos.update();
 			//当前最方便的Sleep方案
@@ -171,6 +172,7 @@ public class Robot {
 		chassis.operateThroughGamePad(gamepad);
 		structure.operateThroughGamePad(gamepad);
 	}
+
 	public DriveOrderBuilder DrivingOrderBuilder(){
 		if(drive instanceof SimpleMecanumDrive)
 			return ((SimpleMecanumDrive) drive).drivingCommandsBuilder();

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Templates;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
@@ -28,7 +30,11 @@ public abstract class TeleopProgramTemplate extends OpMode {
 
 	@Override
 	public void loop() {
-		robot.client.changeData("TPS", timer.restartAndGetDeltaTime() /1000);
+		double tps=timer.restartAndGetDeltaTime() /1000;
+		robot.client.changeData("TPS", tps);
+		if(tps<30){
+			Log.w("TPS Waring","Low TPS, Actions might not work well.");
+		}
 
 		whileActivating();
 	}

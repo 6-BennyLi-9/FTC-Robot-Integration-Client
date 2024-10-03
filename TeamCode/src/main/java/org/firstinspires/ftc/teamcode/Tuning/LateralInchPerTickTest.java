@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "LateralInchPerTickTest",group = "tune")
 @Disabled
+@Deprecated
 public class LateralInchPerTickTest extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
