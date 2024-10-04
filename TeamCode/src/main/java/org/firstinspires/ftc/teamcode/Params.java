@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.teamcode.Tuning.SecPowerPerInchTuner;
+import org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner;
+
 @Config
 public class Params {
 	@Config
@@ -65,22 +68,22 @@ public class Params {
 	}
 	/**
 	 * 每Tick机器所旋转的角度
-	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
+	 * @see ThreeInOne_DeadWheelTuner
 	 */
 	public static double TurningDegPerTick = 0.01339983622422392615201369761;
 	/**
 	 * 每Tick机器所前进的距离
-	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
+	 * @see ThreeInOne_DeadWheelTuner
 	 */
 	public static double AxialInchPerTick=0.001131541725601131541725601132;
 	/**
 	 * 每Tick机器所平移的距离
-	 * @see org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner
+	 * @see ThreeInOne_DeadWheelTuner
 	 */
 	public static double LateralInchPerTick=AxialInchPerTick;
 	/**
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
-	 * @see org.firstinspires.ftc.teamcode.Tuning.SecPowerPerInchTuner
+	 * @see SecPowerPerInchTuner
 	 */
 	public static double secPowerPerInch =0;
 	/**
