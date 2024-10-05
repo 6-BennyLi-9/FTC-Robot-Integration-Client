@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.controls.definition.DriveOrder;
-import org.firstinspires.ftc.teamcode.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
+import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
 import org.jetbrains.annotations.Contract;

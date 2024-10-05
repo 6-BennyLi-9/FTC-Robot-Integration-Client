@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.controls.MecanumDrive;
-import org.firstinspires.ftc.teamcode.controls.definition.DriveOrderBuilder;
-import org.firstinspires.ftc.teamcode.controls.definition.DriverProgram;
-import org.firstinspires.ftc.teamcode.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drives.controls.MecanumDrive;
+import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderBuilder;
+import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
+import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
