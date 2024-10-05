@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Utils.Clients.Client;
-import org.firstinspires.ftc.teamcode.Utils.Enums.RunningMode;
+import org.firstinspires.ftc.teamcode.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 
 @Deprecated
 public class RoboticActions extends Robot{
