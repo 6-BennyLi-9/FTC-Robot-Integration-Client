@@ -1,16 +1,13 @@
-package org.firstinpires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.templates.TeleopProgramTemplate;
 
-/**
- * 可以将该类重命名为队伍编号
- */
-@TeleOp(name = "RENAME WITH TEAM CODE",group = "main")
+@TeleOp(name = "ManualCodeSample2",group = "samples")
 @Disabled
-public class MainTeleOp extends TeleopProgramTemplate {
+public class ManualCodeSample2 extends TeleopProgramTemplate {
 	@Override
 	public void whileActivating() {
 		robot.operateThroughGamePad();
@@ -20,7 +17,7 @@ public class MainTeleOp extends TeleopProgramTemplate {
 	@Override
 	public void whenInit() {
 		robot.registerGamepad(gamepad1,gamepad2);
-		robot.setParamsOverride(new TeamCodeParams());
-		robot.setKeyMapController(new TeamCodeKeyMap());
+//		robot.setKeyMapController(...);
+//		robot.setParamsOverride(...);
 	}
 }

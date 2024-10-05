@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.Tuning.SecPowerPerInchTuner;
-import org.firstinspires.ftc.teamcode.Tuning.ThreeInOne_DeadWheelTuner;
+import org.firstinspires.ftc.teamcode.tunings.SecPowerPerInchTuner;
+import org.firstinspires.ftc.teamcode.tunings.ThreeInOne_DeadWheelTuner;
 
 @Config
 public class Params {
