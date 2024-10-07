@@ -1,7 +1,6 @@
 # FTC 集成化机器控制端
 ## FTC Robot Integration Client
 
-### Warn:I'm a Chinese so most of the code and other things won't be fully translated.
 
 我们使用bing的翻译网站进行翻译，如果你有建议或修改，可以提交拉取请求给我们。
 
