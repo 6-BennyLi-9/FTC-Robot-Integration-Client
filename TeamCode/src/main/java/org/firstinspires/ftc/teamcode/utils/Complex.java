@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 
 /**
@@ -40,21 +41,26 @@ public class Complex {
 	public double magnitude(){
 		return Math.sqrt(RealPart*RealPart + imaginary()*imaginary());
 	}
+	@UtilFunctions
 	public Complex plus(@NonNull Complex val){
 		return new Complex(RealPart+ val.RealPart,imaginary()+val.imaginary());
 	}
+	@UtilFunctions
 	public Complex negative(){
 		return new Complex(-RealPart,-imaginary());
 	}
+	@UtilFunctions
 	public Complex minus(@NonNull Complex val){
 		return plus(val.negative());
 	}
+	@UtilFunctions
 	public Complex times(@NonNull Complex val){
 		return new Complex(
 				RealPart* val.RealPart-imaginary()*val.imaginary(),
 				RealPart*val.imaginary()+imaginary()*RealPart
 		);
 	}
+	@UtilFunctions
 	public Complex times(double val){
 		return new Complex(
 				RealPart*val,
@@ -66,6 +72,7 @@ public class Complex {
 	 *  (a+bi)/(c+di)
 	 * =(ac+bd)/(cc+dd)+(bc-ad)/(cc+dd)i
 	 */
+	@UtilFunctions
 	public Complex divide(@NonNull Complex val){
 		return new Complex(
 				(RealPart*val.RealPart+imaginary()*val.imaginary())
@@ -74,6 +81,7 @@ public class Complex {
 				/(val.RealPart* val.RealPart+val.imaginary()*val.imaginary())
 		);
 	}
+	@UtilFunctions
 	public Complex divide(double val){
 		return divide(new Complex(val,0));
 	}
@@ -100,17 +108,7 @@ public class Complex {
 			throw new RuntimeException("Unexpected Value:The Complex can't be 0");
 		}
 	}
-	
-	/**
-	 * 1/(a+bi)=(a-bi)/(a^2+b^2)
-	 * @return 返回该复数的倒数
-	 */
-	public Complex reciprocal(){
-		return new Complex(
-				RealPart/(RealPart*RealPart+imaginary()*imaginary()),
-				imaginary()/(RealPart*RealPart+imaginary()*imaginary())
-				);
-	}
+
 	/**
 	 * @return 返回该复数的幅角，范围在[-180,180]，如果复数的与原点重合，会抛出错误
 	 */
@@ -132,5 +130,11 @@ public class Complex {
 		}else{
 			throw new RuntimeException("Unexpected Value:The Complex can't be 0");
 		}
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return RealPart+"+"+imaginary()+"i";
 	}
 }

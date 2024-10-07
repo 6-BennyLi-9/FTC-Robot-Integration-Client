@@ -20,14 +20,14 @@ public class PidContentPackage {
 
 	@UserRequirementFunctions
 	public void register(@NonNull PidContent content) throws IllegalArgumentException {
-		if(coreContents.containsKey(content.Tag)) {
-			throw new IllegalArgumentException("Already Registered content,Tag:"+content.Tag);
+		if(coreContents.containsKey(content.tag)) {
+			throw new IllegalArgumentException("Already Registered content,tag:"+content.tag);
 		}
-		coreContents.put(content.Tag,content);
+		coreContents.put(content.tag,content);
 	}
 	@UserRequirementFunctions
 	public void register(@NonNull PidContent content,boolean isAngleBased){
-		if(isAngleBased) angleBasicContentTag.add(content.Tag);
+		if(isAngleBased) angleBasicContentTag.add(content.tag);
 		register(content);
 	}
 	@UserRequirementFunctions
@@ -40,5 +40,15 @@ public class PidContentPackage {
 	@UserRequirementFunctions
 	public boolean TagIsAngleBasedContent(String tag){
 		return angleBasicContentTag.contains(tag);
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		StringBuilder res= new StringBuilder();
+		for (Map.Entry<String, PidContent> entry : coreContents.entrySet()) {
+			res.append("[").append(entry.getValue()).append("]\n");
+		}
+		return res.toString();
 	}
 }

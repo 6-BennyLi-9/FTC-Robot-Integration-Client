@@ -2,15 +2,15 @@ package org.firstinspires.ftc.teamcode.drives.localizers.mathematics;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.utils.SimplePosition;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 
 public class ConstantAccelMath {
 	public static final double FIDELITY = 1E-8;
 
 	private double lastLoop = 0.008;
-	private SimplePosition lastRelativeDelta = new SimplePosition(0,0,0);
+	private Position2d lastRelativeDelta = new Position2d(0,0,0);
 
-	public void calculate(double loopTime, @NonNull SimplePosition relDelta, @NonNull SimplePosition currPose){
+	public void calculate(double loopTime, @NonNull Position2d relDelta, @NonNull Position2d currPose){
 		double relDeltaX = relDelta.x;
 		double relDeltaY = relDelta.y;
 		double deltaHeading = relDelta.heading;

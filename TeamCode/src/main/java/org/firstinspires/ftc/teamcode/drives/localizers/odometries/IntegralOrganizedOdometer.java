@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.drives.localizers.mathematics.ConstantAcce
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.utils.Functions;
-import org.firstinspires.ftc.teamcode.utils.SimplePosition;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 
 import java.util.Vector;
@@ -29,8 +29,8 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		double loopTime=timer.restartAndGetDeltaTime();
 
 		distanceTraveled += Functions.distance(relDeltaX, relDeltaY);
-		SimplePosition relDelta=new SimplePosition(relDeltaX,relDeltaY,relDeltaTheta);
-		SimplePosition curr=new SimplePosition(LastPose());
+		Position2d relDelta=new Position2d(relDeltaX,relDeltaY,relDeltaTheta);
+		Position2d curr=new Position2d(LastPose());
 		processor.calculate(loopTime,relDelta,curr);
 
 		AddDelta(curr.x,curr.y,curr.heading);
@@ -41,7 +41,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		updateVelocity();
 	}
 
-	SimplePosition relCurrentVel,currentVel;
+	Position2d relCurrentVel,currentVel;
 
 	public void updateVelocity(){
 		double targetVelTimeEstimate=0.2;
@@ -61,12 +61,12 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		}
 
 		if(actualVelTime!=0){
-			relCurrentVel =new SimplePosition(
+			relCurrentVel =new Position2d(
 				relDeltaXTotal/actualVelTime,
 					relDeltaYTotal/actualVelTime,
 					LastPose().heading.toDouble()-relHistory.get(lastIndex).heading.toDouble()/actualVelTime
 			);
-			currentVel=new SimplePosition(Functions.Alignment2d(relCurrentVel));
+			currentVel=new Position2d(Functions.Alignment2d(relCurrentVel));
 		}
 
 		//pop

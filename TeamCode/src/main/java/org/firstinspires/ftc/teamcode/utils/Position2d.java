@@ -4,14 +4,14 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
-public class SimplePosition {
+public class Position2d {
 	public double x,y, heading;
-	public SimplePosition(double x,double y,double heading){
+	public Position2d(double x, double y, double heading){
 		this.x=x;
 		this.y=y;
 		this.heading = heading;
 	}
-	public SimplePosition(@NonNull Pose2d pose){
+	public Position2d(@NonNull Pose2d pose){
 		this.x=pose.position.x;
 		this.y=pose.position.y;
 		this.heading = pose.heading.toDouble();
@@ -19,5 +19,11 @@ public class SimplePosition {
 
 	public Pose2d asPose2d(){
 		return new Pose2d(x,y,heading);
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "("+x+","+"y"+"):"+heading;
 	}
 }

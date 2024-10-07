@@ -84,7 +84,7 @@ public final class Functions extends Mathematics{
     @NonNull
     @Contract("_ -> new")
     @UtilFunctions
-    public static Pose2d Alignment2d(@NonNull SimplePosition pose){
+    public static Pose2d Alignment2d(@NonNull Position2d pose){
         return Alignment2d(pose.x,pose.y,pose.heading);
     }
 
@@ -98,8 +98,8 @@ public final class Functions extends Mathematics{
             return ((Pose2d) pose).position.x;
 	    }else if(pose.getClass().equals(Vector2d.class)){
             return ((Vector2d) pose).x;
-        }else if(pose.getClass().equals(SimplePosition.class)){
-            return ((SimplePosition) pose).x;
+        }else if(pose.getClass().equals(Position2d.class)){
+            return ((Position2d) pose).x;
         }else{
             throw new ClassCastException("Unknown Position Class:"+pose.getClass().getName());
         }
@@ -110,8 +110,8 @@ public final class Functions extends Mathematics{
             return ((Pose2d) pose).position.y;
         }else if(pose.getClass().equals(Vector2d.class)){
             return ((Vector2d) pose).y;
-        }else if(pose.getClass().equals(SimplePosition.class)){
-            return ((SimplePosition) pose).y;
+        }else if(pose.getClass().equals(Position2d.class)){
+            return ((Position2d) pose).y;
         }else{
             throw new ClassCastException("Unknown Position Class:"+pose.getClass().getName());
         }

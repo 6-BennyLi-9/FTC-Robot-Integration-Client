@@ -16,7 +16,7 @@ public class PidProcessor {
 	}
 
 	private void RationalizeI(@NonNull PidContent content){
-		if(contents.TagIsAngleBasedContent(content.Tag)){
+		if(contents.TagIsAngleBasedContent(content.tag)){
 			content.I=Mathematics.roundClip(content.I,content.MAX_I);
 		}else{
 			content.I=Mathematics.intervalClip(content.I,-content.MAX_I,content.MAX_I);
@@ -62,7 +62,7 @@ public class PidProcessor {
 
 	/**
 	 * 自动抑制可能报出的错误
-	 * @param tag Content Tag
+	 * @param tag Content tag
 	 * @param inaccuracies 登记的误差，不会自动update()
 	 */
 	public void registerInaccuracies(String tag,double inaccuracies){
@@ -85,5 +85,11 @@ public class PidProcessor {
 		try {
 			ModifyPID(contents.getTag(tag));
 		} catch (ClassNotFoundException ignored) {}
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return contents.toString();
 	}
 }
