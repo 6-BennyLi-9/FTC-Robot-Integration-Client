@@ -45,7 +45,7 @@ public class SecPowerPerInchTuner extends TuningProgramTemplate {
 		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed);
 		robot.registerGamepad(gamepad1,gamepad2);
 
-		robot.client.addLine("按下A键后，机器会开始向前行驶1s");
-		robot.client.addLine("⚠⚠⚠当心机器伤人⚠⚠⚠");
+		robot.addLine("按下A键后，机器会开始向前行驶1s");
+		robot.addLine("⚠⚠⚠当心机器伤人⚠⚠⚠");
 	}
 }

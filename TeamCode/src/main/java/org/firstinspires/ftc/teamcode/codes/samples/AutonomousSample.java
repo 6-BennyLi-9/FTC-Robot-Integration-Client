@@ -16,7 +16,7 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		Init(new Pose2d(0,0,0));
-		robot.client.addData("Position","WAITING FOR REQUEST");
+		robot.addData("Position","WAITING FOR REQUEST");
 		AutonomousLocation location = AutonomousLocation.failed;
 		while (opModeIsNotActive()) {
 			location=robot.webcam.getLocation();
@@ -26,7 +26,7 @@ public class AutonomousSample extends AutonomousProgramTemplate {
 
 		if(WaitForStartRequest())return;
 
-		robot.client.deleteData("Position");
+		robot.deleteData("Position");
 		switch (location){
 			case left:
 				robot.strafeTo(robot.pose().position.plus(new Vector2d(0,24)));

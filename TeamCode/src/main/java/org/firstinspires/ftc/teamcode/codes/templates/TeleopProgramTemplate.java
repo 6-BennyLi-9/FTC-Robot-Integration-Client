@@ -25,13 +25,13 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	@Override
 	public void start() {
 		timer.restart();
-		robot.client.addData("TPS","WAIT FOR START");
+		robot.addData("TPS","WAIT FOR START");
 	}
 
 	@Override
 	public void loop() {
 		double tps=timer.restartAndGetDeltaTime() /1000;
-		robot.client.changeData("TPS", tps);
+		robot.changeData("TPS", tps);
 		if(tps<30){
 			Log.w("TPS Waring","Low TPS, Actions might not work well.");
 		}

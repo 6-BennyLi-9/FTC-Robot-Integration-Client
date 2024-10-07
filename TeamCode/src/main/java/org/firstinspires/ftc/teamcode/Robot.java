@@ -218,7 +218,7 @@ public class Robot {
 	@ExtractedInterfaces@UserRequirementFunctions
 	public void addData(String key,Object val){client.addData(key, val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void deleteDate(String key){try{client.deleteData(key);}catch (Exception ignored){}}
+	public void deleteData(String key){try{client.deleteData(key);}catch (Exception ignored){}}
 	@ExtractedInterfaces@UserRequirementFunctions
 	public void changeData(String key, String val){client.changeData(key, val);}
 	@ExtractedInterfaces@UserRequirementFunctions
