@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.hardwares.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 
 /**

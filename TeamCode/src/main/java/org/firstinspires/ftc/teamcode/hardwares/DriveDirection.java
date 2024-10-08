@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.hardwares.namespace;
+package org.firstinspires.ftc.teamcode.hardwares;
 
 public enum DriveDirection {
 	back,

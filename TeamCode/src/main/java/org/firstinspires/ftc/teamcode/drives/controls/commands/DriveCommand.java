@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.drives.controls.TrajectoryType;
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.hardwares.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 
 public class DriveCommand implements DriveOrder {
