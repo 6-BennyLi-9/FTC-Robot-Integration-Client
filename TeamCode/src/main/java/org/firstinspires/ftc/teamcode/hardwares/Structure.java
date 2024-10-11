@@ -10,13 +10,13 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Action;
 
+import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
+import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.actions.MotorControllerAction;
 import org.firstinspires.ftc.teamcode.actions.StructureActions;
 import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;

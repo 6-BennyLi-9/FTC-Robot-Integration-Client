@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode.hardwares.integration;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.BasicIntegrationGamepad;
-import org.firstinspires.ftc.teamcode.KeyMap;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.keymap.KeyMap;
+import org.firstinspires.ftc.teamcode.keymap.KeyMapButtonContent;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 public class IntegrationGamepad {
 	public BasicIntegrationGamepad gamepad1,gamepad2;
@@ -32,10 +33,13 @@ public class IntegrationGamepad {
 
 	@UserRequirementFunctions
 	public boolean getButtonRunAble(KeyTag tag){
+		KeyMapButtonContent cache= (KeyMapButtonContent) keyMap.contents.get(tag);
 		if(keyMap.IsControlledByGamepad1(tag)){
-			return keyMap.getButtonStateFromTagAndGamePad(tag,gamepad1);
+			assert cache != null;
+			return gamepad1.getButtonState(cache.type,cache.setting);
 		}else {
-			return keyMap.getButtonStateFromTagAndGamePad(tag,gamepad2);
+			assert cache != null;
+			return gamepad2.getButtonState(cache.type,cache.setting);
 		}
 	}
 	@UserRequirementFunctions

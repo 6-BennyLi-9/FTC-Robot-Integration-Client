@@ -22,6 +22,11 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		super(client);
 		timer=new Timer();
 		timer.stopAndRestart();
+
+		processor=new ConstantAccelMath();
+		relHistory=new Vector<>();
+		relHistory.add(new Pose2d(0,0,0));
+		timer.pushMileageTimeTag("updateTime");
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		Vector<Double> times=timer.getMileageTimeTag("updateTime");
 		double startTime=times.isEmpty()? 0:times.lastElement();
 
-		for(int i=times.size()-1;i>=0;--i){
+		for(int i=relHistory.size()-1;i>=0;--i){
 			totalTime= startTime - times.get(i);
 			if(totalTime<=targetVelTimeEstimate){
 				actualVelTime=totalTime;

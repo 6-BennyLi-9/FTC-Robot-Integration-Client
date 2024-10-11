@@ -16,8 +16,10 @@ import org.firstinspires.ftc.teamcode.utils.Functions;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.Vector;
 
 public class DashboardClient {
@@ -153,15 +155,24 @@ public class DashboardClient {
 	}
 
 	@UtilFunctions
-	public void deletePacketByTag(String tag){
+	public void deletePacketByTag(@NonNull String tag){
+		if(packets.isEmpty())return;
+
+		Set<Integer> collection=new HashSet<>(packets.keySet());
+
 		for (Map.Entry<Integer, Pair<String, TelemetryPacket>> entry : packets.entrySet()){
 			if(Objects.equals(entry.getValue().first, tag)){
 				packets.remove(entry.getKey());
+				collection.add(entry.getKey());
 			}
+		}
+
+		for(Integer key:collection){
+			packets.remove(key);
 		}
 	}
 	@UtilFunctions
-	public void deletePacketByID(Integer ID){
+	public void deletePacketByID(@NonNull Integer ID){
 		if(packets.containsKey(ID)){
 			packets.remove(ID);
 		}else{

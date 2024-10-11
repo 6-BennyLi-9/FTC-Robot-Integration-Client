@@ -31,6 +31,7 @@ import org.firstinspires.ftc.teamcode.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
+import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.utils.Timer;
@@ -49,7 +50,7 @@ public class Robot {
 	public Client client;
 	public PidProcessor pidProcessor;
 
-	public RobotState robotState;
+	public static RobotState robotState=RobotState.IDLE;
 	public RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
 	public final ActionBox actionBox;
@@ -147,11 +148,13 @@ public class Robot {
 		sensors.update();
 		servos.update();
 
-		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
-			motors.update(sensors.robotAngle());
-		}else{
-			motors.update();
-		}
+		try{
+			if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
+				motors.update(sensors.robotAngle());
+			}else{
+				motors.update();
+			}
+		}catch (DeviceDisabledException ignored){}
 
 		Actions.runBlocking(actionBox.output());
 		client.changeData("RobotState", robotState.name());

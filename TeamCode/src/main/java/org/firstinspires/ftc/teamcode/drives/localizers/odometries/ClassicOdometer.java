@@ -16,6 +16,8 @@ public class ClassicOdometer implements Odometry{
 
 	public ClassicOdometer(Client client){
 		this.client=client;
+
+		PoseHistory=new Vector<>();
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class ClassicOdometer implements Odometry{
 	}
 
 	protected Pose2d LastPose(){
-		return PoseHistory.lastElement();
+		return PoseHistory.isEmpty()? new Pose2d(0,0,0) : PoseHistory.lastElement();
 	}
 
 	protected void AddDelta(double DeltaGlobalX, double DeltaGlobalY, double DeltaTheta){
