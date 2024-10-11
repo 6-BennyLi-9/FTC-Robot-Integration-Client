@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.teamcode.codes.tunings.SecPowerPerInchTuner;
-import org.firstinspires.ftc.teamcode.codes.tunings.ThreeInOne_DeadWheelTuner;
+import org.firstinspires.ftc.teamcode.codes.codes.tunings.SecPowerPerInchTuner;
+import org.firstinspires.ftc.teamcode.codes.codes.tunings.ThreeInOne_DeadWheelTuner;
 
 @Config
 public class Params {
@@ -38,14 +38,14 @@ public class Params {
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
-		public static boolean autoRegisterAllHardwaresWhenInit = false;
+		public static boolean autoRegisterAllHardwaresWhenInit = true;
 	}
 	@Config
-	public static class namespace{
+	public static class HardwareNamespace {
 		public static String LeftFront="leftFront";
 		public static String RightFront="rightFront";
 		public static String LeftRear="leftBack";
-		public static String RightRear="rightRear";
+		public static String RightRear="rightBack";
 		public static String PlacementArm="rightLift";
 		public static String Intake="intake";
 		public static String FrontClip="frontClip";
