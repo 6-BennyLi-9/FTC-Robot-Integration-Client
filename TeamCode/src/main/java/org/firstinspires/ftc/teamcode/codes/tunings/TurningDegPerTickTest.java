@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.codes.codes.tunings;
+package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.codes.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
 
 @TeleOp(name = "TurningDegPerTickTest",group = "tune")
 @Disabled

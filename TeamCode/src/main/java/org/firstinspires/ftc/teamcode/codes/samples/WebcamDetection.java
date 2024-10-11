@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.codes.codes.samples;
+package org.firstinspires.ftc.teamcode.codes.samples;
 
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.codes.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.Webcam;
 
 @Disabled

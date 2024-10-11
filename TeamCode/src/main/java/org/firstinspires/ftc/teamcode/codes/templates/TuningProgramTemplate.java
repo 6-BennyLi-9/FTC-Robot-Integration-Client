@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.codes.codes.templates;
+package org.firstinspires.ftc.teamcode.codes.templates;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.annotations.Templates;

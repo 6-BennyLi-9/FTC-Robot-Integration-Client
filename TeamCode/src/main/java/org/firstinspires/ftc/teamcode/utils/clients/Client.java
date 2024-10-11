@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.utils.clients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.codes.codes.samples.ClientUsage;
+import org.firstinspires.ftc.teamcode.codes.samples.ClientUsage;
 
 /**
  * @see ClientUsage

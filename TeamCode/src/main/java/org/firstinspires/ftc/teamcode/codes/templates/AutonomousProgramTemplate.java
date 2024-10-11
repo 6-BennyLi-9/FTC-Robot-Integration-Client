@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.codes.codes.templates;
+package org.firstinspires.ftc.teamcode.codes.templates;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

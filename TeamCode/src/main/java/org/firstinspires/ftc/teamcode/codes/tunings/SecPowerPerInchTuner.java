@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.codes.codes.tunings;
+package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import androidx.annotation.NonNull;
 
@@ -8,10 +8,10 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.codes.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 
 @TeleOp(name = "SecPowerPerInchTuner",group = "tune")

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.codes.codes.templates;
+package org.firstinspires.ftc.teamcode.codes.templates;
 
 import android.util.Log;
 

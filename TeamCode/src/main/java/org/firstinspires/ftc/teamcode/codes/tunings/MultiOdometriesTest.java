@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.codes.codes.tunings;
+package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import androidx.annotation.NonNull;
 

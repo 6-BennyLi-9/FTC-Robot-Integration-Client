@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.codes.codes.tunings;
+package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.codes.templates.TestProgramTemplate;
+import org.firstinspires.ftc.teamcode.codes.templates.TestProgramTemplate;
 import org.firstinspires.ftc.teamcode.drives.controls.commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Robot;

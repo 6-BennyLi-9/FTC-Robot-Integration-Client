@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.codes.codes.samples;
+package org.firstinspires.ftc.teamcode.codes.samples;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.codes.codes.templates.AutonomousProgramTemplate;
+import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.drives.controls.commands.DriveCommandPackage;
 import org.firstinspires.ftc.teamcode.utils.enums.AutonomousLocation;
 

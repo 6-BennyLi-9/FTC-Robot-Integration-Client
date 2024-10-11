@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.codes.codes.tunings;
+package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.codes.codes.templates.TestProgramTemplate;
+import org.firstinspires.ftc.teamcode.codes.templates.TestProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
