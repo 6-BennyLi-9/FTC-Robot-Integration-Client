@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
 
-@TeleOp(name = "AxialInchPerTickTest",group = "tune")
+@TeleOp(name = "AxialInchPerTickTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 @Deprecated
 public class AxialInchPerTickTest extends AutonomousProgramTemplate {

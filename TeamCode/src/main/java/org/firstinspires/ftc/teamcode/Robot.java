@@ -54,17 +54,32 @@ public class Robot {
 	public RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
 	public final ActionBox actionBox;
-	private DriverProgram drive=null;
+	public DriverProgram drive=null;
 
 	public Timer timer;
 
-	public ParamsController paramsController =new VoidParamsController();
-	public KeyMapController keyMapController =new VoidKeyMapController();
+	public ParamsController paramsController =new DefaultParamsController();
+	public KeyMapController keyMapController =new DefaultKeyMapController();
+
+	private void configsReset(){
+		Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
+		Params.Configs.runUpdateWhenAnyNewOptionsAdded=false;
+		Params.Configs.waitForServoUntilThePositionIsInPlace=false;
+		Params.Configs.autoPrepareForNextOptionWhenUpdate=false;
+		Params.Configs.alwaysRunPIDInAutonomous=false;
+		Params.Configs.usePIDInAutonomous=true;
+		Params.Configs.useOutTimeProtection=true;
+		Params.Configs.autoRegisterAllHardwaresWhenInit=true;
+	}
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
+
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
+		pidProcessor=new PidProcessor();
+		configsReset();
+
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
 		motors=new Motors(lazyIntegratedDevices);
@@ -82,6 +97,8 @@ public class Robot {
 		//TODO:如果需要，在这里修改 Params.Config 中的值
 		switch (state) {
 			case Autonomous:
+				Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
+
 				InitInAutonomous();
 				break;
 			case ManualDrive:
@@ -100,6 +117,8 @@ public class Robot {
 		actionBox = new ActionBox();
 		timer=new Timer();
 		client.addData("RobotState","UnKnow");
+
+		Global.setRobot(this);
 	}
 
 	@UserRequirementFunctions
@@ -118,7 +137,7 @@ public class Robot {
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
 	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
-		drive=new SimpleMecanumDrive(this,RobotPosition);
+		drive=new SimpleMecanumDrive(RobotPosition);
 		if(runningState != RunningMode.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}
@@ -138,10 +157,14 @@ public class Robot {
 
 	public void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		gamepad=new IntegrationGamepad(gamepad1,gamepad2);
+
+		Global.currentGamepad1=gamepad1;
+		Global.currentGamepad2=gamepad2;
+		Global.integrationGamepad=gamepad;
 	}
 
 	public void update()  {
-		if(timer.stopAndGetDeltaTime()>=90000){
+		if(timer.stopAndGetDeltaTime()>=90000&&runningState==RunningMode.ManualDrive){
 			robotState = RobotState.FinalState;
 		}
 
@@ -210,9 +233,6 @@ public class Robot {
 	 * @param BufPower 提供的电机力度因数
 	 */
 	public void SetGlobalBufPower(double BufPower){
-		if(drive!=null) {
-			drive.runOrderPackage(DrivingOrderBuilder().SetPower(BufPower).END());//考虑是否删去此代码片段
-		}
 		motors.setBufPower(BufPower);
 	}
 

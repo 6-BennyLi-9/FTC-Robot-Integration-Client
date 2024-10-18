@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drives.localizers.odometries;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
@@ -11,9 +12,9 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 	public Client client;
 	private String color;
 
-	public SuperRubbishUselessAwfulOdometer(Client client){
+	public SuperRubbishUselessAwfulOdometer(){
 		robotPose=new Pose2d(0,0,0);
-		this.client=client;
+		this.client= Global.client;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Camera;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -11,7 +12,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Disabled
-@Autonomous(name = "CameraDetection",group = "sample")
+@Autonomous(name = "CameraDetection",group = Params.Configs.SampleOpModesGroup)
 public class CameraDetection extends AutonomousProgramTemplate {
 	OpenCvCamera webcam;
 	Camera detector=new Camera(telemetry);

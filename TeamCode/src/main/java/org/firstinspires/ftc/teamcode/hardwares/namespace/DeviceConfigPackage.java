@@ -7,9 +7,11 @@ public class DeviceConfigPackage {
 		Reversed
 	}
 	public Direction direction;
+	public boolean isDeadWheel;
+
 	public DeviceConfigPackage(){
-		state=null;
-		direction=null;
+		state=HardwareState.Enabled;
+		direction=Direction.Forward;
 	}
 	public DeviceConfigPackage AutoComplete(){
 		if(state==null)state=HardwareState.Enabled;

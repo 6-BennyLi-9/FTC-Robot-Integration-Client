@@ -5,12 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 
-/**
- * @see AxialInchPerTickTest
- * @see LateralInchPerTickTest
- * @see TurningDegPerTickTest
- * */
-@TeleOp(name = "[3 in one!]DeadWheelTuner")
+@TeleOp(name = "[3 in one!]DeadWheelTuner",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
@@ -22,19 +17,23 @@ public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 
 		robot.addLine("如果你已经填入了Params数据，则在这里将会直接得到相乘结果");
 
-		robot.addData("TurningDegPerTick","wait for start");
-		robot.addData("AxialInchPerTick","wait for start");
-		robot.addData("LateralInchPerTick","wait for start");
+		robot.addData("TurningDeg","wait for start");
+		robot.addData("AxialInch","wait for start");
+		robot.addData("LateralInch","wait for start");
 	}
+
+	double turn=0,axial=0,lateral=0;
 
 	@Override
 	public void whileActivating() {
-		robot.changeData("TurningDegPerTick",robot.sensors.getDeltaT());
-		robot.changeData("AxialInchPerTick",robot.sensors.getDeltaA());
-		robot.changeData("LateralInchPerTick",robot.sensors.getDeltaL());
+		robot.changeData("TurningDegPerTick",turn+=robot.sensors.getDeltaT());
+		robot.changeData("AxialInchPerTick",axial+=robot.sensors.getDeltaA());
+		robot.changeData("LateralInchPerTick",lateral+=robot.sensors.getDeltaL());
 
-		robot.changeData("TurningDegPerTick",robot.sensors.getDeltaT() * Params.TurningDegPerTick);
-		robot.changeData("AxialInchPerTick",robot.sensors.getDeltaA() * Params.AxialInchPerTick);
-		robot.changeData("LateralInchPerTick",robot.sensors.getDeltaL() * Params.LateralInchPerTick);
+		robot.changeData("TurningDeg",robot.sensors.getDeltaT() * Params.TurningDegPerTick);
+		robot.changeData("AxialInch",robot.sensors.getDeltaA() * Params.AxialInchPerTick);
+		robot.changeData("LateralInch",robot.sensors.getDeltaL() * Params.LateralInchPerTick);
+
+		robot.sensors.updateEncoders();
 	}
 }

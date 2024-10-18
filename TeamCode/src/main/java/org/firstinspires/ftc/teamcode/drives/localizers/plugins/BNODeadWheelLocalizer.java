@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.clients.Client;
 @LocalizationPlugin
 public class BNODeadWheelLocalizer extends DeadWheelLocalizer implements PositionLocalizerPlugin {
 	public BNODeadWheelLocalizer(Client client, Sensors sensors) {
-		super(client, sensors);
+		super(sensors);
 	}
 
 	@Override

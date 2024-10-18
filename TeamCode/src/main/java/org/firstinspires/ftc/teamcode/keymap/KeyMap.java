@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.keymap;
 
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag.*;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType.*;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType.*;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType.*;
-
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.BasicIntegrationGamepad;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
@@ -29,40 +25,42 @@ public final class KeyMap {
 		contents.clear();
 
 		//TODO: 填入需求键位
-		loadRodContent(ClassicRunForward,       LeftStickY,     PullRod);
-		loadRodContent(ClassicRunStrafe,        LeftStickY,     PullRod);
-		loadRodContent(ClassicTurn,             RightStickY,    PullRod);
+		 loadRodContent(ChassisRunForward,       LeftStickY,     PullRod)
+		.loadRodContent(ChassisRunStrafe,        LeftStickY,     PullRod)
+		.loadRodContent(ChassisTurn,             RightStickY,    PullRod);
 
-		loadButtonContent(Intake,               A,          RunWhenButtonHold,  false);
-		loadButtonContent(Pop,                  B,          RunWhenButtonHold,  false);
+		 loadButtonContent(Intake,               A,          RunWhenButtonHold,  false)
+		.loadButtonContent(Pop,                  B,          RunWhenButtonHold,  false);
 
-		loadButtonContent(ArmIDLE,              X,          RunWhenButtonPressed,   false);
-		loadButtonContent(ArmInIntake,          Y,          RunWhenButtonPressed,   false);
-		loadButtonContent(ArmLowerPlacement,    DpadDown,   RunWhenButtonPressed,   false);
-		loadButtonContent(ArmHigherPlacement,   DpadUp,     RunWhenButtonPressed,   false);
+		 loadButtonContent(ArmIDLE,              X,          RunWhenButtonPressed,   false)
+		.loadButtonContent(ArmInIntake,          Y,          RunWhenButtonPressed,   false)
+		.loadButtonContent(ArmLowerPlacement,    DpadDown,   RunWhenButtonPressed,   false)
+		.loadButtonContent(ArmHigherPlacement,   DpadUp,     RunWhenButtonPressed,   false);
 	}
 
 	/**
 	 * 冲突解决：replace
 	 */
 	@UserRequirementFunctions
-	public void loadButtonContent(KeyTag tag, KeyButtonType type, KeyMapSettingType setting){
+	public KeyMap loadButtonContent(KeyTag tag, KeyButtonType type, KeyMapSettingType setting){
 		if(contents.containsKey(tag)){
 			contents.replace(tag,new KeyMapButtonContent(tag,type,setting));
 		}else{
 			contents.put(tag,new KeyMapButtonContent(tag,type,setting));
 		}
+		return this;
 	}
 	/**
 	 * 冲突解决：replace
 	 */
 	@UserRequirementFunctions
-	public void loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting){
+	public KeyMap loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting){
 		if(contents.containsKey(tag)){
 			contents.replace(tag,new KeyMapRodContent(tag,type,setting));
 		}else{
 			contents.put(tag,new KeyMapRodContent(tag,type,setting));
 		}
+		return this;
 	}
 
 	/**
@@ -70,24 +68,26 @@ public final class KeyMap {
 	 */
 	@UserRequirementFunctions
 	@ExtractedInterfaces
-	public void loadButtonContent(KeyTag tag, KeyButtonType type, KeyMapSettingType setting,boolean IsGamePad1){
+	public KeyMap loadButtonContent(KeyTag tag, KeyButtonType type, KeyMapSettingType setting,boolean IsGamePad1){
 		if(contents.containsKey(tag)){
 			contents.replace(tag,new KeyMapButtonContent(tag,type,setting,IsGamePad1));
 		}else{
 			contents.put(tag,new KeyMapButtonContent(tag,type,setting,IsGamePad1));
 		}
+		return this;
 	}
 	/**
 	 * 冲突解决：replace
 	 */
 	@UserRequirementFunctions
 	@ExtractedInterfaces
-	public void loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting,boolean IsGamePad1){
+	public KeyMap loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting,boolean IsGamePad1){
 		if(contents.containsKey(tag)){
 			contents.replace(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
 		}else{
 			contents.put(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
 		}
+		return this;
 	}
 
 	@ExtractedInterfaces
@@ -107,5 +107,11 @@ public final class KeyMap {
 	@ExtractedInterfaces
 	public boolean containsKeySetting(KeyTag tag){
 		return contents.containsKey(tag);
+	}
+
+	public void showContentInfo(){
+		for(Map.Entry<KeyTag, KeyMapContent> entry:contents.entrySet()){
+			Global.client.changeData(entry.getKey().name() , entry.getValue().toString());
+		}
 	}
 }

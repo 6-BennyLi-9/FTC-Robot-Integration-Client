@@ -131,10 +131,10 @@ public class Chassis {
 		SimpleDrive(power,Math.toDegrees(radians));
 	}
 	public void configureBufPower(@NonNull IntegrationGamepad gamepad){
-		if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedControl)){
-			BufPower+=gamepad.getRodState(KeyTag.ClassicSpeedControl)*0.6;
-		}else if(gamepad.keyMap.containsKeySetting(KeyTag.ClassicSpeedConfig)){
-			if(gamepad.getButtonRunAble(KeyTag.ClassicSpeedConfig)){
+		if(gamepad.keyMap.containsKeySetting(KeyTag.ChassisSpeedControl)){
+			BufPower+= gamepad.getRodState(KeyTag.ChassisSpeedControl) * 0.6;
+		}else if(gamepad.keyMap.containsKeySetting(KeyTag.ChassisSpeedConfig)){
+			if(gamepad.getButtonRunAble(KeyTag.ChassisSpeedConfig)){
 				BufPower=0.9;
 			}else{
 				BufPower=0.3;
@@ -144,9 +144,9 @@ public class Chassis {
 	}
 	public void driveFromGamepad(@NonNull IntegrationGamepad gamepad){
 		motors.simpleMotorPowerController(
-				gamepad.getRodState(KeyTag.ClassicRunForward)*BufPower* factorXPower,
-				gamepad.getRodState(KeyTag.ClassicRunStrafe)*BufPower* factorYPower,
-				gamepad.getRodState(KeyTag.ClassicTurn)*BufPower* factorHeadingPower
+				gamepad.getRodState(KeyTag.ChassisRunForward) * BufPower * factorXPower,
+				gamepad.getRodState(KeyTag.ChassisRunStrafe) * BufPower * factorYPower,
+				gamepad.getRodState(KeyTag.ChassisTurn) * BufPower * factorHeadingPower
 		);
 	}
 

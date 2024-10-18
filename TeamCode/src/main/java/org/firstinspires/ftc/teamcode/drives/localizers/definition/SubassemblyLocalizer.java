@@ -4,18 +4,24 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
 
+@LocalizationPlugin
+@Deprecated
 public abstract class SubassemblyLocalizer implements Localizer{
 	public final LocalizerPlugin[] plugins;
 	public Pose2d RobotPosition;
 
+	@Deprecated
 	public SubassemblyLocalizer(PositionLocalizerPlugin localizerPlugin){
 		plugins=new LocalizerPlugin[]{localizerPlugin};
 	}
+	@Deprecated
 	public SubassemblyLocalizer(VectorPositionLocalizerPlugin localizerPlugin1, HeadingLocalizerPlugin localizerPlugin2){
 		plugins=new LocalizerPlugin[]{localizerPlugin1,localizerPlugin2};
 	}
+	@Deprecated
 	public SubassemblyLocalizer(@NonNull LocalizerPlugin[] localizerClasses){
 		plugins=localizerClasses;
 	}

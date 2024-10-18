@@ -19,7 +19,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 	protected Vector<Pose2d> relHistory;
 
 	public IntegralOrganizedOdometer(Client client) {
-		super(client);
+		super();
 		timer=new Timer();
 		timer.stopAndRestart();
 

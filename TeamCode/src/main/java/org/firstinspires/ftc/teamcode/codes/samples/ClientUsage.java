@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
-@TeleOp(name = "ClientUsage",group = "sample")
+@TeleOp(name = "ClientUsage",group = Params.Configs.SampleOpModesGroup)
 @Disabled
 public class ClientUsage extends OpMode {
 	Client client;
