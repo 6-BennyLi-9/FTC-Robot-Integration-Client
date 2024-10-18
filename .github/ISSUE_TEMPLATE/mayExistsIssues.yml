@@ -1,5 +1,4 @@
 name: 可能存在的问题报告
-about: 提交在开发过程中未经或需要继续测试的潜在问题
 
 body:
 - type: input
