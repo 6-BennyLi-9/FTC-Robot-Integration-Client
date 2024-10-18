@@ -4,7 +4,6 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.drives.localizers.mathematics.ConstantAccelMath;
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Timer;
@@ -18,7 +17,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 	protected Timer timer;
 	protected Vector<Pose2d> relHistory;
 
-	public IntegralOrganizedOdometer(Client client) {
+	public IntegralOrganizedOdometer() {
 		super();
 		timer=new Timer();
 		timer.stopAndRestart();

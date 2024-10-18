@@ -36,6 +36,7 @@ public class CompareTelemetryAndClient extends LinearOpMode {
 			telemetry.update();
 		}
 	}
+	@Beta
 	public void telemetryVersion2(){
 		telemetry.addLine("这一行不会一直显示，如果自动程序开始，就会消失")
 				.addData("一个没有用的数据","但是会在自动程序开始后消失");

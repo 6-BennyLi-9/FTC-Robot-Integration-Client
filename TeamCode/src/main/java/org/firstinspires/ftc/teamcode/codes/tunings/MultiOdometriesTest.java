@@ -37,7 +37,7 @@ public class MultiOdometriesTest extends OpMode {
 		arc=new ArcOrganizedOdometer();
 		rubbish=new SuperRubbishUselessAwfulOdometer();
 		classic=new ClassicOdometer();
-		integral=new IntegralOrganizedOdometer(client);
+		integral=new IntegralOrganizedOdometer();
 
 		arc.setColor(DashboardClient.Blue);
 		integral.setColor(DashboardClient.Green);

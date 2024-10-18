@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.utils.enums.AutonomousLocation;
 
 /**
  * A sample of 2023-2024 season basic Autonomous.
- *
+ * <p>
  * 基於 FTC 2023-2034 賽季的代碼樣式
  */
 @Autonomous(name = "AutonomousSample",group = Params.Configs.SampleOpModesGroup)
