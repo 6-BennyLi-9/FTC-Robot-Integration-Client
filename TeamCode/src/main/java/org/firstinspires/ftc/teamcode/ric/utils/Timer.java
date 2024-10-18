@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
 
+/**
+ * 一个非常好用的计时器
+ */
 public class Timer {
     public double StartTime,EndTime;
     public final Map<String, Double> Tags;
