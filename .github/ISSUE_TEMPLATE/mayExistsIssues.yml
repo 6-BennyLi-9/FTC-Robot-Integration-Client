@@ -1,4 +1,5 @@
 name: 可能存在的问题报告
+description: 报告潜在问题
 
 body:
 - type: input
