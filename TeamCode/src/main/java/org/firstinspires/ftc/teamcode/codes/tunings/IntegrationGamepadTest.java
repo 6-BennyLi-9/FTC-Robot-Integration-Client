@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 
 import java.util.Objects;
 
-@TeleOp(name = "IntegrationGamepadTest",group = "tune")
+@TeleOp(name = "IntegrationGamepadTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class IntegrationGamepadTest extends TuningProgramTemplate {
 	private IntegrationGamepad gamepad;
 	private int count=0;
@@ -20,17 +21,20 @@ public class IntegrationGamepadTest extends TuningProgramTemplate {
 	public void whileActivating() {
 		robot.client.changeData("KBT(A)", Objects.requireNonNull(gamepad.keyMap.contents.get(KeyTag.TuningButton1)).tag.name());
 		robot.client.changeData("KMS(A)", Objects.requireNonNull(gamepad.keyMap.contents.get(KeyTag.TuningButton1)).setting.name());
-		robot.client.changeData("A(current)",gamepad.gamepad1.A());
+//		robot.client.changeData("A(current)",gamepad.gamepad1.A());
 		robot.client.changeData("A(integration)",gamepad.getButtonRunAble(KeyTag.TuningButton1));
 
 		if(gamepad.getButtonRunAble(KeyTag.TuningButton1)) ++count;
 
 		robot.client.changeData("A(count)",count);
-		robot.client.changeData("A(integration-current)",gamepad.gamepad1.getButtonState(KeyButtonType.A,KeyMapSettingType.RunWhenButtonHold));
-		robot.client.changeData("A(integration-last)",gamepad.gamepad1.LastState.get(KeyButtonType.A));
+//		robot.client.changeData("A(integration-current)",gamepad.gamepad1.getButtonState(KeyButtonType.A,KeyMapSettingType.RunWhenButtonHold));
+//		robot.client.changeData("A(integration-last)",gamepad.gamepad1.LastState.get(KeyButtonType.A));
 
 		robot.client.changeData("LeftStickX(current)",gamepad.gamepad1.LeftStickX());
 		robot.client.changeData("LeftStickX(integration)",gamepad.getRodState(KeyTag.TuningButton2));
+
+		gamepad.showLst();
+//		gamepad.showContentInfo();
 	}
 
 	@Override

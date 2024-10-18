@@ -10,14 +10,15 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.drives.controls.commands.DriveCommand;
 import org.firstinspires.ftc.teamcode.drives.controls.commands.DrivingCommandsBuilder;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderPackage;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
-import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.drives.localizers.plugins.DeadWheelLocalizer;
+import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -31,6 +32,10 @@ import org.firstinspires.ftc.teamcode.utils.Timer;
 
 import java.util.LinkedList;
 
+/**
+ * 依赖 Global 进行初始化，注意请务必优先定义 Global
+ * @see Global
+ */
 @DrivingPrograms
 public class SimpleMecanumDrive implements DriverProgram {
 	public final Chassis chassis;
@@ -47,26 +52,22 @@ public class SimpleMecanumDrive implements DriverProgram {
 
 	public static RobotState robotState;
 
-	public SimpleMecanumDrive(@NonNull Chassis chassis, Client client,
-	                          PidProcessor pidProcessor, RobotState robotState, Pose2d RobotPosition){
-		this.chassis = chassis;
+	public SimpleMecanumDrive(Pose2d RobotPosition){
+		this.chassis = Global.robot.chassis;
 		this.RobotPosition = RobotPosition;
-		this.client=client;
-		SimpleMecanumDrive.robotState = robotState;
-		motors= chassis.motors;
-		this.pidProcessor=pidProcessor;
+		this.client=Global.client;
+		SimpleMecanumDrive.robotState = Robot.robotState;
+		motors= Global.robot.motors;
+		this.pidProcessor=Global.robot.pidProcessor;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelLocalizer(client, chassis.sensors);
+		localizer=new DeadWheelLocalizer(Global.robot.sensors);
 
 		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
 
-		pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
-		pidProcessor.loadContent(new PidContent(ContentTags[1],1));
-		pidProcessor.loadContent(new PidContent(ContentTags[2],2));
-	}
-	public SimpleMecanumDrive(@NonNull Robot robot, Pose2d RobotPosition){
-		this(robot.chassis, robot.client, robot.pidProcessor, robot.robotState, RobotPosition);
+		this.pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
+		this.pidProcessor.loadContent(new PidContent(ContentTags[1],1));
+		this.pidProcessor.loadContent(new PidContent(ContentTags[2],2));
 	}
 
 	/**

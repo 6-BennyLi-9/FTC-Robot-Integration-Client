@@ -1,22 +1,27 @@
 package org.firstinspires.ftc.teamcode.hardwares.integration;
 
+import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.*;
+
 import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
+import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 public class IntegrationMotor extends IntegrationDevice{
-	private boolean PID_ENABLED =true;
+	private boolean PID_ENABLED = false;
 
 	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
-	private double power=1f,lastPower;
+	private double power=0,lastPower;
 	private final IntegrationHardwareMap lazyIntegrationHardwareMap;
 	public double minPowerToOvercomeKineticFriction=0;
 	public double minPowerToOvercomeStaticFriction=0;
@@ -43,15 +48,24 @@ public class IntegrationMotor extends IntegrationDevice{
 		}
 		power= Functions.intervalClip(power,-1,1);
 
-		double m = (timer.getCurrentTime() > Params.switchFromStaticToKinetic + timer.getTimeTag("LastZeroTime") ?
-				   minPowerToOvercomeKineticFriction : minPowerToOvercomeStaticFriction)
-				* (12/ lazyIntegrationHardwareMap.getVoltage());
-		power *= 1-m;
-
-		this.power = power + m * Math.signum(power);
+		this.power = power;
 		updated=false;
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 
+	@UserRequirementFunctions
+	public void reverse(){
+		motor.setDirection(motor.getDirection() == REVERSE ? FORWARD : REVERSE);
+	}
+	@UserRequirementFunctions
+	public boolean isReversed(){
+		return motor.getDirection() == REVERSE;
+	}
+
+	@Beta
 	public void setTargetPowerSmooth(double power) {
 		double k = 0.7;
 
@@ -70,17 +84,25 @@ public class IntegrationMotor extends IntegrationDevice{
 		power = power + m * Math.signum(power);
 		// 0.5
 		this.power = power* k + this.lastPower*(1- k);
+
+		updated=false;
 	}
 
 	@Override
 	public void update() {
-		if(updated)return;//TODO:run checkout pid
+		if(updated)return;
 		updated=true;
-		if(PID_ENABLED){
+
+		Global.client.changeData("in box power",power);
+
+		if(PID_ENABLED&&pidProcessor!=null){
+			//警告：如果沒有匹配的 PID Params 電極將無法轉動
+			Global.client.changeData(motor.getDeviceName(),"Use PID Running");
 			pidProcessor.registerInaccuracies(pidTag,power-motor.getPower());
 			pidProcessor.ModifyPidByTag(pidTag);
 			motor.setPower(motor.getPower()+pidProcessor.getFulfillment(pidTag));
 		}else{
+			Global.client.changeData(motor.getDeviceName(),"No PID Running");
 			motor.setPower(power);
 		}
 		timer.pushTimeTag("LastUpdateTime");
@@ -88,11 +110,13 @@ public class IntegrationMotor extends IntegrationDevice{
 	}
 
 	@Override
+	@ExtractedInterfaces
 	public double getPosition() {
 		return motor.getCurrentPosition();
 	}
 
 	@Override
+	@ExtractedInterfaces
 	public double getPower() {
 		return motor.getPower();
 	}

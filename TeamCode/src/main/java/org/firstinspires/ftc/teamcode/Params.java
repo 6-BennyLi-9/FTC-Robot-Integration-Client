@@ -39,6 +39,10 @@ public class Params {
 		public static boolean useOutTimeProtection = true;
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
 		public static boolean autoRegisterAllHardwaresWhenInit = true;
+
+
+		public static final String TuningAndTuneOpModesGroup = "0_Tunings";
+		public static final String SampleOpModesGroup = "0_Samples";
 	}
 	@Config
 	public static class HardwareNamespace {

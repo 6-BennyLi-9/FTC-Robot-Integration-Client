@@ -1,0 +1,223 @@
+commit 23bdc518473d828ac625d6ce4f478aa1bb15bc3f (HEAD -> main, origin/main)
+Author: Benny0Li <17826002105@163.com>
+Date:   Fri Oct 18 17:52:43 2024 +0800
+
+    演示
+
+commit 641e6bf6ba28f35ea0817ca9972bd09f4056624e
+Author: Benny0Li <17826002105@163.com>
+Date:   Fri Oct 18 16:14:27 2024 +0800
+
+    Code cleanup
+
+commit 1b9cde917d0193f5dbfc97a272663c2b951114ac
+Author: Benny0Li <17826002105@163.com>
+Date:   Fri Oct 18 13:02:39 2024 +0800
+
+    修复了 ThreeInOne_DeadWheelTuner 无法显示数据的 bug
+
+commit acf617791294ed4461c82a2cae267b5d4cf6c496
+Author: Benny0Li <17826002105@163.com>
+Date:   Fri Oct 18 12:43:17 2024 +0800
+
+    统一 group
+
+commit f471f7928e0f02b7540bd25994a0a31ffc6bb21e
+Author: Benny0Li <17826002105@163.com>
+Date:   Fri Oct 18 12:41:58 2024 +0800
+
+    1. 重命名 2. 修复左右反了的问题
+
+commit 96321a21166cb62c37f2e0aa758ae8a99f279b02
+Author: Benny0Li <17826002105@163.com>
+Date:   Fri Oct 18 12:28:40 2024 +0800
+
+    完成故障排除： Motor 无法正确地 reverse
+
+commit 4c167c398adff3b2f53c616c7fd78d1f7e36d966
+Author: BennyLi <bennyli2011@163.com>
+Date:   Thu Oct 17 21:31:03 2024 +0800
+
+    优化 SecPowerPerInchTuner 及 ChassisTest 功能
+
+commit 4eae3e465d083588bcafcd5755572f15e6b2aa60
+Author: BennyLi <bennyli2011@163.com>
+Date:   Thu Oct 17 21:12:36 2024 +0800
+
+    @Autonomous
+
+commit 86903db6a5d03b33f7125adf70e2913d0840a1ac
+Merge: 28a4cbb bf675db
+Author: BennyLi <bennyli2011@163.com>
+Date:   Thu Oct 17 21:11:25 2024 +0800
+
+    Merge remote-tracking branch 'origin/main'
+
+    # Conflicts:
+    #       TeamCode/src/main/java/org/firstinspires/ftc/teamcode/ric/hardwares/integration/IntegrationMotor.java
+
+commit bf675dbd7a3b4a4b5906060a392e469d85810800
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 13:00:53 2024 +0800
+
+    从 SecPowerPerInchTuner 调试，并重写 ChassisTest， HardwareDeviceTypes 的值仍然不准确
+
+commit 6f950dd41bb47db7244f33f0cd1b9dd82a79fb1f
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 12:52:51 2024 +0800
+
+    调试 MotorReverseTest
+
+commit e2bb3aaf7de5b6033ef2d988c468ac37db813943
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 12:46:02 2024 +0800
+
+    Deletes
+:
+
+    从 SecPowerPerInchTuner 调试，并重写 ChassisTest， HardwareDeviceTypes 的值仍然不准确
+
+commit 6f950dd41bb47db7244f33f0cd1b9dd82a79fb1f
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 12:52:51 2024 +0800
+
+    调试 MotorReverseTest
+
+commit e2bb3aaf7de5b6033ef2d988c468ac37db813943
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 12:46:02 2024 +0800
+
+    Deletes
+
+commit e0280393fc0cf848109aaebee390f67a1d849b6b
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 12:36:45 2024 +0800
+
+    DrawDefaultField
+
+commit 433762d2e323a1e562dbd057ce88192a53dfb71b
+Author: Benny0Li <17826002105@163.com>
+Date:   Thu Oct 17 12:34:34 2024 +0800
+
+    加入 MotorReverseTest，而且解决了输入法的逆天问题
+
+commit 28a4cbbf62c36ad9626b7469014153b9b55779d6
+Author: BennyLi <bennyli2011@163.com>
+Date:   Wed Oct 16 21:56:00 2024 +0800
+
+    telemetry versions
+
+commit dc0520c237c7209f8c1c34ebafc6566c505cfff8
+Author: BennyLi <bennyli2011@163.com>
+Date:   Wed Oct 16 21:26:49 2024 +0800
+
+    好看
+
+commit 0400e778360d89fb0dde8ff67c2353da38e4a40e
+Author: BennyLi <bennyli2011@163.com>
+Date:   Wed Oct 16 21:25:50 2024 +0800
+
+    需要实机测试 Reverse 可行性
+
+commit 369528c9556428923620eada87785e9730e6a741
+Author: BennyLi <bennyli2011@163.com>
+Date:   Wed Oct 16 20:47:08 2024 +0800
+
+    优化 update()
+
+commit dd2d639f52903c1e5ee0edf0a551414b2d8994fd
+Author: Benny0Li <17826002105@163.com>
+Date:   Wed Oct 16 12:59:57 2024 +0800
+
+    優化 reversed 參數傳遞
+
+commit 7f1336c5a84145cabd9b12025a467cc1b82815c0
+Author: Benny0Li <17826002105@163.com>
+Date:   Wed Oct 16 12:56:58 2024 +0800
+
+    Debug from SecPowerPerInchTuner(not tune)
+
+commit f8e01c4a9540d1452d990798cb2dd5fa66a4bcb5
+Author: Benny0Li <17826002105@163.com>
+Date:   Wed Oct 16 12:16:14 2024 +0800
+
+    Add ConfigReset()
+
+commit dd9e97fed7ec08a11176851c15fb2e1d544c1f37
+Author: Benny0Li <17826002105@163.com>
+Date:   Tue Oct 15 13:00:51 2024 +0800
+
+    午休結束，正在調試 SecPowerPerInchTuner
+
+commit d137b82daf6c3811ee1b18146b7151239ab13f4d
+Author: Benny0Li <17826002105@163.com>
+Date:   Tue Oct 15 12:52:48 2024 +0800
+
+    set groups to Params.Configs.TuningAndTuneOpModesGroup
+
+commit 03b335c27bbb7074389e215f611bcbb8dfbd4385
+Author: Benny0Li <17826002105@163.com>
+Date:   Tue Oct 15 12:47:31 2024 +0800
+
+    @Disable
+
+commit 7e87fcbc2cb065999a76e3ea289cfeab499cbd9c
+Author: Benny0Li <17826002105@163.com>
+Date:   Tue Oct 15 12:45:14 2024 +0800
+
+    完成 IntegrationMotor 的調試，順便加了幾個注解
+
+commit ff43bee7880e8901bec4157ddc016e51856278d7
+Merge: 2ce92fb 8bece09
+Author: Benny0Li <17826002105@163.com>
+Date:   Mon Oct 14 13:01:12 2024 +0800
+
+    Merge remote-tracking branch 'origin/main'
+
+commit 2ce92fb9f2441168decfa642d4f30230f91b8439
+Author: Benny0Li <17826002105@163.com>
+Date:   Mon Oct 14 12:59:51 2024 +0800
+
+    Debug from MotorsTest, but still not done the debug.
+
+commit f660c8cb57eb1868895de0f4f09102d7d9b3ff33
+Author: Benny0Li <17826002105@163.com>
+Date:   Mon Oct 14 12:45:52 2024 +0800
+
+    加入 JavaDoc 和 Global.clear()
+
+commit fec20e54a5566c708f18d47910c52b222a482615
+Author: Benny0Li <17826002105@163.com>
+Date:   Mon Oct 14 12:34:44 2024 +0800
+
+    加入 MotorsTest
+
+commit 8bece09ff1eac5a694375fd9f0a9db91dbb5d3e7
+Author: BennyLi <bennyli2011@163.com>
+Date:   Sun Oct 13 15:04:54 2024 +0800
+
+    Defaults
+
+commit 9a68105e52648fbf4d179222c4de0ea1e3f6ec2e
+Author: BennyLi <bennyli2011@163.com>
+Date:   Sun Oct 13 15:02:48 2024 +0800
+
+    使用 Global 优化代码
+
+commit 128adaa90063ee4a5bb3e774edb8caf6c0aa1717
+Author: Benny0Li <17826002105@163.com>
+Date:   Sat Oct 12 13:00:48 2024 +0800
+
+    Debugs,still not done. HOW???????????????
+
+commit 343a1af7ddf71d0f904f9d5cac001f6989417068
+Author: Benny0Li <17826002105@163.com>
+Date:   Sat Oct 12 12:36:43 2024 +0800
+
+    使用 Global 顯示 KeyMap 的内容
+
+commit 2627db91dada54bd717f6146e0cd712ae449aa20
+Author: Benny0Li <17826002105@163.com>
+Date:   Sat Oct 12 12:21:58 2024 +0800
+
+    添加 Global

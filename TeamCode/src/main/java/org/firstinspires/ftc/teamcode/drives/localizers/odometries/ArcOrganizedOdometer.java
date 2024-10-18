@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.drives.localizers.odometries;
 
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
 @OdometerPrograms
 public class ArcOrganizedOdometer extends ClassicOdometer implements Odometry{
-	public ArcOrganizedOdometer(Client client) {
-		super(client);
+	public ArcOrganizedOdometer() {
+		super();
 	}
 
 	@Override

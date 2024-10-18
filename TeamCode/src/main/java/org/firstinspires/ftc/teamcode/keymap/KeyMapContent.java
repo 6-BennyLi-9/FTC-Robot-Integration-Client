@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.keymap;
 
+import androidx.annotation.NonNull;
+
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 
@@ -16,5 +18,11 @@ public abstract class KeyMapContent {
 		this.tag = tag;
 		this.setting = setting;
 		this.IsControlledByGamePad1 = IsControlledByGamePad1;
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return tag+"-"+setting+"-"+IsControlledByGamePad1;
 	}
 }

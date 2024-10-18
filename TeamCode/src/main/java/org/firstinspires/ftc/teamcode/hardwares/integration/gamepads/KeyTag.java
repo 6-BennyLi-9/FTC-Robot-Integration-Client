@@ -8,17 +8,16 @@ public enum KeyTag {
 	ArmHigherPlacement,
 	ArmIDLE,
 	SuspensionArm,
-	ClassicRunForward,
-	ClassicRunStrafe,
-	ClassicTurn,
+
+	ChassisRunForward, ChassisRunStrafe, ChassisTurn,
 	/**
 	 * 必须为 Rod 控制
 	 */
-	ClassicSpeedControl,
+	ChassisSpeedControl,
 	/**
 	 * 必须为 Button 控制
 	 */
-	ClassicSpeedConfig,
+	ChassisSpeedConfig,
 
 	TuningButton1,
 	TuningButton2,

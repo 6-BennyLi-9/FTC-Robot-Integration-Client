@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
@@ -70,20 +71,31 @@ public class IntegrationHardwareMap {
 
 		if (device.classType == DcMotor.class || device.classType == DcMotorEx.class) {
 			DcMotorEx motor= lazyHardwareMap.get(DcMotorEx.class,device.deviceName);
-			if(device.config.direction==Reversed){
-				motor.setDirection(Direction.REVERSE);
-			}
 			if (IsIntegrationMotor.contains(device)){
+				if(device.config.direction==Reversed){
+					motor.setDirection(Direction.REVERSE);
+				}else{
+					motor.setDirection(Direction.FORWARD);
+				}
 				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor,this));
 			}else if(IsDeadWheel.contains(device)){
-				devices.put(device,new IntegrationDeadWheelEncoders(motor));
+				IntegrationDeadWheelEncoders encoders=new IntegrationDeadWheelEncoders(motor);
+				encoders.sensor.setDirection(Direction.REVERSE);
+				devices.put(device,encoders);
 			}else {
+				if(device.config.direction==Reversed){
+					motor.setDirection(Direction.REVERSE);
+				}else{
+					motor.setDirection(Direction.FORWARD);
+				}
 				devices.put(device,new PositionalIntegrationMotor(motor,device,lazyProcessor));
 			}
 		}else if (device.classType == Servo.class){
 			Servo servo= lazyHardwareMap.get(Servo.class,device.deviceName);
 			if(device.config.direction==Reversed){
 				servo.setDirection(Servo.Direction.REVERSE);
+			}else{
+				servo.setDirection(Servo.Direction.FORWARD);
 			}
 			devices.put(device,new IntegrationServo(servo,device));
 		} else if (device.classType == BNO055IMU.class) {
@@ -132,7 +144,9 @@ public class IntegrationHardwareMap {
 		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
+
 		Integrations device=getDevice(hardwareDeviceTypes);
+
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setPower(power);
 		}else if(device instanceof IntegrationServo){
@@ -190,6 +204,13 @@ public class IntegrationHardwareMap {
 			return ((IntegrationServo) device).inPlace();
 		}else{
 			throw new RuntimeException("Not Allowed");
+		}
+	}
+
+	public void printSettings(){
+		for(HardwareDeviceTypes types:HardwareDeviceTypes.values()){
+			Global.client.changeData(types+" direction",types.config.direction);
+			Global.client.changeData(types+" state",types.config.state);
 		}
 	}
 }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drives.localizers.odometries;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.utils.Functions;
@@ -14,8 +15,8 @@ public class ClassicOdometer implements Odometry{
 	private final Client client;
 	private String color;
 
-	public ClassicOdometer(Client client){
-		this.client=client;
+	public ClassicOdometer(){
+		this.client= Global.client;
 
 		PoseHistory=new Vector<>();
 	}

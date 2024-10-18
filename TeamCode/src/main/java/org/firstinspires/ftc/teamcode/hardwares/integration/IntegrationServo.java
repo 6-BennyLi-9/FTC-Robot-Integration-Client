@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
@@ -45,6 +47,10 @@ public class IntegrationServo extends IntegrationDevice{
 		if(smoothMode) smoothMode=false;
 		this.targetPose = targetPose;
 		updated=false;
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 	@UserRequirementFunctions
 	public void setTargetPoseInTime(double targetPose,double TimeMills){
@@ -55,6 +61,10 @@ public class IntegrationServo extends IntegrationDevice{
 		}
 		Log.w("W","建议提供 speed");
 		timer.pushObjectionTimeTag("InTimeStartTag",TimeMills);
+
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			update();
+		}
 	}
 
 	@ExtractedInterfaces
@@ -65,7 +75,7 @@ public class IntegrationServo extends IntegrationDevice{
 	@Override
 	public void update() {
 		if(smoothMode){
-			if((double) timer.getTimeTagObjection("InTimeStartTag")+timer.getTimeTag("InTimeStartTag")>timer.getCurrentTime()){
+			if((double) timer.getTimeTagObjection("InTimeStartTag")+timer.getTimeTag("InTimeStartTag") > Timer.getCurrentTime()){
 				if(targetPose-servo.getPosition()>0.05f){
 					servo.setPosition(targetPose);
 				}else{
@@ -73,7 +83,7 @@ public class IntegrationServo extends IntegrationDevice{
 					//done
 				}
 			}else{
-				double delta=targetVelocity*(timer.getCurrentTime()-timer.getTimeTag("LastUpdateTime"));
+				double delta=targetVelocity*(Timer.getCurrentTime() - timer.getTimeTag("LastUpdateTime"));
 				servo.setPosition(servo.getPosition()+delta);
 			}
 		}else {
@@ -88,6 +98,7 @@ public class IntegrationServo extends IntegrationDevice{
 	}
 
 	@Override
+	@ExtractedInterfaces
 	public double getPosition() {
 		return servo.getPosition();
 	}

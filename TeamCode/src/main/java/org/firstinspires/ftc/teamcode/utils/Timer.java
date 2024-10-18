@@ -22,7 +22,7 @@ public class Timer {
     }
     @UserRequirementFunctions
     @ExtractedInterfaces
-    public final double getCurrentTime(){
+    public static double getCurrentTime(){
         return Functions.getCurrentTimeMills();
     }
 
@@ -81,11 +81,17 @@ public class Timer {
         }
     }
 
+    /**
+     * @return 未申明時返回0
+     */
     @UserRequirementFunctions
     public double getTimeTag(String tag){
         Double v = Tags.get(tag);
         return v == null ? 0 : v;
     }
+    /**
+     * @return 未申明時返回0
+     */
     @UserRequirementFunctions
     public Object getTimeTagObjection(String tag){
         Object v = TagMeaning.get(tag);
