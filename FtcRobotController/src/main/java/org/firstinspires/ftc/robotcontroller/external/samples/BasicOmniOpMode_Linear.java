@@ -68,8 +68,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class BasicOmniOpMode_Linear extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFrontDrive = null;
+    private final ElapsedTime runtime        = new ElapsedTime();
+    private       DcMotor     leftFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
