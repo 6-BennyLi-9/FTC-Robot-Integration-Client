@@ -1,5 +1,10 @@
 package org.firstinspires.ftc.teamcode.keymap;
 
+import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag.*;
+import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType.*;
+import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType.*;
+import static org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType.*;
+
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Global;
