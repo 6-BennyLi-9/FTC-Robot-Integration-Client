@@ -1,0 +1,23 @@
+name: Feature Request
+description: Suggest an idea for this project
+body:
+  - type: textarea
+    id: BugBase
+    attributes:
+      label: Correlated Issues
+      value: |
+        If the report is not base on an issue, you don't need to change the value here.
+  - type: textarea
+    id: Suggestion
+    attributes:
+      label: Your Suggestion
+  - type: dropdown
+    id: versionBase
+    attributes:
+      label: Version Base On
+      options:
+        - 0.1.0
+        - 0.1.1
+        - 0.2.0
+        - 0.3.0
+        - 0.4.0
