@@ -1,0 +1,23 @@
+name: Bug Report
+description: A template for Bur Reporting
+body:
+  - type: dropdown
+    id: version
+    attributes:
+      label: FTC RIC version
+      options:
+        - 0.1.0
+        - 0.1.1
+        - 0.2.0
+        - 0.3.0
+        - 0.4.0
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Bug description
+      value: |
+        Entre the way to find the bug.
+  - type: textarea
+    attributes:
+      label: Annex

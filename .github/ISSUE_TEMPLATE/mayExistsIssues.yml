@@ -1,0 +1,12 @@
+name: 可能存在的问题报告
+description: 报告潜在问题
+
+body:
+- type: input
+  id: mayExistsIssues
+  attributes:
+    label: mayExistsIssues
+    description: "描述可能存在的问题"
+    placeholder: "内容..."
+  validations:
+    required: true
