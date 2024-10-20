@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode.drives.controls.definition;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
-
 import org.firstinspires.ftc.teamcode.drives.controls.TrajectoryType;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
+import org.firstinspires.ftc.teamcode.utils.Vector2d;
 
 public interface DriveOrder {
 	/**
@@ -35,13 +34,13 @@ public interface DriveOrder {
 	 * 不要在自动程序中调用这个函数，否则你会后悔的
 	 */
 	void RUN();
-	Pose2d getDeltaTrajectory();
+	Position2d getDeltaTrajectory();
 	/**
 	 * @return 该Command节点的目标点位
 	 */
 	@NonNull
-	Pose2d NEXT();
+	Position2d NEXT();
 
-	Pose2d getPose();
+	Position2d getPose();
 	TrajectoryType getState();
 }

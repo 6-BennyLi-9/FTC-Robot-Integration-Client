@@ -10,6 +10,7 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.Functions;
@@ -56,7 +57,7 @@ public class DashboardClient {
 		 * @param packet 使用packet绘制机器
 		 */
 		@UtilFunctions
-		public static void drawRobotUsingPacket(@NonNull Pose2d pose,@NonNull TelemetryPacket packet){
+		public static void drawRobotUsingPacket(@NonNull Position2d pose,@NonNull TelemetryPacket packet){
 			drawRobotUsingPacket(pose,packet,Blue);
 		}
 		/**
@@ -64,9 +65,9 @@ public class DashboardClient {
 		 * @param packet 使用packet绘制机器
 		 */
 		@UtilFunctions
-		public static void drawRobotUsingPacket(@NonNull Pose2d pose,@NonNull TelemetryPacket packet,@NonNull String color){
+		public static void drawRobotUsingPacket(@NonNull Position2d pose,@NonNull TelemetryPacket packet,@NonNull String color){
 			packet.fieldOverlay().setStroke(color);
-			drawRobot(packet.fieldOverlay(),pose);
+			drawRobot(packet.fieldOverlay(),pose.asPose2d());
 			FtcDashboard.getInstance().sendTelemetryPacket(packet);
 		}
 	}
@@ -102,7 +103,7 @@ public class DashboardClient {
 	 * @see Drawing
 	 */
 	@ExtractedInterfaces
-	public void DrawRobot(@NonNull Pose2d pose,@NonNull String color){
+	public void DrawRobot(@NonNull Position2d pose,@NonNull String color){
 		DrawRobot(pose,color,ID+1);
 	}
 	/**
@@ -111,12 +112,12 @@ public class DashboardClient {
 	 * 同时会在DashBoard中发送机器的位置信息
 	 * @see Drawing
 	 */
-	public void DrawRobot(@NonNull Pose2d pose,@NonNull String color,@NonNull Object tag){
+	public void DrawRobot(@NonNull Position2d pose, @NonNull String color, @NonNull Object tag){
 		TelemetryPacket packet=new TelemetryPacket();
 		Drawing.drawRobotUsingPacket(pose,packet, color);
-		packet.put("TargetX", pose.position.x);
-		packet.put("TargetY", pose.position.y);
-		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading.toDouble()));
+		packet.put("TargetX", pose.x);
+		packet.put("TargetY", pose.y);
+		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading));
 		pushPacket(packet,tag);
 	}
 

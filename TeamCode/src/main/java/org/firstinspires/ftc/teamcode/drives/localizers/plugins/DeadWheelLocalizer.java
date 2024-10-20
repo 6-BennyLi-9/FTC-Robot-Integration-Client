@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ArcOrganizedO
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.Odometry;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
 
 @LocalizationPlugin
@@ -29,7 +30,7 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	}
 
 	@Override
-	public Pose2d getCurrentPose() {
+	public Position2d getCurrentPose() {
 		return robotPosition;
 	}
 }

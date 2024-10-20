@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.utils;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Vector2d;
-
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 

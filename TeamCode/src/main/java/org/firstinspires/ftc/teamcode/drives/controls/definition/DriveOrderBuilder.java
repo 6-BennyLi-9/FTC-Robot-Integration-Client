@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drives.controls.definition;
 
-import com.acmerobotics.roadrunner.Vector2d;
+
+import org.firstinspires.ftc.teamcode.utils.Vector2d;
 
 public interface DriveOrderBuilder {
 	/**
