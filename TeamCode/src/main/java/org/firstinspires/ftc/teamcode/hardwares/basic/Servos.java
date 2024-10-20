@@ -1,8 +1,16 @@
 package org.firstinspires.ftc.teamcode.hardwares.basic;
 
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 
+/**
+ * 集成化控制所有舵机
+ * <p>
+ * 不会自动 update()
+ *
+ * @see IntegrationServo
+ */
 public class Servos {
 	public IntegrationHardwareMap hardware;
 	public double FrontClipPosition,RearClipPosition;

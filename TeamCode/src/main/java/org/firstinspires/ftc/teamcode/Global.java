@@ -11,6 +11,11 @@ import org.firstinspires.ftc.teamcode.utils.ActionBox;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
+/**
+ * 用于优化类之间的数据传递
+ * <p>
+ * 主要防止内存泄漏
+ */
 public final class Global {
 	public static Robot                  robot;
 	public static Client                 client;

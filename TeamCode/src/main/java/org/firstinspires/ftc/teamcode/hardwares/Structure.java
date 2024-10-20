@@ -22,6 +22,12 @@ import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
 
+/**
+ * 集成化的上层控制程序
+ *
+ * @see Motors
+ * @see Servos
+ */
 public class Structure {
 	public Motors motors;
 	public Servos servos;

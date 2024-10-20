@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.hardwares.basic;
 
 import static org.firstinspires.ftc.teamcode.Global.client;
 
-import com.acmerobotics.roadrunner.Vector2d;
-
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
@@ -12,8 +10,17 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.utils.Vector2d;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 
+/**
+ * 集成化控制所有电机
+ * <p>
+ * 不会自动 update()
+ *
+ * @see Params.Configs
+ * @see IntegrationMotor
+ */
 public class Motors {
 	public IntegrationHardwareMap hardware;
 

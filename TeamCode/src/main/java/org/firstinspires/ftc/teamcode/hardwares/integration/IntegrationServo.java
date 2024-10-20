@@ -12,6 +12,11 @@ import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
+/**
+ * 集成化的单个舵机控制类
+ * <p>
+ * 注意要及时 update() ，否则参数不会下达到舵机
+ */
 public class IntegrationServo extends IntegrationDevice{
 	private final static double AllowErrorPosition=0.1;
 

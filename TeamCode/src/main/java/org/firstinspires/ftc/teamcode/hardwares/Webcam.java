@@ -13,6 +13,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 /**
+ * 集成化的摄像头程序
+ * <p>
+ * 今年（2024-2025）赛季中摄像头的应用变少了，因此用途不多了
+ *
  * @see CameraDetection
  */
 public class Webcam {
