@@ -51,7 +51,7 @@ public class Robot {
 	public PidProcessor pidProcessor;
 
 	public static RobotState robotState=RobotState.IDLE;
-	public RunningMode runningState;
+	public static RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
 	public final ActionBox actionBox;
 	public DriverProgram drive=null;
@@ -61,24 +61,15 @@ public class Robot {
 	public ParamsController paramsController =new DefaultParamsController();
 	public KeyMapController keyMapController =new DefaultKeyMapController();
 
-	private void configsReset(){
-		Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
-		Params.Configs.runUpdateWhenAnyNewOptionsAdded=false;
-		Params.Configs.waitForServoUntilThePositionIsInPlace=false;
-		Params.Configs.autoPrepareForNextOptionWhenUpdate=false;
-		Params.Configs.alwaysRunPIDInAutonomous=false;
-		Params.Configs.usePIDInAutonomous=true;
-		Params.Configs.useOutTimeProtection=true;
-		Params.Configs.autoRegisterAllHardwaresWhenInit=true;
-	}
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
+		Params.Configs.reset();
+
 		pidProcessor=new PidProcessor();
-		configsReset();
 
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
