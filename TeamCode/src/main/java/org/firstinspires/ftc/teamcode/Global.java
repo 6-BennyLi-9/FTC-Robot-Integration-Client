@@ -10,12 +10,10 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareM
 import org.firstinspires.ftc.teamcode.utils.ActionBox;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 
 public final class Global {
 	public static Robot                  robot;
 	public static Client                 client;
-	public static RunningMode            runMode;
 	public static ActionBox              actionBox;
 	public static DriverProgram          driverProgram;
 	public static IntegrationGamepad     integrationGamepad;
@@ -26,7 +24,6 @@ public final class Global {
 	public static void clear() {
 		robot = null;
 		client = null;
-		runMode = null;
 		actionBox = null;
 		driverProgram = null;
 		integrationGamepad = null;
@@ -38,7 +35,6 @@ public final class Global {
 		Global.robot = robot;
 		Global.driverProgram = robot.drive;
 		Global.client = robot.client;
-		Global.runMode = robot.runningState;
 		Global.actionBox = robot.actionBox;
 		integrationHardwareMap=robot.lazyIntegratedDevices;
 		if(robot.gamepad!= null) {
