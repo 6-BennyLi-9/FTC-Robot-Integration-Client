@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.drives.localizers.plugins;
 
-import com.acmerobotics.roadrunner.Pose2d;
-
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
@@ -21,7 +19,7 @@ public class BNODeadWheelLocalizer extends DeadWheelLocalizer implements Positio
 	public void update() {
 		super.update();
 		sensors.imu.update();
-		robotPosition=new Pose2d(robotPosition.position,Math.toRadians(sensors.imu.robotAngle));
+		robotPosition=new Position2d(robotPosition.asVector(),Math.toRadians(sensors.imu.robotAngle));
 	}
 
 	@Override
