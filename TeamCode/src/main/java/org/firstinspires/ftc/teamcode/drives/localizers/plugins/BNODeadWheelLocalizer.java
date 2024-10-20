@@ -4,14 +4,13 @@ import org.firstinspires.ftc.teamcode.drives.localizers.definition.PositionLocal
 import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
 /**
  * 使用imu获取机器的角度
  */
 @LocalizationPlugin
 public class BNODeadWheelLocalizer extends DeadWheelLocalizer implements PositionLocalizerPlugin {
-	public BNODeadWheelLocalizer(Client client, Sensors sensors) {
+	public BNODeadWheelLocalizer(Sensors sensors) {
 		super(sensors);
 	}
 

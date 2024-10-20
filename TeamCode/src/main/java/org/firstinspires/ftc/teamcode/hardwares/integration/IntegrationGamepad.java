@@ -9,6 +9,11 @@ import org.firstinspires.ftc.teamcode.keymap.KeyMapButtonContent;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
+/**
+ * 集成化的gamepad（有俩）
+ *
+ * @see BasicIntegrationGamepad
+ */
 public class IntegrationGamepad {
 	public BasicIntegrationGamepad gamepad1,gamepad2;
 	public KeyMap keyMap;

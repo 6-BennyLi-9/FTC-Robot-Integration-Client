@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceNotFoundException;
@@ -28,6 +29,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 集成化的 hardwareMap
+ */
 public class IntegrationHardwareMap {
 	public Map<HardwareDeviceTypes, Integrations> devices;
 	private final Set<HardwareDeviceTypes> IsIntegrationMotor,IsDeadWheel;
@@ -96,6 +100,7 @@ public class IntegrationHardwareMap {
 		}
 	}
 
+	@Beta
 	@ExtractedInterfaces
 	public void registerAllDevices(){
 		for(HardwareDeviceTypes device: HardwareDeviceTypes.values()){

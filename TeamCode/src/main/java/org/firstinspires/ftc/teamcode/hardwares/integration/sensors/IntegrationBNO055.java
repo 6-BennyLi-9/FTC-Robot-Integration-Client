@@ -7,6 +7,11 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 
+/**
+ * 基于 BNO055IMU 的接口性类
+ *
+ * @see BNO055IMU
+ */
 public class IntegrationBNO055 extends IntegrationSensor{
 	public final BNO055IMU sensor;
 	public double robotAngle,xAccel,yAccel;

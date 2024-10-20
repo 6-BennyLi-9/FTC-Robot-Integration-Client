@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 /**
+ * 用于多个队伍进行键位的切换
  * @see Robot
  * @see KeyMap
  * */

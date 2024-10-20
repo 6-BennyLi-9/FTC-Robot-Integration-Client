@@ -16,6 +16,11 @@ import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
+/**
+ * 集成化的单个电机控制类
+ * <p>
+ * 注意要及时 update() ，否则参数不会下达到电机
+ */
 public class IntegrationMotor extends IntegrationDevice{
 	private boolean PID_ENABLED = false;
 

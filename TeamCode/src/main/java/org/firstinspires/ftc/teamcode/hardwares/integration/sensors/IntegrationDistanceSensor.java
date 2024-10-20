@@ -10,6 +10,11 @@ import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+/**
+ * 基于 DistanceSensor 的接口性类
+ *
+ * @see DistanceSensor
+ */
 public class IntegrationDistanceSensor extends IntegrationSensor {
 	public final DistanceSensor sensor;//REV 2M Distance Sensor
 	public double CurrentMillimeterUnitDistance,SmoothMillimeterUnitDistance;

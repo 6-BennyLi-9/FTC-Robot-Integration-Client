@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * 基于手柄的键位类
+ */
 public final class KeyMap {
 	public final Map<KeyTag, KeyMapContent> contents;
 	public KeyMap(){
@@ -61,9 +64,9 @@ public final class KeyMap {
 	@UserRequirementFunctions
 	public KeyMap loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting){
 		if(contents.containsKey(tag)){
-			contents.replace(tag,new KeyMapRodContent(tag,type,setting));
+			contents.replace(tag,new KeyMapRodContent(tag,type));
 		}else{
-			contents.put(tag,new KeyMapRodContent(tag,type,setting));
+			contents.put(tag,new KeyMapRodContent(tag,type));
 		}
 		return this;
 	}
@@ -88,9 +91,9 @@ public final class KeyMap {
 	@ExtractedInterfaces
 	public KeyMap loadRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting,boolean IsGamePad1){
 		if(contents.containsKey(tag)){
-			contents.replace(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
+			contents.replace(tag,new KeyMapRodContent(tag,type, IsGamePad1));
 		}else{
-			contents.put(tag,new KeyMapRodContent(tag,type,setting,IsGamePad1));
+			contents.put(tag,new KeyMapRodContent(tag,type, IsGamePad1));
 		}
 		return this;
 	}
