@@ -36,6 +36,9 @@ import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
 
+/**
+ * 几乎所有关于机器的集成化控制器
+ */
 public class Robot {
 	public IntegrationHardwareMap lazyIntegratedDevices;
 
@@ -68,6 +71,7 @@ public class Robot {
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
 		Params.Configs.reset();
+		Global.clear();
 
 		pidProcessor=new PidProcessor();
 
