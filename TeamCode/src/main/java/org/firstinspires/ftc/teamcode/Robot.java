@@ -4,37 +4,37 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SleepAction;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.drives.controls.MecanumDrive;
+import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderBuilder;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
-import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.hardwares.Chassis;
+import org.firstinspires.ftc.teamcode.hardwares.Structure;
+import org.firstinspires.ftc.teamcode.hardwares.Webcam;
+import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
-import org.firstinspires.ftc.teamcode.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.hardwares.Structure;
-import org.firstinspires.ftc.teamcode.hardwares.Webcam;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.utils.ActionBox;
+import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
+import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.utils.Vector2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
-import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
+import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
-import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
-import org.firstinspires.ftc.teamcode.utils.Timer;
 
 public class Robot {
 	public IntegrationHardwareMap lazyIntegratedDevices;
@@ -136,7 +136,7 @@ public class Robot {
 	 * 自动初始化SimpleMecanumDrive
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
-	public DriverProgram InitMecanumDrive(Pose2d RobotPosition){
+	public DriverProgram InitMecanumDrive(Position2d RobotPosition){
 		drive=new SimpleMecanumDrive(RobotPosition);
 		if(runningState != RunningMode.Autonomous) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
@@ -223,7 +223,7 @@ public class Robot {
 	/**
 	 * 会自动update()
 	 */
-	public Pose2d pose(){
+	public Position2d pose(){
 		drive.update();
 		return drive.getCurrentPose();
 	}

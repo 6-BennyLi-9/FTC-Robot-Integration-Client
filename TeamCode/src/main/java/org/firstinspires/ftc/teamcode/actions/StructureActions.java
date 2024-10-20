@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.hardwares.Structure;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 public class StructureActions {

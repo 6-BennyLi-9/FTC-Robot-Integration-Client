@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.drives.localizers.definition;
 
-import com.acmerobotics.roadrunner.Pose2d;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 
 public interface PositionLocalizerPlugin extends LocalizerPlugin{
-	Pose2d getCurrentPose();
+	Position2d getCurrentPose();
 }

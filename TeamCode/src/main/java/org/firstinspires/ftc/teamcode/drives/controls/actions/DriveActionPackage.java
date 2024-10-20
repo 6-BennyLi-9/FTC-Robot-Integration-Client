@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.drives.controls.actions;
 
-import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderPackage;
+import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 
 import java.util.LinkedList;
 

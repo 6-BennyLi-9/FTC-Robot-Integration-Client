@@ -5,13 +5,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.keymap.KeyMap;
+import org.firstinspires.ftc.teamcode.keymap.KeyMapButtonContent;
+import org.firstinspires.ftc.teamcode.keymap.KeyMapContent;
+import org.firstinspires.ftc.teamcode.keymap.KeyMapRodContent;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.keymap.KeyMapButtonContent;
-import org.firstinspires.ftc.teamcode.keymap.KeyMapContent;
-import org.firstinspires.ftc.teamcode.keymap.KeyMapRodContent;
 
 import java.util.Map;
 

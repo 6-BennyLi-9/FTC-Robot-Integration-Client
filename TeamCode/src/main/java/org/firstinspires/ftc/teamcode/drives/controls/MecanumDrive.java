@@ -3,15 +3,12 @@ package org.firstinspires.ftc.teamcode.drives.controls;
 import static org.firstinspires.ftc.teamcode.Params.aem;
 import static org.firstinspires.ftc.teamcode.Params.pem;
 import static org.firstinspires.ftc.teamcode.Params.timeOutProtectionMills;
-import static org.firstinspires.ftc.teamcode.utils.clients.DashboardClient.Blue;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
 import org.firstinspires.ftc.teamcode.Global;
@@ -29,7 +26,9 @@ import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.utils.Vector2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.DrivingPrograms;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 import org.firstinspires.ftc.teamcode.utils.clients.DashboardClient;
@@ -45,15 +44,15 @@ public class MecanumDrive implements DriverProgram {
 	private final PidProcessor pidProcessor;
 	private final String[] ContentTags;
 
-	public final LinkedList<Pose2d> poseHistory = new LinkedList<>();
-	public Pose2d RobotPosition;
+	public final LinkedList<Position2d> poseHistory = new LinkedList<>();
+	public Position2d RobotPosition;
 	public double BufPower=1f;
 
 	public final Localizer localizer;
 
 	public RobotState robotState;
 
-	public MecanumDrive(Pose2d RobotPosition){
+	public MecanumDrive(Position2d RobotPosition){
 		this.client=Global.client;
 		this.pidProcessor=Global.robot.pidProcessor;
 		this.robotState = Robot.robotState;
@@ -79,7 +78,7 @@ public class MecanumDrive implements DriverProgram {
 		RobotPosition = localizer.getCurrentPose();
 
 		client.dashboard.deletePacketByTag("RobotPosition");
-		client.dashboard.DrawRobot(RobotPosition, Blue, "RobotPosition");
+		client.dashboard.DrawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);
 	}
@@ -101,11 +100,11 @@ public class MecanumDrive implements DriverProgram {
 
 		Vector2d[] PoseList;
 		PoseList=new Vector2d[commandLists.length+1];
-		PoseList[0]=commandLists[0].pose.position;
+		PoseList[0]=commandLists[0].pose.asVector();
 		Timer timer = new Timer();
 
 		for(int i=0;i<commandLists.length;++i){
-			PoseList[i+1]=commandLists[i].NEXT().position;
+			PoseList[i+1]=commandLists[i].NEXT().asVector();
 		}
 
 		Actions.runBlocking(new Action() {
@@ -115,11 +114,11 @@ public class MecanumDrive implements DriverProgram {
 				DriveAction singleAction =commandLists[ID];
 				singleAction.RUN();
 				update();
-				motors.updateDriveOptions(RobotPosition.heading.toDouble());
+				motors.updateDriveOptions(RobotPosition.heading);
 
 				BufPower= singleAction.BufPower;
-				double dY = singleAction.getDeltaTrajectory().position.y;
-				double dX = singleAction.getDeltaTrajectory().position.x;
+				double dY = singleAction.getDeltaTrajectory().y;
+				double dX = singleAction.getDeltaTrajectory().x;
 				final double distance=Math.sqrt(dX * dX + dY * dY);
 				final double estimatedTime=distance/(Params.secPowerPerInch *BufPower);
 				client.changeData("distance",distance);
@@ -128,12 +127,12 @@ public class MecanumDrive implements DriverProgram {
 				client.changeData("DELTA", singleAction.getDeltaTrajectory().toString());
 
 				timer.restart();
-				while ((Math.abs(RobotPosition.position.x-PoseList[ID+1].x)> pem)
-						&& (Math.abs(RobotPosition.position.y-PoseList[ID+1].y)> pem)
-						&& (Math.abs(RobotPosition.heading.toDouble()-singleAction.NEXT().heading.toDouble())> aem)){
+				while ((Math.abs(RobotPosition.x-PoseList[ID+1].x)> pem)
+						&& (Math.abs(RobotPosition.y-PoseList[ID+1].y)> pem)
+						&& (Math.abs(RobotPosition.heading-singleAction.NEXT().heading)> aem)){
 					double progress=(timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 					client.changeData("progress", progress +"%");
-					Pose2d aim= Functions.getAimPositionThroughTrajectory(singleAction,RobotPosition,progress);
+					Position2d aim= Functions.getAimPositionThroughTrajectory(singleAction,RobotPosition,progress);
 
 					if(timer.getDeltaTime()>estimatedTime+ timeOutProtectionMills&& Params.Configs.useOutTimeProtection){//保护机制
 						robotState = RobotState.BrakeDown;
@@ -142,14 +141,14 @@ public class MecanumDrive implements DriverProgram {
 					}
 
 					if(Params.Configs.usePIDInAutonomous){
-						if(Math.abs(aim.position.x- RobotPosition.position.x)> pem
-								|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
-								|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem
+						if(Math.abs(aim.x- RobotPosition.x)> pem
+								|| Math.abs(aim.y- RobotPosition.y)> pem
+								|| Math.abs(aim.heading- RobotPosition.heading)> aem
 								|| Params.Configs.alwaysRunPIDInAutonomous ){
 							//间断地调用pid可能会导致pid的效果不佳
-							pidProcessor.registerInaccuracies(ContentTags[0], aim.position.x- RobotPosition.position.x);
-							pidProcessor.registerInaccuracies(ContentTags[1], aim.position.y- RobotPosition.position.y);
-							pidProcessor.registerInaccuracies(ContentTags[2], aim.heading.toDouble()- RobotPosition.heading.toDouble());
+							pidProcessor.registerInaccuracies(ContentTags[0], aim.x- RobotPosition.x);
+							pidProcessor.registerInaccuracies(ContentTags[1], aim.y- RobotPosition.y);
+							pidProcessor.registerInaccuracies(ContentTags[2], aim.heading- RobotPosition.heading);
 
 							pidProcessor.update();
 
@@ -158,13 +157,13 @@ public class MecanumDrive implements DriverProgram {
 							motors.headingPower+=pidProcessor.getFulfillment(ContentTags[2]);
 						}
 					}else{
-						if(Math.abs(aim.position.x- RobotPosition.position.x)> pem
-								|| Math.abs(aim.position.y- RobotPosition.position.y)> pem
-								|| Math.abs(aim.heading.toDouble()- RobotPosition.heading.toDouble())> aem){
+						if(Math.abs(aim.x- RobotPosition.x)> pem
+								|| Math.abs(aim.y- RobotPosition.y)> pem
+								|| Math.abs(aim.heading- RobotPosition.heading)> aem){
 							double[] fulfillment=new double[]{
-									(aim.position.x- RobotPosition.position.x)*(Params.secPowerPerInch)*BufPower/2,
-									(aim.position.y- RobotPosition.position.y)*(Params.secPowerPerInch)*BufPower/2,
-									(aim.heading.toDouble()> RobotPosition.heading.toDouble()? BufPower/2:-BufPower/2)
+									(aim.x- RobotPosition.x)*(Params.secPowerPerInch)*BufPower/2,
+									(aim.y- RobotPosition.y)*(Params.secPowerPerInch)*BufPower/2,
+									(aim.heading> RobotPosition.heading? BufPower/2:-BufPower/2)
 							};
 
 							motors.xAxisPower+=fulfillment[0];
@@ -173,7 +172,7 @@ public class MecanumDrive implements DriverProgram {
 						}
 					}
 
-					motors.updateDriveOptions(RobotPosition.heading.toDouble());
+					motors.updateDriveOptions(RobotPosition.heading);
 				}
 
 				if(ID!=commandLists.length-1){
@@ -207,7 +206,7 @@ public class MecanumDrive implements DriverProgram {
 	}
 
 	@Override
-	public Pose2d getCurrentPose() {
+	public Position2d getCurrentPose() {
 		return RobotPosition;
 	}
 

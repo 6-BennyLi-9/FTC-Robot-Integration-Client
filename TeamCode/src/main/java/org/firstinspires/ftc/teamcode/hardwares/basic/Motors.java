@@ -1,13 +1,6 @@
 package org.firstinspires.ftc.teamcode.hardwares.basic;
 
 import static org.firstinspires.ftc.teamcode.Global.client;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.Intake;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.LeftFront;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.LeftRear;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.PlacementArm;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RightFront;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RightRear;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.SuspensionArm;
 
 import com.acmerobotics.roadrunner.Vector2d;
 
@@ -15,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
@@ -80,26 +74,26 @@ public class Motors {
 		updateDriveOptions();
 	}
 	public void updateDriveOptions(){
-		hardware.setPower(LeftFront, LeftFrontPower* ChassisBufPower);
-		hardware.setPower(LeftRear, LeftRearPower* ChassisBufPower);
-		hardware.setPower(RightFront, RightFrontPower* ChassisBufPower);
-		hardware.setPower(RightRear, RightRearPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
+		hardware.setPower(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
 
-		hardware.getDevice(LeftFront).update();
-		hardware.getDevice(LeftRear).update();
-		hardware.getDevice(RightFront).update();
-		hardware.getDevice(RightRear).update();
+		hardware.getDevice(HardwareDeviceTypes.LeftFront).update();
+		hardware.getDevice(HardwareDeviceTypes.LeftRear).update();
+		hardware.getDevice(HardwareDeviceTypes.RightFront).update();
+		hardware.getDevice(HardwareDeviceTypes.RightRear).update();
 	}
 	public void updateStructureOptions(){
-		hardware.setPower(Intake, IntakePower * StructureBufPower);
-		hardware.setPower(SuspensionArm, SuspensionArmPower* StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower * StructureBufPower);
+		hardware.setPower(HardwareDeviceTypes.SuspensionArm, SuspensionArmPower* StructureBufPower);
 
-		hardware.getDevice(Intake).update();
-		hardware.getDevice(SuspensionArm).update();
+		hardware.getDevice(HardwareDeviceTypes.Intake).update();
+		hardware.getDevice(HardwareDeviceTypes.SuspensionArm).update();
 	}
 
 	public PositionalIntegrationMotor placementArm(){
-		return (PositionalIntegrationMotor) hardware.getDevice(PlacementArm);
+		return (PositionalIntegrationMotor) hardware.getDevice(HardwareDeviceTypes.PlacementArm);
 	}
 
 	/**
@@ -156,7 +150,7 @@ public class Motors {
 	}
 
 	private void powersRationalize(){
-		LeftFrontPower=Mathematics.intervalClip(LeftFrontPower,-1,1);
+		LeftFrontPower= Mathematics.intervalClip(LeftFrontPower,-1,1);
 		LeftRearPower=Mathematics.intervalClip(LeftRearPower,-1,1);
 		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
 		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
@@ -174,12 +168,13 @@ public class Motors {
 		client.changeData("SuspensionArmPower",SuspensionArmPower);
 		client.changeData("IntakePower",IntakePower);
 
-		try{client.changeData("LeftFrontPower(integration)",((IntegrationMotor)hardware.getDevice(LeftFront)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("LeftRearPower(integration)",((IntegrationMotor)hardware.getDevice(LeftRear)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("RightFrontPower(integration)",((IntegrationMotor)hardware.getDevice(RightFront)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("RightRearPower(integration)",((IntegrationMotor)hardware.getDevice(RightRear)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("LeftFrontPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.LeftFront)).getPower());}catch (
+				DeviceDisabledException ignored){}
+		try{client.changeData("LeftRearPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.LeftRear)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("RightFrontPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.RightFront)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("RightRearPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.RightRear)).getPower());}catch (DeviceDisabledException ignored){}
 
-		try{client.changeData("SuspensionArmPower(integration)",((IntegrationMotor)hardware.getDevice(SuspensionArm)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("IntakePower(integration)",((IntegrationMotor)hardware.getDevice(Intake)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("SuspensionArmPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.SuspensionArm)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("IntakePower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.Intake)).getPower());}catch (DeviceDisabledException ignored){}
 	}
 }

@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
+import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 
 @TeleOp(name = "MotorReverseTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class MotorReverseTest extends TuningProgramTemplate {

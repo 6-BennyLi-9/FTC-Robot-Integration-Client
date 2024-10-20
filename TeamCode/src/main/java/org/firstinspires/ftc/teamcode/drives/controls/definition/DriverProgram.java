@@ -2,9 +2,8 @@ package org.firstinspires.ftc.teamcode.drives.controls.definition;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Pose2d;
-
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 
 import java.util.LinkedList;
 
@@ -13,5 +12,5 @@ public interface DriverProgram {
 	default void runOrderPackage(@NonNull DriveOrderPackage orderPackage){}
 	default void runOrderPackage(@NonNull LinkedList<DriveOrder> orders){}
 	Chassis getClassic();
-	Pose2d getCurrentPose();
+	Position2d getCurrentPose();
 }
