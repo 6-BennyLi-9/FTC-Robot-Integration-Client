@@ -82,3 +82,7 @@ lint/tmp/
 
 .DS_Store
 /.idea
+
+
+#local gradle settings
+gradle/wrapper/gradle-wrapper.properties
