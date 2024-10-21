@@ -83,4 +83,4 @@ lint/tmp/
 
 
 #local gradle settings
-/gradle/wrapper/
+gradle/
