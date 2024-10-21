@@ -79,10 +79,8 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
-
-.DS_Store
 /.idea
 
 
 #local gradle settings
-gradle/wrapper/gradle-wrapper.properties
+/gradle/wrapper/
