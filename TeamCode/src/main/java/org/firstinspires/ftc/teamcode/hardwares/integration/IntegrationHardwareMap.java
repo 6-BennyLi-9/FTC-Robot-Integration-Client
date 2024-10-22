@@ -73,7 +73,7 @@ public class IntegrationHardwareMap {
 				}else{
 					motor.setDirection(Direction.FORWARD);
 				}
-				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor,this));
+				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor));
 			}else if(IsDeadWheel.contains(device)){
 				IntegrationDeadWheelEncoders encoders=new IntegrationDeadWheelEncoders(motor);
 				encoders.sensor.setDirection(Direction.REVERSE);
@@ -171,19 +171,6 @@ public class IntegrationHardwareMap {
 		if (device instanceof IntegrationServo || device instanceof IntegrationMotor) {
 			return ((IntegrationDevice) device).getPosition();
 		}else{
-			throw new RuntimeException("Not Allowed");
-		}
-	}
-
-	@ExtractedInterfaces
-	public void setPowerSmooth(@NonNull HardwareDeviceTypes hardwareDeviceTypes, double power){
-		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
-			throw new DeviceDisabledException(hardwareDeviceTypes.name());
-		}
-		Integrations device=getDevice(hardwareDeviceTypes);
-		if(device instanceof IntegrationMotor){
-			((IntegrationMotor) device).setTargetPowerSmooth(power);
-		}else if(device instanceof IntegrationServo){
 			throw new RuntimeException("Not Allowed");
 		}
 	}

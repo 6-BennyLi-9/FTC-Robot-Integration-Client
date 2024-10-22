@@ -84,12 +84,12 @@ public class Params {
 	 * 每Tick机器所旋转的角度
 	 * @see ThreeInOne_DeadWheelTuner
 	 */
-	public static double TurningDegPerTick = 0.01339983622422392615201369761;
+	public static double TurningDegPerTick = 0.15;
 	/**
 	 * 每Tick机器所前进的距离
 	 * @see ThreeInOne_DeadWheelTuner
 	 */
-	public static double AxialInchPerTick=0.001131541725601131541725601132;
+	public static double AxialInchPerTick=0.00114285714285714285714285714286;
 	/**
 	 * 每Tick机器所平移的距离
 	 * @see ThreeInOne_DeadWheelTuner

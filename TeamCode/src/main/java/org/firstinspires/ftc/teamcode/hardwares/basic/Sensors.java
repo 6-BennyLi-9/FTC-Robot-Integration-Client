@@ -45,21 +45,18 @@ public class Sensors {
 	/**
 	 * @return 机器前进的TICK数
 	 */
-	@ExtractedInterfaces
 	public double getDeltaA(){
 		return (Left.deltaEncTicks+Right.deltaEncTicks)/2;
 	}
 	/**
 	 * @return 机器平移的TICK数
 	 */
-	@ExtractedInterfaces
 	public double getDeltaL(){
 		return Middle.deltaEncTicks-Params.AxialPosition*getDeltaT();
 	}
 	/**
 	 * @return 机器旋转的TICK数
 	 */
-	@ExtractedInterfaces
 	public double getDeltaT(){
 		return (Right.deltaEncTicks-Left.deltaEncTicks)/Params.LateralPosition;
 	}

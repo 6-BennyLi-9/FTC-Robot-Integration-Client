@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Params;
@@ -12,9 +11,9 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 /**
  * done
  * @since 2024.10.15
+ * @noinspection ALL
  */
 @Autonomous(name = "MotorsTest",group = Params.Configs.TuningAndTuneOpModesGroup)
-@Disabled
 public class MotorsTest extends TuningProgramTemplate {
 	public DcMotorEx        motor1;
 	public IntegrationMotor motor2;
@@ -23,8 +22,8 @@ public class MotorsTest extends TuningProgramTemplate {
 
 	@Override
 	public void whileActivating() {
-		motor1.setPower(1);
-		motor2.setPower(1);
+		motor1.setPower(0.1);
+		motor2.setPower(0.1);
 		motor2.update();
 
 		robot.client.changeData("M1 power",motor1.getPower());

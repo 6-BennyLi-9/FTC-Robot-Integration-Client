@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.ftc.Encoder;
 import com.acmerobotics.roadrunner.ftc.OverflowEncoder;
 import com.acmerobotics.roadrunner.ftc.PositionVelocityPair;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 /**
@@ -14,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
  * @see Encoder
  */
 public class IntegrationDeadWheelEncoders extends IntegrationSensor{
+	private final DcMotorEx aimMotor;
 	public final Encoder sensor;
 	public double encTick,velocity;
 	public double lastEncTick,lastVelocity;
@@ -21,7 +23,10 @@ public class IntegrationDeadWheelEncoders extends IntegrationSensor{
 
 	public IntegrationDeadWheelEncoders(@NonNull DcMotorEx motor) {
 		super(motor.getDeviceName());
-		sensor=new OverflowEncoder(new RawEncoder(motor));
+		aimMotor=motor;
+		sensor=new OverflowEncoder(new RawEncoder(aimMotor));
+
+		reset();
 	}
 
 	@Override
@@ -35,5 +40,10 @@ public class IntegrationDeadWheelEncoders extends IntegrationSensor{
 
 		deltaEncTicks=encTick-lastEncTick;
 		deltaVelocity=velocity-lastVelocity;
+	}
+
+	public void reset(){
+		aimMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		aimMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 	}
 }
