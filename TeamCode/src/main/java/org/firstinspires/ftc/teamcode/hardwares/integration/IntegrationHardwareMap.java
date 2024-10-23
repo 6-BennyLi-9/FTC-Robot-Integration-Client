@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegi
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceNotFoundException;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
@@ -178,6 +179,7 @@ public class IntegrationHardwareMap {
 		}
 	}
 
+	@ExtractedInterfaces
 	public double getVoltage(){
 		return lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
 	}
@@ -194,6 +196,7 @@ public class IntegrationHardwareMap {
 		}
 	}
 
+	@UserRequirementFunctions
 	public void printSettings(){
 		for(HardwareDeviceTypes types:HardwareDeviceTypes.values()){
 			Global.client.changeData(types+" direction",types.config.direction);

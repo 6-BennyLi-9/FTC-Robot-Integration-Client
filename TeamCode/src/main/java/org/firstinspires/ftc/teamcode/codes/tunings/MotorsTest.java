@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.codes.tunings;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Params;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
  * @noinspection ALL
  */
 @Autonomous(name = "MotorsTest",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class MotorsTest extends TuningProgramTemplate {
 	public DcMotorEx        motor1;
 	public IntegrationMotor motor2;
