@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
@@ -75,7 +75,10 @@ public class IntegrationHardwareMap {
 				}
 				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor));
 			}else if(IsDeadWheel.contains(device)){
-				IntegrationDeadWheelEncoders encoders=new IntegrationDeadWheelEncoders(motor);
+				motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+				IntegrationEncoders encoders =new IntegrationEncoders(motor);
 				encoders.sensor.setDirection(Direction.REVERSE);
 				devices.put(device,encoders);
 			}else {

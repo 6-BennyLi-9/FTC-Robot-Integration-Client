@@ -26,7 +26,7 @@ public class IntegrationMotor extends IntegrationDevice{
 
 	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
-	private double power=0,lastPower;
+	private double power=0;
 
 	public IntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDeviceTypes deviceType, PidProcessor pidProcessor){
 		super(deviceType.deviceName);
@@ -43,9 +43,6 @@ public class IntegrationMotor extends IntegrationDevice{
 	}
 
 	public void setPower(double power){
-		if(lastPower==0){
-			timer.pushTimeTag("LastZeroTime");
-		}
 		power= Functions.intervalClip(power,-1,1);
 
 		this.power = power;
@@ -82,8 +79,7 @@ public class IntegrationMotor extends IntegrationDevice{
 			Global.client.changeData(motor.getDeviceName(),"No PID Running");
 			motor.setPower(power);
 		}
-		timer.pushTimeTag("LastUpdateTime");
-		lastPower=power;
+//		timer.pushTimeTag("LastUpdateTime");
 	}
 
 	@Override

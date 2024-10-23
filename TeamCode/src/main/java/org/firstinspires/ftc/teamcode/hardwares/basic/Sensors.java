@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 
@@ -15,19 +15,19 @@ import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
  * 不要盲目 updateEncoders()
  *
  * @see IntegrationBNO055
- * @see IntegrationDeadWheelEncoders
+ * @see IntegrationEncoders
  */
 public class Sensors {
 	/** BNO055IMU 比 IMU 的稳定性更好
 	 */
-	public IntegrationBNO055 imu;
-	public IntegrationDeadWheelEncoders Left,Middle,Right;
+	public IntegrationBNO055   imu;
+	public IntegrationEncoders Left,Middle,Right;
 
 	public Sensors(@NonNull IntegrationHardwareMap hardwareMap){
 		imu= (IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
-		Left=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
-		Middle=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
-		Right=(IntegrationDeadWheelEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);
+		Left=(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
+		Middle=(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
+		Right=(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);
 	}
 
 	/**
