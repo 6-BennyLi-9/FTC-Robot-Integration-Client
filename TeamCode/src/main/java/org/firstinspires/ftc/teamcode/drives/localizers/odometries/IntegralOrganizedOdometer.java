@@ -44,11 +44,6 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 		updateVelocity();
 	}
 
-	@Override
-	public void registerToDashBoard(String tag) {
-		super.registerToDashBoard(tag);
-	}
-
 	Position2d relCurrentVel,currentVel;
 
 	public void updateVelocity(){

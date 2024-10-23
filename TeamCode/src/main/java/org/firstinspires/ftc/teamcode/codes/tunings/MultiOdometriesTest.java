@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ClassicOdomet
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.IntegralOrganizedOdometer;
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.Odometry;
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.SuperRubbishUselessAwfulOdometer;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyRodType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
@@ -32,8 +31,6 @@ public class MultiOdometriesTest extends OpMode {
 		robot=new Robot(hardwareMap, RunningMode.TestOrTune,telemetry);
 		client=robot.client;
 
-		client.addLine("按[A]进入直线模式，该模式下机器将无法全方向平移");
-
 		arc=new ArcOrganizedOdometer();
 		rubbish=new SuperRubbishUselessAwfulOdometer();
 		classic=new ClassicOdometer();
@@ -46,35 +43,22 @@ public class MultiOdometriesTest extends OpMode {
 
 		robot.registerGamepad(gamepad1,gamepad2);
 		robot.gamepad.keyMap =new KeyMap();
-		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.SinglePressToChangeRunAble)
-							.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod)
+		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod)
 							.loadRodContent(KeyTag.ChassisRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod)
-							.loadRodContent(KeyTag.ChassisTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod)
-							.loadButtonContent(KeyTag.ChassisSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
+							.loadRodContent(KeyTag.ChassisTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
 	}
-
-	boolean LinerMode=false;
 
 	@Override
 	public void loop() {
-		LinerMode=robot.gamepad.getButtonRunAble(KeyTag.TuningButton1);
-		client.changeData("直线模式",LinerMode);
-		if(robot.gamepad.getButtonRunAble(KeyTag.ChassisSpeedConfig)){
-			robot.motors.setBufPower(0.9);
-		}else{
-			robot.motors.setBufPower(0.3);
-		}
-		if(LinerMode){
-			double x=robot.gamepad.getRodState(KeyTag.ChassisRunForward);
-			double y=robot.gamepad.getRodState(KeyTag.ChassisRunStrafe);
-			double t=robot.gamepad.getRodState(KeyTag.ChassisTurn);
-			if(Math.abs(x)> Math.abs(y)){
-				robot.motors.simpleMotorPowerController(x,0,t);
-			}else{
-				robot.motors.simpleMotorPowerController(0,y,t);
-			}
-		}
-		robot.update();
+		robot.chassis.motors.simpleMotorPowerController(
+				robot.gamepad.getRodState(KeyTag.ChassisRunStrafe),
+				robot.gamepad.getRodState(KeyTag.ChassisRunForward),
+				robot.gamepad.getRodState(KeyTag.ChassisTurn)
+		);
+
+		robot.motors.updateDriveOptions();
+		robot.sensors.updateEncoders();
+		robot.motors.clearDriveOptions();
 
 		arc.update(robot.sensors.getDeltaL(),robot.sensors.getDeltaA(),robot.sensors.getDeltaT());
 		rubbish.update(robot.sensors.getDeltaL(),robot.sensors.getDeltaA(),robot.sensors.getDeltaT());
@@ -92,13 +76,8 @@ public class MultiOdometriesTest extends OpMode {
 		classic.registerToDashBoard("classic");
 	}
 
-	@Override
-	public void stop() {
-		super.stop();
-	}
-
 	public void print(@NonNull Odometry aim){
 		Position2d pose=aim.getCurrentPose();
-		client.changeData(aim.getClass().getName(),pose);
+		client.changeData(aim.getClass().getSimpleName(),pose);
 	}
 }
