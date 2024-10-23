@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.hardwares.integration.gamepads;
 
+/**
+ * 给予键或者操控杆的标签，用于查找与调用
+ */
 public enum KeyTag {
 	Intake,
 	Pop,

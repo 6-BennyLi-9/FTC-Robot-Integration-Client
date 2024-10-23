@@ -8,13 +8,18 @@ import com.acmerobotics.roadrunner.ftc.PositionVelocityPair;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-public class IntegrationDeadWheelEncoders extends IntegrationSensor{
+/**
+ * 基于 Encoder 的接口性类，用于操控死轮编码器
+ *
+ * @see Encoder
+ */
+public class IntegrationEncoders extends IntegrationSensor{
 	public final Encoder sensor;
 	public double encTick,velocity;
 	public double lastEncTick,lastVelocity;
 	public double deltaEncTicks,deltaVelocity;
 
-	public IntegrationDeadWheelEncoders(@NonNull DcMotorEx motor) {
+	public IntegrationEncoders(@NonNull DcMotorEx motor) {
 		super(motor.getDeviceName());
 		sensor=new OverflowEncoder(new RawEncoder(motor));
 	}

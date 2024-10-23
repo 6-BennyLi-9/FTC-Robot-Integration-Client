@@ -1,0 +1,38 @@
+import java.text.SimpleDateFormat
+
+//apply from: '../build.common.gradle'
+apply plugin: 'com.android.library'
+apply from: '../build.dependencies.gradle'
+
+android {
+	namespace = 'org.firstinspires.ftc.teamcode'
+
+	//from FtcRobotController
+	defaultConfig {
+		minSdkVersion 24
+		//noinspection ExpiredTargetSdkVersion
+		targetSdkVersion 28
+		buildConfigField "String", "APP_BUILD_TIME", '"' + (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ROOT).format(new Date())) + '"'
+	}
+	compileSdkVersion 29
+
+//	packagingOptions {
+//		jniLibs.useLegacyPackaging true
+//	}
+}
+
+repositories {
+	maven {
+		url = 'https://maven.brott.dev/'
+	}
+}
+
+dependencies {
+	implementation project(':FtcRobotController')
+
+	implementation "com.acmerobotics.roadrunner:ftc:0.1.14"
+	implementation "com.acmerobotics.roadrunner:core:1.0.0"
+	implementation "com.acmerobotics.roadrunner:actions:1.0.0"
+	implementation "com.acmerobotics.dashboard:dashboard:0.4.16"
+	implementation 'org.openftc:easyopencv:1.7.3'
+}

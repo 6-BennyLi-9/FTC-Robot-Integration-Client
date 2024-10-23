@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.drives.localizers.odometries;
 
-import com.acmerobotics.roadrunner.Pose2d;
-
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 
@@ -21,7 +20,7 @@ public interface Odometry {
 		registerRobotToDashBoard(tag+" robot");
 	}
 	@UtilFunctions
-	Pose2d getCurrentPose();
+	Position2d getCurrentPose();
 
 	@UserRequirementFunctions
 	void setColor(String color);

@@ -2,14 +2,10 @@ package org.firstinspires.ftc.teamcode.utils;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
-
-import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
-import org.jetbrains.annotations.Contract;
 
 public final class Functions extends Mathematics{
     @UtilFunctions
@@ -26,16 +22,16 @@ public final class Functions extends Mathematics{
      */
     @NonNull
     @UtilFunctions
-    public static Pose2d getAimPositionThroughTrajectory(@NonNull Pose2d from, @NonNull Pose2d end, @NonNull Pose2d RobotPosition, double progress){
+    public static Position2d getAimPositionThroughTrajectory(@NonNull Position2d from, @NonNull Position2d end, @NonNull Position2d RobotPosition, double progress){
         Complex cache=new Complex(new Vector2d(
-                end.position.x-from.position.x,
-                end.position.y-from.position.y
+                end.x-from.x,
+                end.y-from.y
         ));
         cache=cache.times(progress);
-        return new Pose2d(
-                RobotPosition.position.x+cache.RealPart,
-                RobotPosition.position.y+cache.imaginary(),
-                from.heading.toDouble()+(end.heading.toDouble()-from.heading.toDouble())*progress
+        return new Position2d(
+                RobotPosition.x+cache.RealPart,
+                RobotPosition.y+cache.imaginary(),
+                from.heading+(end.heading-from.heading)*progress
         );
     }
 
@@ -46,7 +42,7 @@ public final class Functions extends Mathematics{
      */
     @NonNull
     @UtilFunctions
-    public static Pose2d getAimPositionThroughTrajectory(@NonNull DriveOrder driveOrder, @NonNull Pose2d RobotPosition , double progress){
+    public static Position2d getAimPositionThroughTrajectory(@NonNull DriveOrder driveOrder, @NonNull Position2d RobotPosition , double progress){
         switch (driveOrder.getState()) {
             case LinerStrafe:
             case LinerWithTurn:
@@ -57,7 +53,7 @@ public final class Functions extends Mathematics{
                 SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;
             default:
-                return new Pose2d(0, 0, 0);
+                return new Position2d(0, 0, 0);
         }
         throw new RuntimeException("If you see this Exception on DriverHub, please let us know in the issue");
     }
@@ -66,25 +62,17 @@ public final class Functions extends Mathematics{
      * @param globalTheta 为角度制
      */
     @NonNull
-    @Contract("_, _, _ -> new")
     @UtilFunctions
-    public static Pose2d Alignment2d(double deltaX, double deltaY, double globalTheta){
-        return new Pose2d(
+    public static Position2d Alignment2d(double deltaX, double deltaY, double globalTheta){
+        return new Position2d(
                 deltaX *Math.cos(Math.toRadians(globalTheta))- deltaY *Math.sin(Math.toRadians(globalTheta)),
                 deltaY *Math.cos(Math.toRadians(globalTheta))+ deltaX *Math.sin(Math.toRadians(globalTheta)),
                 globalTheta
         );
     }
     @NonNull
-    @Contract("_ -> new")
     @UtilFunctions
-    public static Pose2d Alignment2d(@NonNull Pose2d pose){
-		return Alignment2d(pose.position.x,pose.position.y,Math.toDegrees(pose.heading.toDouble()));
-    }
-    @NonNull
-    @Contract("_ -> new")
-    @UtilFunctions
-    public static Pose2d Alignment2d(@NonNull Position2d pose){
+    public static Position2d Alignment2d(@NonNull Position2d pose){
         return Alignment2d(pose.x,pose.y,pose.heading);
     }
 
@@ -94,21 +82,17 @@ public final class Functions extends Mathematics{
 	}
     @UtilFunctions
     public static double getX(@NonNull Object pose){
-	    if (pose.getClass().equals(Pose2d.class)) {
-            return ((Pose2d) pose).position.x;
+	    if (pose.getClass().equals(Position2d.class)) {
+            return ((Position2d) pose).x;
 	    }else if(pose.getClass().equals(Vector2d.class)){
             return ((Vector2d) pose).x;
-        }else if(pose.getClass().equals(Position2d.class)){
-            return ((Position2d) pose).x;
-        }else{
+        }else {
             throw new ClassCastException("Unknown Position Class:"+pose.getClass().getName());
         }
     }
     @UtilFunctions
     public static double getY(@NonNull Object pose){
-        if (pose.getClass().equals(Pose2d.class)) {
-            return ((Pose2d) pose).position.y;
-        }else if(pose.getClass().equals(Vector2d.class)){
+        if(pose.getClass().equals(Vector2d.class)){
             return ((Vector2d) pose).y;
         }else if(pose.getClass().equals(Position2d.class)){
             return ((Position2d) pose).y;

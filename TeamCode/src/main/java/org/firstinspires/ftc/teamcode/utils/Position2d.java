@@ -11,19 +11,28 @@ public class Position2d {
 		this.y=y;
 		this.heading = heading;
 	}
-	public Position2d(@NonNull Pose2d pose){
-		this.x=pose.position.x;
-		this.y=pose.position.y;
-		this.heading = pose.heading.toDouble();
+	public Position2d(@NonNull Vector2d pose, double heading){
+		this(pose.x,pose.y,heading);
 	}
 
 	public Pose2d asPose2d(){
 		return new Pose2d(x,y,heading);
+	}
+	public Vector2d asVector(){
+		return new Vector2d(x,y);
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
 		return "("+x+","+"y"+"):"+heading;
+	}
+
+	public Vector2d minus(@NonNull Vector2d pose) {
+		return new Vector2d(x-pose.x,y- pose.y);
+	}
+
+	public Vector2d plus(@NonNull Vector2d pose) {
+		return new Vector2d(x+ pose.x,y+ pose.y);
 	}
 }

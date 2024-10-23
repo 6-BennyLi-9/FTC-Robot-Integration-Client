@@ -49,9 +49,9 @@ public abstract class SubassemblyLocalizer implements Localizer{
 				++HeadingFactor;
 			}else if(plugin instanceof PositionLocalizerPlugin){
 				cache=new Pose2d(
-						cache.position.x+ plugin.getCurrentPose().position.x,
-						cache.position.y+ plugin.getCurrentPose().position.y,
-						cache.heading.toDouble()+ plugin.getCurrentPose().heading.toDouble()
+						cache.position.x+ plugin.getCurrentPose().x,
+						cache.position.y+ plugin.getCurrentPose().y,
+						cache.heading.toDouble()+ plugin.getCurrentPose().heading
 				);
 				++VectorFactor;
 				++HeadingFactor;

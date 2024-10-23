@@ -1,10 +1,16 @@
 package org.firstinspires.ftc.teamcode.hardwares.basic;
 
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.FrontClip;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes.RearClip;
-
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
+import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 
+/**
+ * 集成化控制所有舵机
+ * <p>
+ * 不会自动 update()
+ *
+ * @see IntegrationServo
+ */
 public class Servos {
 	public IntegrationHardwareMap hardware;
 	public double FrontClipPosition,RearClipPosition;
@@ -17,10 +23,10 @@ public class Servos {
 
 	public void update(){
 		try {
-			hardware.setPosition(FrontClip,FrontClipPosition);
-			hardware.setPosition(RearClip,RearClipPosition);
+			hardware.setPosition(HardwareDeviceTypes.FrontClip,FrontClipPosition);
+			hardware.setPosition(HardwareDeviceTypes.RearClip,RearClipPosition);
 
-			PositionInPlace=hardware.isInPlace(FrontClip)&&hardware.isInPlace(RearClip);
+			PositionInPlace=hardware.isInPlace(HardwareDeviceTypes.FrontClip)&&hardware.isInPlace(HardwareDeviceTypes.RearClip);
 		}catch (Exception ignored){}
 	}
 

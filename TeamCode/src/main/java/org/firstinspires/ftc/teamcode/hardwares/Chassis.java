@@ -11,12 +11,18 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 
+/**
+ * 集成的底盘操控程序
+ *
+ * @see Motors
+ * @see Sensors
+ */
 public class Chassis {
 	public Motors motors;
 	public Sensors sensors;

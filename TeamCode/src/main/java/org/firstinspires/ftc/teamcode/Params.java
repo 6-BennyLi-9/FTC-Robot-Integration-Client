@@ -40,6 +40,16 @@ public class Params {
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
 		public static boolean autoRegisterAllHardwaresWhenInit = true;
 
+		public static void reset(){
+			driverUsingAxisPowerInsteadOfCurrentPower=true;
+			runUpdateWhenAnyNewOptionsAdded=false;
+			waitForServoUntilThePositionIsInPlace=false;
+			autoPrepareForNextOptionWhenUpdate=false;
+			alwaysRunPIDInAutonomous=false;
+			usePIDInAutonomous=true;
+			useOutTimeProtection=true;
+			autoRegisterAllHardwaresWhenInit=true;
+		}
 
 		public static final String TuningAndTuneOpModesGroup = "0_Tunings";
 		public static final String SampleOpModesGroup = "0_Samples";
@@ -74,12 +84,12 @@ public class Params {
 	 * 每Tick机器所旋转的角度
 	 * @see ThreeInOne_DeadWheelTuner
 	 */
-	public static double TurningDegPerTick = 0.01339983622422392615201369761;
+	public static double TurningDegPerTick = 0.15;
 	/**
 	 * 每Tick机器所前进的距离
 	 * @see ThreeInOne_DeadWheelTuner
 	 */
-	public static double AxialInchPerTick=0.001131541725601131541725601132;
+	public static double AxialInchPerTick=0.00114285714285714285714285714286;
 	/**
 	 * 每Tick机器所平移的距离
 	 * @see ThreeInOne_DeadWheelTuner
@@ -89,7 +99,7 @@ public class Params {
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 * @see SecPowerPerInchTuner
 	 */
-	public static double secPowerPerInch =0;
+	public static double secPowerPerInch = 24;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */
@@ -130,8 +140,4 @@ public class Params {
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
 	public static double factorSuspensionArmPower=1;
-	/**
-	 * 电机的转力从0到其余数的保护时间，单位：ms
-	 */
-	public static double switchFromStaticToKinetic =75;
 }

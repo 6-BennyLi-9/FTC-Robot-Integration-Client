@@ -7,13 +7,13 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 public class KeyMapRodContent extends KeyMapContent {
 	public final KeyRodType type;
 
-	public KeyMapRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting) {
-		super(tag, setting);
+	public KeyMapRodContent(KeyTag tag, KeyRodType type) {
+		super(tag, KeyMapSettingType.PullRod);
 		this.type = type;
 	}
 
-	public KeyMapRodContent(KeyTag tag, KeyRodType type, KeyMapSettingType setting, boolean IsControlledByGamePad1) {
-		super(tag, setting, IsControlledByGamePad1);
+	public KeyMapRodContent(KeyTag tag, KeyRodType type, boolean IsControlledByGamePad1) {
+		super(tag, KeyMapSettingType.PullRod, IsControlledByGamePad1);
 		this.type = type;
 	}
 }
