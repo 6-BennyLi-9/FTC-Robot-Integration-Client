@@ -5,7 +5,6 @@ import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
-import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
 import java.util.Vector;
 
@@ -16,7 +15,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer implements Odomet
 	protected Timer timer;
 	protected Vector<Position2d> relHistory;
 
-	public IntegralOrganizedOdometer(Client client) {
+	public IntegralOrganizedOdometer() {
 		super();
 		timer=new Timer();
 		timer.stopAndRestart();
