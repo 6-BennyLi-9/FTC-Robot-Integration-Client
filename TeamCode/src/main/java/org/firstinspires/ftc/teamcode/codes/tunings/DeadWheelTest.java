@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.codes.tunings;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Params;
 
 @TeleOp(name = "DeadWheelTest (Blocks to Java)",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class DeadWheelTest extends LinearOpMode {
 
 	public DcMotor leftBack;

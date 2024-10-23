@@ -99,7 +99,7 @@ public class Params {
 	 * 用1f的力，在1s后所前行的距离，单位：inch (time(1s)*power(1f)) [sf/inch]
 	 * @see SecPowerPerInchTuner
 	 */
-	public static double secPowerPerInch =0;
+	public static double secPowerPerInch = 24;
 	/**
 	 *positionErrorMargin，单位：inch
 	 */
@@ -140,8 +140,4 @@ public class Params {
 	 * 在执行手动程序时，由Structure下达的SuspensionArmPower命令的倍率因数
 	 */
 	public static double factorSuspensionArmPower=1;
-	/**
-	 * 电机的转力从0到其余数的保护时间，单位：ms
-	 */
-	public static double switchFromStaticToKinetic =75;
 }

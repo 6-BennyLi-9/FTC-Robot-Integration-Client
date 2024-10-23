@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.codes.tunings;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Global;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 
 @TeleOp(name = "MotorReverseTest",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class MotorReverseTest extends TuningProgramTemplate {
 	IntegrationMotor leftFront, leftRear, rightFront, rightRear;
 

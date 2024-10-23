@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.codes.tunings;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Params;
 
-/**
- * @see ChassisTest
- */
 @TeleOp(name = "ChassisTest",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class ChassisTest extends SecPowerPerInchTuner {
 	@Override
 	protected double getAxialBufPower() {
