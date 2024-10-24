@@ -19,6 +19,6 @@ public class DashboardTest extends TuningProgramTemplate {
 
 	@Override
 	public void whileActivating() {
-		client.dashboard.DrawRobot(new Position2d(0, Functions.roundClip(timer.restartAndGetDeltaTime(),64),114), DashboardClient.Blue);
+		client.dashboard.DrawRobot(new Position2d(0, Functions.roundClip(timer.restartAndGetDeltaTime(),64),114), DashboardClient.Blue,"aim");
 	}
 }
