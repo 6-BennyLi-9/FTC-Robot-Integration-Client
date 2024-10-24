@@ -31,7 +31,7 @@ repositories {
 
 dependencies {
     implementation project(':FtcRobotController')
-    implementation project(':roadrunnerCores')
+    implementation project(':RoadrunnerCores')
 
     implementation ('com.acmerobotics.dashboard:dashboard:0.4.16'){
         exclude group: 'org.firstinspires.ftc'

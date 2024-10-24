@@ -1,28 +1,27 @@
 package org.firstinspires.ftc.teamcode.drives.localizers.odometries;
 
-import com.acmerobotics.roadrunner.Pose2d;
-
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
 
 @OdometerPrograms
 public class SuperRubbishUselessAwfulOdometer implements Odometry{
-	public Pose2d robotPose;
-	public Client client;
+	public Position2d robotPose;
+	public Client     client;
 	private String color;
 
 	public SuperRubbishUselessAwfulOdometer(){
-		robotPose=new Pose2d(0,0,0);
+		robotPose=new Position2d(0,0,0);
 		this.client= Global.client;
 	}
 
 	@Override
 	public void update(double relDeltaX, double relDeltaY, double relDeltaTheta) {
-		robotPose=new Pose2d(
-				robotPose.position.x+ relDeltaX,
-				robotPose.position.y+ relDeltaY,
-				robotPose.heading.toDouble()+ Math.toRadians(relDeltaTheta)
+		robotPose=new Position2d(
+				robotPose.x+ relDeltaX,
+				robotPose.y+ relDeltaY,
+				robotPose.heading+ Math.toRadians(relDeltaTheta)
 		);
 	}
 
@@ -38,7 +37,7 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 	}
 
 	@Override
-	public Pose2d getCurrentPose() {
+	public Position2d getCurrentPose() {
 		return robotPose;
 	}
 

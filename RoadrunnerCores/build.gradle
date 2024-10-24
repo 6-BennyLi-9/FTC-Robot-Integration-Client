@@ -1,12 +1,24 @@
-apply from: '../build.common.gradle'
+import java.text.SimpleDateFormat
+
+//apply from: '../build.common.gradle'
+apply plugin: 'com.android.library'
 apply from: '../build.dependencies.gradle'
 
 android {
 	namespace = 'org.firstinspires.ftc.teamcode'
 
-	packagingOptions {
-		jniLibs.useLegacyPackaging true
+	//from FtcRobotController
+	defaultConfig {
+		minSdkVersion 24
+		//noinspection ExpiredTargetSdkVersion
+		targetSdkVersion 28
+		buildConfigField "String", "APP_BUILD_TIME", '"' + (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ROOT).format(new Date())) + '"'
 	}
+	compileSdkVersion 29
+
+//	packagingOptions {
+//		jniLibs.useLegacyPackaging true
+//	}
 }
 
 repositories {

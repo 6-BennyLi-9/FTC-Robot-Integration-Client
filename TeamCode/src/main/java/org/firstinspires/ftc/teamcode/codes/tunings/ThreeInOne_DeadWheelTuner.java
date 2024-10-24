@@ -22,7 +22,7 @@ public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 		robot.addData("LateralInch","wait for start");
 	}
 
-	double turn=0,axial=0,lateral=0;
+	private double turn=0,axial=0,lateral=0;
 
 	@Override
 	public void whileActivating() {

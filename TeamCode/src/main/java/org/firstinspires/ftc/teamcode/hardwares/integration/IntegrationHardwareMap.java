@@ -13,12 +13,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
-import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDeadWheelEncoders;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
 import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
+import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceNotFoundException;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
@@ -28,6 +30,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 集成化的 hardwareMap
+ */
 public class IntegrationHardwareMap {
 	public Map<HardwareDeviceTypes, Integrations> devices;
 	private final Set<HardwareDeviceTypes> IsIntegrationMotor,IsDeadWheel;
@@ -69,9 +74,12 @@ public class IntegrationHardwareMap {
 				}else{
 					motor.setDirection(Direction.FORWARD);
 				}
-				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor,this));
+				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor));
 			}else if(IsDeadWheel.contains(device)){
-				IntegrationDeadWheelEncoders encoders=new IntegrationDeadWheelEncoders(motor);
+				motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+				IntegrationEncoders encoders =new IntegrationEncoders(motor);
 				encoders.sensor.setDirection(Direction.REVERSE);
 				devices.put(device,encoders);
 			}else {
@@ -96,6 +104,7 @@ public class IntegrationHardwareMap {
 		}
 	}
 
+	@Beta
 	@ExtractedInterfaces
 	public void registerAllDevices(){
 		for(HardwareDeviceTypes device: HardwareDeviceTypes.values()){
@@ -171,18 +180,6 @@ public class IntegrationHardwareMap {
 	}
 
 	@ExtractedInterfaces
-	public void setPowerSmooth(@NonNull HardwareDeviceTypes hardwareDeviceTypes, double power){
-		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
-			throw new DeviceDisabledException(hardwareDeviceTypes.name());
-		}
-		Integrations device=getDevice(hardwareDeviceTypes);
-		if(device instanceof IntegrationMotor){
-			((IntegrationMotor) device).setTargetPowerSmooth(power);
-		}else if(device instanceof IntegrationServo){
-			throw new RuntimeException("Not Allowed");
-		}
-	}
-
 	public double getVoltage(){
 		return lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
 	}
@@ -199,6 +196,7 @@ public class IntegrationHardwareMap {
 		}
 	}
 
+	@UserRequirementFunctions
 	public void printSettings(){
 		for(HardwareDeviceTypes types:HardwareDeviceTypes.values()){
 			Global.client.changeData(types+" direction",types.config.direction);

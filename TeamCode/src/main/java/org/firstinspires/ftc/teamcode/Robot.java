@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -36,6 +37,9 @@ import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
 
+/**
+ * 几乎所有关于机器的集成化控制器
+ */
 public class Robot {
 	public IntegrationHardwareMap lazyIntegratedDevices;
 
@@ -43,42 +47,34 @@ public class Robot {
 	public final Sensors sensors;
 	public final Servos servos;
 
-	public Chassis chassis;
-	public Structure structure;
-	public Webcam webcam;
+	public final Chassis chassis;
+	public final Structure structure;
+	public final Webcam webcam;
 
-	public Client client;
-	public PidProcessor pidProcessor;
+	public final Client client;
+	public final PidProcessor pidProcessor;
 
 	public static RobotState robotState=RobotState.IDLE;
-	public RunningMode runningState;
+	public static RunningMode runningState;
 	public IntegrationGamepad gamepad=null;
 	public final ActionBox actionBox;
 	public DriverProgram drive=null;
 
-	public Timer timer;
+	public final Timer timer;
 
 	public ParamsController paramsController =new DefaultParamsController();
 	public KeyMapController keyMapController =new DefaultKeyMapController();
 
-	private void configsReset(){
-		Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
-		Params.Configs.runUpdateWhenAnyNewOptionsAdded=false;
-		Params.Configs.waitForServoUntilThePositionIsInPlace=false;
-		Params.Configs.autoPrepareForNextOptionWhenUpdate=false;
-		Params.Configs.alwaysRunPIDInAutonomous=false;
-		Params.Configs.usePIDInAutonomous=true;
-		Params.Configs.useOutTimeProtection=true;
-		Params.Configs.autoRegisterAllHardwaresWhenInit=true;
-	}
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
 
 	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
+		Params.Configs.reset();
+		Global.clear();
+
 		pidProcessor=new PidProcessor();
-		configsReset();
 
 		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
 
@@ -91,7 +87,6 @@ public class Robot {
 		webcam=new Webcam(hardwareMap);
 
 		this.client=client;
-		pidProcessor=new PidProcessor();
 
 
 		//TODO:如果需要，在这里修改 Params.Config 中的值
@@ -155,6 +150,14 @@ public class Robot {
 		SetGlobalBufPower(0.9f);
 	}
 
+	/**
+	 * 自动转译成集成化的gamepad
+	 * @param gamepad1 于 OpMode 中的 gamepad1
+	 * @param gamepad2 于 OpMode 中的 gamepad2
+	 *
+	 * @see OpMode#gamepad1
+	 * @see OpMode#gamepad2
+	 */
 	public void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
 		gamepad=new IntegrationGamepad(gamepad1,gamepad2);
 
@@ -163,11 +166,14 @@ public class Robot {
 		Global.integrationGamepad=gamepad;
 	}
 
-	public void update()  {
-		if(timer.stopAndGetDeltaTime()>=90000&&runningState==RunningMode.ManualDrive){
-			robotState = RobotState.FinalState;
-		}
-
+	/**
+	 * 更新传感器、舵机、电机
+	 *
+	 * @see Sensors#update()
+	 * @see Servos#update()
+	 * @see Motors#update()
+	 */
+	public void updateHardwares(){
 		sensors.update();
 		servos.update();
 
@@ -178,6 +184,24 @@ public class Robot {
 				motors.update();
 			}
 		}catch (DeviceDisabledException ignored){}
+	}
+	/**
+	 * 更新传感器、舵机、电机
+	 * <p>
+	 * 运行 ActionBox 内的所有 Action
+	 *
+	 * @see #updateHardwares()
+	 * @see Sensors#update()
+	 * @see Servos#update()
+	 * @see Motors#update()
+	 * @see ActionBox#output()
+	 */
+	public void update()  {
+		if(timer.stopAndGetDeltaTime()>=90000&&runningState==RunningMode.ManualDrive){
+			robotState = RobotState.FinalState;
+		}
+
+		updateHardwares();
 
 		Actions.runBlocking(actionBox.output());
 		client.changeData("RobotState", robotState.name());
@@ -190,7 +214,7 @@ public class Robot {
 	}
 
 	/**
-	 * 不会自动 update()
+	 * 不会自动 #update()
 	 */
 	@UserRequirementFunctions
 	@ExtractedInterfaces

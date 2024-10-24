@@ -1,18 +1,20 @@
 package org.firstinspires.ftc.teamcode.codes.tunings;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
-import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 
 @TeleOp(name = "MotorReverseTest",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class MotorReverseTest extends TuningProgramTemplate {
 	IntegrationMotor leftFront, leftRear, rightFront, rightRear;
 
@@ -33,7 +35,7 @@ public class MotorReverseTest extends TuningProgramTemplate {
 				.loadButtonContent(KeyTag.TuningButton3, KeyButtonType.X, KeyMapSettingType.RunWhenButtonPressed)
 				.loadButtonContent(KeyTag.TuningButton4, KeyButtonType.Y, KeyMapSettingType.RunWhenButtonPressed);
 
-		Global.integrationHardwareMap.printSettings();
+//		Global.integrationHardwareMap.printSettings();
 	}
 
 	@Override
@@ -51,10 +53,10 @@ public class MotorReverseTest extends TuningProgramTemplate {
 			rightFront.reverse();
 		}
 
-		leftFront.setPower(0.1);
-		leftRear.setPower(0.1);
-		rightFront.setPower(0.1);
-		rightRear.setPower(0.1);
+		leftFront.setPower(0.01);
+		leftRear.setPower(0.01);
+		rightFront.setPower(0.01);
+		rightRear.setPower(0.01);
 
 		leftFront.update();
 		leftRear.update();
@@ -65,5 +67,10 @@ public class MotorReverseTest extends TuningProgramTemplate {
 		client.changeData("LeftRear Motor Direction",leftRear.isReversed());
 		client.changeData("RightFront Motor Direction",rightFront.isReversed());
 		client.changeData("RightRear Motor Direction",rightRear.isReversed());
+
+		client.changeData("LeftFront Motor Power",leftFront.getPower());
+		client.changeData("LeftRear Motor Power",leftRear.getPower());
+		client.changeData("RightFront Motor Power",rightFront.getPower());
+		client.changeData("RightRear Motor Power",rightRear.getPower());
 	}
 }
