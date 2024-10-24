@@ -144,9 +144,9 @@ public class DashboardClient {
 	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag,String color){
 		double sx,sy,ex,ey;
 		sx= Functions.getX(start);
-		sy= Functions.getX(start);
+		sy= Functions.getY(start);
 		ex= Functions.getX(end);
-		ey= Functions.getX(end);
+		ey= Functions.getY(end);
 
 		TelemetryPacket packet=new TelemetryPacket();
 		Canvas c=packet.fieldOverlay();

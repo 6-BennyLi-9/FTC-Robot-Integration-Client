@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Functions;
@@ -67,16 +66,16 @@ public class IntegrationMotor extends IntegrationDevice{
 		if(updated)return;
 		updated=true;
 
-		Global.client.changeData("in box power",power);
+//		Global.client.changeData("in box power",power);
 
 		if(PID_ENABLED&&pidProcessor!=null){
 			//警告：如果沒有匹配的 PID Params 電極將無法轉動
-			Global.client.changeData(motor.getDeviceName(),"Use PID Running");
+//			Global.client.changeData(motor.getDeviceName(),"Use PID Running");
 			pidProcessor.registerInaccuracies(pidTag,power-motor.getPower());
 			pidProcessor.ModifyPidByTag(pidTag);
 			motor.setPower(motor.getPower()+pidProcessor.getFulfillment(pidTag));
 		}else{
-			Global.client.changeData(motor.getDeviceName(),"No PID Running");
+//			Global.client.changeData(motor.getDeviceName(),"No PID Running");
 			motor.setPower(power);
 		}
 //		timer.pushTimeTag("LastUpdateTime");
