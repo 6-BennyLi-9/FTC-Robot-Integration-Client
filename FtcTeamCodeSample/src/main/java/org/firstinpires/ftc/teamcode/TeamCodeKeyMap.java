@@ -2,7 +2,7 @@ package org.firstinpires.ftc.teamcode;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.KeyMap;
+import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 import org.firstinspires.ftc.teamcode.KeyMapController;
 
 /**
