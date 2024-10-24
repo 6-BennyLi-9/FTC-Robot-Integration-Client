@@ -32,7 +32,6 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 
 	@Override
 	public void registerRobotToDashBoard(String tag) {
-		client.dashboard.deletePacketByTag(tag);
 		client.dashboard.DrawRobot(robotPose, color,tag);
 	}
 

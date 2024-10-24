@@ -11,11 +11,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Timer;
-import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class DashboardClient {
 	public static final String Blue="#3F51B5";
@@ -23,9 +19,6 @@ public class DashboardClient {
 	public static final String Red="#DEB887";
 	public static final String Gray="#808080";
 
-	/**
-	 * @author roadrunner
-	 */
 	public static final class Drawing {
 		/**
 		 * 智能地根据机器的点位，但是需要搭配相应的配套操作
@@ -64,30 +57,10 @@ public class DashboardClient {
 			drawRobot(packet.fieldOverlay(),pose.asPose2d());
 		}
 	}
-	private final Map< String , TelemetryPacket  > packets;
+	public TelemetryPacket recentPacket;
 
 	public DashboardClient(){
-		packets=new HashMap<>();
-	}
-
-	/**
-	 * 自动update()
-	 */
-	@UtilFunctions
-	public void pushPacket(TelemetryPacket packet, @NonNull String tag){
-		packets.put(tag,packet);
-		update();
-	}
-
-	@UserRequirementFunctions
-	public TelemetryPacket newRegisteredPacket(String tag){
-		if(packets.containsKey(tag)){
-			return packets.get(tag);
-		}
-
-		TelemetryPacket res=new TelemetryPacket();
-		packets.put(tag,res);
-		return res;
+		recentPacket=new TelemetryPacket();
 	}
 
 	/**
@@ -97,11 +70,10 @@ public class DashboardClient {
 	 * @see Drawing
 	 */
 	public void DrawRobot(@NonNull Position2d pose, @NonNull String color, @NonNull String tag){
-		TelemetryPacket packet=newRegisteredPacket(tag);
-		Drawing.drawRobotUsingPacket(pose,packet, color);
-		packet.put("TargetX", pose.x);
-		packet.put("TargetY", pose.y);
-		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading));
+		Drawing.drawRobotUsingPacket(pose, recentPacket, color);
+		recentPacket.put(tag+"X", pose.x);
+		recentPacket.put(tag+"Y", pose.y);
+		recentPacket.put(tag+"Heading(DEG)", Math.toDegrees(pose.heading));
 
 		update();
 	}
@@ -113,21 +85,14 @@ public class DashboardClient {
 	public void DrawLine(@NonNull Object start,@NonNull Object end){
 		DrawLine(start,end, String.valueOf(Timer.getCurrentTime()));
 	}
-	/**
-	 * 自动选择：蓝色
-	 */
-	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull String tag){
-		DrawLine(start,end,tag,Blue);
-	}
-	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull String tag,String color){
+	public void DrawLine(@NonNull Object start,@NonNull Object end,String color){
 		double sx,sy,ex,ey;
 		sx= Functions.getX(start);
 		sy= Functions.getY(start);
 		ex= Functions.getX(end);
 		ey= Functions.getY(end);
 
-		TelemetryPacket packet=newRegisteredPacket(tag);
-		Canvas c=packet.fieldOverlay();
+		Canvas c=recentPacket.fieldOverlay();
 		c.setStroke(color);
 		c.strokeLine(sx,sy,ex,ey);
 
@@ -135,21 +100,12 @@ public class DashboardClient {
 	}
 
 	@UtilFunctions
-	public void deletePacketByTag(@NonNull String tag){
-		if(!packets.containsKey(tag)){
-			return;
-		}
-		packets.remove(tag);
-	}
-
-	@UtilFunctions
 	public void clearDashBoardScreen(){
-		packets.clear();
+		recentPacket=new TelemetryPacket();
+		FtcDashboard.getInstance().clearTelemetry();
 	}
 
 	public void update(){
-		for (Map.Entry<String, TelemetryPacket> entry : packets.entrySet()) {
-			FtcDashboard.getInstance().sendTelemetryPacket(entry.getValue());
-		}
+		FtcDashboard.getInstance().sendTelemetryPacket(recentPacket);
 	}
 }
