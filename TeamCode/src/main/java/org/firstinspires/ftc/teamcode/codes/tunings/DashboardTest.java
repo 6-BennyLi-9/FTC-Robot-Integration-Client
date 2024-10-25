@@ -12,20 +12,20 @@ import org.firstinspires.ftc.teamcode.utils.Timer;
 @Autonomous(name = "DashboardTest" , group = Params.Configs.TuningAndTuneOpModesGroup)
 public class DashboardTest extends TuningProgramTemplate {
 	public TelemetryPacket packet;
-	public FtcDashboard dashboard;
 
 	@Override
 	public void whenInit() {
-		packet=new TelemetryPacket();
-		dashboard=FtcDashboard.getInstance();
+		packet=new TelemetryPacket(true);
+		FtcDashboard.getInstance().sendTelemetryPacket(packet);
 	}
 
 	@Override
 	public void whileActivating() {
+		packet=new TelemetryPacket(true);
 		packet.fieldOverlay().strokeLine(
 				0,0,
 				Functions.roundClip(Timer.getCurrentTime(),10),Functions.roundClip(Timer.getCurrentTime(),10)
 		);
-		dashboard.sendTelemetryPacket(packet);
+		FtcDashboard.getInstance().sendTelemetryPacket(packet);
 	}
 }

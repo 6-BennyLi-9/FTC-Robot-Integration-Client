@@ -13,12 +13,13 @@ import org.firstinspires.ftc.teamcode.utils.clients.DashboardClient;
 public class DashboardClientTest extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
-		client.dashboard.DrawLine(new Vector2d(1,1),new Vector2d(2,2));
+		client.dashboard.drawLine(new Vector2d(1,1),new Vector2d(2,2));
 		timer.restart();
 	}
 
 	@Override
 	public void whileActivating() {
-		client.dashboard.DrawRobot(new Position2d(0, Functions.roundClip(timer.restartAndGetDeltaTime(),64),114), DashboardClient.Blue,"aim");
+		client.dashboard.drawRobot(new Position2d(0, Functions.roundClip(timer.restartAndGetDeltaTime(),64),114), DashboardClient.Blue,"aim");
+		client.dashboard.sendPacket();
 	}
 }

@@ -90,7 +90,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 			motors.updateDriveOptions(RobotPosition.heading);
 
 			PoseList[i+1]=singleCommand.NEXT().asVector();
-			client.dashboard.DrawLine(PoseList[i],PoseList[i+1],"TargetLine");
+			client.dashboard.drawLine(PoseList[i],PoseList[i + 1],"TargetLine");
 
 			this.BufPower= singleCommand.BufPower;
 			double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
@@ -192,7 +192,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.DrawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
+		client.dashboard.drawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);
 	}

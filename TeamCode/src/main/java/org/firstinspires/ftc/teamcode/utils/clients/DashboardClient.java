@@ -69,23 +69,23 @@ public class DashboardClient {
 	 * 同时会在DashBoard中发送机器的位置信息
 	 * @see Drawing
 	 */
-	public void DrawRobot(@NonNull Position2d pose, @NonNull String color, @NonNull String tag){
+	public void drawRobot(@NonNull Position2d pose, @NonNull String color, @NonNull String tag){
 		Drawing.drawRobotUsingPacket(pose, recentPacket, color);
 		recentPacket.put(tag+"X", pose.x);
 		recentPacket.put(tag+"Y", pose.y);
 		recentPacket.put(tag+"Heading(DEG)", Math.toDegrees(pose.heading));
 
-		update();
+		sendPacket();
 	}
 
 	/**
 	 * 自动选择：蓝色，将 ID 作为tag
 	 */
 	@UtilFunctions
-	public void DrawLine(@NonNull Object start,@NonNull Object end){
-		DrawLine(start,end, String.valueOf(Timer.getCurrentTime()));
+	public void drawLine(@NonNull Object start, @NonNull Object end){
+		drawLine(start,end, String.valueOf(Timer.getCurrentTime()));
 	}
-	public void DrawLine(@NonNull Object start,@NonNull Object end,String color){
+	public void drawLine(@NonNull Object start, @NonNull Object end, String color){
 		double sx,sy,ex,ey;
 		sx= Functions.getX(start);
 		sy= Functions.getY(start);
@@ -96,7 +96,7 @@ public class DashboardClient {
 		c.setStroke(color);
 		c.strokeLine(sx,sy,ex,ey);
 
-		update();
+		sendPacket();
 	}
 
 	@UtilFunctions
@@ -105,7 +105,8 @@ public class DashboardClient {
 		FtcDashboard.getInstance().clearTelemetry();
 	}
 
-	public void update(){
+	public void sendPacket(){
 		FtcDashboard.getInstance().sendTelemetryPacket(recentPacket);
+		recentPacket=new TelemetryPacket(true);
 	}
 }

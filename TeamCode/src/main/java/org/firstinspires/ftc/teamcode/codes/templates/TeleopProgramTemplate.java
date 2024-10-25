@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.codes.templates;
 
 import android.util.Log;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
@@ -24,7 +22,7 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	 */
 	@Override
 	public void init() {
-		robot=new Robot(hardwareMap, RunningMode.ManualDrive, new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry()));
+		robot=new Robot(hardwareMap, RunningMode.ManualDrive, telemetry);
 		timer=new Timer();
 		registerGamePad();
 		whenInit();
