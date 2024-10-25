@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.codes.templates;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Global;
@@ -15,7 +17,7 @@ public abstract class DebugProgramTemplate extends OpMode {
 	@Override
 	public void init() {
 		Global.clear();
-		client=new Client(telemetry);
+		client=new Client(new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry()));
 		timer=new Timer();
 		whenInit();
 	}
