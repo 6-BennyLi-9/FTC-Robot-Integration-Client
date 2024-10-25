@@ -11,9 +11,9 @@ public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 	public void whenInit() {
 		robot.addLine("该调参程序不具备定位和直接数据处理能力，以下所能看到的辅助调参数据都是直接相乘得到的，因此不具备定位能力！！！");
 
-		robot.addData("TurningDegPerTick","wait for start");
-		robot.addData("AxialInchPerTick","wait for start");
-		robot.addData("LateralInchPerTick","wait for start");
+		robot.changeData("TurningTick","wait for start");
+		robot.changeData("AxialTick","wait for start");
+		robot.changeData("LateralTick","wait for start");
 
 		robot.addLine("如果你已经填入了Params数据，则在这里将会直接得到相乘结果");
 
@@ -26,9 +26,9 @@ public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 
 	@Override
 	public void whileActivating() {
-		robot.changeData("TurningDegTick",turn+=robot.sensors.getDeltaT());
-		robot.changeData("AxialInchTick",axial+=robot.sensors.getDeltaA());
-		robot.changeData("LateralInchTick",lateral+=robot.sensors.getDeltaL());
+		robot.changeData("TurningTick",turn+=robot.sensors.getDeltaT());
+		robot.changeData("AxialTick",axial+=robot.sensors.getDeltaA());
+		robot.changeData("LateralTick",lateral+=robot.sensors.getDeltaL());
 
 		robot.changeData("TurningDeg",turn * Params.TurningDegPerTick);
 		robot.changeData("AxialInch",axial * Params.AxialInchPerTick);
