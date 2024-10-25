@@ -77,7 +77,6 @@ public class MecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.deletePacketByTag("RobotPosition");
 		client.dashboard.DrawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);
