@@ -25,7 +25,7 @@ public class Position2d {
 	@NonNull
 	@Override
 	public String toString() {
-		return "("+x+","+"y"+"):"+heading;
+		return "("+x+","+y+"):"+heading;
 	}
 
 	public Vector2d minus(@NonNull Vector2d pose) {
