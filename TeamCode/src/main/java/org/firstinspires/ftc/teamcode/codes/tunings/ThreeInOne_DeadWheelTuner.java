@@ -26,9 +26,9 @@ public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 
 	@Override
 	public void whileActivating() {
-		robot.changeData("TurningDegPerTick",turn+=robot.sensors.getDeltaT());
-		robot.changeData("AxialInchPerTick",axial+=robot.sensors.getDeltaA());
-		robot.changeData("LateralInchPerTick",lateral+=robot.sensors.getDeltaL());
+		robot.changeData("TurningDegTick",turn+=robot.sensors.getDeltaT());
+		robot.changeData("AxialInchTick",axial+=robot.sensors.getDeltaA());
+		robot.changeData("LateralInchTick",lateral+=robot.sensors.getDeltaL());
 
 		robot.changeData("TurningDeg",robot.sensors.getDeltaT() * Params.TurningDegPerTick);
 		robot.changeData("AxialInch",robot.sensors.getDeltaA() * Params.AxialInchPerTick);

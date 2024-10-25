@@ -17,8 +17,10 @@ import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 @Autonomous(name = "BasicsExceptionSample",group = Params.Configs.SampleOpModesGroup)
 public class BasicsExceptionSample extends LinearOpMode {
 	@Override
-	public void runOpMode() throws InterruptedException {
-
+	public void runOpMode() {
+		waitForStart();
+		nullPointerException1();
+		nullPointerException2();
 	}
 
 	/**
