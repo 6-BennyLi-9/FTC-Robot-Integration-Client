@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 
 public class DashboardClient {
+	private static DashboardClient instanceDashboardClient;
 	public static final String Blue="#3F51B5";
 	public static final String Green="#4CAF50";
 	public static final String Red="#DEB887";
@@ -61,6 +62,15 @@ public class DashboardClient {
 
 	public DashboardClient(){
 		recentPacket=new TelemetryPacket();
+		if(instanceDashboardClient!=null){
+			instanceDashboardClient = this;
+		}else{
+			throw new RuntimeException("DashboardClient had already been created!");
+		}
+	}
+
+	public static DashboardClient getInstance(){
+		return instanceDashboardClient;
 	}
 
 	/**

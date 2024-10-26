@@ -26,7 +26,7 @@ public class ClassicOdometer implements Odometry{
 	}
 
 	@Override
-	public void registerLineToDashBoard(String tag) {
+	public void registerLineToDashBoard() {
 		for (int i = 0, poseHistorySize = PoseHistory.size(); i < poseHistorySize - 1; i++) {
 			client.dashboard.DrawLine(PoseHistory.get(i),PoseHistory.get(i+1), color);
 		}
