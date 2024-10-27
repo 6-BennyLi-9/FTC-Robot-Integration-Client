@@ -157,7 +157,6 @@ public class SimpleMecanumDrive implements DriverProgram {
 		client.deleteData("estimatedTime");
 		client.deleteData("progress");
 		client.deleteData("DELTA");
-		client.dashboard.deletePacketByTag("TargetLine");
 
 		chassis.STOP();
 		robotState = RobotState.IDLE;
@@ -193,7 +192,6 @@ public class SimpleMecanumDrive implements DriverProgram {
 		localizer.update();
 		RobotPosition = localizer.getCurrentPose();
 
-		client.dashboard.deletePacketByTag("RobotPosition");
 		client.dashboard.DrawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
 
 		poseHistory.add(RobotPosition);

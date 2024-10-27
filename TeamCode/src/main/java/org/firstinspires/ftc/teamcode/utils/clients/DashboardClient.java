@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.utils.clients;
 
-import android.util.Pair;
-
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -10,28 +8,18 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 
-import org.firstinspires.ftc.teamcode.utils.Position2d;
-import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
-import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.Functions;
-
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.Vector;
+import org.firstinspires.ftc.teamcode.utils.Position2d;
+import org.firstinspires.ftc.teamcode.utils.Timer;
+import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 
 public class DashboardClient {
+	private static DashboardClient instanceDashboardClient;
 	public static final String Blue="#3F51B5";
 	public static final String Green="#4CAF50";
 	public static final String Red="#DEB887";
 	public static final String Gray="#808080";
 
-	/**
-	 * @author roadrunner
-	 */
 	public static final class Drawing {
 		/**
 		 * 智能地根据机器的点位，但是需要搭配相应的配套操作
@@ -68,57 +56,36 @@ public class DashboardClient {
 		public static void drawRobotUsingPacket(@NonNull Position2d pose,@NonNull TelemetryPacket packet,@NonNull String color){
 			packet.fieldOverlay().setStroke(color);
 			drawRobot(packet.fieldOverlay(),pose.asPose2d());
-			FtcDashboard.getInstance().sendTelemetryPacket(packet);
 		}
 	}
-	public int retainPacketsCount;
-	private final Map< Integer , Pair < String , TelemetryPacket > > packets;
-	private int ID=0,DEAD_ID=0;
+	public TelemetryPacket recentPacket;
 
 	public DashboardClient(){
-		packets=new HashMap<>();
-		retainPacketsCount=100;
+		recentPacket=new TelemetryPacket();
+		if(instanceDashboardClient!=null){
+			instanceDashboardClient = this;
+		}else{
+			throw new RuntimeException("DashboardClient had already been created!");
+		}
+	}
+
+	public static DashboardClient getInstance(){
+		return instanceDashboardClient;
 	}
 
 	/**
-	 * 自动update()
+	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw
+	 * <p>
+	 * 同时会在DashBoard中发送机器的位置信息
+	 * @see Drawing
 	 */
-	@UtilFunctions
-	public void pushPacket(TelemetryPacket packet, @NonNull Object tag){
-		packets.put(++ID,new Pair<>(String.valueOf(tag),packet));
+	public void DrawRobot(@NonNull Position2d pose, @NonNull String color, @NonNull String tag){
+		Drawing.drawRobotUsingPacket(pose, recentPacket, color);
+		recentPacket.put(tag+"X", pose.x);
+		recentPacket.put(tag+"Y", pose.y);
+		recentPacket.put(tag+"Heading(DEG)", Math.toDegrees(pose.heading));
+
 		update();
-	}
-	/**
-	 * 自动update()
-	 */
-	@ExtractedInterfaces
-	public void pushPacket(TelemetryPacket packet){
-		pushPacket(packet,ID+1);
-	}
-
-	/**
-	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw
-	 * <p>
-	 * 同时会在DashBoard中发送机器的位置信息
-	 * @see Drawing
-	 */
-	@ExtractedInterfaces
-	public void DrawRobot(@NonNull Position2d pose,@NonNull String color){
-		DrawRobot(pose,color,ID+1);
-	}
-	/**
-	 * 推荐使用的DrawRobot方法。可以自动使用packet进行draw
-	 * <p>
-	 * 同时会在DashBoard中发送机器的位置信息
-	 * @see Drawing
-	 */
-	public void DrawRobot(@NonNull Position2d pose, @NonNull String color, @NonNull Object tag){
-		TelemetryPacket packet=new TelemetryPacket();
-		Drawing.drawRobotUsingPacket(pose,packet, color);
-		packet.put("TargetX", pose.x);
-		packet.put("TargetY", pose.y);
-		packet.put("TargetHeading(DEG)", Math.toDegrees(pose.heading));
-		pushPacket(packet,tag);
 	}
 
 	/**
@@ -126,91 +93,29 @@ public class DashboardClient {
 	 */
 	@UtilFunctions
 	public void DrawLine(@NonNull Object start,@NonNull Object end){
-		DrawLine(start,end,ID+1);
+		DrawLine(start,end, String.valueOf(Timer.getCurrentTime()));
 	}
-	/**
-	 * 自动选择：将 ID 作为tag
-	 */
-	@UtilFunctions
-	public void DrawLine(@NonNull String color,@NonNull Object start,@NonNull Object end){
-		DrawLine(start,end,ID+1,color);
-	}
-	/**
-	 * 自动选择：蓝色
-	 */
-	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag){
-		DrawLine(start,end,tag,Blue);
-	}
-	public void DrawLine(@NonNull Object start,@NonNull Object end,@NonNull Object tag,String color){
+	public void DrawLine(@NonNull Object start,@NonNull Object end,String color){
 		double sx,sy,ex,ey;
 		sx= Functions.getX(start);
-		sy= Functions.getX(start);
+		sy= Functions.getY(start);
 		ex= Functions.getX(end);
-		ey= Functions.getX(end);
+		ey= Functions.getY(end);
 
-		TelemetryPacket packet=new TelemetryPacket();
-		Canvas c=packet.fieldOverlay();
+		Canvas c=recentPacket.fieldOverlay();
 		c.setStroke(color);
 		c.strokeLine(sx,sy,ex,ey);
-		pushPacket(packet,tag);
-	}
 
-	@UtilFunctions
-	public void deletePacketByTag(@NonNull String tag){
-		if(packets.isEmpty())return;
-
-		Set<Integer> collection=new HashSet<>(packets.keySet());
-
-		for (Map.Entry<Integer, Pair<String, TelemetryPacket>> entry : packets.entrySet()){
-			if(Objects.equals(entry.getValue().first, tag)){
-				packets.remove(entry.getKey());
-				collection.add(entry.getKey());
-			}
-		}
-
-		for(Integer key:collection){
-			packets.remove(key);
-		}
-	}
-	@UtilFunctions
-	public void deletePacketByID(@NonNull Integer ID){
-		if(packets.containsKey(ID)){
-			packets.remove(ID);
-		}else{
-			throw new RuntimeException("can't find the key \""+ID+"\".");
-		}
 		update();
-	}
-
-	/**
-	 * @param length 保留的packet个数，其他的packet将会被删去
-	 */
-	@UtilFunctions
-	public void popRedundantPackets(int length){
-		if(packets.size()>length){
-			while (!packets.containsKey(DEAD_ID))++DEAD_ID;
-			while(packets.size()!=length){
-				packets.remove(DEAD_ID);
-			}
-		}
 	}
 
 	@UtilFunctions
 	public void clearDashBoardScreen(){
-		packets.clear();
-	}
-	public void update(){
+		recentPacket=new TelemetryPacket();
 		FtcDashboard.getInstance().clearTelemetry();
+	}
 
-		Vector<Pair<Integer, TelemetryPacket>> outputData = new Vector<>();
-		for (Map.Entry<Integer, Pair<String, TelemetryPacket>> entry : packets.entrySet()) {
-			outputData.add(new Pair<>(entry.getKey(),entry.getValue().second));
-		}
-		outputData.sort(Comparator.comparingInt(x -> x.first));
-		for ( Pair<Integer, TelemetryPacket> outputPacket : outputData ){
-			FtcDashboard.getInstance().sendTelemetryPacket(outputPacket.second);
-		}
-
-		FtcDashboard.getInstance().updateConfig();
+	public void update(){
+		FtcDashboard.getInstance().sendTelemetryPacket(recentPacket);
 	}
 }

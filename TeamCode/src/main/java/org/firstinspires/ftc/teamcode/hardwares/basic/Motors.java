@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.Vector2d;
 import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
 
@@ -23,6 +24,8 @@ import org.firstinspires.ftc.teamcode.utils.exceptions.DeviceDisabledException;
  */
 public class Motors {
 	public IntegrationHardwareMap hardware;
+
+	public IntegrationMotor LeftFront,LeftRear,RightFront,RightRear;
 
 	//除非在手动程序中，不建议直接更改下列数值
 	public double LeftFrontPower,RightFrontPower,LeftRearPower,RightRearPower;
@@ -40,6 +43,11 @@ public class Motors {
 
 		SuspensionArmPower=0;
 		IntakePower=0;
+
+		LeftFront= (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.LeftFront);
+		LeftRear = (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.LeftRear);
+		RightFront= (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.RightFront);
+		RightRear= (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.RightRear);
 	}
 
 	public void clearDriveOptions(){
@@ -81,15 +89,21 @@ public class Motors {
 		updateDriveOptions();
 	}
 	public void updateDriveOptions(){
-		hardware.setPower(HardwareDeviceTypes.LeftFront, LeftFrontPower* ChassisBufPower);
-		hardware.setPower(HardwareDeviceTypes.LeftRear, LeftRearPower* ChassisBufPower);
-		hardware.setPower(HardwareDeviceTypes.RightFront, RightFrontPower* ChassisBufPower);
-		hardware.setPower(HardwareDeviceTypes.RightRear, RightRearPower* ChassisBufPower);
+		Timer timer=new Timer();
+		LeftFront.setPower( LeftFrontPower* ChassisBufPower);
+		LeftRear.setPower( LeftRearPower* ChassisBufPower);
+		RightFront.setPower( RightFrontPower* ChassisBufPower);
+		RightRear.setPower( RightRearPower* ChassisBufPower);
 
-		hardware.getDevice(HardwareDeviceTypes.LeftFront).update();
-		hardware.getDevice(HardwareDeviceTypes.LeftRear).update();
-		hardware.getDevice(HardwareDeviceTypes.RightFront).update();
-		hardware.getDevice(HardwareDeviceTypes.RightRear).update();
+		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
+			return;
+		}
+		timer.restart();
+		LeftFront.update();
+		LeftRear.update();
+		RightFront.update();
+		RightRear.update();
+		client.changeData("update time",timer.stopAndGetDeltaTime());
 	}
 	public void updateStructureOptions(){
 		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower * StructureBufPower);
