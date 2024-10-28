@@ -23,7 +23,7 @@ public interface Odometry {
 	@UtilFunctions
 	default void drawToDashBoard(String tag){
 		registerToDashBoard(tag);
-		DashboardClient.getInstance().update();
+		DashboardClient.getInstance().sendPacket();
 	}
 	@UtilFunctions
 	Position2d getCurrentPose();
