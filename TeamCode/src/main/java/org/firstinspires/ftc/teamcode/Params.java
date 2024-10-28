@@ -5,6 +5,8 @@ import com.acmerobotics.dashboard.config.Config;
 import org.firstinspires.ftc.teamcode.codes.tunings.SecPowerPerInchTuner;
 import org.firstinspires.ftc.teamcode.codes.tunings.ThreeInOne_DeadWheelTuner;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
+import org.firstinspires.ftc.teamcode.utils.clients.DashboardClient;
+import org.firstinspires.ftc.teamcode.utils.clients.TelemetryClient;
 
 @Config
 public class Params {
@@ -46,6 +48,12 @@ public class Params {
 		 * @see Client
 		 */
 		public static boolean clientAutoRegisteredFtcDashboardTelemetry=true;
+		/**
+		 * 自动在<code>TelemetryClient.addData</code>时更新 DashboardClient
+		 * @see TelemetryClient#addData(String, Object)
+		 * @see DashboardClient#put(Object, Object)
+		 */
+		public static boolean dashboardAutoSyncWithTelemetry=true;
 
 		public static void reset(){
 			driverUsingAxisPowerInsteadOfCurrentPower=true;
@@ -57,6 +65,7 @@ public class Params {
 			useOutTimeProtection=true;
 			autoRegisterAllHardwaresWhenInit=true;
 			clientAutoRegisteredFtcDashboardTelemetry=true;
+			dashboardAutoSyncWithTelemetry=true;
 		}
 
 		public static final String TuningAndTuneOpModesGroup = "0_Tunings";

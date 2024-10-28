@@ -13,12 +13,17 @@ import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DashboardClient {
 	private static DashboardClient instanceDashboardClient;
 	public static final String Blue="#3F51B5";
 	public static final String Green="#4CAF50";
 	public static final String Red="#DEB887";
 	public static final String Gray="#808080";
+
+	protected Map < String , String > data;
 
 	public static final class Drawing {
 		/**
@@ -62,11 +67,12 @@ public class DashboardClient {
 
 	public DashboardClient(){
 		recentPacket=new TelemetryPacket();
-		if(instanceDashboardClient!=null){
-			instanceDashboardClient = this;
-		}else{
-			throw new RuntimeException("DashboardClient had already been created!");
-		}
+		data=new HashMap <>();
+//		if(instanceDashboardClient!=null){
+		instanceDashboardClient = this;
+//		}else{
+//			throw new RuntimeException("DashboardClient had already been created!");
+//		}
 	}
 
 	public static DashboardClient getInstance(){
@@ -116,7 +122,18 @@ public class DashboardClient {
 	}
 
 	public void sendPacket(){
+		syncData();
 		FtcDashboard.getInstance().sendTelemetryPacket(recentPacket);
 		recentPacket=new TelemetryPacket(true);
+	}
+
+	public void put(@NonNull Object key, @NonNull Object value){
+		data.put(key.toString(),value.toString());
+	}
+
+	private void syncData(){
+		for(Map.Entry<String,String> entry:data.entrySet()){
+			recentPacket.put(entry.getKey(),entry.getValue());
+		}
 	}
 }

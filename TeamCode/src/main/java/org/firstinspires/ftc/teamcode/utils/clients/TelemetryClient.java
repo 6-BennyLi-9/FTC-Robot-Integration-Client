@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.utils.clients;
 import android.util.Pair;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Params;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -97,8 +98,11 @@ public class TelemetryClient {
 		for (Map.Entry<String, Pair<String, Integer>> i : data.entrySet() ) {
 			String key = i.getKey(),val=i.getValue().first;
 			Integer IDCache=i.getValue().second;
-			if(!Objects.equals(i.getValue().first, "")) {
+			if(!Objects.equals(i.getValue().first, "")) {//line
 				outputData.add(new Pair<>(IDCache,key+":"+val));
+				if(Params.Configs.dashboardAutoSyncWithTelemetry){
+					DashboardClient.getInstance().put(key,val);
+				}
 			}else{//line
 				outputData.add(new Pair<>(IDCache,key));
 			}
