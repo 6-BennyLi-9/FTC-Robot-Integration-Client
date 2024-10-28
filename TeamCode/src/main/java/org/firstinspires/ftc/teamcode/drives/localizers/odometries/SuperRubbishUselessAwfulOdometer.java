@@ -26,7 +26,7 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 	}
 
 	@Override
-	public void registerLineToDashBoard(String tag) {
+	public void registerLineToDashBoard() {
 		//Cannot Draw
 	}
 
