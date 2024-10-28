@@ -38,7 +38,7 @@ public final class TuningOpModes {
     public static final String GROUP = "quickstart";
 
     //TODO: Robot Init error
-    public static final boolean DISABLED = false;
+    public static final boolean DISABLED = true;
 
     private TuningOpModes() {}
 
