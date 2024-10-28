@@ -52,10 +52,12 @@ public class MultiOdometriesTest extends TuningProgramTemplate {
 		robot.sensors.updateEncoders();
 		robot.motors.clearDriveOptions();
 
-		arc.update(robot.sensors.getDeltaL(),robot.sensors.getDeltaA(),robot.sensors.getDeltaT());
-		rubbish.update(robot.sensors.getDeltaL(),robot.sensors.getDeltaA(),robot.sensors.getDeltaT());
-		classic.update(robot.sensors.getDeltaL(),robot.sensors.getDeltaA(),robot.sensors.getDeltaT());
-		integral.update(robot.sensors.getDeltaL(),robot.sensors.getDeltaA(),robot.sensors.getDeltaT());
+		double l=robot.sensors.getDeltaL(),a=robot.sensors.getDeltaA(),t=robot.sensors.getDeltaT();
+
+		arc.update(l,a,t);
+		rubbish.update(l,a,t);
+		classic.update(l,a,t);
+		integral.update(l,a,t);
 
 		print(arc);
 		print(rubbish);
@@ -66,6 +68,8 @@ public class MultiOdometriesTest extends TuningProgramTemplate {
 		rubbish.registerToDashBoard("rubbish");
 		integral.registerToDashBoard("integral");
 		classic.registerToDashBoard("classic");
+
+		client.dashboard.sendPacket();
 	}
 
 	public void print(@NonNull Odometry aim){

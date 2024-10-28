@@ -128,7 +128,11 @@ public class DashboardClient {
 	}
 
 	public void put(@NonNull Object key, @NonNull Object value){
-		data.put(key.toString(),value.toString());
+		if(data.containsKey(key.toString())) {
+			data.put(key.toString(), value.toString());
+		}else{
+			data.replace(key.toString(),value.toString());
+		}
 	}
 
 	private void syncData(){
