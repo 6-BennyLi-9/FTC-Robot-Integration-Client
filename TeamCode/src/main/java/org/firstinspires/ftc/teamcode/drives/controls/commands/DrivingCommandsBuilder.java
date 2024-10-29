@@ -27,8 +27,8 @@ public class DrivingCommandsBuilder implements DriveOrderBuilder {
 
 	public DrivingCommandsBuilder SetPower(double power) {
 		power = Functions.intervalClip(power, -1f, 1f);
-		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
-		cache.SetPower(power);
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().nextPose());
+		cache.setPower(power);
 		cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
 		commandPackage.commands.add(cache);
 		return new DrivingCommandsBuilder(drive, commandPackage);
@@ -36,8 +36,8 @@ public class DrivingCommandsBuilder implements DriveOrderBuilder {
 
 	public DrivingCommandsBuilder TurnRadians(double radians) {
 		radians = Functions.intervalClip(radians, -Math.PI, Math.PI);
-		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
-		cache.Turn(radians);
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().nextPose());
+		cache.turn(radians);
 		cache.trajectoryType = TrajectoryType.TurnOnly;
 		commandPackage.commands.add(cache);
 		return new DrivingCommandsBuilder(drive, commandPackage);
@@ -48,16 +48,16 @@ public class DrivingCommandsBuilder implements DriveOrderBuilder {
 	}
 
 	public DrivingCommandsBuilder StrafeInDistance(double radians, double distance) {
-		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
-		cache.StrafeInDistance(radians, distance);
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().nextPose());
+		cache.strafeInDistance(radians, distance);
 		cache.trajectoryType = TrajectoryType.LinerStrafe;
 		commandPackage.commands.add(cache);
 		return new DrivingCommandsBuilder(drive, commandPackage);
 	}
 
 	public DrivingCommandsBuilder StrafeTo(Vector2d pose) {
-		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().NEXT());
-		cache.StrafeTo(pose);
+		cache = new DriveCommand(drive.getClassic(), commandPackage.commands.getLast().BufPower, commandPackage.commands.getLast().nextPose());
+		cache.strafeTo(pose);
 		cache.trajectoryType = TrajectoryType.LinerStrafe;
 		commandPackage.commands.add(cache);
 		return new DrivingCommandsBuilder(drive, commandPackage);

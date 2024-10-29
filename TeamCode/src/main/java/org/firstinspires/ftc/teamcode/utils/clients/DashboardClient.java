@@ -10,7 +10,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
-import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 
 import java.util.HashMap;
@@ -95,11 +94,11 @@ public class DashboardClient {
 	}
 
 	/**
-	 * 自动选择：蓝色，将 ID 作为tag
+	 * 自动选择：蓝色
 	 */
 	@UtilFunctions
 	public void drawLine(@NonNull Object start, @NonNull Object end){
-		drawLine(start,end, String.valueOf(Timer.getCurrentTime()));
+		drawLine(start,end, Blue);
 	}
 	public void drawLine(@NonNull Object start, @NonNull Object end, String color){
 		double sx,sy,ex,ey;

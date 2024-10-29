@@ -103,7 +103,7 @@ public class Complex {
 		}else if(RealPart<0&&imaginary()<0){
 			return Math.atan(imaginary()/RealPart-Math.PI);
 		}else{
-			throw new RuntimeException("Unexpected Value:The Complex can't be 0");
+			return 0;
 		}
 	}
 

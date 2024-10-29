@@ -67,6 +67,8 @@ public class SimpleMecanumDrive implements DriverProgram {
 		this.pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
 		this.pidProcessor.loadContent(new PidContent(ContentTags[1],1));
 		this.pidProcessor.loadContent(new PidContent(ContentTags[2],2));
+
+		poseHistory.push(RobotPosition);
 	}
 
 	/**
@@ -85,11 +87,11 @@ public class SimpleMecanumDrive implements DriverProgram {
 		Timer timer = new Timer();
 		for ( int i = 0, commandListsLength = commandLists.length; i < commandListsLength; i++ ) {
 			DriveCommand singleCommand = commandLists[i];
-			singleCommand.RUN();
+			singleCommand.run();
 			update();
 			motors.updateDriveOptions(RobotPosition.heading);
 
-			PoseList[i+1]=singleCommand.NEXT().asVector();
+			PoseList[i+1]=singleCommand.nextPose().asVector();
 			client.dashboard.drawLine(PoseList[i],PoseList[i + 1],"TargetLine");
 
 			this.BufPower= singleCommand.BufPower;
@@ -105,7 +107,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 			timer.restart();
 			while ((Math.abs(RobotPosition.x - PoseList[i + 1].x) > pem)
 					&& (Math.abs(RobotPosition.y - PoseList[i + 1].y) > pem)
-					&& (Math.abs(RobotPosition.heading - singleCommand.NEXT().heading) > aem)) {
+					&& (Math.abs(RobotPosition.heading - singleCommand.nextPose().heading) > aem)) {
 				double progress = (timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 				client.changeData("progress", progress + "%");
 				Position2d aim = Functions.getAimPositionThroughTrajectory(singleCommand, RobotPosition, progress);
@@ -116,7 +118,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 					break;
 				}
 
-				if (Params.Configs.usePIDInAutonomous) {
+				if (Params.Configs.usePIDToDriveInAutonomous) {
 					if (Math.abs(aim.x - RobotPosition.x) > pem
 							|| Math.abs(aim.y - RobotPosition.y) > pem
 							|| Math.abs(aim.heading - RobotPosition.heading) > aem

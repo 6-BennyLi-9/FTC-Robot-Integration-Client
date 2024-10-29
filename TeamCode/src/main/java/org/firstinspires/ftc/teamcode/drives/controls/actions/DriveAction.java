@@ -43,7 +43,7 @@ public class DriveAction implements DriveOrder {
 	}
 
 	@Override
-	public void SetPower(double power) {
+	public void setPower(double power) {
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -55,7 +55,7 @@ public class DriveAction implements DriveOrder {
 	}
 
 	@Override
-	public void Turn(double radians) {
+	public void turn(double radians) {
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -67,7 +67,7 @@ public class DriveAction implements DriveOrder {
 	}
 
 	@Override
-	public void StrafeInDistance(double radians, double distance) {
+	public void strafeInDistance(double radians, double distance) {
 		MEAN=new actionRunningNode() {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -84,7 +84,7 @@ public class DriveAction implements DriveOrder {
 	}
 
 	@Override
-	public void StrafeTo(Vector2d pose) {
+	public void strafeTo(Vector2d pose) {
 		Complex cache = new Complex(this.pose.minus(pose));
 		MEAN=new actionRunningNode() {
 			@Override
@@ -97,7 +97,7 @@ public class DriveAction implements DriveOrder {
 	}
 
 	@Override
-	public void RUN() {
+	public void run() {
 		Actions.runBlocking(MEAN);
 	}
 
@@ -108,7 +108,7 @@ public class DriveAction implements DriveOrder {
 
 	@NonNull
 	@Override
-	public Position2d NEXT() {
+	public Position2d nextPose() {
 		return new Position2d(
 				pose.x + DeltaTrajectory.x,
 				pose.y + DeltaTrajectory.y,

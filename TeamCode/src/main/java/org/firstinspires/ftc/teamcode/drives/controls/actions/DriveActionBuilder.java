@@ -28,8 +28,8 @@ public class DriveActionBuilder implements DriveOrderBuilder {
 	@Override
 	public DriveOrderBuilder SetPower(double power) {
 		power = Functions.intervalClip(power, -1f, 1f);
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().NEXT());
-		cache.SetPower(power);
+		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
+		cache.setPower(power);
 		cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
 		actionPackage.actions.add(cache);
 		return new DriveActionBuilder(drive, actionPackage);
@@ -38,8 +38,8 @@ public class DriveActionBuilder implements DriveOrderBuilder {
 	@Override
 	public DriveOrderBuilder TurnRadians(double radians) {
 		radians = Functions.intervalClip(radians, -Math.PI, Math.PI);
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().NEXT());
-		cache.Turn(radians);
+		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
+		cache.turn(radians);
 		cache.trajectoryType = TrajectoryType.TurnOnly;
 		actionPackage.actions.add(cache);
 		return new DriveActionBuilder(drive, actionPackage);
@@ -52,8 +52,8 @@ public class DriveActionBuilder implements DriveOrderBuilder {
 
 	@Override
 	public DriveOrderBuilder StrafeInDistance(double radians, double distance) {
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().NEXT());
-		cache.StrafeInDistance(radians, distance);
+		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
+		cache.strafeInDistance(radians, distance);
 		cache.trajectoryType = TrajectoryType.LinerStrafe;
 		actionPackage.actions.add(cache);
 		return new DriveActionBuilder(drive, actionPackage);
@@ -61,8 +61,8 @@ public class DriveActionBuilder implements DriveOrderBuilder {
 
 	@Override
 	public DriveOrderBuilder StrafeTo(Vector2d pose) {
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().NEXT());
-		cache.StrafeTo(pose);
+		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
+		cache.strafeTo(pose);
 		cache.trajectoryType = TrajectoryType.LinerStrafe;
 		actionPackage.actions.add(cache);
 		return new DriveActionBuilder(drive, actionPackage);

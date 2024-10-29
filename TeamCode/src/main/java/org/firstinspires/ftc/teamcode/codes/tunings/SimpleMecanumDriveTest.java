@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Vector2d;
 import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 
-@TeleOp(name = "SimpleMecanumDrive_Test",group = Params.Configs.TuningAndTuneOpModesGroup)
+@TeleOp(name = "SimpleMecanumDriveTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class SimpleMecanumDriveTest extends TestProgramTemplate {
 	Robot robot;
 	SimpleMecanumDrive drive;

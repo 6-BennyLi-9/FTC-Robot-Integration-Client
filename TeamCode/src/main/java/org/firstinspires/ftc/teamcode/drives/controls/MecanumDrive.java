@@ -103,7 +103,7 @@ public class MecanumDrive implements DriverProgram {
 		Timer timer = new Timer();
 
 		for(int i=0;i<commandLists.length;++i){
-			PoseList[i+1]=commandLists[i].NEXT().asVector();
+			PoseList[i+1]=commandLists[i].nextPose().asVector();
 		}
 
 		Actions.runBlocking(new Action() {
@@ -111,7 +111,7 @@ public class MecanumDrive implements DriverProgram {
 			@Override
 			public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 				DriveAction singleAction =commandLists[ID];
-				singleAction.RUN();
+				singleAction.run();
 				update();
 				motors.updateDriveOptions(RobotPosition.heading);
 
@@ -128,7 +128,7 @@ public class MecanumDrive implements DriverProgram {
 				timer.restart();
 				while ((Math.abs(RobotPosition.x-PoseList[ID+1].x)> pem)
 						&& (Math.abs(RobotPosition.y-PoseList[ID+1].y)> pem)
-						&& (Math.abs(RobotPosition.heading-singleAction.NEXT().heading)> aem)){
+						&& (Math.abs(RobotPosition.heading-singleAction.nextPose().heading) > aem)){
 					double progress=(timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 					client.changeData("progress", progress +"%");
 					Position2d aim= Functions.getAimPositionThroughTrajectory(singleAction,RobotPosition,progress);
@@ -139,7 +139,7 @@ public class MecanumDrive implements DriverProgram {
 						break;
 					}
 
-					if(Params.Configs.usePIDInAutonomous){
+					if(Params.Configs.usePIDToDriveInAutonomous){
 						if(Math.abs(aim.x- RobotPosition.x)> pem
 								|| Math.abs(aim.y- RobotPosition.y)> pem
 								|| Math.abs(aim.heading- RobotPosition.heading)> aem

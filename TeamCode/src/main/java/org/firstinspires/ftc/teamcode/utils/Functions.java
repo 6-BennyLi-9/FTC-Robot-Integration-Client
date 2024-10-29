@@ -48,7 +48,7 @@ public final class Functions extends Mathematics{
             case LinerWithTurn:
             case TurnOnly:
                 SimpleMecanumDrive.robotState = RobotState.StrafeToPoint;
-                return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.NEXT(), RobotPosition , progress);
+                return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.nextPose(), RobotPosition , progress);
             case Spline://TODO:功能仍在开发中
                 SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;

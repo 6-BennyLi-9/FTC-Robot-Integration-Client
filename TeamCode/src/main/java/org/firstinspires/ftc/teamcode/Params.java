@@ -33,11 +33,11 @@ public class Params {
 		/**在对舵机下达命令时，自动等待舵机到位*/
 		public static boolean waitForServoUntilThePositionIsInPlace = false;
 		/**让机器即使在不调用<code>pid</code>时，依然执行<code>pid.update()</code>*/
-		public static boolean alwaysRunPIDInAutonomous = false;
+		public static boolean alwaysRunPIDInAutonomous                  = false;
 		/**在自动程序中使用<code>pid</code>*/
-		public static boolean usePIDInAutonomous = true;
+		public static boolean usePIDToDriveInAutonomous                 = true;
 		/**必须在自动程序中保持改变量为<code>true</code>*/
-		public static boolean driverUsingAxisPowerInsteadOfCurrentPower=true;
+		public static boolean driverUsingAxisPowerInsteadOfCurrentPower =true;
 		/**启用超时保护器*/
 		public static boolean useOutTimeProtection = true;
 		/**自动在初始化<code>IntegrationHardwareMap</code>时，登记所有硬件<p>适合单一队伍的程序*/
@@ -61,7 +61,7 @@ public class Params {
 			waitForServoUntilThePositionIsInPlace=false;
 			autoPrepareForNextOptionWhenUpdate=false;
 			alwaysRunPIDInAutonomous=false;
-			usePIDInAutonomous=true;
+			usePIDToDriveInAutonomous =true;
 			useOutTimeProtection=true;
 			autoRegisterAllHardwaresWhenInit=true;
 			clientAutoRegisteredFtcDashboardTelemetry=true;

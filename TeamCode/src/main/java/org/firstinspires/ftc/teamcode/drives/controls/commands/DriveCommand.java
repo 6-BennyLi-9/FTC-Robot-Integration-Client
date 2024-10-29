@@ -23,8 +23,8 @@ public class DriveCommand implements DriveOrder {
 		}
 	}
 
-	public commandRunningNode MEAN;
-	public double BufPower;
+	public commandRunningNode commandMeaning;
+	public double             BufPower;
 	public Position2d DeltaTrajectory;
 	public final Position2d pose;
 	/**
@@ -36,11 +36,12 @@ public class DriveCommand implements DriveOrder {
 		this.BufPower = BufPower;
 		this.pose = pose;
 		this.chassis = chassis;
+		DeltaTrajectory=new Position2d(0,0,0);
 	}
 
 	@Override
-	public void SetPower(double power) {
-		MEAN = new commandRunningNode() {
+	public void setPower(double power) {
+		commandMeaning = new commandRunningNode() {
 			@Override
 			public void runCommand() {
 				BufPower = power;
@@ -50,8 +51,8 @@ public class DriveCommand implements DriveOrder {
 	}
 
 	@Override
-	public void Turn(double radians) {
-		MEAN = new commandRunningNode() {
+	public void turn(double radians) {
+		commandMeaning = new commandRunningNode() {
 			@Override
 			public void runCommand() {
 				chassis.drive(DriveDirection.turn, BufPower);
@@ -61,8 +62,8 @@ public class DriveCommand implements DriveOrder {
 	}
 
 	@Override
-	public void StrafeInDistance(double radians, double distance) {
-		MEAN = new commandRunningNode() {
+	public void strafeInDistance(double radians, double distance) {
+		commandMeaning = new commandRunningNode() {
 			@Override
 			public void runCommand() {
 				chassis.SimpleRadiansDrive(BufPower, radians);
@@ -76,9 +77,9 @@ public class DriveCommand implements DriveOrder {
 	}
 
 	@Override
-	public void StrafeTo(Vector2d pose) {
+	public void strafeTo(Vector2d pose) {
 		Complex cache = new Complex(this.pose.minus(pose));
-		MEAN = new commandRunningNode() {
+		commandMeaning = new commandRunningNode() {
 			@Override
 			public void runCommand() {
 				chassis.SimpleRadiansDrive(BufPower, Math.toRadians(cache.toDegree()));
@@ -88,8 +89,11 @@ public class DriveCommand implements DriveOrder {
 	}
 
 	@Override
-	public void RUN() {
-		MEAN.runCommand();
+	public void run() {
+		if(commandMeaning == null){
+			return;
+		}
+		commandMeaning.runCommand();
 	}
 
 	@Override
@@ -99,7 +103,7 @@ public class DriveCommand implements DriveOrder {
 
 	@Override
 	@NonNull
-	public Position2d NEXT() {
+	public Position2d nextPose() {
 		return new Position2d(
 				pose.x + DeltaTrajectory.x,
 				pose.y + DeltaTrajectory.y,
