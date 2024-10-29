@@ -12,12 +12,11 @@ import org.firstinspires.ftc.teamcode.codes.samples.ClientUsage;
  */
 //TODO 测试 NoSortTelemetryClient
 public class Client extends TelemetryClient{
-	public DashboardClient dashboard;
+	public DashboardClient dashboard = new DashboardClient();
 	public Client(Telemetry telemetry) {
 		super(Params.Configs.clientAutoRegisteredFtcDashboardTelemetry ?
 		        new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry())
 		      : telemetry
 		);
-		dashboard =new DashboardClient();
 	}
 }

@@ -128,9 +128,9 @@ public class DashboardClient {
 
 	public void put(@NonNull Object key, @NonNull Object value){
 		if(data.containsKey(key.toString())) {
-			data.put(key.toString(), value.toString());
-		}else{
 			data.replace(key.toString(),value.toString());
+		}else{
+			data.put(key.toString(), value.toString());
 		}
 	}
 
