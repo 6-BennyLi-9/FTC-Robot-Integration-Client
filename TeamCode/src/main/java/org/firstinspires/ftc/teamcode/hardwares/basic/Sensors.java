@@ -61,6 +61,26 @@ public class Sensors {
 		return (Right.deltaEncTicks-Left.deltaEncTicks)/Params.LateralPosition;
 	}
 
+	/**
+	 * @return 机器前进的TICK数
+	 */
+	public double getDeltaAxialInch(){
+		return getDeltaA()*Params.AxialInchPerTick;
+	}
+	/**
+	 * @return 机器平移的TICK数
+	 */
+	public double getDeltaLateralInch(){
+		return getDeltaL()*Params.LateralInchPerTick;
+	}
+	/**
+	 * @return 机器旋转的TICK数
+	 */
+	public double getDeltaTurningDeg(){
+		return getDeltaT()*Params.TurningDegPerTick;
+	}
+
+
 	@ExtractedInterfaces
 	public double robotAngle() {
 		return imu.robotAngle;
