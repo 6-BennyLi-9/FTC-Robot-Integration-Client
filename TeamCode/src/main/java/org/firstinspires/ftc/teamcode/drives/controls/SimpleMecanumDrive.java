@@ -83,7 +83,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 
 		Vector2d[] PoseList;
 		PoseList=new Vector2d[commandLists.length+1];
-		PoseList[0]=commandLists[0].pose.asVector();
+		PoseList[0]=commandLists[0].pose.toVector();
 		Timer timer = new Timer();
 		for ( int i = 0, commandListsLength = commandLists.length; i < commandListsLength; i++ ) {
 			DriveCommand singleCommand = commandLists[i];
@@ -91,7 +91,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 			update();
 			motors.updateDriveOptions(RobotPosition.heading);
 
-			PoseList[i+1]=singleCommand.nextPose().asVector();
+			PoseList[i+1]=singleCommand.nextPose().toVector();
 			client.dashboard.drawLine(PoseList[i],PoseList[i + 1],"TargetLine");
 
 			this.BufPower= singleCommand.BufPower;

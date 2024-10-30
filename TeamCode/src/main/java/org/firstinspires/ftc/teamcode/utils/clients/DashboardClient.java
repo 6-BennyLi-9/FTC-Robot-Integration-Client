@@ -59,7 +59,7 @@ public class DashboardClient {
 		@UtilFunctions
 		public static void drawRobotUsingPacket(@NonNull Position2d pose,@NonNull TelemetryPacket packet,@NonNull String color){
 			packet.fieldOverlay().setStroke(color);
-			drawRobot(packet.fieldOverlay(),pose.asPose2d());
+			drawRobot(packet.fieldOverlay(),pose.toPose2d());
 		}
 	}
 	public TelemetryPacket recentPacket;

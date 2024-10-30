@@ -29,4 +29,9 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	public Position2d getCurrentPose() {
 		return robotPosition;
 	}
+
+	@Override
+	public void drawRobotWithoutSendingPacket() {
+		odometry.registerToDashBoard(this.getClass().getSimpleName());
+	}
 }

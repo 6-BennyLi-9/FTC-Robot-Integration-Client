@@ -15,6 +15,10 @@ public interface Odometry {
 	default void registerLineToDashBoard(){}
 	@UtilFunctions
 	void registerRobotToDashBoard(String tag);
+
+	/**
+	 * 不会发送 <code>TelemetryPacket</code>
+	 */
 	@UtilFunctions
 	default void registerToDashBoard(String tag){
 		registerLineToDashBoard();

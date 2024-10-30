@@ -99,11 +99,11 @@ public class MecanumDrive implements DriverProgram {
 
 		Vector2d[] PoseList;
 		PoseList=new Vector2d[commandLists.length+1];
-		PoseList[0]=commandLists[0].pose.asVector();
+		PoseList[0]=commandLists[0].pose.toVector();
 		Timer timer = new Timer();
 
 		for(int i=0;i<commandLists.length;++i){
-			PoseList[i+1]=commandLists[i].nextPose().asVector();
+			PoseList[i+1]=commandLists[i].nextPose().toVector();
 		}
 
 		Actions.runBlocking(new Action() {

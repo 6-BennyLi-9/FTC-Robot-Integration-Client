@@ -15,10 +15,10 @@ public class Position2d {
 		this(pose.x,pose.y,heading);
 	}
 
-	public Pose2d asPose2d(){
+	public Pose2d toPose2d(){
 		return new Pose2d(x,y,heading);
 	}
-	public Vector2d asVector(){
+	public Vector2d toVector(){
 		return new Vector2d(x,y);
 	}
 
