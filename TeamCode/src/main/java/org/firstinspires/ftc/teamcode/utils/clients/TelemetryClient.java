@@ -94,27 +94,44 @@ public class TelemetryClient {
 	}
 
 	public void update(){
-		Vector<Pair<Integer, String>> outputData = new Vector<>();
-		for (Map.Entry<String, Pair<String, Integer>> i : data.entrySet() ) {
-			String key = i.getKey(),val=i.getValue().first;
-			Integer IDCache=i.getValue().second;
-			if(!Objects.equals(i.getValue().first, "")) {//line
-				outputData.add(new Pair<>(IDCache,key+":"+val));
-				if(Params.Configs.dashboardAutoSyncWithTelemetry){
-					DashboardClient.getInstance().put(key,val);
+		if(Params.Configs.sortDataInTelemetryClientUpdate) {
+			Vector <Pair <Integer, String>> outputData = new Vector <>();
+			for (Map.Entry <String, Pair <String, Integer>> i : data.entrySet()) {
+				String  key     = i.getKey(), val = i.getValue().first;
+				Integer IDCache = i.getValue().second;
+				if (! Objects.equals(i.getValue().first, "")) {//line
+					outputData.add(new Pair <>(IDCache, key + ":" + val));
+					if (Params.Configs.dashboardAutoSyncWithTelemetry) {
+						DashboardClient.getInstance().put(key, val);
+					}
+				} else {//line
+					outputData.add(new Pair <>(IDCache, key));
 				}
-			}else{//line
-				outputData.add(new Pair<>(IDCache,key));
+			}
+			outputData.sort(Comparator.comparingInt(x -> x.first));
+			for (Pair <Integer, String> outputLine : outputData) {
+				if (showIndex) {
+					telemetry.addLine("[" + outputLine.first + "]" + outputLine.second);
+				} else {
+					telemetry.addLine(outputLine.second);
+				}
+			}
+			telemetry.update();
+		}else{
+			String cache;
+			for (Map.Entry<String, Pair<String, Integer>> entry : data.entrySet()) {
+				String                key = entry.getKey();
+				Pair<String, Integer> val = entry.getValue();
+				cache= Objects.equals(val.first, "") ? val.first : key + ":" + val.first;
+				if (showIndex) {
+					telemetry.addLine("[" + val.second + "]" + cache);
+				} else {
+					telemetry.addLine(key + ":" + cache);
+				}
+				if(Params.Configs.dashboardAutoSyncWithTelemetry){
+					DashboardClient.getInstance().put(key, val);
+				}
 			}
 		}
-		outputData.sort(Comparator.comparingInt(x -> x.first));
-		for ( Pair<Integer, String> outputLine : outputData ) {
-			if(showIndex) {
-				telemetry.addLine("["+ outputLine.first+"]"+ outputLine.second);
-			}else{
-				telemetry.addLine(outputLine.second);
-			}
-		}
-		telemetry.update();
 	}
 }

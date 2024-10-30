@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.codes.samples.ClientUsage;
 /**
  * @see ClientUsage
  */
-//TODO 测试 NoSortTelemetryClient
 public class Client extends TelemetryClient{
 	public DashboardClient dashboard = new DashboardClient();
 	public Client(Telemetry telemetry) {

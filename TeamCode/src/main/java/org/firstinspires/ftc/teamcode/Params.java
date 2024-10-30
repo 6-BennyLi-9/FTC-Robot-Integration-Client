@@ -55,6 +55,8 @@ public class Params {
 		 */
 		public static boolean dashboardAutoSyncWithTelemetry=true;
 
+		public static boolean sortDataInTelemetryClientUpdate=true;
+
 		public static void reset(){
 			driverUsingAxisPowerInsteadOfCurrentPower=true;
 			runUpdateWhenAnyNewOptionsAdded=false;
@@ -66,6 +68,7 @@ public class Params {
 			autoRegisterAllHardwaresWhenInit=true;
 			clientAutoRegisteredFtcDashboardTelemetry=true;
 			dashboardAutoSyncWithTelemetry=true;
+			sortDataInTelemetryClientUpdate=true;
 		}
 
 		public static final String TuningAndTuneOpModesGroup = "0_Tunings";
