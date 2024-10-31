@@ -38,8 +38,15 @@ public class Sensors {
 		Middle.update();
 		Right.update();
 	}
-	public void update(){
+	/**
+	 * 不要盲目执行该函数，这与定位系统的稳定性有直接关联
+	 */
+	public void updateBNO(){
 		imu.update();
+	}
+
+	public void update(){
+		updateBNO();
 	}
 
 	/**

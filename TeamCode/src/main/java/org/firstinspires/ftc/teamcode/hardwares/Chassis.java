@@ -59,7 +59,7 @@ public class Chassis {
 		}
 
 		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
-			sensors.update();
+			sensors.updateBNO();
 			motors.update(sensors.robotAngle());
 		}
 	}
@@ -99,7 +99,7 @@ public class Chassis {
 		}
 
 		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
-			sensors.update();
+			sensors.updateBNO();
 			motors.update(sensors.robotAngle());
 		}
 	}
@@ -161,7 +161,7 @@ public class Chassis {
 	 */
 	public void STOP(){
 		motors.clearDriveOptions();
-		sensors.update();
+		sensors.updateBNO();
 		motors.updateDriveOptions(sensors.robotAngle());
 	}
 	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
