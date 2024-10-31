@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.HeadingLocalizerPlugin;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
 
 @LocalizationPlugin

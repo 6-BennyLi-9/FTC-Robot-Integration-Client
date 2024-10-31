@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.hardwares.basic;
+package org.firstinspires.ftc.teamcode.hardwares.controllers;
 
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;

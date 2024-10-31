@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.Localizer;
 import org.firstinspires.ftc.teamcode.drives.localizers.plugins.DeadWheelLocalizer;
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;

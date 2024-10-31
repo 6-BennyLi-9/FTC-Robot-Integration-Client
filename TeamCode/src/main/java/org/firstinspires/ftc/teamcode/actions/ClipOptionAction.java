@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 
 import org.firstinspires.ftc.teamcode.hardwares.Structure;
-import org.firstinspires.ftc.teamcode.hardwares.basic.ClipPosition;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Servos;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.ClipPosition;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Servos;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 

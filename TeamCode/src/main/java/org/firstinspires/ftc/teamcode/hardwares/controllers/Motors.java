@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.hardwares.basic;
+package org.firstinspires.ftc.teamcode.hardwares.controllers;
 
 import static org.firstinspires.ftc.teamcode.Global.client;
 

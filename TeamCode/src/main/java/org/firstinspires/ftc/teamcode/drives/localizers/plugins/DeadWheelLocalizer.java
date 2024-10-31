@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.drives.localizers.plugins;
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ArcOrganizedOdometer;
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.Odometry;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
 

@@ -9,8 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.hardwares.basic.Motors;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;

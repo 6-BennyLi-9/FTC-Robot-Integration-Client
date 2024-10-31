@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.hardwares.basic;
+package org.firstinspires.ftc.teamcode.hardwares.controllers;
 
 import androidx.annotation.NonNull;
 
