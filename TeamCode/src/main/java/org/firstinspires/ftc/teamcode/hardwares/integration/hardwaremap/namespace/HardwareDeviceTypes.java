@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.hardwares.namespace;
+package org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace;
 
 import static org.firstinspires.ftc.teamcode.Params.HardwareNamespace.*;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState.*;
+import static org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareState.*;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Params.HardwareNamespace;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DeviceConfigPackage.Direction;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DeviceConfigPackage.Direction;
 
 /**
  * 可以自动登记硬件的名字及其类型

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.utils.ActionBox;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;

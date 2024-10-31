@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyButtonType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyMapSettingType;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 
 @TeleOp(name = "MotorReverseTest",group = Params.Configs.TuningAndTuneOpModesGroup)

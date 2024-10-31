@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 
 /**
  * 基于 BNO055IMU 的接口性类

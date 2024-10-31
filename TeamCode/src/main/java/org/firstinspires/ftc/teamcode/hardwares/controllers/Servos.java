@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.hardwares.controllers;
 
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 
 /**
  * 集成化控制所有舵机

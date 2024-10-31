@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 

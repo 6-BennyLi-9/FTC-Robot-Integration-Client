@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 
 /**
  * done

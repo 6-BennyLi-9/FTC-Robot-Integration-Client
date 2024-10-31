@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.hardwares.integration;
+package org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
-import static org.firstinspires.ftc.teamcode.hardwares.namespace.DeviceConfigPackage.Direction.Reversed;
+import static org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DeviceConfigPackage.Direction.Reversed;
 
 import androidx.annotation.NonNull;
 
@@ -13,12 +13,17 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationDevice;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
+import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
+import org.firstinspires.ftc.teamcode.hardwares.integration.Integrations;
+import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationTouchSensor;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareState;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.CustomizedHardwareRegisterOptions;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
@@ -37,7 +42,7 @@ import java.util.Set;
  */
 public final class IntegrationHardwareMap {
 	public Map<HardwareDeviceTypes, Integrations> devices;
-	private final Set<HardwareDeviceTypes> IsIntegrationMotor,IsDeadWheel;
+	private final Set<HardwareDeviceTypes>        IsIntegrationMotor,IsDeadWheel;
 	public HardwareMap lazyHardwareMap;
 	public PidProcessor lazyProcessor;
 

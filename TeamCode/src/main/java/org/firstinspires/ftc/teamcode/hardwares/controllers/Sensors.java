@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.hardwares.controllers;
 import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 
 /**

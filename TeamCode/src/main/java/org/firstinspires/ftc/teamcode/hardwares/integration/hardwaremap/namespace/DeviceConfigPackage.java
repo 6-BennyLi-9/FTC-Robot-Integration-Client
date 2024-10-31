@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.hardwares.namespace;
+package org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace;
 
 public class DeviceConfigPackage {
 	public HardwareState state;

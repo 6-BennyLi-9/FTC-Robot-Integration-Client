@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Servos;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.utils.ActionBox;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.utils.Position2d;

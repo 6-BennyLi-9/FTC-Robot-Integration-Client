@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.hardwares.controllers;
 import static org.firstinspires.ftc.teamcode.Global.client;
 
 import org.firstinspires.ftc.teamcode.Params;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
-import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Complex;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
