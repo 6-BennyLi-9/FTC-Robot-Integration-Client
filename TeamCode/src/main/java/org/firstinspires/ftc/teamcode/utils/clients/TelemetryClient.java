@@ -16,12 +16,19 @@ public class TelemetryClient {
 	protected final Map < String , Pair< String , Integer >> data;
 	protected int ID=0;
 	public boolean showIndex=false;
+	private static TelemetryClient instanceTelemetryClient;
 
 	public TelemetryClient(Telemetry telemetry){
 		this.telemetry=telemetry;
 		data = new HashMap<>();
 //		update();
+		instanceTelemetryClient=this;
 	}
+
+	public static TelemetryClient getInstance(){
+		return instanceTelemetryClient;
+	}
+
 	public void clear(){
 		data.clear();
 		update();

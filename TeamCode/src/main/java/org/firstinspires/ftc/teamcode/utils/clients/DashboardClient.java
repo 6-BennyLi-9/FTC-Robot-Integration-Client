@@ -139,4 +139,10 @@ public class DashboardClient {
 			recentPacket.put(entry.getKey(),entry.getValue());
 		}
 	}
+
+	public void showDataInTelemetry(){
+		for(Map.Entry<String,String> entry:data.entrySet()){
+			TelemetryClient.getInstance().changeData("Dashboard-"+entry.getKey(),entry.getValue());
+		}
+	}
 }

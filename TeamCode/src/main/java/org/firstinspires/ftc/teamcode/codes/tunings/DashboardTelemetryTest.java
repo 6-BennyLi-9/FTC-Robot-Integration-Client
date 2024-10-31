@@ -15,7 +15,8 @@ public class DashboardTelemetryTest extends TuningProgramTemplate {
 
 	@Override
 	public void whileActivating() {
-		client.changeData("time", Timer.getCurrentTime());
+		client.dashboard.put("time", Timer.getCurrentTime());
 		client.dashboard.sendPacket();
+		client.dashboard.showDataInTelemetry();
 	}
 }
