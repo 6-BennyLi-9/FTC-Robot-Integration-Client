@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.hardwares.integration.Integrations;
 import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationDistanceSensor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationTouchSensor;
 import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
@@ -39,6 +41,19 @@ import java.util.Set;
 
 /**
  * 集成化的 hardwareMap
+ * <p>
+ * 支持的设备：
+ * <p>
+ * <code>
+ * 1. DcMotorEx
+ * </code><p><code>
+ * 2. Servo
+ * </code><p><code>
+ * 3. BNO055IMU
+ * </code><p><code>
+ * 4. TouchSensor
+ * </code><p><code>
+ * 5. DistanceSensor
  */
 public final class IntegrationHardwareMap {
 	public Map<HardwareDeviceTypes, Integrations> devices;
@@ -111,6 +126,9 @@ public final class IntegrationHardwareMap {
 		} else if (device.classType == TouchSensor.class) {
 			TouchSensor sensor= lazyHardwareMap.get(TouchSensor.class,device.deviceName);
 			devices.put(device,new IntegrationTouchSensor(sensor,device));
+		}else if(device.classType == DistanceSensor.class) {
+			DistanceSensor sensor= lazyHardwareMap.get(DistanceSensor.class,device.deviceName);
+			devices.put(device,new IntegrationDistanceSensor(sensor));
 		}
 	}
 
