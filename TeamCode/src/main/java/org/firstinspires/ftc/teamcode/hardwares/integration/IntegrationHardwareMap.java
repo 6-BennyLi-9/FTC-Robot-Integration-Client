@@ -10,10 +10,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.Global;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationBNO055;
 import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationEncoders;
+import org.firstinspires.ftc.teamcode.hardwares.integration.sensors.IntegrationTouchSensor;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.HardwareState;
 import org.firstinspires.ftc.teamcode.hardwares.namespace.CustomizedHardwareRegisterOptions;
@@ -33,7 +35,7 @@ import java.util.Set;
 /**
  * 集成化的 hardwareMap
  */
-public class IntegrationHardwareMap {
+public final class IntegrationHardwareMap {
 	public Map<HardwareDeviceTypes, Integrations> devices;
 	private final Set<HardwareDeviceTypes> IsIntegrationMotor,IsDeadWheel;
 	public HardwareMap lazyHardwareMap;
@@ -101,6 +103,9 @@ public class IntegrationHardwareMap {
 		} else if (device.classType == BNO055IMU.class) {
 			BNO055IMU imu= lazyHardwareMap.get(BNO055IMU.class,device.deviceName);
 			devices.put(device,new IntegrationBNO055(imu,device));
+		} else if (device.classType == TouchSensor.class) {
+			TouchSensor sensor= lazyHardwareMap.get(TouchSensor.class,device.deviceName);
+			devices.put(device,new IntegrationTouchSensor(sensor,device));
 		}
 	}
 
