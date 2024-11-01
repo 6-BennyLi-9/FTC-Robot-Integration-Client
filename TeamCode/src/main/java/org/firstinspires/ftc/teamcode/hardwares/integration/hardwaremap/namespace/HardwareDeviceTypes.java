@@ -24,9 +24,9 @@ public enum HardwareDeviceTypes {
 	FrontClip       (-1, Params.HardwareNamespace.FrontClip, Servo.class, Disabled),
 	RearClip        (-1, Params.HardwareNamespace.RearClip, Servo.class, Disabled),
 	SuspensionArm   (-1, Params.HardwareNamespace.SuspensionArm, DcMotorEx.class, Disabled),
-	LeftDeadWheel   (-1, HardwareDeviceTypes.LeftRear.deviceName, DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
-	MiddleDeadWheel (-1, HardwareDeviceTypes.LeftFront.deviceName,DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
-	RightDeadWheel  (-1, HardwareDeviceTypes.RightFront.deviceName, DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
+	LeftDeadWheel   (-1, LeftRear.deviceName, DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
+	MiddleDeadWheel (-1, LeftFront.deviceName,DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
+	RightDeadWheel  (-1, RightFront.deviceName, DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
 	imu             (-1, Imu, BNO055IMU.class);
 	public final String deviceName;
 	public final Class<?> classType;

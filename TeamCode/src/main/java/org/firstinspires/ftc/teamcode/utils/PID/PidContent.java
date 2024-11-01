@@ -30,7 +30,7 @@ public class PidContent {
 		this.ParamID =paramID;
 	}
 	public PidContent(final String tag, final int paramID){
-		this(tag, kP[paramID], kI[paramID], kD[paramID], Params.PIDParams.MAX_I[paramID],paramID);
+		this(tag, kP[paramID], kI[paramID], kD[paramID], PIDParams.MAX_I[paramID],paramID);
 	}
 
 	public double getFulfillment(){

@@ -119,8 +119,8 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
     static final double     COUNTS_PER_MOTOR_REV    = 537.7 ;   // eg: GoBILDA 312 RPM Yellow Jacket
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // No External Gearing.
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (RobotAutoDriveByGyro_Linear.COUNTS_PER_MOTOR_REV * RobotAutoDriveByGyro_Linear.DRIVE_GEAR_REDUCTION) /
-                                                      (RobotAutoDriveByGyro_Linear.WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+                                                      (WHEEL_DIAMETER_INCHES * 3.1415);
 
     // These constants define the desired driving/control characteristics
     // They can/should be tweaked to suit the specific robot drive train.
@@ -185,19 +185,19 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
         //          holdHeading() is used after turns to let the heading stabilize
         //          Add a sleep(2000) after any step to keep the telemetry data visible for review
 
-	    this.driveStraight(RobotAutoDriveByGyro_Linear.DRIVE_SPEED, 24.0, 0.0);    // Drive Forward 24"
-	    this.turnToHeading(RobotAutoDriveByGyro_Linear.TURN_SPEED, -45.0);               // Turn  CW to -45 Degrees
-	    this.holdHeading(RobotAutoDriveByGyro_Linear.TURN_SPEED, -45.0, 0.5);   // Hold -45 Deg heading for a 1/2 second
+	    this.driveStraight(DRIVE_SPEED, 24.0, 0.0);    // Drive Forward 24"
+	    this.turnToHeading(TURN_SPEED, -45.0);               // Turn  CW to -45 Degrees
+	    this.holdHeading(TURN_SPEED, -45.0, 0.5);   // Hold -45 Deg heading for a 1/2 second
 
-	    this.driveStraight(RobotAutoDriveByGyro_Linear.DRIVE_SPEED, 17.0, -45.0);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
-	    this.turnToHeading(RobotAutoDriveByGyro_Linear.TURN_SPEED,  45.0);               // Turn  CCW  to  45 Degrees
-	    this.holdHeading(RobotAutoDriveByGyro_Linear.TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
+	    this.driveStraight(DRIVE_SPEED, 17.0, -45.0);  // Drive Forward 17" at -45 degrees (12"x and 12"y)
+	    this.turnToHeading(TURN_SPEED,  45.0);               // Turn  CCW  to  45 Degrees
+	    this.holdHeading(TURN_SPEED,  45.0, 0.5);    // Hold  45 Deg heading for a 1/2 second
 
-	    this.driveStraight(RobotAutoDriveByGyro_Linear.DRIVE_SPEED, 17.0, 45.0);  // Drive Forward 17" at 45 degrees (-12"x and 12"y)
-	    this.turnToHeading(RobotAutoDriveByGyro_Linear.TURN_SPEED,   0.0);               // Turn  CW  to 0 Degrees
-	    this.holdHeading(RobotAutoDriveByGyro_Linear.TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for 1 second
+	    this.driveStraight(DRIVE_SPEED, 17.0, 45.0);  // Drive Forward 17" at 45 degrees (-12"x and 12"y)
+	    this.turnToHeading(TURN_SPEED,   0.0);               // Turn  CW  to 0 Degrees
+	    this.holdHeading(TURN_SPEED,   0.0, 1.0);    // Hold  0 Deg heading for 1 second
 
-	    this.driveStraight(RobotAutoDriveByGyro_Linear.DRIVE_SPEED,-48.0, 0.0);    // Drive in Reverse 48" (should return to approx. staring position)
+	    this.driveStraight(DRIVE_SPEED,-48.0, 0.0);    // Drive in Reverse 48" (should return to approx. staring position)
 
 	    this.telemetry.addData("Path", "Complete");
 	    this.telemetry.update();
@@ -233,7 +233,7 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
         if (this.opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            final int moveCounts = (int)(distance * RobotAutoDriveByGyro_Linear.COUNTS_PER_INCH);
+            final int moveCounts = (int)(distance * COUNTS_PER_INCH);
 	        this.leftTarget = this.leftDrive.getCurrentPosition() + moveCounts;
 	        this.rightTarget = this.rightDrive.getCurrentPosition() + moveCounts;
 
@@ -254,7 +254,7 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
                    (this.leftDrive.isBusy() && this.rightDrive.isBusy())) {
 
                 // Determine required steering to keep on heading
-	            this.turnSpeed = this.getSteeringCorrection(heading, RobotAutoDriveByGyro_Linear.P_DRIVE_GAIN);
+	            this.turnSpeed = this.getSteeringCorrection(heading, P_DRIVE_GAIN);
 
                 // if driving in reverse, the motor correction also needs to be reversed
                 if (0 > distance) this.turnSpeed *= -1.0;
@@ -290,13 +290,13 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
     public void turnToHeading(final double maxTurnSpeed, final double heading) {
 
         // Run getSteeringCorrection() once to pre-calculate the current error
-	    this.getSteeringCorrection(heading, RobotAutoDriveByGyro_Linear.P_DRIVE_GAIN);
+	    this.getSteeringCorrection(heading, P_DRIVE_GAIN);
 
         // keep looping while we are still active, and not on heading.
         while (this.opModeIsActive() && (HEADING_THRESHOLD < Math.abs(headingError))) {
 
             // Determine required steering to keep on heading
-	        this.turnSpeed = this.getSteeringCorrection(heading, RobotAutoDriveByGyro_Linear.P_TURN_GAIN);
+	        this.turnSpeed = this.getSteeringCorrection(heading, P_TURN_GAIN);
 
             // Clip the speed to the maximum permitted value.
 	        this.turnSpeed = Range.clip(this.turnSpeed, -maxTurnSpeed, maxTurnSpeed);
@@ -333,7 +333,7 @@ public class RobotAutoDriveByGyro_Linear extends LinearOpMode {
         // keep looping while we have time remaining.
         while (this.opModeIsActive() && (holdTimer.time() < holdTime)) {
             // Determine required steering to keep on heading
-	        this.turnSpeed = this.getSteeringCorrection(heading, RobotAutoDriveByGyro_Linear.P_TURN_GAIN);
+	        this.turnSpeed = this.getSteeringCorrection(heading, P_TURN_GAIN);
 
             // Clip the speed to the maximum permitted value.
 	        this.turnSpeed = Range.clip(this.turnSpeed, -maxTurnSpeed, maxTurnSpeed);

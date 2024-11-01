@@ -762,7 +762,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         {
             private final String name;
 
-            public StaticClickableOption(final String name)
+            protected StaticClickableOption(final String name)
             {
                 this.name = name;
             }

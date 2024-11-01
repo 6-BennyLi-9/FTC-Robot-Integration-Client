@@ -116,10 +116,10 @@ public class MecanumDrive implements DriverProgram {
 				MecanumDrive.this.motors.updateDriveOptions(MecanumDrive.this.RobotPosition.heading);
 
 				MecanumDrive.this.BufPower = singleAction.BufPower;
-				final double dY = singleAction.getDeltaTrajectory().y;
-				final double dX = singleAction.getDeltaTrajectory().x;
-				double       distance =Math.sqrt(dX * dX + dY * dY);
-				double estimatedTime=distance/(Params.secPowerPerInch * MecanumDrive.this.BufPower);
+				final double dY            = singleAction.getDeltaTrajectory().y;
+				final double dX            = singleAction.getDeltaTrajectory().x;
+				final double distance      = Math.sqrt(dX * dX + dY * dY);
+				final double estimatedTime = distance/(Params.secPowerPerInch * MecanumDrive.this.BufPower);
 				MecanumDrive.this.client.changeData("distance",distance);
 				MecanumDrive.this.client.changeData("estimatedTime",estimatedTime);
 				MecanumDrive.this.client.changeData("progress","0%");

@@ -88,8 +88,8 @@ public class SampleRevBlinkinLedDriver extends OpMode {
 	    this.display = this.telemetry.addData("Display Kind: ", this.displayKind.toString());
 	    this.patternName = this.telemetry.addData("Pattern: ", this.pattern.toString());
 
-	    this.ledCycleDeadline = new Deadline(SampleRevBlinkinLedDriver.LED_PERIOD, TimeUnit.SECONDS);
-	    this.gamepadRateLimit = new Deadline(SampleRevBlinkinLedDriver.GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
+	    this.ledCycleDeadline = new Deadline(LED_PERIOD, TimeUnit.SECONDS);
+	    this.gamepadRateLimit = new Deadline(GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
     }
 
     @Override

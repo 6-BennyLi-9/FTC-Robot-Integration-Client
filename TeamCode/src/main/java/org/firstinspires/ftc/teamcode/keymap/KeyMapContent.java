@@ -10,11 +10,11 @@ public abstract class KeyMapContent {
 	public final KeyTag            tag;
 	public final KeyMapSettingType setting;
 
-	public KeyMapContent(final KeyTag tag, final KeyMapSettingType setting) {
+	protected KeyMapContent(final KeyTag tag, final KeyMapSettingType setting) {
 		this(tag, setting, true);
 	}
 
-	public KeyMapContent(final KeyTag tag, final KeyMapSettingType setting, final boolean IsControlledByGamePad1) {
+	protected KeyMapContent(final KeyTag tag, final KeyMapSettingType setting, final boolean IsControlledByGamePad1) {
 		this.tag = tag;
 		this.setting = setting;
 		this.IsControlledByGamePad1 = IsControlledByGamePad1;

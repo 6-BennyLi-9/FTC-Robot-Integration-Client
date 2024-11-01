@@ -44,17 +44,17 @@ public enum TuningOpModes {
 	private static OpModeMeta metaForClass(final Class<? extends OpMode> cls) {
         return new OpModeMeta.Builder()
                 .setName(cls.getSimpleName())
-                .setGroup(TuningOpModes.GROUP)
+                .setGroup(GROUP)
                 .setFlavor(OpModeMeta.Flavor.TELEOP)
                 .build();
     }
 
     @OpModeRegistrar
     public static void register(final OpModeManager manager) {
-        if (TuningOpModes.DISABLED) return;
+        if (DISABLED) return;
 
         final DriveViewFactory dvf;
-        if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
+        if (DRIVE_CLASS.equals(MecanumDrive.class)) {
             dvf = hardwareMap -> {
                 final MecanumDrive md = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -107,7 +107,7 @@ public enum TuningOpModes {
                                 MecanumDrive.PARAMS.kA / MecanumDrive.PARAMS.inPerTick)
                 );
             };
-        } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
+        } else if (DRIVE_CLASS.equals(TankDrive.class)) {
             dvf = hardwareMap -> {
                 final TankDrive td = new TankDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -156,18 +156,18 @@ public enum TuningOpModes {
             throw new RuntimeException();
         }
 
-        manager.register(TuningOpModes.metaForClass(AngularRampLogger.class), new AngularRampLogger(dvf));
-        manager.register(TuningOpModes.metaForClass(ForwardPushTest.class), new ForwardPushTest(dvf));
-        manager.register(TuningOpModes.metaForClass(ForwardRampLogger.class), new ForwardRampLogger(dvf));
-        manager.register(TuningOpModes.metaForClass(LateralPushTest.class), new LateralPushTest(dvf));
-        manager.register(TuningOpModes.metaForClass(LateralRampLogger.class), new LateralRampLogger(dvf));
-        manager.register(TuningOpModes.metaForClass(ManualFeedforwardTuner.class), new ManualFeedforwardTuner(dvf));
-        manager.register(TuningOpModes.metaForClass(MecanumMotorDirectionDebugger.class), new MecanumMotorDirectionDebugger(dvf));
-        manager.register(TuningOpModes.metaForClass(DeadWheelDirectionDebugger.class), new DeadWheelDirectionDebugger(dvf));
+        manager.register(metaForClass(AngularRampLogger.class), new AngularRampLogger(dvf));
+        manager.register(metaForClass(ForwardPushTest.class), new ForwardPushTest(dvf));
+        manager.register(metaForClass(ForwardRampLogger.class), new ForwardRampLogger(dvf));
+        manager.register(metaForClass(LateralPushTest.class), new LateralPushTest(dvf));
+        manager.register(metaForClass(LateralRampLogger.class), new LateralRampLogger(dvf));
+        manager.register(metaForClass(ManualFeedforwardTuner.class), new ManualFeedforwardTuner(dvf));
+        manager.register(metaForClass(MecanumMotorDirectionDebugger.class), new MecanumMotorDirectionDebugger(dvf));
+        manager.register(metaForClass(DeadWheelDirectionDebugger.class), new DeadWheelDirectionDebugger(dvf));
 
-        manager.register(TuningOpModes.metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
-        manager.register(TuningOpModes.metaForClass(SplineTest.class), SplineTest.class);
-        manager.register(TuningOpModes.metaForClass(LocalizationTest.class), LocalizationTest.class);
+        manager.register(metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
+        manager.register(metaForClass(SplineTest.class), SplineTest.class);
+        manager.register(metaForClass(LocalizationTest.class), LocalizationTest.class);
 
         FtcDashboard.getInstance().withConfigRoot(configRoot -> {
             for (final Class<?> c : Arrays.asList(

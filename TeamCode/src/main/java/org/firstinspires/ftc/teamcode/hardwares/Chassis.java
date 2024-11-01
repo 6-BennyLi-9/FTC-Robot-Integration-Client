@@ -9,7 +9,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
@@ -17,7 +16,6 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
-import org.firstinspires.ftc.teamcode.utils.Functions;
 
 /**
  * 集成的底盘操控程序
@@ -60,7 +58,7 @@ public class Chassis {
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
+		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
 			this.sensors.updateBNO();
 			this.motors.update(this.sensors.robotAngle());
 		}
@@ -100,7 +98,7 @@ public class Chassis {
 				break;
 		}
 
-		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
+		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
 			this.sensors.updateBNO();
 			this.motors.update(this.sensors.robotAngle());
 		}

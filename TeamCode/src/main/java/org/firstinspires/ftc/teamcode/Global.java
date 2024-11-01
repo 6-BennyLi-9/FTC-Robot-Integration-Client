@@ -28,13 +28,13 @@ public enum Global {
 
 	@UserRequirementFunctions
 	public static void clear() {
-		Global.robot = null;
-		Global.client = null;
-		Global.actionBox = null;
-		Global.driverProgram = null;
-		Global.integrationGamepad = null;
-		Global.currentGamepad1 = null;
-		Global.currentGamepad2 = null;
+		robot = null;
+		client = null;
+		actionBox = null;
+		driverProgram = null;
+		integrationGamepad = null;
+		currentGamepad1 = null;
+		currentGamepad2 = null;
 	}
 
 	public static void setRobot(@NonNull final Robot robot) {
@@ -42,7 +42,7 @@ public enum Global {
 		driverProgram = robot.drive;
 		client = robot.client;
 		actionBox = robot.actionBox;
-		Global.integrationHardwareMap =robot.lazyIntegratedDevices;
+		integrationHardwareMap =robot.lazyIntegratedDevices;
 		if(null != robot.gamepad) {
 			integrationGamepad = robot.gamepad;
 			currentGamepad1 = robot.gamepad.gamepad1.gamepad;

@@ -76,7 +76,7 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
             = RevHubOrientationOnRobot.LogoFacingDirection.values();
     static RevHubOrientationOnRobot.UsbFacingDirection[] usbFacingDirections
             = RevHubOrientationOnRobot.UsbFacingDirection.values();
-    static int LAST_DIRECTION = ConceptExploringIMUOrientation.logoFacingDirections.length - 1;
+    static int LAST_DIRECTION = logoFacingDirections.length - 1;
     static float TRIGGER_THRESHOLD = 0.2f;
 
     IMU imu;
@@ -112,11 +112,11 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
                     if (this.gamepad1.left_bumper) {
 	                    this.logoFacingDirectionPosition--;
                         if (0 > logoFacingDirectionPosition) {
-	                        this.logoFacingDirectionPosition = ConceptExploringIMUOrientation.LAST_DIRECTION;
+	                        this.logoFacingDirectionPosition = LAST_DIRECTION;
                         }
                     } else {
 	                    this.logoFacingDirectionPosition++;
-                        if (this.logoFacingDirectionPosition > ConceptExploringIMUOrientation.LAST_DIRECTION) {
+                        if (this.logoFacingDirectionPosition > LAST_DIRECTION) {
 	                        this.logoFacingDirectionPosition = 0;
                         }
                     }
@@ -127,17 +127,17 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
             }
 
             // Check to see if new USB Direction is requested
-            if (this.gamepad1.left_trigger > ConceptExploringIMUOrientation.TRIGGER_THRESHOLD || this.gamepad1.right_trigger > ConceptExploringIMUOrientation.TRIGGER_THRESHOLD) {
+            if (this.gamepad1.left_trigger > TRIGGER_THRESHOLD || this.gamepad1.right_trigger > TRIGGER_THRESHOLD) {
                 if (!justChangedUsbDirection) {
                     justChangedUsbDirection = true;
-                    if (this.gamepad1.left_trigger > ConceptExploringIMUOrientation.TRIGGER_THRESHOLD) {
+                    if (this.gamepad1.left_trigger > TRIGGER_THRESHOLD) {
 	                    this.usbFacingDirectionPosition--;
                         if (0 > usbFacingDirectionPosition) {
-	                        this.usbFacingDirectionPosition = ConceptExploringIMUOrientation.LAST_DIRECTION;
+	                        this.usbFacingDirectionPosition = LAST_DIRECTION;
                         }
                     } else {
 	                    this.usbFacingDirectionPosition++;
-                        if (this.usbFacingDirectionPosition > ConceptExploringIMUOrientation.LAST_DIRECTION) {
+                        if (this.usbFacingDirectionPosition > LAST_DIRECTION) {
 	                        this.usbFacingDirectionPosition = 0;
                         }
                     }
@@ -148,8 +148,8 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
             }
 
             // Display User instructions and IMU data
-	        this.telemetry.addData("logo Direction (set with bumpers)", ConceptExploringIMUOrientation.logoFacingDirections[this.logoFacingDirectionPosition]);
-	        this.telemetry.addData("usb Direction (set with triggers)", ConceptExploringIMUOrientation.usbFacingDirections[this.usbFacingDirectionPosition] + "\n");
+	        this.telemetry.addData("logo Direction (set with bumpers)", logoFacingDirections[this.logoFacingDirectionPosition]);
+	        this.telemetry.addData("usb Direction (set with triggers)", usbFacingDirections[this.usbFacingDirectionPosition] + "\n");
 
             if (this.orientationIsValid) {
                 final YawPitchRollAngles orientation     = this.imu.getRobotYawPitchRollAngles();
@@ -171,8 +171,8 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
 
     // apply any requested orientation changes.
     void updateOrientation() {
-        final RevHubOrientationOnRobot.LogoFacingDirection logo = ConceptExploringIMUOrientation.logoFacingDirections[this.logoFacingDirectionPosition];
-        final RevHubOrientationOnRobot.UsbFacingDirection  usb  = ConceptExploringIMUOrientation.usbFacingDirections[this.usbFacingDirectionPosition];
+        final RevHubOrientationOnRobot.LogoFacingDirection logo = logoFacingDirections[this.logoFacingDirectionPosition];
+        final RevHubOrientationOnRobot.UsbFacingDirection  usb  = usbFacingDirections[this.usbFacingDirectionPosition];
         try {
             final RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logo, usb);
 	        this.imu.initialize(new IMU.Parameters(orientationOnRobot));

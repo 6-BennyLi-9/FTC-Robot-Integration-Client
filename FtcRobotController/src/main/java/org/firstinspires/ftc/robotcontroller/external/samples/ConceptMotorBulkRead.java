@@ -126,7 +126,8 @@ public class ConceptMotorBulkRead extends LinearOpMode {
 
         timer.reset();
         cycles = 0;
-        while (this.opModeIsActive() && (TEST_CYCLES > cycles++)) {
+        while (this.opModeIsActive() && (TEST_CYCLES > cycles)) {
+	        cycles++;
 	        this.e1 = this.m1.getCurrentPosition();
 	        this.e2 = this.m2.getCurrentPosition();
 	        this.e3 = this.m3.getCurrentPosition();
@@ -140,7 +141,8 @@ public class ConceptMotorBulkRead extends LinearOpMode {
             // Put Control loop action code here.
 
         }
-        // calculate the average cycle time.
+	    cycles++;
+	    // calculate the average cycle time.
 	    this.t1 = timer.milliseconds() / cycles;
 	    this.displayCycleTimes("Test 2 of 3 (Wait for completion)");
 
@@ -156,7 +158,8 @@ public class ConceptMotorBulkRead extends LinearOpMode {
 
         timer.reset();
         cycles = 0;
-        while (this.opModeIsActive() && (TEST_CYCLES > cycles++)) {
+        while (this.opModeIsActive() && (TEST_CYCLES > cycles)) {
+	        cycles++;
 	        this.e1 = this.m1.getCurrentPosition();  // Uses 1 bulk-read for all 4 encoder/velocity reads,
 	        this.e2 = this.m2.getCurrentPosition();  // but don't do any `get` operations more than once per cycle.
 	        this.e3 = this.m3.getCurrentPosition();
@@ -170,7 +173,8 @@ public class ConceptMotorBulkRead extends LinearOpMode {
             // Put Control loop action code here.
 
         }
-        // calculate the average cycle time.
+	    cycles++;
+	    // calculate the average cycle time.
 	    this.t2 = timer.milliseconds() / cycles;
 	    this.displayCycleTimes("Test 3 of 3 (Wait for completion)");
 
@@ -187,9 +191,10 @@ public class ConceptMotorBulkRead extends LinearOpMode {
 
         timer.reset();
         cycles = 0;
-        while (this.opModeIsActive() && (TEST_CYCLES > cycles++)) {
+        while (this.opModeIsActive() && (TEST_CYCLES > cycles)) {
+	        cycles++;
 
-            // Important Step 4: If you are using MANUAL mode, you must clear the BulkCache once per control cycle
+	        // Important Step 4: If you are using MANUAL mode, you must clear the BulkCache once per control cycle
             for (final LynxModule module : allHubs) {
                 module.clearBulkCache();
             }
@@ -207,7 +212,8 @@ public class ConceptMotorBulkRead extends LinearOpMode {
             // Put Control loop action code here.
 
         }
-        // calculate the average cycle time.
+	    cycles++;
+	    // calculate the average cycle time.
 	    this.t3 = timer.milliseconds() / cycles;
 	    this.displayCycleTimes("Complete");
 

@@ -32,32 +32,32 @@ public class Timer {
     /**重新定义{@code StartTime}*/
     @UserRequirementFunctions
     public final void restart(){
-	    this.StartTime = Timer.getCurrentTime();
+	    this.StartTime = getCurrentTime();
     }
     /**定义{@code EndTime}*/
     @UserRequirementFunctions
     public final void stop(){
-	    this.EndTime = Timer.getCurrentTime();
+	    this.EndTime = getCurrentTime();
     }
     /**获取{@code EndTime-StartTime}*/
     @UserRequirementFunctions
     public final double getDeltaTime(){
         return this.EndTime - this.StartTime;
     }
-    /**定义{@code EndTime}并获取<code>EndTime-StartTime</code>*/
+    /**定义{@code EndTime}并获取{@code EndTime-StartTime}*/
     @UserRequirementFunctions
     public final double stopAndGetDeltaTime(){
 	    this.stop();
         return this.getDeltaTime();
     }
-    /**定义<code>EndTime</code>并获取{@code EndTime-StartTime}并重新定义<code>StartTime</code>*/
+    /**定义{@code EndTime}并获取{@code EndTime-StartTime}并重新定义{@code StartTime}*/
     @UserRequirementFunctions
     public final double restartAndGetDeltaTime(){
         final double res = this.stopAndGetDeltaTime();
 	    this.restart();
         return res;
     }
-    /**重新定义<code>StartTime</code>并定义{@code EndTime}*/
+    /**重新定义{@code StartTime}并定义{@code EndTime}*/
     @UserRequirementFunctions
     public final void stopAndRestart(){
 	    this.stop();
@@ -68,9 +68,9 @@ public class Timer {
     @UserRequirementFunctions
     public final void pushTimeTag(final String tag){
         if(this.Tags.containsKey(tag)){
-	        this.Tags.replace(tag, Timer.getCurrentTime());
+	        this.Tags.replace(tag, getCurrentTime());
         }else {
-	        this.Tags.put(tag, Timer.getCurrentTime());
+	        this.Tags.put(tag, getCurrentTime());
         }
     }
     /**自动覆写如果存在相同的tag*/
@@ -105,10 +105,10 @@ public class Timer {
     public void pushMileageTimeTag(final String tag){
 	    this.pushTimeTag(tag);
         if (this.MileageTags.containsKey(tag)){
-            Objects.requireNonNull(this.MileageTags.get(tag)).add(Timer.getCurrentTime());
+            Objects.requireNonNull(this.MileageTags.get(tag)).add(getCurrentTime());
         }else{
             final Vector<Double> cache =new Vector<>();
-            cache.add(Timer.getCurrentTime());
+            cache.add(getCurrentTime());
 	        this.MileageTags.put(tag,cache);
         }
     }

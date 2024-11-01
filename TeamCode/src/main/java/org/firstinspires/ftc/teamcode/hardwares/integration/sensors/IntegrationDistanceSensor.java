@@ -33,7 +33,7 @@ public class IntegrationDistanceSensor extends IntegrationSensor {
 
 		this.CurrentMillimeterUnitDistance = this.sensor.getDistance(DistanceUnit.MM);
 		this.DistanceHistory.add(this.CurrentMillimeterUnitDistance);
-		if(! this.DistanceHistory.isEmpty() && this.DistanceHistory.size() > mergeLength){
+		if(! this.DistanceHistory.isEmpty() && mergeLength < this.DistanceHistory.size()){
 			this.DistanceHistory.remove();
 		}
 
