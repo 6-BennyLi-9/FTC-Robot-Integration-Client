@@ -150,7 +150,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 // Look to see if we have size info on this tag.
                 if (null != detection.metadata) {
                     //  Check to see if we want to track towards this tag.
-                    if ((DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == AprilTagDetection.detection.id)) {
+	                if ((DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == detection.id)) {
                         // Yes, we want to use this tag.
                         targetFound = true;
 	                    this.desiredTag = detection;

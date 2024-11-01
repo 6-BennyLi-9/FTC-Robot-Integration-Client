@@ -113,14 +113,13 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
     private static final int DESIRED_TAG_ID = -1;     // Choose the tag you want to approach or set to -1 for ANY tag.
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
-    private AprilTagDetection desiredTag;     // Used to hold the data for a detected AprilTag
 
-    @Override public void runOpMode()
+	@Override public void runOpMode()
     {
-        boolean targetFound     = false;    // Set to true when an AprilTag target is detected
-        double  drive           = 0;        // Desired forward power/speed (-1 to +1)
-        double  strafe          = 0;        // Desired strafe power/speed (-1 to +1)
-        double  turn            = 0;        // Desired turning power/speed (-1 to +1)
+        boolean targetFound;    // Set to true when an AprilTag target is detected
+        double  drive;        // Desired forward power/speed (-1 to +1)
+        double  strafe;        // Desired strafe power/speed (-1 to +1)
+        double  turn;        // Desired turning power/speed (-1 to +1)
 
         // Initialize the Apriltag Detection process
 	    this.initAprilTag();
@@ -152,7 +151,8 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
         while (this.opModeIsActive())
         {
             targetFound = false;
-	        this.desiredTag = null;
+	        // Used to hold the data for a detected AprilTag
+	        AprilTagDetection desiredTag = null;
 
             // Step through the list of detected tags and look for a matching tag
             final List<AprilTagDetection> currentDetections = this.aprilTag.getDetections();
@@ -160,10 +160,10 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
                 // Look to see if we have size info on this tag.
                 if (null != detection.metadata) {
                     //  Check to see if we want to track towards this tag.
-                    if ((DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == AprilTagDetection.detection.id)) {
+                    if ((DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == detection.id)) {
                         // Yes, we want to use this tag.
                         targetFound = true;
-	                    this.desiredTag = detection;
+	                    desiredTag = detection;
                         break;  // don't look any further.
                     } else {
                         // This tag is in the library, but we do not want to track it right now.
@@ -178,10 +178,10 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
             // Tell the driver what we see, and what to do.
             if (targetFound) {
 	            this.telemetry.addData("\n>","HOLD Left-Bumper to Drive to Target\n");
-	            this.telemetry.addData("Found", "ID %d (%s)", this.desiredTag.id, this.desiredTag.metadata.name);
-	            this.telemetry.addData("Range",  "%5.1f inches", this.desiredTag.ftcPose.range);
-	            this.telemetry.addData("Bearing","%3.0f degrees", this.desiredTag.ftcPose.bearing);
-	            this.telemetry.addData("Yaw","%3.0f degrees", this.desiredTag.ftcPose.yaw);
+	            this.telemetry.addData("Found", "ID %d (%s)", desiredTag.id, desiredTag.metadata.name);
+	            this.telemetry.addData("Range",  "%5.1f inches", desiredTag.ftcPose.range);
+	            this.telemetry.addData("Bearing","%3.0f degrees", desiredTag.ftcPose.bearing);
+	            this.telemetry.addData("Yaw","%3.0f degrees", desiredTag.ftcPose.yaw);
             } else {
 	            this.telemetry.addData("\n>","Drive using joysticks to find valid target\n");
             }
@@ -190,9 +190,9 @@ public class RobotAutoDriveToAprilTagOmni extends LinearOpMode
             if (this.gamepad1.left_bumper && targetFound) {
 
                 // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-                final double rangeError   = (this.desiredTag.ftcPose.range - this.DESIRED_DISTANCE);
-                final double headingError = this.desiredTag.ftcPose.bearing;
-                final double yawError     = this.desiredTag.ftcPose.yaw;
+                final double rangeError   = (desiredTag.ftcPose.range - this.DESIRED_DISTANCE);
+                final double headingError = desiredTag.ftcPose.bearing;
+                final double yawError     = desiredTag.ftcPose.yaw;
 
                 // Use the speed and turn "gains" to calculate how we want the robot to move.
                 drive  = Range.clip(rangeError * this.SPEED_GAIN, - this.MAX_AUTO_SPEED, this.MAX_AUTO_SPEED);
