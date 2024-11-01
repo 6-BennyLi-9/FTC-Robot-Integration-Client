@@ -71,53 +71,53 @@ public class ConceptLEDStick extends OpMode {
 
     @Override
     public void init() {
-        ledStick = hardwareMap.get(SparkFunLEDStick.class, "back_leds");
-        ledStick.setBrightness(brightness);
-        ledStick.setColor(Color.GREEN);
+	    this.ledStick = this.hardwareMap.get(SparkFunLEDStick.class, "back_leds");
+	    this.ledStick.setBrightness(this.brightness);
+	    this.ledStick.setColor(Color.GREEN);
     }
 
     @Override
     public void start() {
-        resetRuntime();
+	    this.resetRuntime();
     }
 
     @Override
     public void loop() {
-        telemetry.addLine("Hold the A button to turn blue");
-        telemetry.addLine("Hold the B button to turn red");
-        telemetry.addLine("Hold the left bumper to turn off");
-        telemetry.addLine("Use DPAD Up/Down to change brightness");
+	    this.telemetry.addLine("Hold the A button to turn blue");
+	    this.telemetry.addLine("Hold the B button to turn red");
+	    this.telemetry.addLine("Hold the left bumper to turn off");
+	    this.telemetry.addLine("Use DPAD Up/Down to change brightness");
         
-        if (getRuntime() > END_GAME_TIME) {
-            int[] ledColors = {Color.RED, Color.YELLOW, Color.RED, Color.YELLOW, Color.RED,
-                    Color.YELLOW, Color.RED, Color.YELLOW, Color.RED, Color.YELLOW};
-            ledStick.setColors(ledColors);
-        } else if (gamepad1.a) {
-            ledStick.setColor(Color.BLUE);
-        } else if (gamepad1.b) {
-            ledStick.setColor(Color.RED);
-        } else if (gamepad1.left_bumper) {
-            ledStick.turnAllOff();
+        if (END_GAME_TIME < getRuntime()) {
+            final int[] ledColors = {Color.RED, Color.YELLOW, Color.RED, Color.YELLOW, Color.RED,
+                                     Color.YELLOW, Color.RED, Color.YELLOW, Color.RED, Color.YELLOW};
+	        this.ledStick.setColors(ledColors);
+        } else if (this.gamepad1.a) {
+	        this.ledStick.setColor(Color.BLUE);
+        } else if (this.gamepad1.b) {
+	        this.ledStick.setColor(Color.RED);
+        } else if (this.gamepad1.left_bumper) {
+	        this.ledStick.turnAllOff();
         } else {
-            ledStick.setColor(Color.GREEN);
+	        this.ledStick.setColor(Color.GREEN);
         }
 
         /*
          * Use DPAD up and down to change brightness
          */
-        int newBrightness = brightness;
-        if (gamepad1.dpad_up && !wasUp) {
-            newBrightness = brightness + 1;
-        } else if (gamepad1.dpad_down && !wasDown) {
-            newBrightness = brightness - 1;
+        int newBrightness = this.brightness;
+        if (this.gamepad1.dpad_up && ! this.wasUp) {
+            newBrightness = this.brightness + 1;
+        } else if (this.gamepad1.dpad_down && ! this.wasDown) {
+            newBrightness = this.brightness - 1;
         }
-        if (newBrightness != brightness) {
-            brightness = Range.clip(newBrightness, 0, 31);
-            ledStick.setBrightness(brightness);
+        if (newBrightness != this.brightness) {
+	        this.brightness = Range.clip(newBrightness, 0, 31);
+	        this.ledStick.setBrightness(this.brightness);
         }
-        telemetry.addData("Brightness", brightness);
+	    this.telemetry.addData("Brightness", this.brightness);
 
-        wasDown = gamepad1.dpad_down;
-        wasUp = gamepad1.dpad_up;
+	    this.wasDown = this.gamepad1.dpad_down;
+	    this.wasUp = this.gamepad1.dpad_up;
     }
 }

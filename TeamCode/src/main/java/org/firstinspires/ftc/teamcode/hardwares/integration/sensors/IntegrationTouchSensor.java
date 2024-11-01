@@ -8,15 +8,15 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespac
 
 public class IntegrationTouchSensor extends IntegrationSensor{
 	public final TouchSensor sensor;
-	public boolean pressed=false;
+	public boolean pressed;
 
-	public IntegrationTouchSensor(@NonNull TouchSensor sensor, @NonNull HardwareDeviceTypes deviceType) {
+	public IntegrationTouchSensor(@NonNull final TouchSensor sensor, @NonNull final HardwareDeviceTypes deviceType) {
 		super(deviceType.deviceName);
 		this.sensor=sensor;
 	}
 
 	@Override
 	public void update() {
-		pressed=sensor.isPressed();
+		this.pressed = this.sensor.isPressed();
 	}
 }

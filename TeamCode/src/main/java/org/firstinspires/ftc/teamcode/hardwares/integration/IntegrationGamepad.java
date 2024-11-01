@@ -19,51 +19,51 @@ public class IntegrationGamepad {
 	public KeyMap keyMap;
 
 	@UserRequirementFunctions
-	public IntegrationGamepad(Gamepad gamepad1,Gamepad gamepad2){
+	public IntegrationGamepad(final Gamepad gamepad1, final Gamepad gamepad2){
 		this(new BasicIntegrationGamepad(gamepad1),new BasicIntegrationGamepad(gamepad2));
 	}
-	public IntegrationGamepad(BasicIntegrationGamepad gamepad1,BasicIntegrationGamepad gamepad2){
+	public IntegrationGamepad(final BasicIntegrationGamepad gamepad1, final BasicIntegrationGamepad gamepad2){
 		this.gamepad1=gamepad1;
 		this.gamepad2=gamepad2;
-		keyMap =new KeyMap();
-		keyMap.initKeys();
+		this.keyMap =new KeyMap();
+		this.keyMap.initKeys();
 	}
 
 	@UserRequirementFunctions
 	@Deprecated
 	public void swap(){
-		BasicIntegrationGamepad tmp=gamepad1;
-		gamepad1=gamepad2;
-		gamepad2=tmp;
+		final BasicIntegrationGamepad tmp = this.gamepad1;
+		this.gamepad1 = this.gamepad2;
+		this.gamepad2 =tmp;
 	}
 
 	@UserRequirementFunctions
-	public boolean getButtonRunAble(KeyTag tag){
-		KeyMapButtonContent cache= (KeyMapButtonContent) keyMap.contents.get(tag);
-		if(keyMap.IsControlledByGamepad1(tag)){
-			assert cache != null;
-			return gamepad1.getButtonState(cache.type,cache.setting);
+	public boolean getButtonRunAble(final KeyTag tag){
+		final KeyMapButtonContent cache = (KeyMapButtonContent) this.keyMap.contents.get(tag);
+		if(this.keyMap.IsControlledByGamepad1(tag)){
+			assert null != cache;
+			return this.gamepad1.getButtonState(cache.type,cache.setting);
 		}else {
-			assert cache != null;
-			return gamepad2.getButtonState(cache.type,cache.setting);
+			assert null != cache;
+			return this.gamepad2.getButtonState(cache.type,cache.setting);
 		}
 	}
 	@UserRequirementFunctions
-	public double getRodState(KeyTag tag){
-		if(keyMap.IsControlledByGamepad1(tag)){
-			return keyMap.getRodStateFromTagAndGamePad(tag,gamepad1);
+	public double getRodState(final KeyTag tag){
+		if(this.keyMap.IsControlledByGamepad1(tag)){
+			return this.keyMap.getRodStateFromTagAndGamePad(tag, this.gamepad1);
 		}else {
-			return keyMap.getRodStateFromTagAndGamePad(tag,gamepad2);
+			return this.keyMap.getRodStateFromTagAndGamePad(tag, this.gamepad2);
 		}
 	}
 
 	@ExtractedInterfaces
 	public void showContentInfo(){
-		keyMap.showContentInfo();
+		this.keyMap.showContentInfo();
 	}
 	@ExtractedInterfaces
 	public void showLst(){
-		gamepad1.showLst("gamepad1");
-		gamepad2.showLst("gamepad2");
+		this.gamepad1.showLst("gamepad1");
+		this.gamepad2.showLst("gamepad2");
 	}
 }

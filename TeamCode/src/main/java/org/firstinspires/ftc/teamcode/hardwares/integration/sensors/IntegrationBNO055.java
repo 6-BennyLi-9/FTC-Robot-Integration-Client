@@ -15,12 +15,12 @@ import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespac
 public class IntegrationBNO055 extends IntegrationSensor{
 	public final BNO055IMU sensor;
 	public double robotAngle,xAccel,yAccel;
-	public boolean knockedWarn=false;
+	public boolean knockedWarn;
 
-	public IntegrationBNO055(@NonNull BNO055IMU imu, @NonNull HardwareDeviceTypes deviceType) {
+	public IntegrationBNO055(@NonNull final BNO055IMU imu, @NonNull final HardwareDeviceTypes deviceType) {
 		super(deviceType.deviceName);
-		sensor= imu;
-		BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+		this.sensor = imu;
+		final BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
 		parameters.angleUnit= BNO055IMU.AngleUnit.DEGREES;
 		parameters.accelUnit= BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -28,14 +28,14 @@ public class IntegrationBNO055 extends IntegrationSensor{
 		parameters.loggingEnabled=true;
 		parameters.loggingTag="IMU";
 		parameters.accelerationIntegrationAlgorithm=new JustLoggingAccelerationIntegrator();
-		sensor.initialize(parameters);
+		this.sensor.initialize(parameters);
 	}
 
 	@Override
 	public void update() {
-		robotAngle =sensor.getAngularOrientation().firstAngle;
-		xAccel=sensor.getGravity().xAccel;
-		yAccel=sensor.getGravity().yAccel;
-		knockedWarn= xAccel > 10 || yAccel > 10;
+		this.robotAngle = this.sensor.getAngularOrientation().firstAngle;
+		this.xAccel = this.sensor.getGravity().xAccel;
+		this.yAccel = this.sensor.getGravity().yAccel;
+		this.knockedWarn = 10 < xAccel || 10 < yAccel;
 	}
 }

@@ -9,31 +9,31 @@ import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 public class ThreeInOne_DeadWheelTuner extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
-		robot.addLine("该调参程序不具备定位和直接数据处理能力，以下所能看到的辅助调参数据都是直接相乘得到的，因此不具备定位能力！！！");
+		this.robot.addLine("该调参程序不具备定位和直接数据处理能力，以下所能看到的辅助调参数据都是直接相乘得到的，因此不具备定位能力！！！");
 
-		robot.changeData("TurningTick","wait for start");
-		robot.changeData("AxialTick","wait for start");
-		robot.changeData("LateralTick","wait for start");
+		this.robot.changeData("TurningTick","wait for start");
+		this.robot.changeData("AxialTick","wait for start");
+		this.robot.changeData("LateralTick","wait for start");
 
-		robot.addLine("如果你已经填入了Params数据，则在这里将会直接得到相乘结果");
+		this.robot.addLine("如果你已经填入了Params数据，则在这里将会直接得到相乘结果");
 
-		robot.addData("TurningDeg","wait for start");
-		robot.addData("AxialInch","wait for start");
-		robot.addData("LateralInch","wait for start");
+		this.robot.addData("TurningDeg","wait for start");
+		this.robot.addData("AxialInch","wait for start");
+		this.robot.addData("LateralInch","wait for start");
 	}
 
-	private double turn=0,axial=0,lateral=0;
+	private double turn,axial,lateral;
 
 	@Override
 	public void whileActivating() {
-		robot.changeData("TurningTick",turn+=robot.sensors.getDeltaT());
-		robot.changeData("AxialTick",axial+=robot.sensors.getDeltaA());
-		robot.changeData("LateralTick",lateral+=robot.sensors.getDeltaL());
+		this.robot.changeData("TurningTick", this.turn += this.robot.sensors.getDeltaT());
+		this.robot.changeData("AxialTick", this.axial += this.robot.sensors.getDeltaA());
+		this.robot.changeData("LateralTick", this.lateral += this.robot.sensors.getDeltaL());
 
-		robot.changeData("TurningDeg",turn * Params.TurningDegPerTick);
-		robot.changeData("AxialInch",axial * Params.AxialInchPerTick);
-		robot.changeData("LateralInch",lateral * Params.LateralInchPerTick);
+		this.robot.changeData("TurningDeg", this.turn * Params.TurningDegPerTick);
+		this.robot.changeData("AxialInch", this.axial * Params.AxialInchPerTick);
+		this.robot.changeData("LateralInch", this.lateral * Params.LateralInchPerTick);
 
-		robot.sensors.updateEncoders();
+		this.robot.sensors.updateEncoders();
 	}
 }

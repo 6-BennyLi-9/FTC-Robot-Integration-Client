@@ -14,9 +14,9 @@ public abstract class TuningProgramTemplate extends TeleopProgramTemplate{
 	@Override
 	public void init() {
 		Global.clear();
-		robot=new Robot(hardwareMap, RunningMode.TestOrTune,telemetry);
-		timer=new Timer();
-		client=robot.client;
-		whenInit();
+		this.robot =new Robot(this.hardwareMap, RunningMode.TestOrTune, this.telemetry);
+		this.timer =new Timer();
+		this.client = this.robot.client;
+		this.whenInit();
 	}
 }

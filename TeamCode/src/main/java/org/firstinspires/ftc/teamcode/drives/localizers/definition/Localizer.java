@@ -10,7 +10,7 @@ public interface Localizer {
 	void drawRobotWithoutSendingPacket();
 	@ExtractedInterfaces
 	default void drawRobot(){
-		drawRobotWithoutSendingPacket();
+		this.drawRobotWithoutSendingPacket();
 		DashboardClient.getInstance().sendPacket();
 	}
 }

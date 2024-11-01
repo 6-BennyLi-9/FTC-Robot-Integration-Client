@@ -15,16 +15,16 @@ public final class MecanumLocalizerInputsMessage {
     public double pitch;
     public double roll;
 
-    public MecanumLocalizerInputsMessage(PositionVelocityPair leftFront, PositionVelocityPair leftBack, PositionVelocityPair rightBack, PositionVelocityPair rightFront, YawPitchRollAngles angles) {
-        this.timestamp = System.nanoTime();
+    public MecanumLocalizerInputsMessage(final PositionVelocityPair leftFront, final PositionVelocityPair leftBack, final PositionVelocityPair rightBack, final PositionVelocityPair rightFront, final YawPitchRollAngles angles) {
+        timestamp = System.nanoTime();
         this.leftFront = leftFront;
         this.leftBack = leftBack;
         this.rightBack = rightBack;
         this.rightFront = rightFront;
         {
-            this.yaw = angles.getYaw(AngleUnit.RADIANS);
-            this.pitch = angles.getPitch(AngleUnit.RADIANS);
-            this.roll = angles.getRoll(AngleUnit.RADIANS);
+            yaw = angles.getYaw(AngleUnit.RADIANS);
+            pitch = angles.getPitch(AngleUnit.RADIANS);
+            roll = angles.getRoll(AngleUnit.RADIANS);
         }
     }
 }

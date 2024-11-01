@@ -19,24 +19,24 @@ import java.util.Map;
 public class KeyMapTest extends TuningProgramTemplate {
 	@Override
 	public void whileActivating() {
-		for(Map.Entry<KeyTag, KeyMapContent> entry : robot.gamepad.keyMap.contents.entrySet()){
+		for(final Map.Entry<KeyTag, KeyMapContent> entry : this.robot.gamepad.keyMap.contents.entrySet()){
 			if(entry.getValue() instanceof KeyMapButtonContent){
-				robot.client.changeData(entry.getValue().tag.name(),robot.gamepad.getButtonRunAble(entry.getKey()));
+				this.robot.client.changeData(entry.getValue().tag.name(), this.robot.gamepad.getButtonRunAble(entry.getKey()));
 			}else if(entry.getValue() instanceof KeyMapRodContent){
-				robot.client.changeData(entry.getValue().tag.name(),robot.gamepad.getRodState(entry.getKey()));
+				this.robot.client.changeData(entry.getValue().tag.name(), this.robot.gamepad.getRodState(entry.getKey()));
 			}
 		}
 	}
 
 	@Override
 	public void whenInit() {
-		robot.registerGamepad(gamepad1,gamepad2);
-		robot.gamepad.keyMap =new KeyMap();
+		this.robot.registerGamepad(this.gamepad1, this.gamepad2);
+		this.robot.gamepad.keyMap =new KeyMap();
 
-		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.SinglePressToChangeRunAble);
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod);
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod);
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
-		robot.gamepad.keyMap.loadButtonContent(KeyTag.ChassisSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
+		this.robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.SinglePressToChangeRunAble);
+		this.robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod);
+		this.robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod);
+		this.robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
+		this.robot.gamepad.keyMap.loadButtonContent(KeyTag.ChassisSpeedConfig, KeyButtonType.X, KeyMapSettingType.SinglePressToChangeRunAble);
 	}
 }

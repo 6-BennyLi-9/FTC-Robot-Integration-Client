@@ -23,73 +23,73 @@ public class Sensors {
 	public IntegrationBNO055   imu;
 	public IntegrationEncoders Left,Middle,Right;
 
-	public Sensors(@NonNull IntegrationHardwareMap hardwareMap){
-		imu= (IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
-		Left=(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
-		Middle=(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
-		Right=(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);
+	public Sensors(@NonNull final IntegrationHardwareMap hardwareMap){
+		this.imu = (IntegrationBNO055) hardwareMap.getDevice(HardwareDeviceTypes.imu);
+		this.Left =(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.LeftDeadWheel);
+		this.Middle =(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.MiddleDeadWheel);
+		this.Right =(IntegrationEncoders) hardwareMap.getDevice(HardwareDeviceTypes.RightDeadWheel);
 	}
 
 	/**
 	 * 不要盲目执行该函数，这与定位系统的稳定性有直接关联
 	 */
 	public void updateEncoders(){
-		Left.update();
-		Middle.update();
-		Right.update();
+		this.Left.update();
+		this.Middle.update();
+		this.Right.update();
 	}
 	/**
 	 * 不要盲目执行该函数，这与定位系统的稳定性有直接关联
 	 */
 	public void updateBNO(){
-		imu.update();
+		this.imu.update();
 	}
 
 	public void update(){
-		updateBNO();
+		this.updateBNO();
 	}
 
 	/**
 	 * @return 机器前进的TICK数
 	 */
 	public double getDeltaA(){
-		return (Left.deltaEncTicks+Right.deltaEncTicks)/2;
+		return (this.Left.deltaEncTicks + this.Right.deltaEncTicks) / 2;
 	}
 	/**
 	 * @return 机器平移的TICK数
 	 */
 	public double getDeltaL(){
-		return Middle.deltaEncTicks-Params.AxialPosition*getDeltaT();
+		return this.Middle.deltaEncTicks - Params.AxialPosition * this.getDeltaT();
 	}
 	/**
 	 * @return 机器旋转的TICK数
 	 */
 	public double getDeltaT(){
-		return (Right.deltaEncTicks-Left.deltaEncTicks)/Params.LateralPosition;
+		return (this.Right.deltaEncTicks - this.Left.deltaEncTicks) / Params.LateralPosition;
 	}
 
 	/**
 	 * @return 机器前进的TICK数
 	 */
 	public double getDeltaAxialInch(){
-		return getDeltaA()*Params.AxialInchPerTick;
+		return this.getDeltaA() * Params.AxialInchPerTick;
 	}
 	/**
 	 * @return 机器平移的TICK数
 	 */
 	public double getDeltaLateralInch(){
-		return getDeltaL()*Params.LateralInchPerTick;
+		return this.getDeltaL() * Params.LateralInchPerTick;
 	}
 	/**
 	 * @return 机器旋转的TICK数
 	 */
 	public double getDeltaTurningDeg(){
-		return getDeltaT()*Params.TurningDegPerTick;
+		return this.getDeltaT() * Params.TurningDegPerTick;
 	}
 
 
 	@ExtractedInterfaces
 	public double robotAngle() {
-		return imu.robotAngle;
+		return this.imu.robotAngle;
 	}
 }

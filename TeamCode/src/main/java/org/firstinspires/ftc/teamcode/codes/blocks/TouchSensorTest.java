@@ -26,17 +26,17 @@ public class TouchSensorTest extends LinearOpMode {
 	 */
 	@Override
 	public void runOpMode() {
-		touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
+		this.touchSensor = this.hardwareMap.get(TouchSensor.class, "touchSensor");
 
-		waitForStart();
-		if (opModeIsActive()) {
-			while (opModeIsActive()) {
-				if (touchSensor.isPressed()) {
-					telemetry.addData("Touch Sensor", "Is Pressed");
+		this.waitForStart();
+		if (this.opModeIsActive()) {
+			while (this.opModeIsActive()) {
+				if (this.touchSensor.isPressed()) {
+					this.telemetry.addData("Touch Sensor", "Is Pressed");
 				} else {
-					telemetry.addData("Touch Sensor", "Is Not Pressed");
+					this.telemetry.addData("Touch Sensor", "Is Not Pressed");
 				}
-				telemetry.update();
+				this.telemetry.update();
 			}
 		}
 	}

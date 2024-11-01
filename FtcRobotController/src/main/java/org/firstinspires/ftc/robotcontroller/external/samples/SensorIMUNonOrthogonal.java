@@ -84,7 +84,7 @@ public class SensorIMUNonOrthogonal extends LinearOpMode
 
         // Retrieve and initialize the IMU.
         // This sample expects the IMU to be in a REV Hub and named "imu".
-        imu = hardwareMap.get(IMU.class, "imu");
+	    this.imu = this.hardwareMap.get(IMU.class, "imu");
 
         /* Define how the hub is mounted to the robot to get the correct Yaw, Pitch and Roll values.
          *
@@ -146,39 +146,39 @@ public class SensorIMUNonOrthogonal extends LinearOpMode
 
         // The next three lines define the desired axis rotations.
         // To Do: EDIT these values to match YOUR mounting configuration.
-        double xRotation = 0;  // enter the desired X rotation angle here.
-        double yRotation = 0;  // enter the desired Y rotation angle here.
-        double zRotation = 0;  // enter the desired Z rotation angle here.
+        final double xRotation = 0;  // enter the desired X rotation angle here.
+        final double yRotation = 0;  // enter the desired Y rotation angle here.
+        final double zRotation = 0;  // enter the desired Z rotation angle here.
 
-        Orientation hubRotation = xyzOrientation(xRotation, yRotation, zRotation);
+        final Orientation hubRotation = xyzOrientation(xRotation, yRotation, zRotation);
 
         // Now initialize the IMU with this mounting orientation
-        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(hubRotation);
-        imu.initialize(new IMU.Parameters(orientationOnRobot));
+        final RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(hubRotation);
+	    this.imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         // Loop and update the dashboard
-        while (!isStopRequested()) {
-            telemetry.addData("Hub orientation", "X=%.1f,  Y=%.1f,  Z=%.1f \n", xRotation, yRotation, zRotation);
+        while (! this.isStopRequested()) {
+	        this.telemetry.addData("Hub orientation", "X=%.1f,  Y=%.1f,  Z=%.1f \n", xRotation, yRotation, zRotation);
 
             // Check to see if heading reset is requested
-            if (gamepad1.y) {
-                telemetry.addData("Yaw", "Resetting\n");
-                imu.resetYaw();
+            if (this.gamepad1.y) {
+	            this.telemetry.addData("Yaw", "Resetting\n");
+	            this.imu.resetYaw();
             } else {
-                telemetry.addData("Yaw", "Press Y (triangle) on Gamepad to reset\n");
+	            this.telemetry.addData("Yaw", "Press Y (triangle) on Gamepad to reset\n");
             }
 
             // Retrieve Rotational Angles and Velocities
-            YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
-            AngularVelocity angularVelocity = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+            final YawPitchRollAngles orientation     = this.imu.getRobotYawPitchRollAngles();
+            final AngularVelocity    angularVelocity = this.imu.getRobotAngularVelocity(AngleUnit.DEGREES);
 
-            telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
-            telemetry.addData("Pitch (X)", "%.2f Deg.", orientation.getPitch(AngleUnit.DEGREES));
-            telemetry.addData("Roll (Y)", "%.2f Deg.\n", orientation.getRoll(AngleUnit.DEGREES));
-            telemetry.addData("Yaw (Z) velocity", "%.2f Deg/Sec", angularVelocity.zRotationRate);
-            telemetry.addData("Pitch (X) velocity", "%.2f Deg/Sec", angularVelocity.xRotationRate);
-            telemetry.addData("Roll (Y) velocity", "%.2f Deg/Sec", angularVelocity.yRotationRate);
-            telemetry.update();
+	        this.telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", orientation.getYaw(AngleUnit.DEGREES));
+	        this.telemetry.addData("Pitch (X)", "%.2f Deg.", orientation.getPitch(AngleUnit.DEGREES));
+	        this.telemetry.addData("Roll (Y)", "%.2f Deg.\n", orientation.getRoll(AngleUnit.DEGREES));
+	        this.telemetry.addData("Yaw (Z) velocity", "%.2f Deg/Sec", angularVelocity.zRotationRate);
+	        this.telemetry.addData("Pitch (X) velocity", "%.2f Deg/Sec", angularVelocity.xRotationRate);
+	        this.telemetry.addData("Roll (Y) velocity", "%.2f Deg/Sec", angularVelocity.yRotationRate);
+	        this.telemetry.update();
         }
     }
 }

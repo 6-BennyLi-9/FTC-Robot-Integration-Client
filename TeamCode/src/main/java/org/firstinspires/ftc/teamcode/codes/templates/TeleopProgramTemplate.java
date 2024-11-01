@@ -22,10 +22,10 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	 */
 	@Override
 	public void init() {
-		robot=new Robot(hardwareMap, RunningMode.ManualDrive, telemetry);
-		timer=new Timer();
-		registerGamePad();
-		whenInit();
+		this.robot =new Robot(this.hardwareMap, RunningMode.ManualDrive, this.telemetry);
+		this.timer =new Timer();
+		this.registerGamePad();
+		this.whenInit();
 	}
 
 	/**
@@ -34,8 +34,8 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	 */
 	@Override
 	public void start() {
-		timer.restart();
-		robot.addData("TPS","WAIT FOR START");
+		this.timer.restart();
+		this.robot.addData("TPS","WAIT FOR START");
 	}
 
 	/**
@@ -44,19 +44,19 @@ public abstract class TeleopProgramTemplate extends OpMode {
 	 */
 	@Override
 	public void loop() {
-		double tps=1000/timer.restartAndGetDeltaTime();
-		robot.changeData("TPS", tps);
-		if(tps<30){
+		final double tps = 1000 / this.timer.restartAndGetDeltaTime();
+		this.robot.changeData("TPS", tps);
+		if(30 > tps){
 			Log.w("TPS Waring","Low TPS, Actions might not work well.");
 		}
 
-		whileActivating();
+		this.whileActivating();
 	}
 
 	@UserRequirementFunctions
 	@UtilFunctions
 	public void registerGamePad(){
-		robot.registerGamepad(gamepad1,gamepad2);
+		this.robot.registerGamepad(this.gamepad1, this.gamepad2);
 	}
 
 	/**

@@ -6,5 +6,5 @@ public interface HeadingLocalizerPlugin extends LocalizerPlugin{
 	@Override
 	default void drawRobot() {}
 	@Override
-	default void drawRobotWithoutSendingPacket(){};
+	default void drawRobotWithoutSendingPacket(){}
 }

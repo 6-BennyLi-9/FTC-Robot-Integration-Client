@@ -48,7 +48,7 @@ public class ConceptNullOp extends OpMode {
    */
   @Override
   public void init() {
-    telemetry.addData("Status", "Initialized");
+	  this.telemetry.addData("Status", "Initialized");
   }
 
   /**
@@ -65,7 +65,7 @@ public class ConceptNullOp extends OpMode {
    */
   @Override
   public void start() {
-    runtime.reset();
+	  this.runtime.reset();
   }
 
   /**
@@ -74,7 +74,7 @@ public class ConceptNullOp extends OpMode {
    */
   @Override
   public void loop() {
-    telemetry.addData("Status", "Run Time: " + runtime.toString());
+	  this.telemetry.addData("Status", "Run Time: " + this.runtime);
   }
 
   /**

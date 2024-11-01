@@ -25,8 +25,8 @@ import org.roadrunner.core.messages.TwoDeadWheelInputsMessage;
 @Config
 public final class TwoDeadWheelLocalizer implements Localizer {
     public static class Params {
-        public double parYTicks = 0.0; // y position of the parallel encoder (in tick units)
-        public double perpXTicks = 0.0; // x position of the perpendicular encoder (in tick units)
+        public double parYTicks; // y position of the parallel encoder (in tick units)
+        public double perpXTicks; // x position of the perpendicular encoder (in tick units)
     }
 
     public static Params PARAMS = new Params();
@@ -42,12 +42,12 @@ public final class TwoDeadWheelLocalizer implements Localizer {
     private double lastRawHeadingVel, headingVelOffset;
     private boolean initialized;
 
-    public TwoDeadWheelLocalizer(HardwareMap hardwareMap, IMU imu, double inPerTick) {
+    public TwoDeadWheelLocalizer(final HardwareMap hardwareMap, final IMU imu, final double inPerTick) {
         // TODO: make sure your config has **motors** with these names (or change them)
         //   the encoders should be plugged into the slot matching the named motor
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-        par = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "par")));
-        perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "perp")));
+	    this.par = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "par")));
+	    this.perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, "perp")));
 
         // TODO: reverse encoder directions if needed
         //   par.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -56,17 +56,17 @@ public final class TwoDeadWheelLocalizer implements Localizer {
 
         this.inPerTick = inPerTick;
 
-        FlightRecorder.write("TWO_DEAD_WHEEL_PARAMS", PARAMS);
+        FlightRecorder.write("TWO_DEAD_WHEEL_PARAMS", TwoDeadWheelLocalizer.PARAMS);
     }
 
     public Twist2dDual<Time> update() {
-        PositionVelocityPair parPosVel = par.getPositionAndVelocity();
-        PositionVelocityPair perpPosVel = perp.getPositionAndVelocity();
+        final PositionVelocityPair parPosVel  = this.par.getPositionAndVelocity();
+        final PositionVelocityPair perpPosVel = this.perp.getPositionAndVelocity();
 
-        YawPitchRollAngles angles = imu.getRobotYawPitchRollAngles();
+        final YawPitchRollAngles angles = this.imu.getRobotYawPitchRollAngles();
         // Use degrees here to work around https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/1070
-        AngularVelocity angularVelocityDegrees = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
-        AngularVelocity angularVelocity = new AngularVelocity(
+        final AngularVelocity angularVelocityDegrees = this.imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+        final AngularVelocity angularVelocity = new AngularVelocity(
                 UnnormalizedAngleUnit.RADIANS,
                 (float) Math.toRadians(angularVelocityDegrees.xRotationRate),
                 (float) Math.toRadians(angularVelocityDegrees.yRotationRate),
@@ -76,22 +76,22 @@ public final class TwoDeadWheelLocalizer implements Localizer {
 
         FlightRecorder.write("TWO_DEAD_WHEEL_INPUTS", new TwoDeadWheelInputsMessage(parPosVel, perpPosVel, angles, angularVelocity));
 
-        Rotation2d heading = Rotation2d.exp(angles.getYaw(AngleUnit.RADIANS));
+        final Rotation2d heading = Rotation2d.exp(angles.getYaw(AngleUnit.RADIANS));
 
         // see https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/617
-        double rawHeadingVel = angularVelocity.zRotationRate;
-        if (Math.abs(rawHeadingVel - lastRawHeadingVel) > Math.PI) {
-            headingVelOffset -= Math.signum(rawHeadingVel) * 2 * Math.PI;
+        final double rawHeadingVel = angularVelocity.zRotationRate;
+        if (Math.PI < Math.abs(rawHeadingVel - lastRawHeadingVel)) {
+	        this.headingVelOffset -= Math.signum(rawHeadingVel) * 2 * Math.PI;
         }
-        lastRawHeadingVel = rawHeadingVel;
-        double headingVel = headingVelOffset + rawHeadingVel;
+	    this.lastRawHeadingVel = rawHeadingVel;
+        final double headingVel = this.headingVelOffset + rawHeadingVel;
 
-        if (!initialized) {
-            initialized = true;
+        if (! this.initialized) {
+	        this.initialized = true;
 
-            lastParPos = parPosVel.position;
-            lastPerpPos = perpPosVel.position;
-            lastHeading = heading;
+	        this.lastParPos = parPosVel.position;
+	        this.lastPerpPos = perpPosVel.position;
+	        this.lastHeading = heading;
 
             return new Twist2dDual<>(
                     Vector2dDual.constant(new Vector2d(0.0, 0.0), 2),
@@ -99,20 +99,20 @@ public final class TwoDeadWheelLocalizer implements Localizer {
             );
         }
 
-        int parPosDelta = parPosVel.position - lastParPos;
-        int perpPosDelta = perpPosVel.position - lastPerpPos;
-        double headingDelta = heading.minus(lastHeading);
+        final int parPosDelta  = parPosVel.position - this.lastParPos;
+        final int perpPosDelta = perpPosVel.position - this.lastPerpPos;
+        final double headingDelta = heading.minus(this.lastHeading);
 
-        Twist2dDual<Time> twist = new Twist2dDual<>(
+        final Twist2dDual<Time> twist = new Twist2dDual<>(
                 new Vector2dDual<>(
                         new DualNum<Time>(new double[] {
-                                parPosDelta - PARAMS.parYTicks * headingDelta,
-                                parPosVel.velocity - PARAMS.parYTicks * headingVel,
-                        }).times(inPerTick),
+		                        parPosDelta - TwoDeadWheelLocalizer.PARAMS.parYTicks * headingDelta,
+                                parPosVel.velocity - TwoDeadWheelLocalizer.PARAMS.parYTicks * headingVel,
+                        }).times(this.inPerTick),
                         new DualNum<Time>(new double[] {
-                                perpPosDelta - PARAMS.perpXTicks * headingDelta,
-                                perpPosVel.velocity - PARAMS.perpXTicks * headingVel,
-                        }).times(inPerTick)
+		                        perpPosDelta - TwoDeadWheelLocalizer.PARAMS.perpXTicks * headingDelta,
+                                perpPosVel.velocity - TwoDeadWheelLocalizer.PARAMS.perpXTicks * headingVel,
+                        }).times(this.inPerTick)
                 ),
                 new DualNum<>(new double[] {
                         headingDelta,
@@ -120,9 +120,9 @@ public final class TwoDeadWheelLocalizer implements Localizer {
                 })
         );
 
-        lastParPos = parPosVel.position;
-        lastPerpPos = perpPosVel.position;
-        lastHeading = heading;
+	    this.lastParPos = parPosVel.position;
+	    this.lastPerpPos = perpPosVel.position;
+	    this.lastHeading = heading;
 
         return twist;
     }

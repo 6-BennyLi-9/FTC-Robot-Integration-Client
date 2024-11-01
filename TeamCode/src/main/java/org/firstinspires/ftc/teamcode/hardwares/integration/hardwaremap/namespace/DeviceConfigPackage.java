@@ -10,19 +10,19 @@ public class DeviceConfigPackage {
 	public boolean isDeadWheel;
 
 	public DeviceConfigPackage(){
-		state=HardwareState.Enabled;
-		direction=Direction.Forward;
+		this.state =HardwareState.Enabled;
+		this.direction =Direction.Forward;
 	}
 	public DeviceConfigPackage AutoComplete(){
-		if(state==null)state=HardwareState.Enabled;
-		if(direction==null)direction= Direction.Forward;
+		if(null == state) this.state =HardwareState.Enabled;
+		if(null == direction) this.direction = Direction.Forward;
 		return this;
 	}
-	public DeviceConfigPackage AddConfig(HardwareState state){
+	public DeviceConfigPackage AddConfig(final HardwareState state){
 		this.state=state;
 		return this;
 	}
-	public DeviceConfigPackage AddConfig(Direction direction){
+	public DeviceConfigPackage AddConfig(final Direction direction){
 		this.direction=direction;
 		return this;
 	}

@@ -31,8 +31,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class TuningOpModes {
-    // TODO: change this to TankDrive.class if you're using tank
+public enum TuningOpModes {
+	;
+	// TODO: change this to TankDrive.class if you're using tank
     public static final Class<?> DRIVE_CLASS = MecanumDrive.class;
 
     public static final String GROUP = "quickstart";
@@ -40,40 +41,40 @@ public final class TuningOpModes {
     //TODO: Robot Init error
     public static final boolean DISABLED = true;
 
-    private TuningOpModes() {}
-
-    private static OpModeMeta metaForClass(Class<? extends OpMode> cls) {
+	private static OpModeMeta metaForClass(final Class<? extends OpMode> cls) {
         return new OpModeMeta.Builder()
                 .setName(cls.getSimpleName())
-                .setGroup(GROUP)
+                .setGroup(TuningOpModes.GROUP)
                 .setFlavor(OpModeMeta.Flavor.TELEOP)
                 .build();
     }
 
     @OpModeRegistrar
-    public static void register(OpModeManager manager) {
-        if (DISABLED) return;
+    public static void register(final OpModeManager manager) {
+        if (TuningOpModes.DISABLED) return;
 
-        DriveViewFactory dvf;
-        if (DRIVE_CLASS.equals(MecanumDrive.class)) {
+        final DriveViewFactory dvf;
+        if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
             dvf = hardwareMap -> {
-                MecanumDrive md = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+                final MecanumDrive md = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-                List<Encoder> leftEncs = new ArrayList<>(), rightEncs = new ArrayList<>();
-                List<Encoder> parEncs = new ArrayList<>(), perpEncs = new ArrayList<>();
-                if (md.localizer instanceof MecanumDrive.DriveLocalizer) {
-                    MecanumDrive.DriveLocalizer dl = (MecanumDrive.DriveLocalizer) md.localizer;
+                final List<Encoder> leftEncs  = new ArrayList<>();
+	            final List<Encoder> rightEncs = new ArrayList<>();
+	            final List<Encoder> parEncs   = new ArrayList<>();
+	            final List<Encoder> perpEncs  = new ArrayList<>();
+	            if (md.localizer instanceof MecanumDrive.DriveLocalizer) {
+                    final MecanumDrive.DriveLocalizer dl = (MecanumDrive.DriveLocalizer) md.localizer;
                     leftEncs.add(dl.leftFront);
                     leftEncs.add(dl.leftBack);
                     rightEncs.add(dl.rightFront);
                     rightEncs.add(dl.rightBack);
                 } else if (md.localizer instanceof ThreeDeadWheelLocalizer) {
-                    ThreeDeadWheelLocalizer dl = (ThreeDeadWheelLocalizer) md.localizer;
+                    final ThreeDeadWheelLocalizer dl = (ThreeDeadWheelLocalizer) md.localizer;
                     parEncs.add(dl.par0);
                     parEncs.add(dl.par1);
                     perpEncs.add(dl.perp);
                 } else if (md.localizer instanceof TwoDeadWheelLocalizer) {
-                    TwoDeadWheelLocalizer dl = (TwoDeadWheelLocalizer) md.localizer;
+                    final TwoDeadWheelLocalizer dl = (TwoDeadWheelLocalizer) md.localizer;
                     parEncs.add(dl.par);
                     perpEncs.add(dl.perp);
                 } else {
@@ -106,23 +107,25 @@ public final class TuningOpModes {
                                 MecanumDrive.PARAMS.kA / MecanumDrive.PARAMS.inPerTick)
                 );
             };
-        } else if (DRIVE_CLASS.equals(TankDrive.class)) {
+        } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
             dvf = hardwareMap -> {
-                TankDrive td = new TankDrive(hardwareMap, new Pose2d(0, 0, 0));
+                final TankDrive td = new TankDrive(hardwareMap, new Pose2d(0, 0, 0));
 
-                List<Encoder> leftEncs = new ArrayList<>(), rightEncs = new ArrayList<>();
-                List<Encoder> parEncs = new ArrayList<>(), perpEncs = new ArrayList<>();
-                if (td.localizer instanceof TankDrive.DriveLocalizer) {
-                    TankDrive.DriveLocalizer dl = (TankDrive.DriveLocalizer) td.localizer;
+                final List<Encoder> leftEncs  = new ArrayList<>();
+	            final List<Encoder> rightEncs = new ArrayList<>();
+	            final List<Encoder> parEncs   = new ArrayList<>();
+	            final List<Encoder> perpEncs  = new ArrayList<>();
+	            if (td.localizer instanceof TankDrive.DriveLocalizer) {
+                    final TankDrive.DriveLocalizer dl = (TankDrive.DriveLocalizer) td.localizer;
                     leftEncs.addAll(dl.leftEncs);
                     rightEncs.addAll(dl.rightEncs);
                 } else if (td.localizer instanceof ThreeDeadWheelLocalizer) {
-                    ThreeDeadWheelLocalizer dl = (ThreeDeadWheelLocalizer) td.localizer;
+                    final ThreeDeadWheelLocalizer dl = (ThreeDeadWheelLocalizer) td.localizer;
                     parEncs.add(dl.par0);
                     parEncs.add(dl.par1);
                     perpEncs.add(dl.perp);
                 } else if (td.localizer instanceof TwoDeadWheelLocalizer) {
-                    TwoDeadWheelLocalizer dl = (TwoDeadWheelLocalizer) td.localizer;
+                    final TwoDeadWheelLocalizer dl = (TwoDeadWheelLocalizer) td.localizer;
                     parEncs.add(dl.par);
                     perpEncs.add(dl.perp);
                 } else {
@@ -153,21 +156,21 @@ public final class TuningOpModes {
             throw new RuntimeException();
         }
 
-        manager.register(metaForClass(AngularRampLogger.class), new AngularRampLogger(dvf));
-        manager.register(metaForClass(ForwardPushTest.class), new ForwardPushTest(dvf));
-        manager.register(metaForClass(ForwardRampLogger.class), new ForwardRampLogger(dvf));
-        manager.register(metaForClass(LateralPushTest.class), new LateralPushTest(dvf));
-        manager.register(metaForClass(LateralRampLogger.class), new LateralRampLogger(dvf));
-        manager.register(metaForClass(ManualFeedforwardTuner.class), new ManualFeedforwardTuner(dvf));
-        manager.register(metaForClass(MecanumMotorDirectionDebugger.class), new MecanumMotorDirectionDebugger(dvf));
-        manager.register(metaForClass(DeadWheelDirectionDebugger.class), new DeadWheelDirectionDebugger(dvf));
+        manager.register(TuningOpModes.metaForClass(AngularRampLogger.class), new AngularRampLogger(dvf));
+        manager.register(TuningOpModes.metaForClass(ForwardPushTest.class), new ForwardPushTest(dvf));
+        manager.register(TuningOpModes.metaForClass(ForwardRampLogger.class), new ForwardRampLogger(dvf));
+        manager.register(TuningOpModes.metaForClass(LateralPushTest.class), new LateralPushTest(dvf));
+        manager.register(TuningOpModes.metaForClass(LateralRampLogger.class), new LateralRampLogger(dvf));
+        manager.register(TuningOpModes.metaForClass(ManualFeedforwardTuner.class), new ManualFeedforwardTuner(dvf));
+        manager.register(TuningOpModes.metaForClass(MecanumMotorDirectionDebugger.class), new MecanumMotorDirectionDebugger(dvf));
+        manager.register(TuningOpModes.metaForClass(DeadWheelDirectionDebugger.class), new DeadWheelDirectionDebugger(dvf));
 
-        manager.register(metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
-        manager.register(metaForClass(SplineTest.class), SplineTest.class);
-        manager.register(metaForClass(LocalizationTest.class), LocalizationTest.class);
+        manager.register(TuningOpModes.metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
+        manager.register(TuningOpModes.metaForClass(SplineTest.class), SplineTest.class);
+        manager.register(TuningOpModes.metaForClass(LocalizationTest.class), LocalizationTest.class);
 
         FtcDashboard.getInstance().withConfigRoot(configRoot -> {
-            for (Class<?> c : Arrays.asList(
+            for (final Class<?> c : Arrays.asList(
                     AngularRampLogger.class,
                     ForwardRampLogger.class,
                     LateralRampLogger.class,

@@ -45,141 +45,141 @@ public class SimpleMecanumDrive implements DriverProgram {
 	
 	public final LinkedList<Position2d> poseHistory = new LinkedList<>();
 	public Position2d RobotPosition;
-	public double BufPower=1f;
+	public double BufPower= 1.0f;
 
 	public final Localizer localizer;
 
 	public static RobotState robotState;
 
-	public SimpleMecanumDrive(Position2d RobotPosition){
-		this.chassis = Global.robot.chassis;
+	public SimpleMecanumDrive(final Position2d RobotPosition){
+		chassis = Global.robot.chassis;
 		this.RobotPosition = RobotPosition;
-		this.client=Global.client;
-		SimpleMecanumDrive.robotState = Robot.robotState;
-		motors= Global.robot.motors;
-		this.pidProcessor=Global.robot.pidProcessor;
+		client=Global.client;
+		robotState = Robot.robotState;
+		this.motors = Global.robot.motors;
+		pidProcessor=Global.robot.pidProcessor;
 
 		//TODO:更换Localizer如果需要
-		localizer=new DeadWheelLocalizer(Global.robot.sensors);
+		this.localizer =new DeadWheelLocalizer(Global.robot.sensors);
 
-		ContentTags=new String[]{"DRIVE-X","DRIVE-Y","DRIVE-HEADING"};
+		this.ContentTags =new String[]{"DRIVE-X", "DRIVE-Y", "DRIVE-HEADING"};
 
-		this.pidProcessor.loadContent(new PidContent(ContentTags[0], 0));
-		this.pidProcessor.loadContent(new PidContent(ContentTags[1],1));
-		this.pidProcessor.loadContent(new PidContent(ContentTags[2],2));
+		pidProcessor.loadContent(new PidContent(this.ContentTags[0], 0));
+		pidProcessor.loadContent(new PidContent(this.ContentTags[1],1));
+		pidProcessor.loadContent(new PidContent(this.ContentTags[2],2));
 
-		poseHistory.push(RobotPosition);
+		this.poseHistory.push(RobotPosition);
 	}
 
 	/**
 	 * @param orders 要执行的LinkedList < DriveCommand >，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
 	@Override
-	public void runOrderPackage(@NonNull LinkedList<DriveOrder> orders){
-		DriveCommand[] commandLists=new DriveCommand[orders.size()];
+	public void runOrderPackage(@NonNull final LinkedList<DriveOrder> orders){
+		final DriveCommand[] commandLists =new DriveCommand[orders.size()];
 		for (int i = 0 ; i < orders.size(); i++) {
 			commandLists[i]= (DriveCommand) orders.get(i);
 		}
 
-		Vector2d[] PoseList;
+		final Vector2d[] PoseList;
 		PoseList=new Vector2d[commandLists.length+1];
 		PoseList[0]=commandLists[0].pose.toVector();
-		Timer timer = new Timer();
+		final Timer timer = new Timer();
 		for ( int i = 0, commandListsLength = commandLists.length; i < commandListsLength; i++ ) {
-			DriveCommand singleCommand = commandLists[i];
+			final DriveCommand singleCommand = commandLists[i];
 			singleCommand.run();
-			update();
-			motors.updateDriveOptions(RobotPosition.heading);
+			this.update();
+			this.motors.updateDriveOptions(this.RobotPosition.heading);
 
 			PoseList[i+1]=singleCommand.nextPose().toVector();
-			client.dashboard.drawLine(PoseList[i],PoseList[i + 1],"TargetLine");
+			this.client.dashboard.drawLine(PoseList[i],PoseList[i + 1],"TargetLine");
 
-			this.BufPower= singleCommand.BufPower;
-			double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
-			double dX = Math.abs(PoseList[i + 1].x - PoseList[i].x);
-			final double distance=Math.sqrt(dX * dX + dY * dY);
-			final double estimatedTime=distance/(Params.secPowerPerInch /(1f/BufPower));
-			client.changeData("distance",distance);
-			client.changeData("estimatedTime",estimatedTime);
-			client.changeData("progress","0%");
-			client.changeData("DELTA",singleCommand.getDeltaTrajectory().toString());
+			BufPower= singleCommand.BufPower;
+			final double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
+			final double dX = Math.abs(PoseList[i + 1].x - PoseList[i].x);
+			double       distance =Math.sqrt(dX * dX + dY * dY);
+			double estimatedTime=distance/(Params.secPowerPerInch /(1.0f / this.BufPower));
+			this.client.changeData("distance",distance);
+			this.client.changeData("estimatedTime",estimatedTime);
+			this.client.changeData("progress","0%");
+			this.client.changeData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
 			timer.restart();
-			while ((Math.abs(RobotPosition.x - PoseList[i + 1].x) > pem)
-					&& (Math.abs(RobotPosition.y - PoseList[i + 1].y) > pem)
-					&& (Math.abs(RobotPosition.heading - singleCommand.nextPose().heading) > aem)) {
-				double progress = (timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
-				client.changeData("progress", progress + "%");
-				Position2d aim = Functions.getAimPositionThroughTrajectory(singleCommand, RobotPosition, progress);
+			while ((Math.abs(this.RobotPosition.x - PoseList[i + 1].x) > pem)
+					&& (Math.abs(this.RobotPosition.y - PoseList[i + 1].y) > pem)
+					&& (Math.abs(this.RobotPosition.heading - singleCommand.nextPose().heading) > aem)) {
+				final double progress = (timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
+				this.client.changeData("progress", progress + "%");
+				final Position2d aim = Functions.getAimPositionThroughTrajectory(singleCommand, this.RobotPosition, progress);
 
 				if (timer.getDeltaTime() > estimatedTime + timeOutProtectionMills && Params.Configs.useOutTimeProtection) {//保护机制
-					robotState = RobotState.BrakeDown;
-					motors.updateDriveOptions();
+					SimpleMecanumDrive.robotState = RobotState.BrakeDown;
+					this.motors.updateDriveOptions();
 					break;
 				}
 
 				if (Params.Configs.usePIDToDriveInAutonomous) {
-					if (Math.abs(aim.x - RobotPosition.x) > pem
-							|| Math.abs(aim.y - RobotPosition.y) > pem
-							|| Math.abs(aim.heading - RobotPosition.heading) > aem
+					if (Math.abs(aim.x - this.RobotPosition.x) > pem
+							|| Math.abs(aim.y - this.RobotPosition.y) > pem
+							|| Math.abs(aim.heading - this.RobotPosition.heading) > aem
 							|| Params.Configs.alwaysRunPIDInAutonomous) {
 						//间断地调用pid可能会导致pid的效果不佳
-						pidProcessor.registerInaccuracies(ContentTags[0], aim.x- RobotPosition.x);
-						pidProcessor.registerInaccuracies(ContentTags[1], aim.y- RobotPosition.y);
-						pidProcessor.registerInaccuracies(ContentTags[2], aim.heading- RobotPosition.heading);
+						this.pidProcessor.registerInaccuracies(this.ContentTags[0], aim.x - this.RobotPosition.x);
+						this.pidProcessor.registerInaccuracies(this.ContentTags[1], aim.y - this.RobotPosition.y);
+						this.pidProcessor.registerInaccuracies(this.ContentTags[2], aim.heading - this.RobotPosition.heading);
 
-						pidProcessor.update();
+						this.pidProcessor.update();
 
-						motors.xAxisPower+=pidProcessor.getFulfillment(ContentTags[0]);
-						motors.yAxisPower+=pidProcessor.getFulfillment(ContentTags[1]);
-						motors.headingPower+=pidProcessor.getFulfillment(ContentTags[2]);
+						this.motors.xAxisPower+= this.pidProcessor.getFulfillment(this.ContentTags[0]);
+						this.motors.yAxisPower+= this.pidProcessor.getFulfillment(this.ContentTags[1]);
+						this.motors.headingPower+= this.pidProcessor.getFulfillment(this.ContentTags[2]);
 					}
 				} else {
-					if (Math.abs(aim.x - RobotPosition.x) > pem
-							|| Math.abs(aim.y - RobotPosition.y) > pem
-							|| Math.abs(aim.heading - RobotPosition.heading) > aem) {
-						double[] fulfillment = new double[]{
-								(aim.x - RobotPosition.x) * (Params.secPowerPerInch) * BufPower / 2,
-								(aim.y - RobotPosition.y) * (Params.secPowerPerInch) * BufPower / 2,
-								(aim.heading > RobotPosition.heading ? BufPower / 2 : -BufPower / 2)
+					if (Math.abs(aim.x - this.RobotPosition.x) > pem
+							|| Math.abs(aim.y - this.RobotPosition.y) > pem
+							|| Math.abs(aim.heading - this.RobotPosition.heading) > aem) {
+						final double[] fulfillment = {
+								(aim.x - this.RobotPosition.x) * (Params.secPowerPerInch) * this.BufPower / 2,
+								(aim.y - this.RobotPosition.y) * (Params.secPowerPerInch) * this.BufPower / 2,
+								(aim.heading > this.RobotPosition.heading ? this.BufPower / 2 : - this.BufPower / 2)
 						};
 
-						motors.xAxisPower += fulfillment[0];
-						motors.yAxisPower += fulfillment[1];
-						motors.headingPower += fulfillment[2];
+						this.motors.xAxisPower += fulfillment[0];
+						this.motors.yAxisPower += fulfillment[1];
+						this.motors.headingPower += fulfillment[2];
 					}
 				}
 
-				motors.updateDriveOptions(RobotPosition.heading);
+				this.motors.updateDriveOptions(this.RobotPosition.heading);
 			}
 
-			robotState = RobotState.WaitingAtPoint;
+			SimpleMecanumDrive.robotState = RobotState.WaitingAtPoint;
 		}
-		client.deleteData("distance");
-		client.deleteData("estimatedTime");
-		client.deleteData("progress");
-		client.deleteData("DELTA");
+		this.client.deleteData("distance");
+		this.client.deleteData("estimatedTime");
+		this.client.deleteData("progress");
+		this.client.deleteData("DELTA");
 
-		chassis.STOP();
-		robotState = RobotState.IDLE;
+		this.chassis.STOP();
+		SimpleMecanumDrive.robotState = RobotState.IDLE;
 	}
 
 	@Override
 	public Chassis getClassic() {
-		return chassis;
+		return this.chassis;
 	}
 
 	@Override
 	public Position2d getCurrentPose() {
-		return RobotPosition;
+		return this.RobotPosition;
 	}
 
 	/**
 	 * @param driveOrderPackage 要执行的DriveCommandPackage，不建议在使用时才定义driveCommandPackage，虽然没有任何坏处
 	 */
 	@Override
-	public void runOrderPackage(@NonNull DriveOrderPackage driveOrderPackage){
-		runOrderPackage(driveOrderPackage.getOrder());
+	public void runOrderPackage(@NonNull final DriveOrderPackage driveOrderPackage){
+		this.runOrderPackage(driveOrderPackage.getOrder());
 	}
 
 	/**
@@ -191,11 +191,11 @@ public class SimpleMecanumDrive implements DriverProgram {
 
 	@Override
 	public void update(){
-		localizer.update();
-		RobotPosition = localizer.getCurrentPose();
+		this.localizer.update();
+		this.RobotPosition = this.localizer.getCurrentPose();
 
-		client.dashboard.drawRobot(RobotPosition, DashboardClient.Blue, "RobotPosition");
+		this.client.dashboard.drawRobot(this.RobotPosition, DashboardClient.Blue, "RobotPosition");
 
-		poseHistory.add(RobotPosition);
+		this.poseHistory.add(this.RobotPosition);
 	}
 }

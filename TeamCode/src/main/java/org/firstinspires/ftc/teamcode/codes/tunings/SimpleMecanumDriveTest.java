@@ -19,10 +19,10 @@ public class SimpleMecanumDriveTest extends TestProgramTemplate {
 
 	@Override
 	public void opInit() {
-		robot=new Robot(hardwareMap, RunningMode.TestOrTune,client);
-		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(new Position2d(0,0,0));
+		this.robot =new Robot(this.hardwareMap, RunningMode.TestOrTune, this.client);
+		this.drive = (SimpleMecanumDrive) this.robot.InitMecanumDrive(new Position2d(0,0,0));
 
-		trajectory= (DriveCommandPackage) robot.DrivingOrderBuilder()
+		this.trajectory = (DriveCommandPackage) this.robot.DrivingOrderBuilder()
 				.StrafeInDistance(0,24)
 				.TurnAngle(90)
 				.StrafeTo(new Vector2d(24,0))
@@ -31,8 +31,8 @@ public class SimpleMecanumDriveTest extends TestProgramTemplate {
 
 	@Override
 	public void mainCode() {
-		drive.runOrderPackage(trajectory);
-		robot.update();
-		robot.turnAngle(-90);
+		this.drive.runOrderPackage(this.trajectory);
+		this.robot.update();
+		this.robot.turnAngle(-90);
 	}
 }

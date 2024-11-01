@@ -15,32 +15,32 @@ import java.util.Objects;
 @TeleOp(name = "IntegrationGamepadTest",group = Params.Configs.TuningAndTuneOpModesGroup)
 public class IntegrationGamepadTest extends TuningProgramTemplate {
 	private IntegrationGamepad gamepad;
-	private int count=0;
+	private int count;
 
 	@Override
 	public void whileActivating() {
-		robot.client.changeData("KBT(A)", Objects.requireNonNull(gamepad.keyMap.contents.get(KeyTag.TuningButton1)).tag.name());
-		robot.client.changeData("KMS(A)", Objects.requireNonNull(gamepad.keyMap.contents.get(KeyTag.TuningButton1)).setting.name());
+		this.robot.client.changeData("KBT(A)", Objects.requireNonNull(this.gamepad.keyMap.contents.get(KeyTag.TuningButton1)).tag.name());
+		this.robot.client.changeData("KMS(A)", Objects.requireNonNull(this.gamepad.keyMap.contents.get(KeyTag.TuningButton1)).setting.name());
 //		robot.client.changeData("A(current)",gamepad.gamepad1.A());
-		robot.client.changeData("A(integration)",gamepad.getButtonRunAble(KeyTag.TuningButton1));
+		this.robot.client.changeData("A(integration)", this.gamepad.getButtonRunAble(KeyTag.TuningButton1));
 
-		if(gamepad.getButtonRunAble(KeyTag.TuningButton1)) ++count;
+		if(this.gamepad.getButtonRunAble(KeyTag.TuningButton1)) ++ this.count;
 
-		robot.client.changeData("A(count)",count);
+		this.robot.client.changeData("A(count)", this.count);
 //		robot.client.changeData("A(integration-current)",gamepad.gamepad1.getButtonState(KeyButtonType.A,KeyMapSettingType.RunWhenButtonHold));
 //		robot.client.changeData("A(integration-last)",gamepad.gamepad1.LastState.get(KeyButtonType.A));
 
-		robot.client.changeData("LeftStickX(current)",gamepad.gamepad1.LeftStickX());
-		robot.client.changeData("LeftStickX(integration)",gamepad.getRodState(KeyTag.TuningButton2));
+		this.robot.client.changeData("LeftStickX(current)", this.gamepad.gamepad1.LeftStickX());
+		this.robot.client.changeData("LeftStickX(integration)", this.gamepad.getRodState(KeyTag.TuningButton2));
 
-		gamepad.showLst();
+		this.gamepad.showLst();
 //		gamepad.showContentInfo();
 	}
 
 	@Override
 	public void whenInit() {
-		gamepad=new IntegrationGamepad(gamepad1,gamepad2);
-		gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed,true);
-		gamepad.keyMap.loadRodContent(KeyTag.TuningButton2, KeyRodType.LeftStickX,KeyMapSettingType.PullRod,true);
+		this.gamepad =new IntegrationGamepad(this.gamepad1, this.gamepad2);
+		this.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed,true);
+		this.gamepad.keyMap.loadRodContent(KeyTag.TuningButton2, KeyRodType.LeftStickX,KeyMapSettingType.PullRod,true);
 	}
 }

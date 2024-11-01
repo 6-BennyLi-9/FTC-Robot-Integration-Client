@@ -19,21 +19,21 @@ public class IntegrationEncoders extends IntegrationSensor{
 	public double lastEncTick,lastVelocity;
 	public double deltaEncTicks,deltaVelocity;
 
-	public IntegrationEncoders(@NonNull DcMotorEx motor) {
+	public IntegrationEncoders(@NonNull final DcMotorEx motor) {
 		super(motor.getDeviceName());
-		sensor=new OverflowEncoder(new RawEncoder(motor));
+		this.sensor =new OverflowEncoder(new RawEncoder(motor));
 	}
 
 	@Override
 	public void update() {
-		lastEncTick=encTick;
-		lastVelocity=velocity;
+		this.lastEncTick = this.encTick;
+		this.lastVelocity = this.velocity;
 
-		PositionVelocityPair pair=sensor.getPositionAndVelocity();
-		encTick=pair.position;
-		velocity=pair.velocity;
+		final PositionVelocityPair pair = this.sensor.getPositionAndVelocity();
+		this.encTick =pair.position;
+		this.velocity =pair.velocity;
 
-		deltaEncTicks=encTick-lastEncTick;
-		deltaVelocity=velocity-lastVelocity;
+		this.deltaEncTicks = this.encTick - this.lastEncTick;
+		this.deltaVelocity = this.velocity - this.lastVelocity;
 	}
 }

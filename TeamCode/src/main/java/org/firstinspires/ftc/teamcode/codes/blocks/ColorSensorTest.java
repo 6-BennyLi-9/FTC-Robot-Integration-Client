@@ -44,8 +44,8 @@ public class ColorSensorTest extends LinearOpMode {
 		float saturation;
 		float value;
 
-		colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
-		colorSensor_DistanceSensor = hardwareMap.get(DistanceSensor.class, "colorSensor");
+		this.colorSensor = this.hardwareMap.get(ColorSensor.class, "colorSensor");
+		this.colorSensor_DistanceSensor = this.hardwareMap.get(DistanceSensor.class, "colorSensor");
 
 		// 您可以为传感器提供一个增益值，该值将乘以传感器的原始值
 		// 在计算标准化颜色值之前。颜色传感器（尤其是 REV
@@ -60,40 +60,40 @@ public class ColorSensorTest extends LinearOpMode {
 		// xButtonPreviouslyPressed 和 xButtonCurrentlyPressed 跟踪游戏手柄上 X 按钮的先前和当前状态。
 		xButtonPreviouslyPressed = false;
 		//如果传感器支持，请先打开灯（它可能已经打开了，我们只是确保如果可以的话）。
-		colorSensor.enableLed(true);
-		waitForStart();
-		if (opModeIsActive()) {
+		this.colorSensor.enableLed(true);
+		this.waitForStart();
+		if (this.opModeIsActive()) {
 			// 每个循环一次，我们读取颜色传感器数据，计算 HSV 颜色（色相、饱和度和值），并通过遥测报告所有这些值。
-			while (opModeIsActive()) {
+			while (this.opModeIsActive()) {
 				// Put loop blocks here.
-				telemetry.addLine("Hold the A button on gamepad 1 to increase gain, or B to decrease it.");
-				telemetry.addLine(" ");
-				telemetry.addLine("Higher gain values mean that the sensor will report larger numbers for Red, Green, and Blue, and Value.");
-				telemetry.addLine(" ");
-				telemetry.addLine("Press the X button to turn the color sensor's LED on or off (if supported).");
-				telemetry.addLine(" ");
+				this.telemetry.addLine("Hold the A button on gamepad 1 to increase gain, or B to decrease it.");
+				this.telemetry.addLine(" ");
+				this.telemetry.addLine("Higher gain values mean that the sensor will report larger numbers for Red, Green, and Blue, and Value.");
+				this.telemetry.addLine(" ");
+				this.telemetry.addLine("Press the X button to turn the color sensor's LED on or off (if supported).");
+				this.telemetry.addLine(" ");
 				// 如果按住 A 或 B 游戏手柄按钮，则更新增益值小于 1 的增益将使值变小，这没有帮助。
-				if (gamepad1.a) {
+				if (this.gamepad1.a) {
 					// 仅少量增加增益，因为此循环每秒将发生多次。
 					gain = (int) (gain + 0.005);
-				} else if (gamepad1.b && gain > 1) {
+				} else if (this.gamepad1.b && 1 < gain) {
 					gain = (int) (gain - 0.005);
 				}
-				telemetry.addData("Gain", gain);
+				this.telemetry.addData("Gain", gain);
 				// 告诉传感器我们所需的增益值（通常您会在初始化期间执行此操作，而不是在循环期间执行此操作）
-				((NormalizedColorSensor) colorSensor).setGain(gain);
-				xButtonCurrentlyPressed = gamepad1.x;
+				((NormalizedColorSensor) this.colorSensor).setGain(gain);
+				xButtonCurrentlyPressed = this.gamepad1.x;
 				// 如果按钮状态与原来的状态不同，则执行操作以打开或关闭颜色传感器的指示灯（如果支持）。
 				if (xButtonCurrentlyPressed != xButtonPreviouslyPressed) {
 					if (xButtonCurrentlyPressed) {
 						// 如果按钮（现在）按下，则切换灯
-						colorSensor.enableLed(!((Light) colorSensor).isLightOn());
+						this.colorSensor.enableLed(!((Light) this.colorSensor).isLightOn());
 					}
 				}
 				xButtonPreviouslyPressed = xButtonCurrentlyPressed;
 				// 将颜色传感器数据保存为标准化颜色值。推荐将 Normalized Colors （标准化颜色） 用于颜色传感器颜色是因为 Normalized （标准化）
 				// Colors 始终提供介于 0 和 1 之间的值，而直接的 Color Sensor 颜色取决于您使用的特定传感器。
-				myNormalizedColors = ((NormalizedColorSensor) colorSensor).getNormalizedColors();
+				myNormalizedColors = ((NormalizedColorSensor) this.colorSensor).getNormalizedColors();
 				// 将标准化颜色值转换为 Android 颜色值。
 				myColor = myNormalizedColors.toColor();
 				// 使用 Android 颜色值计算 Hue、Saturation 和 Value 颜色变量。
@@ -102,13 +102,13 @@ public class ColorSensorTest extends LinearOpMode {
 				saturation = JavaUtil.rgbToSaturation(Color.red(myColor), Color.green(myColor), Color.blue(myColor));
 				value = JavaUtil.rgbToValue(Color.red(myColor), Color.green(myColor), Color.blue(myColor));
 				// 使用遥测技术在驾驶员工作站上显示反馈。我们展示红色，绿色和蓝色标准化传感器的值（在 0 到 1） 以及等效的 HSV（色相、饱和度和值）值。
-				telemetry.addLine("Red " + JavaUtil.formatNumber(myNormalizedColors.red, 3) + " | Green " + JavaUtil.formatNumber(myNormalizedColors.green, 3) + " | Blue " + JavaUtil.formatNumber(myNormalizedColors.blue, 3));
-				telemetry.addLine("Hue " + JavaUtil.formatNumber(hue, 3) + " | Saturation " + JavaUtil.formatNumber(saturation, 3) + " | Value " + JavaUtil.formatNumber(value, 3));
-				telemetry.addData("Alpha", Double.parseDouble(JavaUtil.formatNumber(myNormalizedColors.alpha, 3)));
+				this.telemetry.addLine("Red " + JavaUtil.formatNumber(myNormalizedColors.red, 3) + " | Green " + JavaUtil.formatNumber(myNormalizedColors.green, 3) + " | Blue " + JavaUtil.formatNumber(myNormalizedColors.blue, 3));
+				this.telemetry.addLine("Hue " + JavaUtil.formatNumber(hue, 3) + " | Saturation " + JavaUtil.formatNumber(saturation, 3) + " | Value " + JavaUtil.formatNumber(value, 3));
+				this.telemetry.addData("Alpha", Double.parseDouble(JavaUtil.formatNumber(myNormalizedColors.alpha, 3)));
 				// 如果此颜色传感器还具有距离传感器，则显示测量的距离。
 				// 请注意，报告的距离仅在非常近时有用范围，并受环境光和表面反射率的影响。
-				telemetry.addData("Distance (cm)", Double.parseDouble(JavaUtil.formatNumber(colorSensor_DistanceSensor.getDistance(DistanceUnit.CM), 3)));
-				telemetry.update();
+				this.telemetry.addData("Distance (cm)", Double.parseDouble(JavaUtil.formatNumber(this.colorSensor_DistanceSensor.getDistance(DistanceUnit.CM), 3)));
+				this.telemetry.update();
 			}
 		}
 	}

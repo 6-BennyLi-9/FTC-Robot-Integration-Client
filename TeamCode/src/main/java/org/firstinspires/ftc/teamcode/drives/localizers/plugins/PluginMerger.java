@@ -10,10 +10,12 @@ import org.firstinspires.ftc.teamcode.utils.clients.DashboardClient;
 import org.jetbrains.annotations.Contract;
 
 @LocalizationSubassembly
-public class PluginMerger {
+public enum PluginMerger {
+	;
+
 	@NonNull
-	public static PositionLocalizerPlugin mergePlugins(PositionLocalizerPlugin positionPlugin, HeadingLocalizerPlugin headingPlugin,
-	                                                   String color,String tag){
+	public static PositionLocalizerPlugin mergePlugins(final PositionLocalizerPlugin positionPlugin, final HeadingLocalizerPlugin headingPlugin,
+	                                                   final String color, final String tag){
 		return new PositionLocalizerPlugin() {
 			@NonNull
 			@Contract(" -> new")
@@ -30,7 +32,7 @@ public class PluginMerger {
 
 			@Override
 			public void drawRobotWithoutSendingPacket() {
-				DashboardClient.getInstance().drawRobot(getCurrentPose(),color,tag);
+				DashboardClient.getInstance().drawRobot(this.getCurrentPose(),color,tag);
 			}
 		};
 	}

@@ -13,18 +13,18 @@ public abstract class TestProgramTemplate extends LinearOpMode {
 	@Override
 	public void runOpMode() {
 		Global.clear();
-		client=new Client(telemetry);
-		opInit();
+		this.client =new Client(this.telemetry);
+		this.opInit();
 
 
-		while(!opModeIsActive()&&!isStopRequested()){
-			sleep(500);
+		while(! this.opModeIsActive() && ! this.isStopRequested()){
+			this.sleep(500);
 		}
 
-		if(isStopRequested())return;
+		if(this.isStopRequested())return;
 
-		mainCode();
-		sleep(1145141919);
+		this.mainCode();
+		this.sleep(1145141919);
 	}
 
 	public abstract void opInit();

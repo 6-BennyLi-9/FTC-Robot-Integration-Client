@@ -14,39 +14,39 @@ public class PidContentPackage {
 	public Set<String> angleBasicContentTag;
 
 	public PidContentPackage(){
-		coreContents =new HashMap<>();
-		angleBasicContentTag=new HashSet<>();
+		this.coreContents =new HashMap<>();
+		this.angleBasicContentTag =new HashSet<>();
 	}
 
 	@UserRequirementFunctions
-	public void register(@NonNull PidContent content) throws IllegalArgumentException {
-		if(coreContents.containsKey(content.tag)) {
+	public void register(@NonNull final PidContent content) throws IllegalArgumentException {
+		if(this.coreContents.containsKey(content.tag)) {
 			throw new IllegalArgumentException("Already Registered content,tag:"+content.tag);
 		}
-		coreContents.put(content.tag,content);
+		this.coreContents.put(content.tag,content);
 	}
 	@UserRequirementFunctions
-	public void register(@NonNull PidContent content,boolean isAngleBased){
-		if(isAngleBased) angleBasicContentTag.add(content.tag);
-		register(content);
+	public void register(@NonNull final PidContent content, final boolean isAngleBased){
+		if(isAngleBased) this.angleBasicContentTag.add(content.tag);
+		this.register(content);
 	}
 	@UserRequirementFunctions
-	public PidContent getTag(String tag) throws ClassNotFoundException {
-		if(coreContents.containsKey(tag)){
-			return coreContents.get(tag);
+	public PidContent getTag(final String tag) throws ClassNotFoundException {
+		if(this.coreContents.containsKey(tag)){
+			return this.coreContents.get(tag);
 		}
 		throw new ClassNotFoundException("Unknown tag:"+tag);
 	}
 	@UserRequirementFunctions
-	public boolean TagIsAngleBasedContent(String tag){
-		return angleBasicContentTag.contains(tag);
+	public boolean TagIsAngleBasedContent(final String tag){
+		return this.angleBasicContentTag.contains(tag);
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
-		StringBuilder res= new StringBuilder();
-		for (Map.Entry<String, PidContent> entry : coreContents.entrySet()) {
+		final StringBuilder res = new StringBuilder();
+		for (final Map.Entry<String, PidContent> entry : this.coreContents.entrySet()) {
 			res.append("[").append(entry.getValue()).append("]\n");
 		}
 		return res.toString();

@@ -16,24 +16,24 @@ public class Servos {
 	public double FrontClipPosition,RearClipPosition;
 	private boolean PositionInPlace;
 
-	public Servos(IntegrationHardwareMap hardware){
+	public Servos(final IntegrationHardwareMap hardware){
 		this.hardware=hardware;
-		PositionInPlace=false;
+		this.PositionInPlace =false;
 	}
 
 	public void update(){
 		try {
-			hardware.setPosition(HardwareDeviceTypes.FrontClip,FrontClipPosition);
-			hardware.setPosition(HardwareDeviceTypes.RearClip,RearClipPosition);
+			this.hardware.setPosition(HardwareDeviceTypes.FrontClip, this.FrontClipPosition);
+			this.hardware.setPosition(HardwareDeviceTypes.RearClip, this.RearClipPosition);
 
-			PositionInPlace=hardware.isInPlace(HardwareDeviceTypes.FrontClip)&&hardware.isInPlace(HardwareDeviceTypes.RearClip);
-		}catch (Exception ignored){}
+			this.PositionInPlace = this.hardware.isInPlace(HardwareDeviceTypes.FrontClip) && this.hardware.isInPlace(HardwareDeviceTypes.RearClip);
+		}catch (final Exception ignored){}
 	}
 
 	/**
 	 * @return 是否所有舵机都到位了
 	 */
 	public boolean inPlace(){
-		return PositionInPlace;
+		return this.PositionInPlace;
 	}
 }

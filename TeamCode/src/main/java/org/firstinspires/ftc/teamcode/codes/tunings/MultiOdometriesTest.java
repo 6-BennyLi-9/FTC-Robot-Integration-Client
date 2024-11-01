@@ -23,57 +23,56 @@ public class MultiOdometriesTest extends TuningProgramTemplate {
 	public Odometry arc,rubbish,classic,integral;
 	@Override
 	public void whenInit() {
-		arc=new ArcOrganizedOdometer();
-		rubbish=new SuperRubbishUselessAwfulOdometer();
-		classic=new ClassicOdometer();
-		integral=new IntegralOrganizedOdometer();
+		this.arc =new ArcOrganizedOdometer();
+		this.rubbish =new SuperRubbishUselessAwfulOdometer();
+		this.classic =new ClassicOdometer();
+		this.integral =new IntegralOrganizedOdometer();
 
-		arc.setColor(DashboardClient.Blue);
-		integral.setColor(DashboardClient.Green);
-		rubbish.setColor(DashboardClient.Red);
-		classic.setColor(DashboardClient.Gray);
+		this.arc.setColor(DashboardClient.Blue);
+		this.integral.setColor(DashboardClient.Green);
+		this.rubbish.setColor(DashboardClient.Red);
+		this.classic.setColor(DashboardClient.Gray);
 
-		robot.registerGamepad(gamepad1,gamepad2);
-		robot.gamepad.keyMap =new KeyMap();
-		robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod)
+		this.robot.registerGamepad(this.gamepad1, this.gamepad2);
+		this.robot.gamepad.keyMap =new KeyMap();
+		this.robot.gamepad.keyMap.loadRodContent(KeyTag.ChassisRunForward, KeyRodType.LeftStickY,KeyMapSettingType.PullRod)
 							.loadRodContent(KeyTag.ChassisRunStrafe, KeyRodType.LeftStickX,KeyMapSettingType.PullRod)
 							.loadRodContent(KeyTag.ChassisTurn, KeyRodType.RightStickX,KeyMapSettingType.PullRod);
 	}
 
 	@Override
 	public void whileActivating() {
-		robot.chassis.motors.simpleMotorPowerController(
-				robot.gamepad.getRodState(KeyTag.ChassisRunStrafe),
-				robot.gamepad.getRodState(KeyTag.ChassisRunForward),
-				robot.gamepad.getRodState(KeyTag.ChassisTurn)
+		this.robot.chassis.motors.simpleMotorPowerController(this.robot.gamepad.getRodState(KeyTag.ChassisRunStrafe), this.robot.gamepad.getRodState(KeyTag.ChassisRunForward), this.robot.gamepad.getRodState(KeyTag.ChassisTurn)
 		);
 
-		robot.motors.updateDriveOptions();
-		robot.sensors.updateEncoders();
-		robot.motors.clearDriveOptions();
+		this.robot.motors.updateDriveOptions();
+		this.robot.sensors.updateEncoders();
+		this.robot.motors.clearDriveOptions();
 
-		double l=robot.sensors.getDeltaLateralInch(),a=robot.sensors.getDeltaAxialInch(),t=robot.sensors.getDeltaTurningDeg();
+		final double l = this.robot.sensors.getDeltaLateralInch();
+		double       a =robot.sensors.getDeltaAxialInch();
+		final double t = this.robot.sensors.getDeltaTurningDeg();
 
-		arc.update(l,a,t);
-		rubbish.update(l,a,t);
-		classic.update(l,a,t);
-		integral.update(l,a,t);
+		this.arc.update(l,a,t);
+		this.rubbish.update(l,a,t);
+		this.classic.update(l,a,t);
+		this.integral.update(l,a,t);
 
-		print(arc);
-		print(rubbish);
-		print(integral);
-		print(classic);
+		this.print(this.arc);
+		this.print(this.rubbish);
+		this.print(this.integral);
+		this.print(this.classic);
 
-		arc.registerToDashBoard("arc");
-		rubbish.registerToDashBoard("rubbish");
-		integral.registerToDashBoard("integral");
-		classic.registerToDashBoard("classic");
+		this.arc.registerToDashBoard("arc");
+		this.rubbish.registerToDashBoard("rubbish");
+		this.integral.registerToDashBoard("integral");
+		this.classic.registerToDashBoard("classic");
 
-		client.dashboard.sendPacket();
+		this.client.dashboard.sendPacket();
 	}
 
-	public void print(@NonNull Odometry aim){
-		Position2d pose=aim.getCurrentPose();
-		client.changeData(aim.getClass().getSimpleName(),pose);
+	public void print(@NonNull final Odometry aim){
+		final Position2d pose =aim.getCurrentPose();
+		this.client.changeData(aim.getClass().getSimpleName(),pose);
 	}
 }

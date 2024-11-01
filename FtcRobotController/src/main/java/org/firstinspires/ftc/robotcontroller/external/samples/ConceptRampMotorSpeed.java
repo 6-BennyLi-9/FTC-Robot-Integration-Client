@@ -57,7 +57,7 @@ public class ConceptRampMotorSpeed extends LinearOpMode {
 
     // Define class members
     DcMotor motor;
-    double  power   = 0;
+    double  power;
     boolean rampUp  = true;
 
 
@@ -66,49 +66,49 @@ public class ConceptRampMotorSpeed extends LinearOpMode {
 
         // Connect to motor (Assume standard left wheel)
         // Change the text in quotes to match any motor name on your robot.
-        motor = hardwareMap.get(DcMotor.class, "left_drive");
+	    this.motor = this.hardwareMap.get(DcMotor.class, "left_drive");
 
         // Wait for the start button
-        telemetry.addData(">", "Press Start to run Motors." );
-        telemetry.update();
-        waitForStart();
+	    this.telemetry.addData(">", "Press Start to run Motors." );
+	    this.telemetry.update();
+	    this.waitForStart();
 
         // Ramp motor speeds till stop pressed.
-        while(opModeIsActive()) {
+        while(this.opModeIsActive()) {
 
             // Ramp the motors, according to the rampUp variable.
-            if (rampUp) {
+            if (this.rampUp) {
                 // Keep stepping up until we hit the max value.
-                power += INCREMENT ;
-                if (power >= MAX_FWD ) {
-                    power = MAX_FWD;
-                    rampUp = !rampUp;   // Switch ramp direction
+	            this.power += ConceptRampMotorSpeed.INCREMENT;
+                if (MAX_FWD <= ConceptRampMotorSpeed.power) {
+	                this.power = ConceptRampMotorSpeed.MAX_FWD;
+	                this.rampUp = ! this.rampUp;   // Switch ramp direction
                 }
             }
             else {
                 // Keep stepping down until we hit the min value.
-                power -= INCREMENT ;
-                if (power <= MAX_REV ) {
-                    power = MAX_REV;
-                    rampUp = !rampUp;  // Switch ramp direction
+	            this.power -= ConceptRampMotorSpeed.INCREMENT;
+                if (MAX_REV >= ConceptRampMotorSpeed.power) {
+	                this.power = ConceptRampMotorSpeed.MAX_REV;
+	                this.rampUp = ! this.rampUp;  // Switch ramp direction
                 }
             }
 
             // Display the current value
-            telemetry.addData("Motor Power", "%5.2f", power);
-            telemetry.addData(">", "Press Stop to end test." );
-            telemetry.update();
+	        this.telemetry.addData("Motor Power", "%5.2f", this.power);
+	        this.telemetry.addData(">", "Press Stop to end test." );
+	        this.telemetry.update();
 
             // Set the motor to the new power and pause;
-            motor.setPower(power);
-            sleep(CYCLE_MS);
-            idle();
+	        this.motor.setPower(this.power);
+	        this.sleep(ConceptRampMotorSpeed.CYCLE_MS);
+	        this.idle();
         }
 
         // Turn off motor and signal done;
-        motor.setPower(0);
-        telemetry.addData(">", "Done");
-        telemetry.update();
+	    this.motor.setPower(0);
+	    this.telemetry.addData(">", "Done");
+	    this.telemetry.update();
 
     }
 }

@@ -10,18 +10,18 @@ import org.firstinspires.ftc.teamcode.codes.templates.AutonomousProgramTemplate;
 import org.firstinspires.ftc.teamcode.hardwares.Webcam;
 
 @Disabled
-@Autonomous (name = "WebcamDetection",group = Params.Configs.SampleOpModesGroup)
+@Autonomous(name = "WebcamDetection", group = Params.Configs.SampleOpModesGroup)
 public class WebcamDetection extends AutonomousProgramTemplate {
-	Webcam webcam=new Webcam(hardwareMap);
+	Webcam webcam=new Webcam(this.hardwareMap);
 
 	@Override
 	public void runOpMode() {
-		while(!isStopRequested()){
-			telemetry.addData("location",webcam.getLocation());
-			if(opModeIsActive()){
-				webcam.showRoiVP();
+		while(! this.isStopRequested()){
+			this.telemetry.addData("location", this.webcam.getLocation());
+			if(this.opModeIsActive()){
+				this.webcam.showRoiVP();
 			}
-			telemetry.update();
+			this.telemetry.update();
 			Actions.runBlocking(new SleepAction(0.05));
 		}
 	}

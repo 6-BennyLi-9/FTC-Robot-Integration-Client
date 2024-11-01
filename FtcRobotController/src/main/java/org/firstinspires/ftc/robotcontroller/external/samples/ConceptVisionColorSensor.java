@@ -83,7 +83,7 @@ public class ConceptVisionColorSensor extends LinearOpMode
          *     This will force any other colored region into one of these colors.
          *     eg: Green may be reported as YELLOW, as this may be the "closest" match.
          */
-        PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
+        final PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-0.1, 0.1, 0.1, -0.1))
                 .setSwatches(
                         PredominantColorProcessor.Swatch.RED,
@@ -105,32 +105,32 @@ public class ConceptVisionColorSensor extends LinearOpMode
          *  or
          *      .setCamera(BuiltinCameraDirection.BACK)    ... for a Phone Camera
          */
-        VisionPortal portal = new VisionPortal.Builder()
+        final VisionPortal portal = new VisionPortal.Builder()
                 .addProcessor(colorSensor)
                 .setCameraResolution(new Size(320, 240))
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                .setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .build();
 
-        telemetry.setMsTransmissionInterval(50);  // Speed up telemetry updates, Just use for debugging.
+	    this.telemetry.setMsTransmissionInterval(50);  // Speed up telemetry updates, Just use for debugging.
 
         // WARNING:  To be able to view the stream preview on the Driver Station, this code runs in INIT mode.
-        while (opModeIsActive() || opModeInInit())
+        while (this.opModeIsActive() || this.opModeInInit())
         {
-            telemetry.addData("DS preview on/off", "3 dots, Camera Stream\n");
+	        this.telemetry.addData("DS preview on/off", "3 dots, Camera Stream\n");
 
             // Request the most recent color analysis.
             // This will return the closest matching colorSwatch and the predominant RGB color.
             // Note: to take actions based on the detected color, simply use the colorSwatch in a comparison or switch.
             //  eg:
             //      if (result.closestSwatch == PredominantColorProcessor.Swatch.RED) {... some code  ...}
-            PredominantColorProcessor.Result result = colorSensor.getAnalysis();
+            final PredominantColorProcessor.Result result = colorSensor.getAnalysis();
 
             // Display the Color Sensor result.
-            telemetry.addData("Best Match:", result.closestSwatch);
-            telemetry.addLine(String.format("R %3d, G %3d, B %3d", Color.red(result.rgb), Color.green(result.rgb), Color.blue(result.rgb)));
-            telemetry.update();
+	        this.telemetry.addData("Best Match:", result.closestSwatch);
+	        this.telemetry.addLine(String.format("R %3d, G %3d, B %3d", Color.red(result.rgb), Color.green(result.rgb), Color.blue(result.rgb)));
+	        this.telemetry.update();
 
-            sleep(20);
+	        this.sleep(20);
         }
     }
 }

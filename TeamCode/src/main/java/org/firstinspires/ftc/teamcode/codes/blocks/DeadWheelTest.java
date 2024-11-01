@@ -23,26 +23,26 @@ public class DeadWheelTest extends LinearOpMode {
 
 	@Override
 	public void runOpMode() {
-		leftBack = hardwareMap.get(DcMotor.class, "leftBack");
-		leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-		rightBack = hardwareMap.get(DcMotor.class, "rightBack");
-		rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+		this.leftBack = this.hardwareMap.get(DcMotor.class, "leftBack");
+		this.leftFront = this.hardwareMap.get(DcMotor.class, "leftFront");
+		this.rightBack = this.hardwareMap.get(DcMotor.class, "rightBack");
+		this.rightFront = this.hardwareMap.get(DcMotor.class, "rightFront");
 
 		// Put initialization blocks here.
-		waitForStart();
-		leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-		if (opModeIsActive()) {
+		this.waitForStart();
+		this.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		this.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		this.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		this.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		if (this.opModeIsActive()) {
 			// Put run blocks here.
-			while (opModeIsActive()) {
+			while (this.opModeIsActive()) {
 				// Put loop blocks here.
-				telemetry.update();
-				telemetry.addData("leftFront", leftFront.getCurrentPosition());
-				telemetry.addData("leftBack", leftBack.getCurrentPosition());
-				telemetry.addData("rightFront", rightFront.getCurrentPosition());
-				telemetry.addData("rightBack", rightBack.getCurrentPosition());
+				this.telemetry.update();
+				this.telemetry.addData("leftFront", this.leftFront.getCurrentPosition());
+				this.telemetry.addData("leftBack", this.leftBack.getCurrentPosition());
+				this.telemetry.addData("rightFront", this.rightFront.getCurrentPosition());
+				this.telemetry.addData("rightBack", this.rightBack.getCurrentPosition());
 			}
 		}
 	}

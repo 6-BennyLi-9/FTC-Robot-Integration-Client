@@ -19,19 +19,19 @@ public class ServoPowerTest extends LinearOpMode {
 	 */
 	@Override
 	public void runOpMode() {
-		leftIntake = hardwareMap.get(Servo.class, "leftIntake");
-		rightIntake = hardwareMap.get(Servo.class, "rightIntake");
+		this.leftIntake = this.hardwareMap.get(Servo.class, "leftIntake");
+		this.rightIntake = this.hardwareMap.get(Servo.class, "rightIntake");
 
 		// Put initialization blocks here.
-		waitForStart();
-		leftIntake.setDirection(Servo.Direction.FORWARD);
-		leftIntake.setDirection(Servo.Direction.FORWARD);
-		if (opModeIsActive()) {
-			while (opModeIsActive()) {
-				rightIntake.setPosition(0.5);
-				telemetry.addData("left", leftIntake.getPosition());
-				telemetry.addData("right", rightIntake.getPosition());
-				telemetry.update();
+		this.waitForStart();
+		this.leftIntake.setDirection(Servo.Direction.FORWARD);
+		this.leftIntake.setDirection(Servo.Direction.FORWARD);
+		if (this.opModeIsActive()) {
+			while (this.opModeIsActive()) {
+				this.rightIntake.setPosition(0.5);
+				this.telemetry.addData("left", this.leftIntake.getPosition());
+				this.telemetry.addData("right", this.rightIntake.getPosition());
+				this.telemetry.update();
 			}
 		}
 	}

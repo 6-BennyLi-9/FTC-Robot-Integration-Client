@@ -50,12 +50,12 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 @Disabled
 public class ConceptTelemetry extends LinearOpMode  {
     /** Keeps track of the line of the poem which is to be emitted next */
-    int poemLine = 0;
+    int poemLine;
 
     /** Keeps track of how long it's been since we last emitted a line of poetry */
     ElapsedTime poemElapsed = new ElapsedTime();
 
-    static final String[] poem = new String[] {
+    static final String[] poem = {
 
         "Mary had a little lamb,",
         "His fleece was white as snow,",
@@ -84,24 +84,24 @@ public class ConceptTelemetry extends LinearOpMode  {
 
         /* we keep track of how long it's been since the OpMode was started, just
          * to have some interesting data to show */
-        ElapsedTime opmodeRunTime = new ElapsedTime();
+        final ElapsedTime opmodeRunTime = new ElapsedTime();
 
         // We show the log in oldest-to-newest order, as that's better for poetry
-        telemetry.log().setDisplayOrder(Telemetry.Log.DisplayOrder.OLDEST_FIRST);
+	    this.telemetry.log().setDisplayOrder(Telemetry.Log.DisplayOrder.OLDEST_FIRST);
         // We can control the number of lines shown in the log
-        telemetry.log().setCapacity(6);
+	    this.telemetry.log().setCapacity(6);
         // The interval between lines of poetry, in seconds
-        double sPoemInterval = 0.6;
+        final double sPoemInterval = 0.6;
 
         /*
          * Wait until we've been given the ok to go. For something to do, we emit the
          * elapsed time as we sit here and wait. If we didn't want to do anything while
          * we waited, we would just call waitForStart().
          */
-        while (!isStarted()) {
-            telemetry.addData("time", "%.1f seconds", opmodeRunTime.seconds());
-            telemetry.update();
-            idle();
+        while (! this.isStarted()) {
+	        this.telemetry.addData("time", "%.1f seconds", opmodeRunTime.seconds());
+	        this.telemetry.update();
+	        this.idle();
         }
 
         // Ok, we've been given the ok to go
@@ -115,9 +115,9 @@ public class ConceptTelemetry extends LinearOpMode  {
          *
          * @see Telemetry#getMsTransmissionInterval()
          */
-        telemetry.addData("voltage", "%.1f volts", new Func<Double>() {
+	    this.telemetry.addData("voltage", "%.1f volts", new Func<Double>() {
             @Override public Double value() {
-                return getBatteryVoltage();
+                return ConceptTelemetry.this.getBatteryVoltage();
             }
             });
 
@@ -126,30 +126,30 @@ public class ConceptTelemetry extends LinearOpMode  {
         int loopCount = 1;
 
         // Go go gadget robot!
-        while (opModeIsActive()) {
+        while (this.opModeIsActive()) {
 
             // Emit poetry if it's been a while
-            if (poemElapsed.seconds() > sPoemInterval) {
-                emitPoemLine();
+            if (this.poemElapsed.seconds() > sPoemInterval) {
+	            this.emitPoemLine();
             }
 
             // As an illustration, show some loop timing information
-            telemetry.addData("loop count", loopCount);
-            telemetry.addData("ms/loop", "%.3f ms", opmodeRunTime.milliseconds() / loopCount);
+	        this.telemetry.addData("loop count", loopCount);
+	        this.telemetry.addData("ms/loop", "%.3f ms", opmodeRunTime.milliseconds() / loopCount);
 
             // Show joystick information as some other illustrative data
-            telemetry.addLine("left joystick | ")
-                    .addData("x", gamepad1.left_stick_x)
-                    .addData("y", gamepad1.left_stick_y);
-            telemetry.addLine("right joystick | ")
-                    .addData("x", gamepad1.right_stick_x)
-                    .addData("y", gamepad1.right_stick_y);
+	        this.telemetry.addLine("left joystick | ")
+                    .addData("x", this.gamepad1.left_stick_x)
+                    .addData("y", this.gamepad1.left_stick_y);
+	        this.telemetry.addLine("right joystick | ")
+                    .addData("x", this.gamepad1.right_stick_x)
+                    .addData("y", this.gamepad1.right_stick_y);
 
             /*
              * Transmit the telemetry to the driver station, subject to throttling.
              * See the documentation for Telemetry.getMsTransmissionInterval() for more information.
              */
-            telemetry.update();
+	        this.telemetry.update();
 
             // Update loop info
             loopCount++;
@@ -158,17 +158,17 @@ public class ConceptTelemetry extends LinearOpMode  {
 
     // emits a line of poetry to the telemetry log
     void emitPoemLine() {
-        telemetry.log().add(poem[poemLine]);
-        poemLine = (poemLine+1) % poem.length;
-        poemElapsed.reset();
+	    this.telemetry.log().add(ConceptTelemetry.poem[this.poemLine]);
+	    this.poemLine = (this.poemLine + 1) % ConceptTelemetry.poem.length;
+	    this.poemElapsed.reset();
     }
 
     // Computes the current battery voltage
     double getBatteryVoltage() {
         double result = Double.POSITIVE_INFINITY;
-        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = sensor.getVoltage();
-            if (voltage > 0) {
+        for (final VoltageSensor sensor : this.hardwareMap.voltageSensor) {
+            final double voltage = sensor.getVoltage();
+            if (0 < voltage) {
                 result = Math.min(result, voltage);
             }
         }

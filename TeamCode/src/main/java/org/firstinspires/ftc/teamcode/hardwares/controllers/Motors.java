@@ -34,30 +34,30 @@ public class Motors {
 
 	private double ChassisBufPower =1, StructureBufPower =1;
 
-	public Motors(IntegrationHardwareMap deviceMap){
-		hardware= deviceMap;
-		LeftFrontPower=0;
-		RightFrontPower=0;
-		LeftRearPower=0;
-		RightRearPower=0;
+	public Motors(final IntegrationHardwareMap deviceMap){
+		this.hardware = deviceMap;
+		this.LeftFrontPower =0;
+		this.RightFrontPower =0;
+		this.LeftRearPower =0;
+		this.RightRearPower =0;
 
-		SuspensionArmPower=0;
-		IntakePower=0;
+		this.SuspensionArmPower =0;
+		this.IntakePower =0;
 
-		LeftFront= (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.LeftFront);
-		LeftRear = (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.LeftRear);
-		RightFront= (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.RightFront);
-		RightRear= (IntegrationMotor) hardware.getDevice(HardwareDeviceTypes.RightRear);
+		this.LeftFront = (IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.LeftFront);
+		this.LeftRear = (IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.LeftRear);
+		this.RightFront = (IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.RightFront);
+		this.RightRear = (IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.RightRear);
 	}
 
 	public void clearDriveOptions(){
-		LeftFrontPower=0;
-		RightFrontPower=0;
-		LeftRearPower=0;
-		RightRearPower=0;
-		
-		xAxisPower=0;
-		yAxisPower=0;
+		this.LeftFrontPower =0;
+		this.RightFrontPower =0;
+		this.LeftRearPower =0;
+		this.RightRearPower =0;
+
+		this.xAxisPower =0;
+		this.yAxisPower =0;
 	}
 
 	/**
@@ -66,10 +66,13 @@ public class Motors {
 	 */
 	public void updateDriveOptions(double headingDeg){
 		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
-			double currentXPower,currentYPower,currentHeadingPower=headingPower;
-			headingDeg= Functions.angleRationalize(headingDeg);//防止有问题
-			Complex aim=new Complex(new Vector2d(xAxisPower,yAxisPower)),robotHeading=new Complex(headingDeg);
-			Complex Counterclockwise=new Complex(robotHeading.angleToYAxis());
+			final double currentXPower;
+			double       currentYPower;
+			final double currentHeadingPower = this.headingPower;
+			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
+			Complex       aim              =new Complex(new Vector2d(this.xAxisPower, this.yAxisPower));
+			final Complex robotHeading     =new Complex(headingDeg);
+			final Complex Counterclockwise =new Complex(robotHeading.angleToYAxis());
 			
 			switch (robotHeading.quadrant()){
 				case firstQuadrant://逆时针转
@@ -83,66 +86,66 @@ public class Motors {
 			}
 			currentYPower=aim.imaginary();
 			currentXPower=aim.RealPart;
-			
-			simpleMotorPowerController(currentXPower,currentYPower,currentHeadingPower);
+
+			this.simpleMotorPowerController(currentXPower,currentYPower,currentHeadingPower);
 		}
-		updateDriveOptions();
+		this.updateDriveOptions();
 	}
 	public void updateDriveOptions(){
-		Timer timer=new Timer();
-		LeftFront.setPower( LeftFrontPower* ChassisBufPower);
-		LeftRear.setPower( LeftRearPower* ChassisBufPower);
-		RightFront.setPower( RightFrontPower* ChassisBufPower);
-		RightRear.setPower( RightRearPower* ChassisBufPower);
+		final Timer timer =new Timer();
+		this.LeftFront.setPower(this.LeftFrontPower * this.ChassisBufPower);
+		this.LeftRear.setPower(this.LeftRearPower * this.ChassisBufPower);
+		this.RightFront.setPower(this.RightFrontPower * this.ChassisBufPower);
+		this.RightRear.setPower(this.RightRearPower * this.ChassisBufPower);
 
 		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
 			return;
 		}
 		timer.restart();
-		LeftFront.update();
-		LeftRear.update();
-		RightFront.update();
-		RightRear.update();
+		this.LeftFront.update();
+		this.LeftRear.update();
+		this.RightFront.update();
+		this.RightRear.update();
 		client.changeData("update time",timer.stopAndGetDeltaTime());
 	}
 	public void updateStructureOptions(){
-		hardware.setPower(HardwareDeviceTypes.Intake, IntakePower * StructureBufPower);
-		hardware.setPower(HardwareDeviceTypes.SuspensionArm, SuspensionArmPower* StructureBufPower);
+		this.hardware.setPower(HardwareDeviceTypes.Intake, this.IntakePower * this.StructureBufPower);
+		this.hardware.setPower(HardwareDeviceTypes.SuspensionArm, this.SuspensionArmPower * this.StructureBufPower);
 
-		hardware.getDevice(HardwareDeviceTypes.Intake).update();
-		hardware.getDevice(HardwareDeviceTypes.SuspensionArm).update();
+		this.hardware.getDevice(HardwareDeviceTypes.Intake).update();
+		this.hardware.getDevice(HardwareDeviceTypes.SuspensionArm).update();
 	}
 
 	public PositionalIntegrationMotor placementArm(){
-		return (PositionalIntegrationMotor) hardware.getDevice(HardwareDeviceTypes.PlacementArm);
+		return (PositionalIntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.PlacementArm);
 	}
 
 	/**
 	 * @param headingDeg 必须在使用driverUsingAxisPowerInsteadOfCurrentPower时给出，其他状态下给出是无效的
 	 * @see Params
 	 */
-	public void update(double headingDeg){
+	public void update(final double headingDeg){
 		if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower){
-			update();
+			this.update();
 		}
 
-		powersRationalize();
+		this.powersRationalize();
 
-		updateDriveOptions(headingDeg);
-		updateStructureOptions();
+		this.updateDriveOptions(headingDeg);
+		this.updateStructureOptions();
 
 		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
-			clearDriveOptions();
+			this.clearDriveOptions();
 		}
 	}
 	public void update(){
-		powersRationalize();
+		this.powersRationalize();
 
-		updateDriveOptions();
-		updateStructureOptions();
+		this.updateDriveOptions();
+		this.updateStructureOptions();
 
 		if(Params.Configs.autoPrepareForNextOptionWhenUpdate){
-			clearDriveOptions();
+			this.clearDriveOptions();
 		}
 	}
 	
@@ -151,51 +154,56 @@ public class Motors {
 	 * @param yAxisPower 机器前行/后退力
 	 * @param headingPower 机器旋转力
 	 */
-	public void simpleMotorPowerController(double xPoser,double yAxisPower,double headingPower){
-		LeftFrontPower  += yAxisPower-xPoser-headingPower;
-		LeftRearPower   += yAxisPower+xPoser-headingPower;
-		RightFrontPower += yAxisPower+xPoser+headingPower;
-		RightRearPower  += yAxisPower-xPoser+headingPower;
+	public void simpleMotorPowerController(final double xPoser, final double yAxisPower, final double headingPower){
+		this.LeftFrontPower += yAxisPower - xPoser - headingPower;
+		this.LeftRearPower += yAxisPower + xPoser - headingPower;
+		this.RightFrontPower += yAxisPower + xPoser + headingPower;
+		this.RightRearPower += yAxisPower - xPoser + headingPower;
 
-		powersRationalize();
+		this.powersRationalize();
 	}
-	public void setChassisBufPower(double BufPower){
-		ChassisBufPower =BufPower;
+	public void setChassisBufPower(final double BufPower){
+		this.ChassisBufPower =BufPower;
 	}
-	public void setStructureBufPower(double BufPower){
-		StructureBufPower =BufPower;
+	public void setStructureBufPower(final double BufPower){
+		this.StructureBufPower =BufPower;
 	}
-	public void setBufPower(double BudPower){
-		setChassisBufPower(BudPower);
-		setStructureBufPower(BudPower);
+	public void setBufPower(final double BudPower){
+		ChassisBufPower = BudPower;
+		StructureBufPower = BudPower;
 	}
 
 	private void powersRationalize(){
-		LeftFrontPower= Mathematics.intervalClip(LeftFrontPower,-1,1);
-		LeftRearPower=Mathematics.intervalClip(LeftRearPower,-1,1);
-		RightFrontPower=Mathematics.intervalClip(RightFrontPower,-1,1);
-		RightRearPower=Mathematics.intervalClip(RightRearPower,-1,1);
+		this.LeftFrontPower = Mathematics.intervalClip(this.LeftFrontPower,-1,1);
+		this.LeftRearPower =Mathematics.intervalClip(this.LeftRearPower,-1,1);
+		this.RightFrontPower =Mathematics.intervalClip(this.RightFrontPower,-1,1);
+		this.RightRearPower =Mathematics.intervalClip(this.RightRearPower,-1,1);
 
-		SuspensionArmPower=Mathematics.intervalClip(SuspensionArmPower,-1,1);
-		IntakePower=Mathematics.intervalClip(IntakePower,-1,1);
+		this.SuspensionArmPower =Mathematics.intervalClip(this.SuspensionArmPower,-1,1);
+		this.IntakePower =Mathematics.intervalClip(this.IntakePower,-1,1);
 	}
 
 	public void showPowers(){
-		client.changeData("LeftFrontPower",LeftFrontPower);
-		client.changeData("LeftRearPower",LeftRearPower);
-		client.changeData("RightFrontPower",RightFrontPower);
-		client.changeData("RightRearPower",RightRearPower);
+		client.changeData("LeftFrontPower", this.LeftFrontPower);
+		client.changeData("LeftRearPower", this.LeftRearPower);
+		client.changeData("RightFrontPower", this.RightFrontPower);
+		client.changeData("RightRearPower", this.RightRearPower);
 
-		client.changeData("SuspensionArmPower",SuspensionArmPower);
-		client.changeData("IntakePower",IntakePower);
+		client.changeData("SuspensionArmPower", this.SuspensionArmPower);
+		client.changeData("IntakePower", this.IntakePower);
 
-		try{client.changeData("LeftFrontPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.LeftFront)).getPower());}catch (
-				DeviceDisabledException ignored){}
-		try{client.changeData("LeftRearPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.LeftRear)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("RightFrontPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.RightFront)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("RightRearPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.RightRear)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("LeftFrontPower(integration)",((IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.LeftFront)).getPower());}catch (
+				final DeviceDisabledException ignored){}
+		try{client.changeData("LeftRearPower(integration)",((IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.LeftRear)).getPower());}catch (final
+		DeviceDisabledException ignored){}
+		try{client.changeData("RightFrontPower(integration)",((IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.RightFront)).getPower());}catch (final
+		DeviceDisabledException ignored){}
+		try{client.changeData("RightRearPower(integration)",((IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.RightRear)).getPower());}catch (final
+		DeviceDisabledException ignored){}
 
-		try{client.changeData("SuspensionArmPower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.SuspensionArm)).getPower());}catch (DeviceDisabledException ignored){}
-		try{client.changeData("IntakePower(integration)",((IntegrationMotor)hardware.getDevice(HardwareDeviceTypes.Intake)).getPower());}catch (DeviceDisabledException ignored){}
+		try{client.changeData("SuspensionArmPower(integration)",((IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.SuspensionArm)).getPower());}catch (final
+		DeviceDisabledException ignored){}
+		try{client.changeData("IntakePower(integration)",((IntegrationMotor) this.hardware.getDevice(HardwareDeviceTypes.Intake)).getPower());}catch (final
+		DeviceDisabledException ignored){}
 	}
 }

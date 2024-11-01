@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -54,13 +55,13 @@ import com.qualcomm.robotcore.util.Range;
 public class RobotTeleopTank_Iterative extends OpMode{
 
     /* Declare OpMode members. */
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  leftArm     = null;
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
+    public DcMotor  leftDrive;
+    public DcMotor  rightDrive;
+    public DcMotor  leftArm;
+    public Servo    leftClaw;
+    public Servo    rightClaw;
 
-    double clawOffset = 0;
+    double clawOffset;
 
     public static final double MID_SERVO   =  0.5 ;
     public static final double CLAW_SPEED  = 0.02 ;        // sets rate to move servo
@@ -73,28 +74,28 @@ public class RobotTeleopTank_Iterative extends OpMode{
     @Override
     public void init() {
         // Define and Initialize Motors
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftArm    = hardwareMap.get(DcMotor.class, "left_arm");
+	    this.leftDrive = this.hardwareMap.get(DcMotor.class, "left_drive");
+	    this.rightDrive = this.hardwareMap.get(DcMotor.class, "right_drive");
+	    this.leftArm = this.hardwareMap.get(DcMotor.class, "left_arm");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left and right sticks forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
-        leftClaw  = hardwareMap.get(Servo.class, "left_hand");
-        rightClaw = hardwareMap.get(Servo.class, "right_hand");
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+	    this.leftClaw = this.hardwareMap.get(Servo.class, "left_hand");
+	    this.rightClaw = this.hardwareMap.get(Servo.class, "right_hand");
+	    this.leftClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO);
+	    this.rightClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData(">", "Robot Ready.  Press START.");    //
+	    this.telemetry.addData(">", "Robot Ready.  Press START.");    //
     }
 
     /*
@@ -116,39 +117,34 @@ public class RobotTeleopTank_Iterative extends OpMode{
      */
     @Override
     public void loop() {
-        double left;
-        double right;
+        final double left;
+        final double right;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forward, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        left = - this.gamepad1.left_stick_y;
+        right = - this.gamepad1.right_stick_y;
 
-        leftDrive.setPower(left);
-        rightDrive.setPower(right);
+	    this.leftDrive.setPower(left);
+	    this.rightDrive.setPower(right);
 
         // Use gamepad left & right Bumpers to open and close the claw
-        if (gamepad1.right_bumper)
-            clawOffset += CLAW_SPEED;
-        else if (gamepad1.left_bumper)
-            clawOffset -= CLAW_SPEED;
+        if (this.gamepad1.right_bumper) this.clawOffset += RobotTeleopTank_Iterative.CLAW_SPEED;
+        else if (this.gamepad1.left_bumper) this.clawOffset -= RobotTeleopTank_Iterative.CLAW_SPEED;
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
-        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        leftClaw.setPosition(MID_SERVO + clawOffset);
-        rightClaw.setPosition(MID_SERVO - clawOffset);
+	    this.clawOffset = Range.clip(this.clawOffset, -0.5, 0.5);
+	    this.leftClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO + this.clawOffset);
+	    this.rightClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO - this.clawOffset);
 
         // Use gamepad buttons to move the arm up (Y) and down (A)
-        if (gamepad1.y)
-            leftArm.setPower(ARM_UP_POWER);
-        else if (gamepad1.a)
-            leftArm.setPower(ARM_DOWN_POWER);
-        else
-            leftArm.setPower(0.0);
+        if (this.gamepad1.y) this.leftArm.setPower(RobotTeleopTank_Iterative.ARM_UP_POWER);
+        else if (this.gamepad1.a) this.leftArm.setPower(RobotTeleopTank_Iterative.ARM_DOWN_POWER);
+        else this.leftArm.setPower(0.0);
 
         // Send telemetry message to signify robot running;
-        telemetry.addData("claw",  "Offset = %.2f", clawOffset);
-        telemetry.addData("left",  "%.2f", left);
-        telemetry.addData("right", "%.2f", right);
+	    this.telemetry.addData("claw",  "Offset = %.2f", this.clawOffset);
+	    this.telemetry.addData("left",  "%.2f", left);
+	    this.telemetry.addData("right", "%.2f", right);
     }
 
     /*

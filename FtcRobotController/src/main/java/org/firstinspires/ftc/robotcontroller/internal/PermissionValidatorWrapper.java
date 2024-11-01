@@ -48,17 +48,17 @@ public class PermissionValidatorWrapper extends PermissionValidatorActivity {
      * The list of dangerous permissions the robot controller needs.
      */
     protected List<String> robotControllerPermissions = new ArrayList<String>() {{
-        add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        add(Manifest.permission.CAMERA);
-        add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        add(Manifest.permission.ACCESS_FINE_LOCATION);
-        add(Manifest.permission.READ_PHONE_STATE);
+	    this.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+	    this.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+	    this.add(Manifest.permission.CAMERA);
+	    this.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+	    this.add(Manifest.permission.ACCESS_FINE_LOCATION);
+	    this.add(Manifest.permission.READ_PHONE_STATE);
     }};
 
     private final static Class startApplication = FtcRobotControllerActivity.class;
 
-    public String mapPermissionToExplanation(final String permission) {
+    public String mapPermissionToExplanation(String permission) {
         if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             return Misc.formatForUser(R.string.permRcWriteExternalStorageExplain);
         } else if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -76,16 +76,16 @@ public class PermissionValidatorWrapper extends PermissionValidatorActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        permissions = robotControllerPermissions;
+	    this.permissions = this.robotControllerPermissions;
     }
 
     protected Class onStartApplication()
     {
         FtcRobotControllerActivity.setPermissionsValidated();
-        return startApplication;
+        return PermissionValidatorWrapper.startApplication;
     }
 }

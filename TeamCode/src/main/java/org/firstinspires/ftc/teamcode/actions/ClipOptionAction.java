@@ -13,50 +13,50 @@ import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions
 
 @Deprecated
 public class ClipOptionAction implements Action {
-	private Structure structure=null;
-	private Servos servos=null;
+	private Structure structure;
+	private Servos servos;
 	private final ClipPosition aimPositionType;
 
 	@UserRequirementFunctions
-	public ClipOptionAction(Structure structure,@NonNull ClipPosition aimPositionType){
+	public ClipOptionAction(final Structure structure, @NonNull final ClipPosition aimPositionType){
 		this.structure=structure;
 		this.aimPositionType=aimPositionType;
 	}
 	@UserRequirementFunctions
-	public ClipOptionAction(Servos servos,@NonNull ClipPosition aimPositionType){
+	public ClipOptionAction(final Servos servos, @NonNull final ClipPosition aimPositionType){
 		this.servos=servos;
 		this.aimPositionType=aimPositionType;
 	}
 
-	private boolean OptionPushed=false;
+	private boolean OptionPushed;
 	@Override
-	public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-		if (!OptionPushed) {
-			OptionPushed=true;
-			if(structure!=null){
-				structure.clipOption(aimPositionType);
-				structure.servos.update();
-			}else if (servos!=null){
-				switch (aimPositionType) {
+	public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		if (! this.OptionPushed) {
+			this.OptionPushed =true;
+			if(null != structure){
+				this.structure.clipOption(this.aimPositionType);
+				this.structure.servos.update();
+			}else if (null != servos){
+				switch (this.aimPositionType) {
 					case Open:
-						servos.FrontClipPosition= Params.ServoConfigs.frontClipOpen;
-						servos.RearClipPosition= Params.ServoConfigs.rearClipOpen;
+						this.servos.FrontClipPosition= Params.ServoConfigs.frontClipOpen;
+						this.servos.RearClipPosition= Params.ServoConfigs.rearClipOpen;
 						break;
 					case Close:
-						servos.FrontClipPosition= Params.ServoConfigs.frontClipClose;
-						servos.RearClipPosition= Params.ServoConfigs.rearClipClose;
+						this.servos.FrontClipPosition= Params.ServoConfigs.frontClipClose;
+						this.servos.RearClipPosition= Params.ServoConfigs.rearClipClose;
 						break;
 				}
-				servos.update();
+				this.servos.update();
 			}else{
 				throw new NullPointerException("Both Structure and Servos are null");
 			}
 		}
 
-		if(structure!=null){
-			return  !structure.servos.inPlace();
-		}else if (servos!=null){
-			return  !servos.inPlace();
+		if(null != structure){
+			return  ! this.structure.servos.inPlace();
+		}else if (null != servos){
+			return  ! this.servos.inPlace();
 		}else{
 			throw new NullPointerException("Both Structure and Servos are null");
 		}

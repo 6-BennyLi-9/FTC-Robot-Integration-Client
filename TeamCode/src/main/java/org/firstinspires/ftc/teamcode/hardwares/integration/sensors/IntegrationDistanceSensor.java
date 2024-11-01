@@ -21,27 +21,27 @@ public class IntegrationDistanceSensor extends IntegrationSensor {
 	private final Queue<Double> DistanceHistory;
 
 	@UserRequirementFunctions
-	public IntegrationDistanceSensor(@NonNull DistanceSensor sensor) {
+	public IntegrationDistanceSensor(@NonNull final DistanceSensor sensor) {
 		super(sensor.getDeviceName());
 		this.sensor=sensor;
-		DistanceHistory=new ArrayDeque<>();
+		this.DistanceHistory =new ArrayDeque<>();
 	}
 
 	@Override
 	public void update() {
-		double mergeLength=10;
+		final double mergeLength =10;
 
-		CurrentMillimeterUnitDistance =sensor.getDistance(DistanceUnit.MM);
-		DistanceHistory.add(CurrentMillimeterUnitDistance);
-		if(!DistanceHistory.isEmpty()&&DistanceHistory.size()>mergeLength){
-			DistanceHistory.remove();
+		this.CurrentMillimeterUnitDistance = this.sensor.getDistance(DistanceUnit.MM);
+		this.DistanceHistory.add(this.CurrentMillimeterUnitDistance);
+		if(! this.DistanceHistory.isEmpty() && this.DistanceHistory.size() > mergeLength){
+			this.DistanceHistory.remove();
 		}
 
 		double sum=0;
-		for (Double s : DistanceHistory) {
+		for (final Double s : this.DistanceHistory) {
 			sum += s;
 		}
 
-		SmoothMillimeterUnitDistance=sum;
+		this.SmoothMillimeterUnitDistance =sum;
 	}
 }

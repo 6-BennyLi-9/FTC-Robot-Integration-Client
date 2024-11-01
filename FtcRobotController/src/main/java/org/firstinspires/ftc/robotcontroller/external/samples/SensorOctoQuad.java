@@ -22,6 +22,7 @@
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
+import com.qualcomm.hardware.digitalchickenlabs.OctoQuadBase;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -77,50 +78,50 @@ public class SensorOctoQuad extends LinearOpMode {
     public void runOpMode() {
 
         // Connect to OctoQuad by referring to its name in the Robot Configuration.
-        octoquad = hardwareMap.get(OctoQuad.class, "octoquad");
+	    this.octoquad = this.hardwareMap.get(OctoQuad.class, "octoquad");
 
         // Read the Firmware Revision number from the OctoQuad and display it as telemetry.
-        telemetry.addData("OctoQuad Firmware Version ", octoquad.getFirmwareVersion());
+	    this.telemetry.addData("OctoQuad Firmware Version ", this.octoquad.getFirmwareVersion());
 
         // Reverse the count-direction of any encoder that is not what you require.
         // e.g. if you push the robot forward and the left encoder counts down, then reverse it so it counts up.
-        octoquad.setSingleEncoderDirection(ODO_LEFT,  OctoQuad.EncoderDirection.REVERSE);
-        octoquad.setSingleEncoderDirection(ODO_RIGHT, OctoQuad.EncoderDirection.FORWARD);
-        octoquad.setSingleEncoderDirection(ODO_PERP,  OctoQuad.EncoderDirection.FORWARD);
+	    this.octoquad.setSingleEncoderDirection(this.ODO_LEFT,  OctoQuadBase.EncoderDirection.REVERSE);
+	    this.octoquad.setSingleEncoderDirection(this.ODO_RIGHT, OctoQuadBase.EncoderDirection.FORWARD);
+	    this.octoquad.setSingleEncoderDirection(this.ODO_PERP,  OctoQuadBase.EncoderDirection.FORWARD);
 
         // Any changes that are made should be saved in FLASH just in case there is a sensor power glitch.
-        octoquad.saveParametersToFlash();
+	    this.octoquad.saveParametersToFlash();
 
-        telemetry.addLine("\nPress START to read encoder values");
-        telemetry.update();
+	    this.telemetry.addLine("\nPress START to read encoder values");
+	    this.telemetry.update();
 
-        waitForStart();
+	    this.waitForStart();
 
         // Configure the telemetry for optimal display of data.
-        telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.setMsTransmissionInterval(50);
+	    this.telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+	    this.telemetry.setMsTransmissionInterval(50);
 
         // Set all the encoder inputs to zero.
-        octoquad.resetAllPositions();
+	    this.octoquad.resetAllPositions();
 
         // Loop while displaying the odometry pod positions.
-        while (opModeIsActive()) {
-            telemetry.addData(">", "Press X to Reset Encoders\n");
+        while (this.opModeIsActive()) {
+	        this.telemetry.addData(">", "Press X to Reset Encoders\n");
 
             // Check for X button to reset encoders.
-            if (gamepad1.x) {
+            if (this.gamepad1.x) {
                 // Reset the position of all encoders to zero.
-                octoquad.resetAllPositions();
+	            this.octoquad.resetAllPositions();
             }
 
             // Read all the encoder data.  Load into local members.
-            readOdometryPods();
+	        this.readOdometryPods();
 
             // Display the values.
-            telemetry.addData("Left ", "%8d counts", posLeft);
-            telemetry.addData("Right", "%8d counts", posRight);
-            telemetry.addData("Perp ", "%8d counts", posPerp);
-            telemetry.update();
+	        this.telemetry.addData("Left ", "%8d counts", this.posLeft);
+	        this.telemetry.addData("Right", "%8d counts", this.posRight);
+	        this.telemetry.addData("Perp ", "%8d counts", this.posPerp);
+	        this.telemetry.update();
         }
     }
 
@@ -133,9 +134,9 @@ public class SensorOctoQuad extends LinearOpMode {
         //
         // Since both calls take almost the same amount of time, and the actual channels may not end up
         // being sequential, we will read all of the encoder positions, and then pick out the ones we need.
-        int[] positions = octoquad.readAllPositions();
-        posLeft  = positions[ODO_LEFT];
-        posRight = positions[ODO_RIGHT];
-        posPerp  = positions[ODO_PERP];
+        final int[] positions = this.octoquad.readAllPositions();
+	    this.posLeft = positions[this.ODO_LEFT];
+	    this.posRight = positions[this.ODO_RIGHT];
+	    this.posPerp = positions[this.ODO_PERP];
     }
 }

@@ -14,12 +14,12 @@ public class LocalizerTest extends TuningProgramTemplate {
 	@Override
 	public void whenInit() {
 //		localizer= PluginMerger.mergePlugins(new DeadWheelLocalizer(robot.sensors),new BNOHeadingLocalizer(robot.chassis), DashboardClient.Blue,"114");
-		localizer=new DeadWheelLocalizer(robot.sensors);
+		this.localizer =new DeadWheelLocalizer(this.robot.sensors);
 	}
 
 	@Override
 	public void whileActivating() {
-		localizer.update();
-		client.changeData("current pose",localizer.getCurrentPose());
+		this.localizer.update();
+		this.client.changeData("current pose", this.localizer.getCurrentPose());
 	}
 }

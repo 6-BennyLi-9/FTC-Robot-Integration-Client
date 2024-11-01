@@ -15,21 +15,21 @@ public abstract class DebugProgramTemplate extends OpMode {
 	@Override
 	public void init() {
 		Global.clear();
-		client=new Client(telemetry);
-		timer=new Timer();
-		whenInit();
+		this.client =new Client(this.telemetry);
+		this.timer =new Timer();
+		this.whenInit();
 	}
 
 	@Override
 	public void start() {
-		timer.stopAndRestart();
+		this.timer.stopAndRestart();
 	}
 
 	@Override
 	public void loop() {
-		client.changeData("TPS", timer.restartAndGetDeltaTime() /1000);
+		this.client.changeData("TPS", this.timer.restartAndGetDeltaTime() / 1000);
 
-		whileActivating();
+		this.whileActivating();
 	}
 
 	public abstract void whileActivating();

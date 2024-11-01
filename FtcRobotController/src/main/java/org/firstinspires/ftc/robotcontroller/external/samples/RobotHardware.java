@@ -31,6 +31,7 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -56,14 +57,14 @@ import com.qualcomm.robotcore.util.Range;
 public class RobotHardware {
 
     /* Declare OpMode members. */
-    private LinearOpMode myOpMode = null;   // gain access to methods in the calling OpMode.
+    private final LinearOpMode myOpMode;   // gain access to methods in the calling OpMode.
 
     // Define Motor and Servo objects  (Make them private so they can't be accessed externally)
-    private DcMotor leftDrive   = null;
-    private DcMotor rightDrive  = null;
-    private DcMotor armMotor = null;
-    private Servo   leftHand = null;
-    private Servo   rightHand = null;
+    private DcMotor leftDrive;
+    private DcMotor rightDrive;
+    private DcMotor armMotor;
+    private Servo   leftHand;
+    private Servo   rightHand;
 
     // Define Drive constants.  Make them public so they CAN be used by the calling OpMode
     public static final double MID_SERVO       =  0.5 ;
@@ -72,8 +73,8 @@ public class RobotHardware {
     public static final double ARM_DOWN_POWER  = -0.45 ;
 
     // Define a constructor that allows the OpMode to pass a reference to itself.
-    public RobotHardware (LinearOpMode opmode) {
-        myOpMode = opmode;
+    public RobotHardware (final LinearOpMode opmode) {
+	    this.myOpMode = opmode;
     }
 
     /**
@@ -84,28 +85,28 @@ public class RobotHardware {
      */
     public void init()    {
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        leftDrive  = myOpMode.hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = myOpMode.hardwareMap.get(DcMotor.class, "right_drive");
-        armMotor   = myOpMode.hardwareMap.get(DcMotor.class, "arm");
+	    this.leftDrive = this.myOpMode.hardwareMap.get(DcMotor.class, "left_drive");
+	    this.rightDrive = this.myOpMode.hardwareMap.get(DcMotor.class, "right_drive");
+	    this.armMotor = this.myOpMode.hardwareMap.get(DcMotor.class, "arm");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
-        leftHand = myOpMode.hardwareMap.get(Servo.class, "left_hand");
-        rightHand = myOpMode.hardwareMap.get(Servo.class, "right_hand");
-        leftHand.setPosition(MID_SERVO);
-        rightHand.setPosition(MID_SERVO);
+	    this.leftHand = this.myOpMode.hardwareMap.get(Servo.class, "left_hand");
+	    this.rightHand = this.myOpMode.hardwareMap.get(Servo.class, "right_hand");
+	    this.leftHand.setPosition(RobotHardware.MID_SERVO);
+	    this.rightHand.setPosition(RobotHardware.MID_SERVO);
 
-        myOpMode.telemetry.addData(">", "Hardware Initialized");
-        myOpMode.telemetry.update();
+	    this.myOpMode.telemetry.addData(">", "Hardware Initialized");
+	    this.myOpMode.telemetry.update();
     }
 
     /**
@@ -116,21 +117,21 @@ public class RobotHardware {
      * @param Drive     Fwd/Rev driving power (-1.0 to 1.0) +ve is forward
      * @param Turn      Right/Left turning power (-1.0 to 1.0) +ve is CW
      */
-    public void driveRobot(double Drive, double Turn) {
+    public void driveRobot(final double Drive, final double Turn) {
         // Combine drive and turn for blended motion.
         double left  = Drive + Turn;
         double right = Drive - Turn;
 
         // Scale the values so neither exceed +/- 1.0
-        double max = Math.max(Math.abs(left), Math.abs(right));
-        if (max > 1.0)
+        final double max = Math.max(Math.abs(left), Math.abs(right));
+        if (1.0 < max)
         {
             left /= max;
             right /= max;
         }
 
         // Use existing function to drive both wheels.
-        setDrivePower(left, right);
+	    this.setDrivePower(left, right);
     }
 
     /**
@@ -139,10 +140,10 @@ public class RobotHardware {
      * @param leftWheel     Fwd/Rev driving power (-1.0 to 1.0) +ve is forward
      * @param rightWheel    Fwd/Rev driving power (-1.0 to 1.0) +ve is forward
      */
-    public void setDrivePower(double leftWheel, double rightWheel) {
+    public void setDrivePower(final double leftWheel, final double rightWheel) {
         // Output the values to the motor drives.
-        leftDrive.setPower(leftWheel);
-        rightDrive.setPower(rightWheel);
+	    this.leftDrive.setPower(leftWheel);
+	    this.rightDrive.setPower(rightWheel);
     }
 
     /**
@@ -150,8 +151,8 @@ public class RobotHardware {
      *
      * @param power driving power (-1.0 to 1.0)
      */
-    public void setArmPower(double power) {
-        armMotor.setPower(power);
+    public void setArmPower(final double power) {
+	    this.armMotor.setPower(power);
     }
 
     /**
@@ -161,7 +162,7 @@ public class RobotHardware {
      */
     public void setHandPositions(double offset) {
         offset = Range.clip(offset, -0.5, 0.5);
-        leftHand.setPosition(MID_SERVO + offset);
-        rightHand.setPosition(MID_SERVO - offset);
+	    this.leftHand.setPosition(RobotHardware.MID_SERVO + offset);
+	    this.rightHand.setPosition(RobotHardware.MID_SERVO - offset);
     }
 }

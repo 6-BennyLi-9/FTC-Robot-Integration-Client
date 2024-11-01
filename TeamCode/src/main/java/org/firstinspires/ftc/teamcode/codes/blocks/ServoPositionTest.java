@@ -21,26 +21,26 @@ public class ServoPositionTest extends LinearOpMode {
 	public void runOpMode() {
 		double pose;
 
-		leftIntake = hardwareMap.get(Servo.class, "leftIntake");
-		rightIntake = hardwareMap.get(Servo.class, "rightIntake");
+		this.leftIntake = this.hardwareMap.get(Servo.class, "leftIntake");
+		this.rightIntake = this.hardwareMap.get(Servo.class, "rightIntake");
 
 		// Put initialization blocks here.
-		waitForStart();
+		this.waitForStart();
 		pose = 0.5;
-		if (opModeIsActive()) {
-			while (opModeIsActive()) {
+		if (this.opModeIsActive()) {
+			while (this.opModeIsActive()) {
 				// Put loop blocks here.
-				telemetry.update();
-				if (gamepad1.a) {
+				this.telemetry.update();
+				if (this.gamepad1.a) {
 					pose -= 0.05;
 				}
-				if (gamepad1.y) {
+				if (this.gamepad1.y) {
 					pose += 0.05;
 				}
-				leftIntake.setPosition(pose);
-				rightIntake.setPosition(pose);
-				sleep(100);
-				telemetry.addData("pose", pose);
+				this.leftIntake.setPosition(pose);
+				this.rightIntake.setPosition(pose);
+				this.sleep(100);
+				this.telemetry.addData("pose", pose);
 			}
 		}
 	}

@@ -36,55 +36,55 @@ public class Structure {
 	public LiftPosition liftPosition;
 	public StructureActions actions;
 
-	public Structure(Motors motors,Servos servos){
+	public Structure(final Motors motors, final Servos servos){
 		this.motors=motors;
 		this.servos=servos;
-		actions=new StructureActions(this);
+		this.actions =new StructureActions(this);
 	}
 
 	/** actions.openFrontClip() */
 	public void openFrontClip(){
-		servos.FrontClipPosition=Params.ServoConfigs.frontClipOpen;
+		this.servos.FrontClipPosition=Params.ServoConfigs.frontClipOpen;
 	}
 	/** actions.openRearClip() */
 	public void openRearClip(){
-		servos.FrontClipPosition=Params.ServoConfigs.rearClipOpen;
+		this.servos.FrontClipPosition=Params.ServoConfigs.rearClipOpen;
 	}
 	/** actions.closeFrontClip() */
 	public void closeFrontClip(){
-		servos.FrontClipPosition=Params.ServoConfigs.frontClipClose;
+		this.servos.FrontClipPosition=Params.ServoConfigs.frontClipClose;
 	}
 	/** actions.closeRearClip() */
 	public void closeRearClip(){
-		servos.FrontClipPosition=Params.ServoConfigs.rearClipClose;
+		this.servos.FrontClipPosition=Params.ServoConfigs.rearClipClose;
 	}
 
 	public void openClips(){
-		openFrontClip();
-		openRearClip();
+		this.openFrontClip();
+		this.openRearClip();
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
-			servos.update();
+			this.servos.update();
 		}
 	}
 	public void closeClips(){
-		closeFrontClip();
-		closeRearClip();
+		this.closeFrontClip();
+		this.closeRearClip();
 
 		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
-			servos.update();
+			this.servos.update();
 		}
 	}
 
 	@UserRequirementFunctions
-	public void clipOption(@NonNull ClipPosition clipPosition){
+	public void clipOption(@NonNull final ClipPosition clipPosition){
 		this.clipPosition=clipPosition;
 		switch (clipPosition){
 			case Open:
-				openClips();
+				this.openClips();
 				break;
 			case Close:
-				closeClips();
+				this.closeClips();
 				break;
 			default:
 				throw new UnKnownErrorsException("UnKnown ClipPosition");
@@ -92,15 +92,15 @@ public class Structure {
 	}
 	@UserRequirementFunctions
 	@ExtractedInterfaces
-	public Action clipOptionAction(@NonNull ClipPosition clipPosition){
+	public Action clipOptionAction(@NonNull final ClipPosition clipPosition){
 		if(this.clipPosition==clipPosition){
 			return null;
 		}else{
 			switch (clipPosition){
 				case Open:
-					return actions.openClips();
+					return this.actions.openClips();
 				case Close:
-					return actions.closeClips();
+					return this.actions.closeClips();
 				default:
 					throw new UnKnownErrorsException("UnKnown ClipPosition");
 			}
@@ -109,17 +109,17 @@ public class Structure {
 
 
 	@UserRequirementFunctions
-	public void armOption(@NonNull LiftPosition liftPosition){
+	public void armOption(@NonNull final LiftPosition liftPosition){
 		this.liftPosition=liftPosition;
 		switch (liftPosition) {
 			case IDLE:
-				motors.placementArm().setTargetPosition(IDLEPlacement);
+				this.motors.placementArm().setTargetPosition(IDLEPlacement);
 				break;
 			case Low:
-				motors.placementArm().setTargetPosition(LowPlacement);
+				this.motors.placementArm().setTargetPosition(LowPlacement);
 				break;
 			case High:
-				motors.placementArm().setTargetPosition(HighPlacement);
+				this.motors.placementArm().setTargetPosition(HighPlacement);
 				break;
 			default:
 				throw new UnKnownErrorsException("UnKnown LiftPosition");
@@ -127,31 +127,31 @@ public class Structure {
 	}
 	@UserRequirementFunctions
 	@ExtractedInterfaces
-	public Action armOptionAction(@NonNull LiftPosition liftPosition){
+	public Action armOptionAction(@NonNull final LiftPosition liftPosition){
 		if(this.liftPosition==liftPosition){
 			return null;
 		}else{
 			switch (liftPosition){
 				case IDLE:
-					return new MotorControllerAction(motors.placementArm(), IDLEPlacement);
+					return new MotorControllerAction(this.motors.placementArm(), IDLEPlacement);
 				case Low:
-					return new MotorControllerAction(motors.placementArm(), LowPlacement);
+					return new MotorControllerAction(this.motors.placementArm(), LowPlacement);
 				case High:
-					return new MotorControllerAction(motors.placementArm(), HighPlacement);
+					return new MotorControllerAction(this.motors.placementArm(), HighPlacement);
 				default:
 					throw new UnKnownErrorsException("UnKnown LiftPosition");
 			}
 		}
 	}
 
-	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
+	public void operateThroughGamePad(@NonNull final IntegrationGamepad gamepad){
 		if(gamepad.getButtonRunAble(KeyTag.Pop)){
-			clipPosition=ClipPosition.Open;
+			this.clipPosition =ClipPosition.Open;
 		}else{
-			clipPosition=ClipPosition.Close;
+			this.clipPosition =ClipPosition.Close;
 		}
 
-		motors.SuspensionArmPower=gamepad.getRodState(KeyTag.SuspensionArm)* factorSuspensionArmPower;
-		motors.IntakePower=gamepad.getRodState(KeyTag.Intake)* factorIntakePower;
+		this.motors.SuspensionArmPower= gamepad.getRodState(KeyTag.SuspensionArm) * factorSuspensionArmPower;
+		this.motors.IntakePower= gamepad.getRodState(KeyTag.Intake) * factorIntakePower;
 	}
 }

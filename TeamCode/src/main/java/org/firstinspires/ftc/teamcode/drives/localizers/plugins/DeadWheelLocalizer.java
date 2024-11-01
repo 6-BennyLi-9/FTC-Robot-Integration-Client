@@ -13,25 +13,25 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	protected final Sensors sensors;
 	public Position2d robotPosition;
 
-	public DeadWheelLocalizer(Sensors sensors){
-		odometry=new ArcOrganizedOdometer();
+	public DeadWheelLocalizer(final Sensors sensors){
+		this.odometry =new ArcOrganizedOdometer();
 		this.sensors=sensors;
 	}
 
 	@Override
 	public void update() {
-		sensors.updateEncoders();//防止 mspt 过高
-		odometry.update(sensors.getDeltaLateralInch(),sensors.getDeltaAxialInch(),sensors.getDeltaTurningDeg());
-		robotPosition=odometry.getCurrentPose();
+		this.sensors.updateEncoders();//防止 mspt 过高
+		this.odometry.update(this.sensors.getDeltaLateralInch(), this.sensors.getDeltaAxialInch(), this.sensors.getDeltaTurningDeg());
+		this.robotPosition = this.odometry.getCurrentPose();
 	}
 
 	@Override
 	public Position2d getCurrentPose() {
-		return robotPosition;
+		return this.robotPosition;
 	}
 
 	@Override
 	public void drawRobotWithoutSendingPacket() {
-		odometry.registerToDashBoard(this.getClass().getSimpleName());
+		this.odometry.registerToDashBoard(getClass().getSimpleName());
 	}
 }

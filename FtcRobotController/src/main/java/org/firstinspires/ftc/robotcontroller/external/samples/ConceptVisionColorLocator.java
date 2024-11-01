@@ -107,7 +107,7 @@ public class ConceptVisionColorLocator extends LinearOpMode
          *                                    object, such as when removing noise from an image.
          *                                    "pixels" in the range of 2-4 are suitable for low res images.
          */
-        ColorBlobLocatorProcessor colorLocator = new ColorBlobLocatorProcessor.Builder()
+        final ColorBlobLocatorProcessor colorLocator = new ColorBlobLocatorProcessor.Builder()
                 .setTargetColorRange(ColorRange.BLUE)         // use a predefined color match
                 .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)    // exclude blobs inside blobs
                 .setRoi(ImageRegion.asUnityCenterCoordinates(-0.5, 0.5, 0.5, -0.5))  // search central 1/4 of camera view
@@ -127,22 +127,22 @@ public class ConceptVisionColorLocator extends LinearOpMode
          *  or
          *      .setCamera(BuiltinCameraDirection.BACK)    ... for a Phone Camera
          */
-        VisionPortal portal = new VisionPortal.Builder()
+        final VisionPortal portal = new VisionPortal.Builder()
                 .addProcessor(colorLocator)
                 .setCameraResolution(new Size(320, 240))
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                .setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .build();
 
-        telemetry.setMsTransmissionInterval(50);   // Speed up telemetry updates, Just use for debugging.
-        telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+	    this.telemetry.setMsTransmissionInterval(50);   // Speed up telemetry updates, Just use for debugging.
+	    this.telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
 
         // WARNING:  To be able to view the stream preview on the Driver Station, this code runs in INIT mode.
-        while (opModeIsActive() || opModeInInit())
+        while (this.opModeIsActive() || this.opModeInInit())
         {
-            telemetry.addData("preview on/off", "... Camera Stream\n");
+	        this.telemetry.addData("preview on/off", "... Camera Stream\n");
 
             // Read the current list
-            List<ColorBlobLocatorProcessor.Blob> blobs = colorLocator.getBlobs();
+            final List<ColorBlobLocatorProcessor.Blob> blobs = colorLocator.getBlobs();
 
             /*
              * The list of Blobs can be filtered to remove unwanted Blobs.
@@ -174,18 +174,18 @@ public class ConceptVisionColorLocator extends LinearOpMode
              *     ColorBlobLocatorProcessor.Util.sortByAspectRatio(SortOrder.DESCENDING, blobs);
              */
 
-            telemetry.addLine(" Area Density Aspect  Center");
+	        this.telemetry.addLine(" Area Density Aspect  Center");
 
             // Display the size (area) and center location for each Blob.
-            for(ColorBlobLocatorProcessor.Blob b : blobs)
+            for(final ColorBlobLocatorProcessor.Blob b : blobs)
             {
-                RotatedRect boxFit = b.getBoxFit();
-                telemetry.addLine(String.format("%5d  %4.2f   %5.2f  (%3d,%3d)",
+                final RotatedRect boxFit = b.getBoxFit();
+	            this.telemetry.addLine(String.format("%5d  %4.2f   %5.2f  (%3d,%3d)",
                           b.getContourArea(), b.getDensity(), b.getAspectRatio(), (int) boxFit.center.x, (int) boxFit.center.y));
             }
 
-            telemetry.update();
-            sleep(50);
+	        this.telemetry.update();
+	        this.sleep(50);
         }
     }
 }

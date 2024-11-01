@@ -37,99 +37,99 @@ public class Camera extends OpenCvPipeline {
 			new Point(0,0));
 	static double PERCENT_COLOR_THRESHOLD = 0.20;
 
-	public Camera(Telemetry telemetry) { this.telemetry = telemetry; }
+	public Camera(final Telemetry telemetry) { this.telemetry = telemetry; }
 	@Override
-	public Mat processFrame(Mat input) {
-		Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
+	public Mat processFrame(final Mat input) {
+		Imgproc.cvtColor(input, this.mat, Imgproc.COLOR_RGB2HSV);
 
 		//TODO:HSV颜色值 需要根据物体更改
-		Scalar redLowHSV = new Scalar(0, 0, 0);
-		Scalar redHighHSV = new Scalar(0, 0, 0);
+		final Scalar redLowHSV  = new Scalar(0, 0, 0);
+		final Scalar redHighHSV = new Scalar(0, 0, 0);
 
-		Scalar blueLowHSV = new Scalar(0, 0, 0);
-		Scalar blueHighHSV = new Scalar(0, 0, 0);
+		final Scalar blueLowHSV  = new Scalar(0, 0, 0);
+		final Scalar blueHighHSV = new Scalar(0, 0, 0);
 
-		Core.inRange(mat, redLowHSV, redHighHSV, matRed);
-		Core.inRange(mat, blueLowHSV, blueHighHSV, matBlue);
+		Core.inRange(this.mat, redLowHSV, redHighHSV, this.matRed);
+		Core.inRange(this.mat, blueLowHSV, blueHighHSV, this.matBlue);
 
-		leftRed = matRed.submat(LEFT_ROI);
-		middleRed = matRed.submat(MIDDLE_ROI);
-		rightRed = matRed.submat(RIGHT_ROI);
+		this.leftRed = this.matRed.submat(Camera.LEFT_ROI);
+		this.middleRed = this.matRed.submat(Camera.MIDDLE_ROI);
+		this.rightRed = this.matRed.submat(Camera.RIGHT_ROI);
 
-		leftBlue = matBlue.submat(LEFT_ROI);
-		middleBlue = matBlue.submat(MIDDLE_ROI);
-		rightBlue = matBlue.submat(RIGHT_ROI);
+		this.leftBlue = this.matBlue.submat(Camera.LEFT_ROI);
+		this.middleBlue = this.matBlue.submat(Camera.MIDDLE_ROI);
+		this.rightBlue = this.matBlue.submat(Camera.RIGHT_ROI);
 
-		left_red_Value = Core.sumElems(leftRed).val[0] / LEFT_ROI.area() / 255;
-		middle_red_Value = Core.sumElems(middleRed).val[0] / MIDDLE_ROI.area() / 255;
-		right_red_Value = Core.sumElems(rightRed).val[0] / RIGHT_ROI .area() / 255;
+		this.left_red_Value = Core.sumElems(this.leftRed).val[0] / Camera.LEFT_ROI.area() / 255;
+		this.middle_red_Value = Core.sumElems(this.middleRed).val[0] / Camera.MIDDLE_ROI.area() / 255;
+		this.right_red_Value = Core.sumElems(this.rightRed).val[0] / Camera.RIGHT_ROI.area() / 255;
 
-		left_blue_Value = Core.sumElems(leftBlue).val[0] / LEFT_ROI.area() / 255;
-		middle_blue_Value = Core.sumElems(middleBlue).val[0] / MIDDLE_ROI.area() / 255;
-		right_blue_Value = Core.sumElems(rightBlue).val[0] / RIGHT_ROI .area() / 255;
+		this.left_blue_Value = Core.sumElems(this.leftBlue).val[0] / Camera.LEFT_ROI.area() / 255;
+		this.middle_blue_Value = Core.sumElems(this.middleBlue).val[0] / Camera.MIDDLE_ROI.area() / 255;
+		this.right_blue_Value = Core.sumElems(this.rightBlue).val[0] / Camera.RIGHT_ROI.area() / 255;
 
 
-		leftRed.release();
-		middleRed.release();
-		rightRed.release();
+		this.leftRed.release();
+		this.middleRed.release();
+		this.rightRed.release();
 
-		leftBlue.release();
-		middleBlue.release();
-		rightBlue.release();
+		this.leftBlue.release();
+		this.middleBlue.release();
+		this.rightBlue.release();
 
 		//输出roi范围内的概率
-		boolean LeftRed = left_red_Value > PERCENT_COLOR_THRESHOLD;
-		boolean MiddleRed = middle_red_Value > PERCENT_COLOR_THRESHOLD;
-		boolean RightRed = right_red_Value > PERCENT_COLOR_THRESHOLD;
+		final boolean LeftRed   = this.left_red_Value > Camera.PERCENT_COLOR_THRESHOLD;
+		final boolean MiddleRed = this.middle_red_Value > Camera.PERCENT_COLOR_THRESHOLD;
+		final boolean RightRed  = this.right_red_Value > Camera.PERCENT_COLOR_THRESHOLD;
 
-		boolean LeftBlue = left_blue_Value > PERCENT_COLOR_THRESHOLD;
-		boolean MiddleBlue= middle_blue_Value > PERCENT_COLOR_THRESHOLD;
-		boolean RightBlue = right_blue_Value > PERCENT_COLOR_THRESHOLD;
+		final boolean LeftBlue   = this.left_blue_Value > Camera.PERCENT_COLOR_THRESHOLD;
+		final boolean MiddleBlue = this.middle_blue_Value > Camera.PERCENT_COLOR_THRESHOLD;
+		final boolean RightBlue  = this.right_blue_Value > Camera.PERCENT_COLOR_THRESHOLD;
 
 
 		if (LeftRed) {
-			location = AutonomousLocation.left;
+			this.location = AutonomousLocation.left;
 		} else if (MiddleRed) {
-			location = AutonomousLocation.centre;
+			this.location = AutonomousLocation.centre;
 		} else if (RightRed) {
-			location = AutonomousLocation.right;
+			this.location = AutonomousLocation.right;
 		} else if (LeftBlue) {
-			location = AutonomousLocation.left;
+			this.location = AutonomousLocation.left;
 		} else if (MiddleBlue) {
-			location = AutonomousLocation.centre;
+			this.location = AutonomousLocation.centre;
 		} else if (RightBlue) {
-			location = AutonomousLocation.right;
+			this.location = AutonomousLocation.right;
 		}
 
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
-		Scalar color = new Scalar(255, 0, 0);
-		Imgproc.rectangle(mat, LEFT_ROI, color);
-		Imgproc.rectangle(mat, MIDDLE_ROI, color);
-		Imgproc.rectangle(mat, RIGHT_ROI, color);
-		return mat;
+		final Scalar color = new Scalar(255, 0, 0);
+		Imgproc.rectangle(this.mat, Camera.LEFT_ROI, color);
+		Imgproc.rectangle(this.mat, Camera.MIDDLE_ROI, color);
+		Imgproc.rectangle(this.mat, Camera.RIGHT_ROI, color);
+		return this.mat;
 	}
 
 	public AutonomousLocation getLocation() {
-		return location;
+		return this.location;
 	}
 
 	/**
 	 * 用于测试OpenCV的运行情况
 	 */
 	public void showRoiVP(){
-		telemetry.addData("leftRed roi raw value", (int) Core.sumElems(leftRed).val[0]);
-		telemetry.addData("middleRed roi raw value", (int) Core.sumElems(middleRed).val[0]);
-		telemetry.addData("rightRed roi raw value", (int) Core.sumElems(rightRed).val[0]);
-		telemetry.addData("leftRed roi percentage", Math.round(left_red_Value * 100) + "%");
-		telemetry.addData("middleRed roi percentage", Math.round(middle_red_Value * 100) + "%");
-		telemetry.addData("rightRed roi percentage", Math.round(right_red_Value * 100) + "%");
+		this.telemetry.addData("leftRed roi raw value", (int) Core.sumElems(this.leftRed).val[0]);
+		this.telemetry.addData("middleRed roi raw value", (int) Core.sumElems(this.middleRed).val[0]);
+		this.telemetry.addData("rightRed roi raw value", (int) Core.sumElems(this.rightRed).val[0]);
+		this.telemetry.addData("leftRed roi percentage", Math.round(this.left_red_Value * 100) + "%");
+		this.telemetry.addData("middleRed roi percentage", Math.round(this.middle_red_Value * 100) + "%");
+		this.telemetry.addData("rightRed roi percentage", Math.round(this.right_red_Value * 100) + "%");
 
-		telemetry.addData("leftBlue roi raw value", (int) Core.sumElems(leftBlue).val[0]);
-		telemetry.addData("middleBlue roi raw value", (int) Core.sumElems(middleBlue).val[0]);
-		telemetry.addData("rightBlue roi raw value", (int) Core.sumElems(rightBlue).val[0]);
-		telemetry.addData("leftBlue roi percentage", Math.round(left_blue_Value * 100) + "%");
-		telemetry.addData("middleBlue roi percentage", Math.round(middle_blue_Value * 100) + "%");
-		telemetry.addData("rightBlue roi percentage", Math.round(right_blue_Value * 100) + "%");
+		this.telemetry.addData("leftBlue roi raw value", (int) Core.sumElems(this.leftBlue).val[0]);
+		this.telemetry.addData("middleBlue roi raw value", (int) Core.sumElems(this.middleBlue).val[0]);
+		this.telemetry.addData("rightBlue roi raw value", (int) Core.sumElems(this.rightBlue).val[0]);
+		this.telemetry.addData("leftBlue roi percentage", Math.round(this.left_blue_Value * 100) + "%");
+		this.telemetry.addData("middleBlue roi percentage", Math.round(this.middle_blue_Value * 100) + "%");
+		this.telemetry.addData("rightBlue roi percentage", Math.round(this.right_blue_Value * 100) + "%");
 	}
 }

@@ -17,24 +17,24 @@ public final class ManualFeedbackTuner extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
-            MecanumDrive drive = getMecanumDrive();
-            waitForStart();
+            final MecanumDrive drive = this.getMecanumDrive();
+	        this.waitForStart();
 
-            while (opModeIsActive()) {
+            while (this.opModeIsActive()) {
                 Actions.runBlocking(
                     drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(DISTANCE)
+                            .lineToX(ManualFeedbackTuner.DISTANCE)
                             .lineToX(0)
                             .build());
             }
         } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
-            TankDrive drive = getTankDrive();
-            waitForStart();
+            final TankDrive drive = this.getTankDrive();
+	        this.waitForStart();
 
-            while (opModeIsActive()) {
+            while (this.opModeIsActive()) {
                 Actions.runBlocking(
                     drive.actionBuilder(new Pose2d(0, 0, 0))
-                            .lineToX(DISTANCE)
+                            .lineToX(ManualFeedbackTuner.DISTANCE)
                             .lineToX(0)
                             .build());
             }
@@ -44,14 +44,14 @@ public final class ManualFeedbackTuner extends LinearOpMode {
     }
 
     private @NonNull MecanumDrive getMecanumDrive() {
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        final MecanumDrive drive = new MecanumDrive(this.hardwareMap, new Pose2d(0, 0, 0));
 
         if (drive.localizer instanceof TwoDeadWheelLocalizer) {
-            if (TwoDeadWheelLocalizer.PARAMS.perpXTicks == 0 && TwoDeadWheelLocalizer.PARAMS.parYTicks == 0) {
+            if (0 == TwoDeadWheelLocalizer.PARAMS.perpXTicks && 0 == TwoDeadWheelLocalizer.PARAMS.parYTicks) {
                 throw new RuntimeException("Odometry wheel locations not set! Run AngularRampLogger to tune them.");
             }
         } else if (drive.localizer instanceof ThreeDeadWheelLocalizer) {
-            if (ThreeDeadWheelLocalizer.PARAMS.perpXTicks == 0 && ThreeDeadWheelLocalizer.PARAMS.par0YTicks == 0 && ThreeDeadWheelLocalizer.PARAMS.par1YTicks == 1) {
+            if (0 == ThreeDeadWheelLocalizer.PARAMS.perpXTicks && 0 == ThreeDeadWheelLocalizer.PARAMS.par0YTicks && 1 == ThreeDeadWheelLocalizer.PARAMS.par1YTicks) {
                 throw new RuntimeException("Odometry wheel locations not set! Run AngularRampLogger to tune them.");
             }
         }
@@ -59,14 +59,14 @@ public final class ManualFeedbackTuner extends LinearOpMode {
     }
 
     private @NonNull TankDrive getTankDrive() {
-        TankDrive drive = new TankDrive(hardwareMap, new Pose2d(0, 0, 0));
+        final TankDrive drive = new TankDrive(this.hardwareMap, new Pose2d(0, 0, 0));
 
         if (drive.localizer instanceof TwoDeadWheelLocalizer) {
-            if (TwoDeadWheelLocalizer.PARAMS.perpXTicks == 0 && TwoDeadWheelLocalizer.PARAMS.parYTicks == 0) {
+            if (0 == TwoDeadWheelLocalizer.PARAMS.perpXTicks && 0 == TwoDeadWheelLocalizer.PARAMS.parYTicks) {
                 throw new RuntimeException("Odometry wheel locations not set! Run AngularRampLogger to tune them.");
             }
         } else if (drive.localizer instanceof ThreeDeadWheelLocalizer) {
-            if (ThreeDeadWheelLocalizer.PARAMS.perpXTicks == 0 && ThreeDeadWheelLocalizer.PARAMS.par0YTicks == 0 && ThreeDeadWheelLocalizer.PARAMS.par1YTicks == 1) {
+            if (0 == ThreeDeadWheelLocalizer.PARAMS.perpXTicks && 0 == ThreeDeadWheelLocalizer.PARAMS.par0YTicks && 1 == ThreeDeadWheelLocalizer.PARAMS.par1YTicks) {
                 throw new RuntimeException("Odometry wheel locations not set! Run AngularRampLogger to tune them.");
             }
         }

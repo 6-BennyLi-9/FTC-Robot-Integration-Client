@@ -9,11 +9,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
 import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DriveDirection;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.enums.Quadrant;
 import org.firstinspires.ftc.teamcode.utils.Functions;
 
@@ -32,46 +34,46 @@ public class Chassis {
 	 */
 	private double BufPower=1;
 
-	public Chassis(Motors motors, Sensors sensors) {
+	public Chassis(final Motors motors, final Sensors sensors) {
 		this.motors     =motors;
 		this.sensors    =sensors;
 	}
 
-	public void drive(@NonNull DriveDirection driveDirection, double power) {
+	public void drive(@NonNull final DriveDirection driveDirection, final double power) {
 		switch ( driveDirection ) {
 			case forward:
-				motors.yAxisPower+=power;
+				this.motors.yAxisPower+=power;
 				break;
 			case back:
-				motors.yAxisPower-=power;
+				this.motors.yAxisPower-=power;
 				break;
 			case left:
-				motors.xAxisPower-=power;
+				this.motors.xAxisPower-=power;
 				break;
 			case right:
-				motors.xAxisPower+=power;
+				this.motors.xAxisPower+=power;
 				break;
 			case turn:
-				motors.headingPower+=power;
+				this.motors.headingPower+=power;
 				break;
 			case slant:
 				Log.e("UnExpectingCode","ErrorCode#1");
 		}
 
-		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
-			sensors.updateBNO();
-			motors.update(sensors.robotAngle());
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
+			this.sensors.updateBNO();
+			this.motors.update(this.sensors.robotAngle());
 		}
 	}
 
 	/**
 	 * @param angle 是较于x轴的度数
 	 */
-	public void drive(@NonNull DriveDirection driveDirection, @NonNull Quadrant quadrant, double power, double angle) {
+	public void drive(@NonNull final DriveDirection driveDirection, @NonNull final Quadrant quadrant, final double power, final double angle) {
 		switch ( driveDirection ) {
 			case forward:case back:case left:case right:
 			case turn:
-				drive(driveDirection, power);
+				this.drive(driveDirection, power);
 				break;
 			case slant:
 				double x=0,y=0;
@@ -93,66 +95,66 @@ public class Chassis {
 						y = -Math.sin(angle) * power;
 						break;
 				}
-				motors.xAxisPower+=x;
-				motors.yAxisPower+=y;
+				this.motors.xAxisPower+=x;
+				this.motors.yAxisPower+=y;
 				break;
 		}
 
-		if( Configs.runUpdateWhenAnyNewOptionsAdded ){
-			sensors.updateBNO();
-			motors.update(sensors.robotAngle());
+		if( Params.Configs.runUpdateWhenAnyNewOptionsAdded ){
+			this.sensors.updateBNO();
+			this.motors.update(this.sensors.robotAngle());
 		}
 	}
 
 	/**
 	 * @param angle 相较于机器的正方向，允许为[-180,180]内的实数(不是弧度，不是弧度，不是弧度）
 	 */
-	public void SimpleDrive(double power,double angle){
-		angle= Functions.angleRationalize(angle);
+	public void SimpleDrive(final double power, double angle){
+		angle= Mathematics.angleRationalize(angle);
 
-		if(angle==0){
-			drive(DriveDirection.forward,power);
-		}else if(angle==90){
-			drive(DriveDirection.right,power);
-		}else if(angle==-90){
-			drive(DriveDirection.left,power);
-		}else if(angle==180){
-			drive(DriveDirection.back,power);
+		if(0 == angle){
+			this.drive(DriveDirection.forward,power);
+		}else if(90 == angle){
+			this.drive(DriveDirection.right,power);
+		}else if(- 90 == angle){
+			this.drive(DriveDirection.left,power);
+		}else if(180 == angle){
+			this.drive(DriveDirection.back,power);
 		}
 
-		if(angle>0&&angle<90){//第一象限
-			drive(DriveDirection.slant, Quadrant.firstQuadrant,power,90-angle);
-		}else if(angle>90&&angle<180){//第四象限
-			drive(DriveDirection.slant, Quadrant.forthQuadrant,power,angle-90);
-		}else if(angle>-90&angle<0){//第二象限
-			drive(DriveDirection.slant, Quadrant.secondQuadrant,power,90+angle);
-		}else if(angle>-180&&angle<0){//第三象限
-			drive(DriveDirection.slant, Quadrant.thirdQuadrant,power,-90-angle);
+		if(0 < angle && 90 > angle){//第一象限
+			this.drive(DriveDirection.slant, Quadrant.firstQuadrant,power, 90 - angle);
+		}else if(90 < angle && 180 > angle){//第四象限
+			this.drive(DriveDirection.slant, Quadrant.forthQuadrant,power, angle - 90);
+		}else if(- 90 < angle & 0 > angle){//第二象限
+			this.drive(DriveDirection.slant, Quadrant.secondQuadrant,power, 90 + angle);
+		}else if(- 180 < angle && 0 > angle){//第三象限
+			this.drive(DriveDirection.slant, Quadrant.thirdQuadrant,power, -90 - angle);
 		}
 	}
 
-	public void SimpleRadiansDrive(double power,double radians){
-		radians=Functions.radiansRationalize(radians);
+	public void SimpleRadiansDrive(final double power, double radians){
+		radians= Mathematics.radiansRationalize(radians);
 
-		SimpleDrive(power,Math.toDegrees(radians));
+		this.SimpleDrive(power,Math.toDegrees(radians));
 	}
-	public void configureBufPower(@NonNull IntegrationGamepad gamepad){
+	public void configureBufPower(@NonNull final IntegrationGamepad gamepad){
 		if(gamepad.keyMap.containsKeySetting(KeyTag.ChassisSpeedControl)){
-			BufPower+= gamepad.getRodState(KeyTag.ChassisSpeedControl) * 0.6;
+			this.BufPower += gamepad.getRodState(KeyTag.ChassisSpeedControl) * 0.6;
 		}else if(gamepad.keyMap.containsKeySetting(KeyTag.ChassisSpeedConfig)){
 			if(gamepad.getButtonRunAble(KeyTag.ChassisSpeedConfig)){
-				BufPower=0.9;
+				this.BufPower =0.9;
 			}else{
-				BufPower=0.3;
+				this.BufPower =0.3;
 			}
 		}
-		BufPower=Functions.intervalClip(BufPower,-1,1);
+		this.BufPower = Mathematics.intervalClip(this.BufPower, - 1, 1);
 	}
-	public void driveFromGamepad(@NonNull IntegrationGamepad gamepad){
-		motors.simpleMotorPowerController(
-				gamepad.getRodState(KeyTag.ChassisRunForward) * BufPower * factorXPower,
-				gamepad.getRodState(KeyTag.ChassisRunStrafe) * BufPower * factorYPower,
-				gamepad.getRodState(KeyTag.ChassisTurn) * BufPower * factorHeadingPower
+	public void driveFromGamepad(@NonNull final IntegrationGamepad gamepad){
+		this.motors.simpleMotorPowerController(
+				gamepad.getRodState(KeyTag.ChassisRunForward) * this.BufPower * factorXPower,
+				gamepad.getRodState(KeyTag.ChassisRunStrafe) * this.BufPower * factorYPower,
+				gamepad.getRodState(KeyTag.ChassisTurn) * this.BufPower * factorHeadingPower
 		);
 	}
 
@@ -160,13 +162,13 @@ public class Chassis {
 	 * 停止机器的移动程序，updateDriveOptions
 	 */
 	public void STOP(){
-		motors.clearDriveOptions();
-		sensors.updateBNO();
-		motors.updateDriveOptions(sensors.robotAngle());
+		this.motors.clearDriveOptions();
+		this.sensors.updateBNO();
+		this.motors.updateDriveOptions(this.sensors.robotAngle());
 	}
-	public void operateThroughGamePad(@NonNull IntegrationGamepad gamepad){
-		configureBufPower(gamepad);
+	public void operateThroughGamePad(@NonNull final IntegrationGamepad gamepad){
+		this.configureBufPower(gamepad);
 
-		driveFromGamepad(gamepad);
+		this.driveFromGamepad(gamepad);
 	}
 }

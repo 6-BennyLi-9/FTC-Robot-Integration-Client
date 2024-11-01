@@ -15,53 +15,53 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Autonomous(name = "CameraDetection",group = Params.Configs.SampleOpModesGroup)
 public class CameraDetection extends AutonomousProgramTemplate {
 	OpenCvCamera webcam;
-	Camera detector=new Camera(telemetry);
+	Camera detector=new Camera(this.telemetry);
 
 
 	@Override
 	public void runOpMode() {
 		//TODO：根据需要更改名称
-		int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-		webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-		webcam.setPipeline(detector);
-		webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+		final int cameraMonitorViewId = this.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", this.hardwareMap.appContext.getPackageName());
+		this.webcam = OpenCvCameraFactory.getInstance().createWebcam(this.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+		this.webcam.setPipeline(this.detector);
+		this.webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
 		{
 			@Override
 			public void onOpened()
 			{
-				webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+				CameraDetection.this.webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
 			}
 
 			@Override
-			public void onError(int errorCode) {
+			public void onError(final int errorCode) {
 				throw new RuntimeException(String.valueOf(errorCode));
 			}
 		});
 
-		telemetry.addLine("Waiting for start");
-		telemetry.update();
+		this.telemetry.addLine("Waiting for start");
+		this.telemetry.update();
 
-		while (!isStopRequested())
+		while (! this.isStopRequested())
 		{
-			switch (detector.getLocation()) {
+			switch (this.detector.getLocation()) {
 				case left:
-					telemetry.addData("Location", "LEFT");
-					telemetry.update();
+					this.telemetry.addData("Location", "LEFT");
+					this.telemetry.update();
 					break;
 				case centre:
-					telemetry.addData("Location", "CENTRE");
-					telemetry.update();
+					this.telemetry.addData("Location", "CENTRE");
+					this.telemetry.update();
 					break;
 				case right:
-					telemetry.addData("Location", "RIGHT");
-					telemetry.update();
+					this.telemetry.addData("Location", "RIGHT");
+					this.telemetry.update();
 					break;
 				case failed:
-					telemetry.addData("Location", "failed");
-					telemetry.update();
+					this.telemetry.addData("Location", "failed");
+					this.telemetry.update();
 					break;
 			}
-			sleep(50);
+			this.sleep(50);
 		}
 	}
 }

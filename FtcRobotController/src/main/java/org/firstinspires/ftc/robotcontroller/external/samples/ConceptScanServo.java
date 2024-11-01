@@ -59,7 +59,7 @@ public class ConceptScanServo extends LinearOpMode {
 
     // Define class members
     Servo   servo;
-    double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
+    double  position = (ConceptScanServo.MAX_POS - ConceptScanServo.MIN_POS) / 2; // Start at halfway position
     boolean rampUp = true;
 
 
@@ -68,48 +68,48 @@ public class ConceptScanServo extends LinearOpMode {
 
         // Connect to servo (Assume Robot Left Hand)
         // Change the text in quotes to match any servo name on your robot.
-        servo = hardwareMap.get(Servo.class, "left_hand");
+	    this.servo = this.hardwareMap.get(Servo.class, "left_hand");
 
         // Wait for the start button
-        telemetry.addData(">", "Press Start to scan Servo." );
-        telemetry.update();
-        waitForStart();
+	    this.telemetry.addData(">", "Press Start to scan Servo." );
+	    this.telemetry.update();
+	    this.waitForStart();
 
 
         // Scan servo till stop pressed.
-        while(opModeIsActive()){
+        while(this.opModeIsActive()){
 
             // slew the servo, according to the rampUp (direction) variable.
-            if (rampUp) {
+            if (this.rampUp) {
                 // Keep stepping up until we hit the max value.
-                position += INCREMENT ;
-                if (position >= MAX_POS ) {
-                    position = MAX_POS;
-                    rampUp = !rampUp;   // Switch ramp direction
+	            this.position += ConceptScanServo.INCREMENT;
+                if (MAX_POS <= ConceptScanServo.position) {
+	                this.position = ConceptScanServo.MAX_POS;
+	                this.rampUp = ! this.rampUp;   // Switch ramp direction
                 }
             }
             else {
                 // Keep stepping down until we hit the min value.
-                position -= INCREMENT ;
-                if (position <= MIN_POS ) {
-                    position = MIN_POS;
-                    rampUp = !rampUp;  // Switch ramp direction
+	            this.position -= ConceptScanServo.INCREMENT;
+                if (MIN_POS >= ConceptScanServo.position) {
+	                this.position = ConceptScanServo.MIN_POS;
+	                this.rampUp = ! this.rampUp;  // Switch ramp direction
                 }
             }
 
             // Display the current value
-            telemetry.addData("Servo Position", "%5.2f", position);
-            telemetry.addData(">", "Press Stop to end test." );
-            telemetry.update();
+	        this.telemetry.addData("Servo Position", "%5.2f", this.position);
+	        this.telemetry.addData(">", "Press Stop to end test." );
+	        this.telemetry.update();
 
             // Set the servo to the new position and pause;
-            servo.setPosition(position);
-            sleep(CYCLE_MS);
-            idle();
+	        this.servo.setPosition(this.position);
+	        this.sleep(ConceptScanServo.CYCLE_MS);
+	        this.idle();
         }
 
         // Signal done;
-        telemetry.addData(">", "Done");
-        telemetry.update();
+	    this.telemetry.addData(">", "Done");
+	    this.telemetry.update();
     }
 }

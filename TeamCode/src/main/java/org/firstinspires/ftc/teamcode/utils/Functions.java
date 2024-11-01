@@ -22,7 +22,7 @@ public final class Functions extends Mathematics{
      */
     @NonNull
     @UtilFunctions
-    public static Position2d getAimPositionThroughTrajectory(@NonNull Position2d from, @NonNull Position2d end, @NonNull Position2d RobotPosition, double progress){
+    public static Position2d getAimPositionThroughTrajectory(@NonNull final Position2d from, @NonNull final Position2d end, @NonNull final Position2d RobotPosition, final double progress){
         Complex cache=new Complex(new Vector2d(
                 end.x-from.x,
                 end.y-from.y
@@ -42,13 +42,13 @@ public final class Functions extends Mathematics{
      */
     @NonNull
     @UtilFunctions
-    public static Position2d getAimPositionThroughTrajectory(@NonNull DriveOrder driveOrder, @NonNull Position2d RobotPosition , double progress){
+    public static Position2d getAimPositionThroughTrajectory(@NonNull final DriveOrder driveOrder, @NonNull final Position2d RobotPosition , final double progress){
         switch (driveOrder.getState()) {
             case LinerStrafe:
             case LinerWithTurn:
             case TurnOnly:
                 SimpleMecanumDrive.robotState = RobotState.StrafeToPoint;
-                return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.nextPose(), RobotPosition , progress);
+                return Functions.getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.nextPose(), RobotPosition , progress);
             case Spline://TODO:功能仍在开发中
                 SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;
@@ -63,7 +63,7 @@ public final class Functions extends Mathematics{
      */
     @NonNull
     @UtilFunctions
-    public static Position2d Alignment2d(double deltaX, double deltaY, double globalTheta){
+    public static Position2d Alignment2d(final double deltaX, final double deltaY, final double globalTheta){
         return new Position2d(
                 deltaX *Math.cos(Math.toRadians(globalTheta))- deltaY *Math.sin(Math.toRadians(globalTheta)),
                 deltaY *Math.cos(Math.toRadians(globalTheta))+ deltaX *Math.sin(Math.toRadians(globalTheta)),
@@ -72,16 +72,16 @@ public final class Functions extends Mathematics{
     }
     @NonNull
     @UtilFunctions
-    public static Position2d Alignment2d(@NonNull Position2d pose){
-        return Alignment2d(pose.x,pose.y,pose.heading);
+    public static Position2d Alignment2d(@NonNull final Position2d pose){
+        return Functions.Alignment2d(pose.x,pose.y,pose.heading);
     }
 
 	@UtilFunctions
-	public static double distance(double deltaX,double deltaY){
+	public static double distance(final double deltaX, final double deltaY){
 		return Math.sqrt(deltaX*deltaX+deltaY*deltaY);
 	}
     @UtilFunctions
-    public static double getX(@NonNull Object pose){
+    public static double getX(@NonNull final Object pose){
 	    if (pose.getClass().equals(Position2d.class)) {
             return ((Position2d) pose).x;
 	    }else if(pose.getClass().equals(Vector2d.class)){
@@ -91,7 +91,7 @@ public final class Functions extends Mathematics{
         }
     }
     @UtilFunctions
-    public static double getY(@NonNull Object pose){
+    public static double getY(@NonNull final Object pose){
         if(pose.getClass().equals(Vector2d.class)){
             return ((Vector2d) pose).y;
         }else if(pose.getClass().equals(Position2d.class)){

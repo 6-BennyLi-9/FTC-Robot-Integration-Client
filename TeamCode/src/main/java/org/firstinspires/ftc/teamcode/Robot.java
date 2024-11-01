@@ -56,9 +56,9 @@ public class Robot {
 
 	public static RobotState robotState=RobotState.IDLE;
 	public static RunningMode runningState;
-	public IntegrationGamepad gamepad=null;
+	public IntegrationGamepad gamepad;
 	public final ActionBox actionBox;
-	public DriverProgram drive=null;
+	public DriverProgram drive;
 
 	public final Timer timer;
 
@@ -66,25 +66,25 @@ public class Robot {
 	public KeyMapController keyMapController =new DefaultKeyMapController();
 
 
-	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Telemetry telemetry){
+	public Robot(@NonNull final HardwareMap hardwareMap, @NonNull final RunningMode state, @NonNull final Telemetry telemetry){
 		this(hardwareMap,state,new Client(telemetry));
 	}
 
-	public Robot(@NonNull HardwareMap hardwareMap, @NonNull RunningMode state, @NonNull Client client){
+	public Robot(@NonNull final HardwareMap hardwareMap, @NonNull final RunningMode state, @NonNull final Client client){
 		Params.Configs.reset();
 		Global.clear();
 
-		pidProcessor=new PidProcessor();
+		this.pidProcessor =new PidProcessor();
 
-		lazyIntegratedDevices=new IntegrationHardwareMap(hardwareMap,pidProcessor);
+		this.lazyIntegratedDevices =new IntegrationHardwareMap(hardwareMap, this.pidProcessor);
 
-		motors=new Motors(lazyIntegratedDevices);
-		sensors=new Sensors(lazyIntegratedDevices);
-		servos=new Servos(lazyIntegratedDevices);
+		this.motors =new Motors(this.lazyIntegratedDevices);
+		this.sensors =new Sensors(this.lazyIntegratedDevices);
+		this.servos =new Servos(this.lazyIntegratedDevices);
 
-		chassis =new Chassis(motors,sensors);
-		structure=new Structure(motors,servos);
-		webcam=new Webcam(hardwareMap);
+		this.chassis =new Chassis(this.motors, this.sensors);
+		this.structure =new Structure(this.motors, this.servos);
+		this.webcam =new Webcam(hardwareMap);
 
 		this.client=client;
 
@@ -94,13 +94,13 @@ public class Robot {
 			case Autonomous:
 				Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=true;
 
-				InitInAutonomous();
+				this.InitInAutonomous();
 				break;
 			case ManualDrive:
 				Params.Configs.runUpdateWhenAnyNewOptionsAdded=true;
 				Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower=false;
 
-				InitInManualDrive();
+				this.InitInManualDrive();
 				break;
 			case Debug:case Sample:case TestOrTune:
 				break;
@@ -108,46 +108,46 @@ public class Robot {
 				throw new UnKnownErrorsException("Unexpected runningState value:"+state.name());
 		}
 
-		runningState = state;
-		actionBox = new ActionBox();
-		timer=new Timer();
+		Robot.runningState = state;
+		this.actionBox = new ActionBox();
+		this.timer =new Timer();
 		client.addData("RobotState","UnKnow");
 
 		Global.setRobot(this);
 	}
 
 	@UserRequirementFunctions
-	public void setParamsOverride(ParamsController controller){
-		this.paramsController =controller;
-		this.paramsController.PramsOverride();
+	public void setParamsOverride(final ParamsController controller){
+		paramsController =controller;
+		paramsController.PramsOverride();
 	}
 	@UserRequirementFunctions
-	public void setKeyMapController(KeyMapController controller){
-		keyMapController=controller;
-		keyMapController.KeyMapOverride(gamepad.keyMap);
+	public void setKeyMapController(final KeyMapController controller){
+		this.keyMapController =controller;
+		this.keyMapController.KeyMapOverride(this.gamepad.keyMap);
 	}
 
 	/**
 	 * 自动初始化SimpleMecanumDrive
 	 * @return 返回定义好的SimpleMecanumDrive
 	 */
-	public DriverProgram InitMecanumDrive(Position2d RobotPosition){
-		drive=new SimpleMecanumDrive(RobotPosition);
-		if(runningState != RunningMode.Autonomous) {
+	public DriverProgram InitMecanumDrive(final Position2d RobotPosition){
+		this.drive =new SimpleMecanumDrive(RobotPosition);
+		if(RunningMode.RunningMode.Autonomous != runningState) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}
-		return drive;
+		return this.drive;
 	}
 
 	private void InitInAutonomous(){
-		structure.clipOption(ClipPosition.Close);
-		robotState = RobotState.IDLE;
-		SetGlobalBufPower(0.9f);
+		this.structure.clipOption(ClipPosition.Close);
+		Robot.robotState = RobotState.IDLE;
+		this.SetGlobalBufPower(0.9f);
 	}
 	private void InitInManualDrive(){
-		structure.clipOption(ClipPosition.Open);
-		robotState = RobotState.ManualDriving;
-		SetGlobalBufPower(0.9f);
+		this.structure.clipOption(ClipPosition.Open);
+		Robot.robotState = RobotState.ManualDriving;
+		this.SetGlobalBufPower(0.9f);
 	}
 
 	/**
@@ -158,12 +158,12 @@ public class Robot {
 	 * @see OpMode#gamepad1
 	 * @see OpMode#gamepad2
 	 */
-	public void registerGamepad(Gamepad gamepad1,Gamepad gamepad2){
-		gamepad=new IntegrationGamepad(gamepad1,gamepad2);
+	public void registerGamepad(final Gamepad gamepad1, final Gamepad gamepad2){
+		this.gamepad =new IntegrationGamepad(gamepad1,gamepad2);
 
 		Global.currentGamepad1=gamepad1;
 		Global.currentGamepad2=gamepad2;
-		Global.integrationGamepad=gamepad;
+		Global.integrationGamepad= this.gamepad;
 	}
 
 	/**
@@ -174,16 +174,16 @@ public class Robot {
 	 * @see Motors#update()
 	 */
 	public void updateHardwares(){
-		sensors.update();
-		servos.update();
+		this.sensors.update();
+		this.servos.update();
 
 		try{
 			if(Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower) {
-				motors.update(sensors.robotAngle());
+				this.motors.update(this.sensors.robotAngle());
 			}else{
-				motors.update();
+				this.motors.update();
 			}
-		}catch (DeviceDisabledException ignored){}
+		}catch (final DeviceDisabledException ignored){}
 	}
 	/**
 	 * 更新传感器、舵机、电机
@@ -197,17 +197,17 @@ public class Robot {
 	 * @see ActionBox#output()
 	 */
 	public void update()  {
-		if(timer.stopAndGetDeltaTime()>=90000&&runningState==RunningMode.ManualDrive){
-			robotState = RobotState.FinalState;
+		if(90000 <= timer.stopAndGetDeltaTime() && RunningMode.RunningMode.ManualDrive == runningState){
+			Robot.robotState = RobotState.FinalState;
 		}
 
-		updateHardwares();
+		this.updateHardwares();
 
-		Actions.runBlocking(actionBox.output());
-		client.changeData("RobotState", robotState.name());
+		Actions.runBlocking(this.actionBox.output());
+		this.client.changeData("RobotState", Robot.robotState.name());
 
-		while(Params.Configs.waitForServoUntilThePositionIsInPlace && servos.inPlace()){
-			servos.update();
+		while(Params.Configs.waitForServoUntilThePositionIsInPlace && this.servos.inPlace()){
+			this.servos.update();
 			//当前最方便的Sleep方案
 			Actions.runBlocking(new SleepAction(0.1));
 		}
@@ -219,15 +219,15 @@ public class Robot {
 	@UserRequirementFunctions
 	@ExtractedInterfaces
 	public void operateThroughGamePad() {
-		chassis.operateThroughGamePad(gamepad);
-		structure.operateThroughGamePad(gamepad);
+		this.chassis.operateThroughGamePad(this.gamepad);
+		this.structure.operateThroughGamePad(this.gamepad);
 	}
 
 	public DriveOrderBuilder DrivingOrderBuilder(){
-		if(drive instanceof SimpleMecanumDrive)
-			return ((SimpleMecanumDrive) drive).drivingCommandsBuilder();
-		else if(drive instanceof MecanumDrive)
-			return ((MecanumDrive) drive).drivingCommandsBuilder();
+		if(this.drive instanceof SimpleMecanumDrive)
+			return ((SimpleMecanumDrive) this.drive).drivingCommandsBuilder();
+		else if(this.drive instanceof MecanumDrive)
+			return ((MecanumDrive) this.drive).drivingCommandsBuilder();
 		return null;
 	}
 
@@ -235,47 +235,56 @@ public class Robot {
 	 * 在该节点让机器旋转指定角度
 	 * @param angle 要转的角度[-180,180)
 	 */
-	public void turnAngle(double angle){
-		if(runningState == RunningMode.ManualDrive)return;
-		drive.runOrderPackage(DrivingOrderBuilder().TurnAngle(angle).END());
+	public void turnAngle(final double angle){
+		if(RunningMode.RunningMode.ManualDrive == runningState)return;
+		this.drive.runOrderPackage(this.DrivingOrderBuilder().TurnAngle(angle).END());
 	}
-	public void strafeTo(Vector2d pose){
-		if(runningState == RunningMode.ManualDrive)return;
-		drive.runOrderPackage(DrivingOrderBuilder().StrafeTo(pose).END());
+	public void strafeTo(final Vector2d pose){
+		if(RunningMode.RunningMode.ManualDrive == runningState)return;
+		this.drive.runOrderPackage(this.DrivingOrderBuilder().StrafeTo(pose).END());
 	}
 
 	/**
 	 * 会自动update()
 	 */
 	public Position2d pose(){
-		drive.update();
-		return drive.getCurrentPose();
+		this.drive.update();
+		return this.drive.getCurrentPose();
 	}
 
 	/**
 	 * 将会把BufPower全部分配给电机
 	 * @param BufPower 提供的电机力度因数
 	 */
-	public void SetGlobalBufPower(double BufPower){
-		motors.setBufPower(BufPower);
+	public void SetGlobalBufPower(final double BufPower){
+		this.motors.setBufPower(BufPower);
 	}
 
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void addData(String key, String val){client.addData(key, val);}
+	public void addData(final String key, final String val){
+		this.client.addData(key, val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void addData(String key,Object val){client.addData(key, val);}
+	public void addData(final String key, final Object val){
+		this.client.addData(key, val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void deleteData(String key){try{client.deleteData(key);}catch (Exception ignored){}}
+	public void deleteData(final String key){try{
+		this.client.deleteData(key);}catch (final Exception ignored){}}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void changeData(String key, String val){client.changeData(key, val);}
+	public void changeData(final String key, final String val){
+		this.client.changeData(key, val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void changeData(String key,Object val){client.changeData(key, val);}
+	public void changeData(final String key, final Object val){
+		this.client.changeData(key, val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void addLine(String val){client.addLine(val);}
+	public void addLine(final String val){
+		this.client.addLine(val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void addLine(Object val){client.addLine(val);}
+	public void addLine(final Object val){
+		this.client.addLine(val);}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void changeLine(@NonNull Object key, @NonNull Object val){client.changeLine(key.toString(),val.toString());}
+	public void changeLine(@NonNull final Object key, @NonNull final Object val){
+		this.client.changeLine(key.toString(),val.toString());}
 	@ExtractedInterfaces@UserRequirementFunctions
-	public void deleteLine(String key){try{client.deleteLine(key);}catch (Exception ignored){}}
+	public void deleteLine(final String key){try{
+		this.client.deleteLine(key);}catch (final Exception ignored){}}
 }

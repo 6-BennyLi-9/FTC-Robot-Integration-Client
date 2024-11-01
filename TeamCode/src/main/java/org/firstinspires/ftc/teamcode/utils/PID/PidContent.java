@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.Params.PIDParams.kP;
 
 import androidx.annotation.NonNull;
 
+import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 
@@ -19,35 +20,35 @@ public class PidContent {
 	public Timer timer;
 	public final int ParamID;
 
-	public PidContent(String tag,double p,double i,double d,double max_i,int paramID){
+	public PidContent(final String tag, final double p, final double i, final double d, final double max_i, final int paramID){
 		this.tag =tag;
-		vP=p;
-		vI=i;
-		vD=d;
-		MAX_I=max_i;
-		timer=new Timer();
-		ParamID=paramID;
+		this.vP =p;
+		this.vI =i;
+		this.vD =d;
+		this.MAX_I =max_i;
+		this.timer =new Timer();
+		this.ParamID =paramID;
 	}
-	public PidContent(String tag,int paramID){
-		this(tag, kP[paramID], kI[paramID], kD[paramID], PIDParams.MAX_I[paramID],paramID);
+	public PidContent(final String tag, final int paramID){
+		this(tag, kP[paramID], kI[paramID], kD[paramID], Params.PIDParams.MAX_I[paramID],paramID);
 	}
 
 	public double getFulfillment(){
-		return P+I+D;
+		return this.P + this.I + this.D;
 	}
 	public double getKp(){
-		return kP[ParamID];
+		return kP[this.ParamID];
 	}
 	public double getKd(){
-		return kD[ParamID];
+		return kD[this.ParamID];
 	}
 	public double getKi(){
-		return kI[ParamID];
+		return kI[this.ParamID];
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
-		return "\""+ tag +"\":"+P+","+I+","+"D";
+		return "\"" + this.tag + "\":" + this.P + "," + this.I + "," + "D";
 	}
 }

@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -53,13 +54,13 @@ import com.qualcomm.robotcore.util.Range;
 public class RobotTeleopPOV_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  leftArm     = null;
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
+    public DcMotor  leftDrive;
+    public DcMotor  rightDrive;
+    public DcMotor  leftArm;
+    public Servo    leftClaw;
+    public Servo    rightClaw;
 
-    double clawOffset = 0;
+    double clawOffset;
 
     public static final double MID_SERVO   =  0.5 ;
     public static final double CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
@@ -75,41 +76,41 @@ public class RobotTeleopPOV_Linear extends LinearOpMode {
         double max;
 
         // Define and Initialize Motors
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftArm    = hardwareMap.get(DcMotor.class, "left_arm");
+	    this.leftDrive = this.hardwareMap.get(DcMotor.class, "left_drive");
+	    this.rightDrive = this.hardwareMap.get(DcMotor.class, "right_drive");
+	    this.leftArm = this.hardwareMap.get(DcMotor.class, "left_arm");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
-        leftClaw  = hardwareMap.get(Servo.class, "left_hand");
-        rightClaw = hardwareMap.get(Servo.class, "right_hand");
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+	    this.leftClaw = this.hardwareMap.get(Servo.class, "left_hand");
+	    this.rightClaw = this.hardwareMap.get(Servo.class, "right_hand");
+	    this.leftClaw.setPosition(RobotTeleopPOV_Linear.MID_SERVO);
+	    this.rightClaw.setPosition(RobotTeleopPOV_Linear.MID_SERVO);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData(">", "Robot Ready.  Press START.");    //
-        telemetry.update();
+	    this.telemetry.addData(">", "Robot Ready.  Press START.");    //
+	    this.telemetry.update();
 
         // Wait for the game to start (driver presses START)
-        waitForStart();
+	    this.waitForStart();
 
         // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+        while (this.opModeIsActive()) {
 
             // Run wheels in POV mode (note: The joystick goes negative when pushed forward, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
-            drive = -gamepad1.left_stick_y;
-            turn  =  gamepad1.right_stick_x;
+            drive = - this.gamepad1.left_stick_y;
+            turn  = this.gamepad1.right_stick_x;
 
             // Combine drive and turn for blended motion.
             left  = drive + turn;
@@ -117,43 +118,38 @@ public class RobotTeleopPOV_Linear extends LinearOpMode {
 
             // Normalize the values so neither exceed +/- 1.0
             max = Math.max(Math.abs(left), Math.abs(right));
-            if (max > 1.0)
+            if (1.0 < max)
             {
                 left /= max;
                 right /= max;
             }
 
             // Output the safe vales to the motor drives.
-            leftDrive.setPower(left);
-            rightDrive.setPower(right);
+	        this.leftDrive.setPower(left);
+	        this.rightDrive.setPower(right);
 
             // Use gamepad left & right Bumpers to open and close the claw
-            if (gamepad1.right_bumper)
-                clawOffset += CLAW_SPEED;
-            else if (gamepad1.left_bumper)
-                clawOffset -= CLAW_SPEED;
+            if (this.gamepad1.right_bumper) this.clawOffset += RobotTeleopPOV_Linear.CLAW_SPEED;
+            else if (this.gamepad1.left_bumper) this.clawOffset -= RobotTeleopPOV_Linear.CLAW_SPEED;
 
             // Move both servos to new position.  Assume servos are mirror image of each other.
-            clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-            leftClaw.setPosition(MID_SERVO + clawOffset);
-            rightClaw.setPosition(MID_SERVO - clawOffset);
+	        this.clawOffset = Range.clip(this.clawOffset, -0.5, 0.5);
+	        this.leftClaw.setPosition(RobotTeleopPOV_Linear.MID_SERVO + this.clawOffset);
+	        this.rightClaw.setPosition(RobotTeleopPOV_Linear.MID_SERVO - this.clawOffset);
 
             // Use gamepad buttons to move arm up (Y) and down (A)
-            if (gamepad1.y)
-                leftArm.setPower(ARM_UP_POWER);
-            else if (gamepad1.a)
-                leftArm.setPower(ARM_DOWN_POWER);
-            else
-                leftArm.setPower(0.0);
+            if (this.gamepad1.y) this.leftArm.setPower(RobotTeleopPOV_Linear.ARM_UP_POWER);
+            else if (this.gamepad1.a) this.leftArm.setPower(RobotTeleopPOV_Linear.ARM_DOWN_POWER);
+            else this.leftArm.setPower(0.0);
 
             // Send telemetry message to signify robot running;
-            telemetry.addData("claw",  "Offset = %.2f", clawOffset);
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
-            telemetry.update();
+	        this.telemetry.addData("claw",  "Offset = %.2f", this.clawOffset);
+	        this.telemetry.addData("left",  "%.2f", left);
+	        this.telemetry.addData("right", "%.2f", right);
+	        this.telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.
-            sleep(50);
+	        this.sleep(50);
         }
     }
 }

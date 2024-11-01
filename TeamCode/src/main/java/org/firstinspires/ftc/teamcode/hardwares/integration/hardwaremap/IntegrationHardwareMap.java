@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -44,15 +45,15 @@ import java.util.Set;
  * <p>
  * 支持的设备：
  * <p>
- * <code>
+ * {@code
  * 1. DcMotorEx
- * </code><p><code>
+ * }<p>{@code
  * 2. Servo
- * </code><p><code>
+ * }<p>{@code
  * 3. BNO055IMU
- * </code><p><code>
+ * }<p>{@code
  * 4. TouchSensor
- * </code><p><code>
+ * }<p><code>
  * 5. DistanceSensor
  */
 public final class IntegrationHardwareMap {
@@ -61,107 +62,106 @@ public final class IntegrationHardwareMap {
 	public HardwareMap lazyHardwareMap;
 	public PidProcessor lazyProcessor;
 
-	public IntegrationHardwareMap(@NonNull HardwareMap map,PidProcessor processor){
-		devices=new HashMap<>();
-		lazyHardwareMap=map;
-		lazyProcessor=processor;
+	public IntegrationHardwareMap(@NonNull final HardwareMap map, final PidProcessor processor){
+		this.devices =new HashMap<>();
+		this.lazyHardwareMap =map;
+		this.lazyProcessor =processor;
 
-		IsIntegrationMotor=new HashSet<>();
-		IsDeadWheel=new HashSet<>();
+		this.IsIntegrationMotor =new HashSet<>();
+		this.IsDeadWheel =new HashSet<>();
 		//TODO 列举需要IntegrationMotor而非PositionalIntegrationMotor的类
-		IsIntegrationMotor.add(HardwareDeviceTypes.LeftFront);
-		IsIntegrationMotor.add(HardwareDeviceTypes.LeftRear);
-		IsIntegrationMotor.add(HardwareDeviceTypes.RightFront);
-		IsIntegrationMotor.add(HardwareDeviceTypes.RightRear);
-		IsIntegrationMotor.add(HardwareDeviceTypes.Intake);
+		this.IsIntegrationMotor.add(HardwareDeviceTypes.LeftFront);
+		this.IsIntegrationMotor.add(HardwareDeviceTypes.LeftRear);
+		this.IsIntegrationMotor.add(HardwareDeviceTypes.RightFront);
+		this.IsIntegrationMotor.add(HardwareDeviceTypes.RightRear);
+		this.IsIntegrationMotor.add(HardwareDeviceTypes.Intake);
 
 		//TODO 列举死轮
-		IsDeadWheel.add(HardwareDeviceTypes.LeftDeadWheel);
-		IsDeadWheel.add(HardwareDeviceTypes.MiddleDeadWheel);
-		IsDeadWheel.add(HardwareDeviceTypes.RightDeadWheel);
+		this.IsDeadWheel.add(HardwareDeviceTypes.LeftDeadWheel);
+		this.IsDeadWheel.add(HardwareDeviceTypes.MiddleDeadWheel);
+		this.IsDeadWheel.add(HardwareDeviceTypes.RightDeadWheel);
 
 		if(Params.Configs.autoRegisterAllHardwaresWhenInit) {
-			registerAllDevices();
+			this.registerAllDevices();
 		}
 	}
 
-	public void loadHardwareObject(@NonNull HardwareDeviceTypes device){
-		if(device.config.state== HardwareState.Disabled)return;
+	public void loadHardwareObject(@NonNull final HardwareDeviceTypes device){
+		if(HardwareState.Disabled == device.config.state)return;
 
-		if (device.classType == DcMotor.class || device.classType == DcMotorEx.class) {
-			DcMotorEx motor= lazyHardwareMap.get(DcMotorEx.class,device.deviceName);
-			if (IsIntegrationMotor.contains(device)){
-				if(device.config.direction==Reversed){
-					motor.setDirection(Direction.REVERSE);
+		if (DcMotor.class == device.classType || DcMotorEx.class == device.classType) {
+			final DcMotorEx motor = this.lazyHardwareMap.get(DcMotorEx.class,device.deviceName);
+			if (this.IsIntegrationMotor.contains(device)){
+				if(Reversed == device.config.direction){
+					motor.setDirection(DcMotorSimple.Direction.REVERSE);
 				}else{
-					motor.setDirection(Direction.FORWARD);
+					motor.setDirection(DcMotorSimple.Direction.FORWARD);
 				}
-				devices.put(device,new IntegrationMotor(motor,device,lazyProcessor));
-			}else if(IsDeadWheel.contains(device)){
+				this.devices.put(device,new IntegrationMotor(motor,device, this.lazyProcessor));
+			}else if(this.IsDeadWheel.contains(device)){
 				motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 				motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-				IntegrationEncoders encoders =new IntegrationEncoders(motor);
-				encoders.sensor.setDirection(Direction.REVERSE);
-				devices.put(device,encoders);
+				final IntegrationEncoders encoders =new IntegrationEncoders(motor);
+				encoders.sensor.setDirection(DcMotorSimple.Direction.REVERSE);
+				this.devices.put(device,encoders);
 			}else {
-				if(device.config.direction==Reversed){
-					motor.setDirection(Direction.REVERSE);
+				if(Reversed == device.config.direction){
+					motor.setDirection(DcMotorSimple.Direction.REVERSE);
 				}else{
-					motor.setDirection(Direction.FORWARD);
+					motor.setDirection(DcMotorSimple.Direction.FORWARD);
 				}
-				devices.put(device,new PositionalIntegrationMotor(motor,device,lazyProcessor));
+				this.devices.put(device,new PositionalIntegrationMotor(motor,device, this.lazyProcessor));
 			}
-		}else if (device.classType == Servo.class){
-			Servo servo= lazyHardwareMap.get(Servo.class,device.deviceName);
-			if(device.config.direction==Reversed){
+		}else if (Servo.class == device.classType){
+			final Servo servo = this.lazyHardwareMap.get(Servo.class,device.deviceName);
+			if(Reversed == device.config.direction){
 				servo.setDirection(Servo.Direction.REVERSE);
 			}else{
 				servo.setDirection(Servo.Direction.FORWARD);
 			}
-			devices.put(device,new IntegrationServo(servo,device));
-		} else if (device.classType == BNO055IMU.class) {
-			BNO055IMU imu= lazyHardwareMap.get(BNO055IMU.class,device.deviceName);
-			devices.put(device,new IntegrationBNO055(imu,device));
-		} else if (device.classType == TouchSensor.class) {
-			TouchSensor sensor= lazyHardwareMap.get(TouchSensor.class,device.deviceName);
-			devices.put(device,new IntegrationTouchSensor(sensor,device));
-		}else if(device.classType == DistanceSensor.class) {
-			DistanceSensor sensor= lazyHardwareMap.get(DistanceSensor.class,device.deviceName);
-			devices.put(device,new IntegrationDistanceSensor(sensor));
+			this.devices.put(device,new IntegrationServo(servo,device));
+		} else if (BNO055IMU.class == device.classType) {
+			final BNO055IMU imu = this.lazyHardwareMap.get(BNO055IMU.class,device.deviceName);
+			this.devices.put(device,new IntegrationBNO055(imu,device));
+		} else if (TouchSensor.class == device.classType) {
+			final TouchSensor sensor = this.lazyHardwareMap.get(TouchSensor.class,device.deviceName);
+			this.devices.put(device,new IntegrationTouchSensor(sensor,device));
+		}else if(DistanceSensor.class == device.classType) {
+			final DistanceSensor sensor = this.lazyHardwareMap.get(DistanceSensor.class,device.deviceName);
+			this.devices.put(device,new IntegrationDistanceSensor(sensor));
 		}
 	}
 
 	@Beta
 	@ExtractedInterfaces
 	public void registerAllDevices(){
-		for(HardwareDeviceTypes device: HardwareDeviceTypes.values()){
-			if(device!=null)
-				loadHardwareObject(device);
+		for(final HardwareDeviceTypes device: HardwareDeviceTypes.values()){
+			if(null != device) this.loadHardwareObject(device);
 		}
 	}
 	@ExtractedInterfaces
-	public void registerByOptions(@NonNull CustomizedHardwareRegisterOptions options){
+	public void registerByOptions(@NonNull final CustomizedHardwareRegisterOptions options){
 		options.run(this);
 	}
 
 	@ExtractedInterfaces
-	public Integrations getDevice(@NonNull HardwareDeviceTypes hardwareDeviceTypes){
-		if(hardwareDeviceTypes.config.state== HardwareState.Disabled) {
+	public Integrations getDevice(@NonNull final HardwareDeviceTypes hardwareDeviceTypes){
+		if(HardwareState.Disabled == hardwareDeviceTypes.config.state) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
-		if(devices.containsKey(hardwareDeviceTypes)){
-			return devices.get(hardwareDeviceTypes);
+		if(this.devices.containsKey(hardwareDeviceTypes)){
+			return this.devices.get(hardwareDeviceTypes);
 		}else{
 			throw new DeviceNotFoundException(hardwareDeviceTypes.deviceName);
 		}
 	}
 	@ExtractedInterfaces
-	public void setDirection(@NonNull HardwareDeviceTypes hardwareDeviceTypes, Direction direction){
-		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
+	public void setDirection(@NonNull final HardwareDeviceTypes hardwareDeviceTypes, final DcMotorSimple.Direction direction){
+		if(HardwareState.Disabled == hardwareDeviceTypes.config.state) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
-		Integrations device=getDevice(hardwareDeviceTypes);
+		final Integrations device = this.getDevice(hardwareDeviceTypes);
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).motor.setDirection(direction);
 		}else{
@@ -169,12 +169,12 @@ public final class IntegrationHardwareMap {
 		}
 	}
 	@ExtractedInterfaces
-	public void setPower(@NonNull HardwareDeviceTypes hardwareDeviceTypes, double power){
-		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
+	public void setPower(@NonNull final HardwareDeviceTypes hardwareDeviceTypes, final double power){
+		if(HardwareState.Disabled == hardwareDeviceTypes.config.state) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
 
-		Integrations device=getDevice(hardwareDeviceTypes);
+		final Integrations device = this.getDevice(hardwareDeviceTypes);
 
 		if(device instanceof IntegrationMotor){
 			((IntegrationMotor) device).setPower(power);
@@ -183,11 +183,11 @@ public final class IntegrationHardwareMap {
 		}
 	}
 	@ExtractedInterfaces
-	public void setPosition(@NonNull HardwareDeviceTypes hardwareDeviceTypes, double position){
-		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
+	public void setPosition(@NonNull final HardwareDeviceTypes hardwareDeviceTypes, final double position){
+		if(HardwareState.Disabled == hardwareDeviceTypes.config.state) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
-		Integrations device=getDevice(hardwareDeviceTypes);
+		final Integrations device = this.getDevice(hardwareDeviceTypes);
 		if(device instanceof IntegrationServo){
 			((IntegrationServo) device).setTargetPose(position);
 		}else{
@@ -195,11 +195,11 @@ public final class IntegrationHardwareMap {
 		}
 	}
 	@ExtractedInterfaces
-	public double getPosition(@NonNull HardwareDeviceTypes hardwareDeviceTypes){
-		if(hardwareDeviceTypes.config.state==HardwareState.Disabled) {
+	public double getPosition(@NonNull final HardwareDeviceTypes hardwareDeviceTypes){
+		if(HardwareState.Disabled == hardwareDeviceTypes.config.state) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}
-		Integrations device=getDevice(hardwareDeviceTypes);
+		final Integrations device = this.getDevice(hardwareDeviceTypes);
 		if (device instanceof IntegrationServo || device instanceof IntegrationMotor) {
 			return ((IntegrationDevice) device).getPosition();
 		}else{
@@ -209,12 +209,12 @@ public final class IntegrationHardwareMap {
 
 	@ExtractedInterfaces
 	public double getVoltage(){
-		return lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
+		return this.lazyHardwareMap.voltageSensor.iterator().next().getVoltage();
 	}
 	
 	@ExtractedInterfaces
-	public boolean isInPlace(HardwareDeviceTypes hardwareDeviceTypes){
-		Integrations device=getDevice(hardwareDeviceTypes);
+	public boolean isInPlace(final HardwareDeviceTypes hardwareDeviceTypes){
+		final Integrations device = this.getDevice(hardwareDeviceTypes);
 		if(device instanceof PositionalIntegrationMotor){
 			return ((PositionalIntegrationMotor)device).inPlace();
 		}else if(device instanceof IntegrationServo){
@@ -226,7 +226,7 @@ public final class IntegrationHardwareMap {
 
 	@UserRequirementFunctions
 	public void printSettings(){
-		for(HardwareDeviceTypes types:HardwareDeviceTypes.values()){
+		for(final HardwareDeviceTypes types:HardwareDeviceTypes.values()){
 			Global.client.changeData(types+" direction",types.config.direction);
 			Global.client.changeData(types+" state",types.config.state);
 		}

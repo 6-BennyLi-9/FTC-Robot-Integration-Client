@@ -21,11 +21,11 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 	public Robot robot;
 	public SimpleMecanumDrive drive;
 
-	public void Init(Position2d position){
+	public void Init(final Position2d position){
 		Global.clear();
 
-		robot=new Robot(hardwareMap, RunningMode.Autonomous, telemetry);
-		drive= (SimpleMecanumDrive) robot.InitMecanumDrive(position);
+		this.robot =new Robot(this.hardwareMap, RunningMode.Autonomous, this.telemetry);
+		this.drive = (SimpleMecanumDrive) this.robot.InitMecanumDrive(position);
 
 		FtcDashboard.getInstance().sendTelemetryPacket(new TelemetryPacket(true));
 	}
@@ -34,16 +34,16 @@ public abstract class AutonomousProgramTemplate extends LinearOpMode {
 	 * @return 如果程序被停止，则返回true
 	 */
 	public boolean WaitForStartRequest(){
-		while(opModeIsNotActive()){
-			sleep(500);
+		while(this.opModeIsNotActive()){
+			this.sleep(500);
 		}
 
-		return opModeStopped();
+		return this.opModeStopped();
 	}
 	public boolean opModeIsNotActive(){
-		return !opModeIsActive()&&!isStopRequested();
+		return ! this.opModeIsActive() && ! this.isStopRequested();
 	}
 	public boolean opModeStopped(){
-		return !opModeIsActive() || isStopRequested();
+		return ! this.opModeIsActive() || this.isStopRequested();
 	}
 }

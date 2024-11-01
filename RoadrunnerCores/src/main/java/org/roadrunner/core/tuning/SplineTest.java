@@ -11,11 +11,11 @@ import org.roadrunner.core.TankDrive;
 public final class SplineTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        Pose2d beginPose = new Pose2d(0, 0, 0);
+        final Pose2d beginPose = new Pose2d(0, 0, 0);
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
-            MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
+            final MecanumDrive drive = new MecanumDrive(this.hardwareMap, beginPose);
 
-            waitForStart();
+	        this.waitForStart();
 
             Actions.runBlocking(
                 drive.actionBuilder(beginPose)
@@ -23,9 +23,9 @@ public final class SplineTest extends LinearOpMode {
                         .splineTo(new Vector2d(0, 60), Math.PI)
                         .build());
         } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
-            TankDrive drive = new TankDrive(hardwareMap, beginPose);
+            final TankDrive drive = new TankDrive(this.hardwareMap, beginPose);
 
-            waitForStart();
+	        this.waitForStart();
 
             Actions.runBlocking(
                     drive.actionBuilder(beginPose)

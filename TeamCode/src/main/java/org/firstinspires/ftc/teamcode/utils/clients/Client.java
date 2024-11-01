@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.codes.samples.ClientUsage;
  */
 public class Client extends TelemetryClient{
 	public DashboardClient dashboard = new DashboardClient();
-	public Client(Telemetry telemetry) {
+	public Client(final Telemetry telemetry) {
 		super(Params.Configs.clientAutoRegisteredFtcDashboardTelemetry ?
 		        new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry())
 		      : telemetry

@@ -12,16 +12,13 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 	private String color;
 
 	public SuperRubbishUselessAwfulOdometer(){
-		robotPose=new Position2d(0,0,0);
-		this.client= Global.client;
+		this.robotPose =new Position2d(0,0,0);
+		client= Global.client;
 	}
 
 	@Override
-	public void update(double relDeltaX, double relDeltaY, double relDeltaTheta) {
-		robotPose=new Position2d(
-				robotPose.x+ relDeltaX,
-				robotPose.y+ relDeltaY,
-				robotPose.heading+ Math.toRadians(relDeltaTheta)
+	public void update(final double relDeltaX, final double relDeltaY, final double relDeltaTheta) {
+		this.robotPose =new Position2d(this.robotPose.x + relDeltaX, this.robotPose.y + relDeltaY, this.robotPose.heading + Math.toRadians(relDeltaTheta)
 		);
 	}
 
@@ -31,17 +28,17 @@ public class SuperRubbishUselessAwfulOdometer implements Odometry{
 	}
 
 	@Override
-	public void registerRobotToDashBoard(String tag) {
-		client.dashboard.drawRobot(robotPose, color,tag);
+	public void registerRobotToDashBoard(final String tag) {
+		this.client.dashboard.drawRobot(this.robotPose, this.color,tag);
 	}
 
 	@Override
 	public Position2d getCurrentPose() {
-		return robotPose;
+		return this.robotPose;
 	}
 
 	@Override
-	public void setColor(String color) {
+	public void setColor(final String color) {
 		this.color=color;
 	}
 }

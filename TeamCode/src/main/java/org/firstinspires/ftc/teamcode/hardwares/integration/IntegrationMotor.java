@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.HardwareDeviceTypes;
 import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.PID.PidContent;
 import org.firstinspires.ftc.teamcode.utils.PID.PidProcessor;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
@@ -21,62 +22,62 @@ import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions
  * 注意要及时 update() ，否则参数不会下达到电机
  */
 public class IntegrationMotor extends IntegrationDevice{
-	private boolean PID_ENABLED = false;
+	private boolean PID_ENABLED;
 
 	public final DcMotorEx motor;
 	private final PidProcessor pidProcessor;
-	private double power=0;
+	private double power;
 
-	public IntegrationMotor(@NonNull DcMotorEx motor, @NonNull HardwareDeviceTypes deviceType, PidProcessor pidProcessor){
+	public IntegrationMotor(@NonNull final DcMotorEx motor, @NonNull final HardwareDeviceTypes deviceType, final PidProcessor pidProcessor){
 		super(deviceType.deviceName);
 		this.motor= motor;
 		this.pidProcessor=pidProcessor;
 	}
 
 	@UserRequirementFunctions
-	public void initPID(int ParamID){
-		if(PID_ENABLED){
-			pidTag=this.getClass().getName()+"-"+motor.getDeviceName();
-			pidProcessor.loadContent(new PidContent(pidTag,ParamID));
+	public void initPID(final int ParamID){
+		if(this.PID_ENABLED){
+			this.pidTag = getClass().getName() + "-" + this.motor.getDeviceName();
+			this.pidProcessor.loadContent(new PidContent(this.pidTag,ParamID));
 		}
 	}
 
 	public void setPower(double power){
-		power= Functions.intervalClip(power,-1,1);
+		power= Mathematics.intervalClip(power, - 1, 1);
 
 		this.power = power;
-		updated=false;
+		this.updated =false;
 
 		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
-			update();
+			this.update();
 		}
 	}
 
 	@UserRequirementFunctions
 	public void reverse(){
-		motor.setDirection(motor.getDirection() == REVERSE ? FORWARD : REVERSE);
+		this.motor.setDirection(REVERSE == motor.getDirection() ? FORWARD : REVERSE);
 	}
 	@UserRequirementFunctions
 	public boolean isReversed(){
-		return motor.getDirection() == REVERSE;
+		return REVERSE == motor.getDirection();
 	}
 
 	@Override
 	public void update() {
-		if(updated)return;
-		updated=true;
+		if(this.updated)return;
+		this.updated =true;
 
 //		Global.client.changeData("in box power",power);
 
-		if(PID_ENABLED&&pidProcessor!=null){
+		if(this.PID_ENABLED && null != pidProcessor){
 			//警告：如果沒有匹配的 PID Params 電極將無法轉動
 //			Global.client.changeData(motor.getDeviceName(),"Use PID Running");
-			pidProcessor.registerInaccuracies(pidTag,power-motor.getPower());
-			pidProcessor.ModifyPidByTag(pidTag);
-			motor.setPower(motor.getPower()+pidProcessor.getFulfillment(pidTag));
+			this.pidProcessor.registerInaccuracies(this.pidTag, this.power - this.motor.getPower());
+			this.pidProcessor.ModifyPidByTag(this.pidTag);
+			this.motor.setPower(this.motor.getPower() + this.pidProcessor.getFulfillment(this.pidTag));
 		}else{
 //			Global.client.changeData(motor.getDeviceName(),"No PID Running");
-			motor.setPower(power);
+			this.motor.setPower(this.power);
 		}
 //		timer.pushTimeTag("LastUpdateTime");
 	}
@@ -84,17 +85,17 @@ public class IntegrationMotor extends IntegrationDevice{
 	@Override
 	@ExtractedInterfaces
 	public double getPosition() {
-		return motor.getCurrentPosition();
+		return this.motor.getCurrentPosition();
 	}
 
 	@Override
 	@ExtractedInterfaces
 	public double getPower() {
-		return motor.getPower();
+		return this.motor.getPower();
 	}
 
 	@UserRequirementFunctions
-	public void ConfigPidEnable(boolean val) {
-		PID_ENABLED = val;
+	public void ConfigPidEnable(final boolean val) {
+		this.PID_ENABLED = val;
 	}
 }

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.drives.controls.MecanumDrive;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderBuilder;
 import org.firstinspires.ftc.teamcode.drives.controls.TrajectoryType;
 import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.Vector2d;
 
 public class DriveActionBuilder implements DriveOrderBuilder {
@@ -15,61 +16,61 @@ public class DriveActionBuilder implements DriveOrderBuilder {
 	private final DriverProgram drive;
 	private DriveAction cache;
 
-	public DriveActionBuilder(@NonNull MecanumDrive drive) {
-		actionPackage = new DriveActionPackage();
-		actionPackage.actions.add(new DriveAction(drive.chassis, drive.BufPower, drive.poseHistory.getLast()));
+	public DriveActionBuilder(@NonNull final MecanumDrive drive) {
+		this.actionPackage = new DriveActionPackage();
+		this.actionPackage.actions.add(new DriveAction(drive.chassis, drive.BufPower, drive.poseHistory.getLast()));
 		this.drive = drive;
 	}
-	DriveActionBuilder(DriverProgram drive, DriveActionPackage actionPackage) {
+	DriveActionBuilder(final DriverProgram drive, final DriveActionPackage actionPackage) {
 		this.actionPackage = actionPackage;
 		this.drive = drive;
 	}
 
 	@Override
 	public DriveOrderBuilder SetPower(double power) {
-		power = Functions.intervalClip(power, -1f, 1f);
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
-		cache.setPower(power);
-		cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
-		actionPackage.actions.add(cache);
-		return new DriveActionBuilder(drive, actionPackage);
+		power = Mathematics.intervalClip(power, - 1.0f, 1.0f);
+		this.cache = new DriveAction(this.drive.getClassic(), this.actionPackage.actions.getLast().BufPower, this.actionPackage.actions.getLast().nextPose());
+		this.cache.setPower(power);
+		this.cache.trajectoryType = TrajectoryType.WithoutChangingPosition;
+		this.actionPackage.actions.add(this.cache);
+		return new DriveActionBuilder(this.drive, this.actionPackage);
 	}
 
 	@Override
 	public DriveOrderBuilder TurnRadians(double radians) {
-		radians = Functions.intervalClip(radians, -Math.PI, Math.PI);
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
-		cache.turn(radians);
-		cache.trajectoryType = TrajectoryType.TurnOnly;
-		actionPackage.actions.add(cache);
-		return new DriveActionBuilder(drive, actionPackage);
+		radians = Mathematics.intervalClip(radians, - Math.PI, Math.PI);
+		this.cache = new DriveAction(this.drive.getClassic(), this.actionPackage.actions.getLast().BufPower, this.actionPackage.actions.getLast().nextPose());
+		this.cache.turn(radians);
+		this.cache.trajectoryType = TrajectoryType.TurnOnly;
+		this.actionPackage.actions.add(this.cache);
+		return new DriveActionBuilder(this.drive, this.actionPackage);
 	}
 
 	@Override
-	public DriveOrderBuilder TurnAngle(double deg) {
-		return TurnRadians(Math.toRadians(deg));
+	public DriveOrderBuilder TurnAngle(final double deg) {
+		return this.TurnRadians(Math.toRadians(deg));
 	}
 
 	@Override
-	public DriveOrderBuilder StrafeInDistance(double radians, double distance) {
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
-		cache.strafeInDistance(radians, distance);
-		cache.trajectoryType = TrajectoryType.LinerStrafe;
-		actionPackage.actions.add(cache);
-		return new DriveActionBuilder(drive, actionPackage);
+	public DriveOrderBuilder StrafeInDistance(final double radians, final double distance) {
+		this.cache = new DriveAction(this.drive.getClassic(), this.actionPackage.actions.getLast().BufPower, this.actionPackage.actions.getLast().nextPose());
+		this.cache.strafeInDistance(radians, distance);
+		this.cache.trajectoryType = TrajectoryType.LinerStrafe;
+		this.actionPackage.actions.add(this.cache);
+		return new DriveActionBuilder(this.drive, this.actionPackage);
 	}
 
 	@Override
-	public DriveOrderBuilder StrafeTo(Vector2d pose) {
-		cache = new DriveAction(drive.getClassic(), actionPackage.actions.getLast().BufPower, actionPackage.actions.getLast().nextPose());
-		cache.strafeTo(pose);
-		cache.trajectoryType = TrajectoryType.LinerStrafe;
-		actionPackage.actions.add(cache);
-		return new DriveActionBuilder(drive, actionPackage);
+	public DriveOrderBuilder StrafeTo(final Vector2d pose) {
+		this.cache = new DriveAction(this.drive.getClassic(), this.actionPackage.actions.getLast().BufPower, this.actionPackage.actions.getLast().nextPose());
+		this.cache.strafeTo(pose);
+		this.cache.trajectoryType = TrajectoryType.LinerStrafe;
+		this.actionPackage.actions.add(this.cache);
+		return new DriveActionBuilder(this.drive, this.actionPackage);
 	}
 
 	@Override
 	public DriveOrderPackage END() {
-		return actionPackage;
+		return this.actionPackage;
 	}
 }
