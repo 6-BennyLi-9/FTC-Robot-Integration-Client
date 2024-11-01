@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Params;
 @TeleOp(name = "TouchSensorTest (Blocks to Java)",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 public class TouchSensorTest extends LinearOpMode {
+	public TouchSensor touchSensor;
 
 	/**
 	 * This OpMode demonstrates how to use a REV Robotics Touch Sensor, REV Robotics
@@ -25,7 +26,7 @@ public class TouchSensorTest extends LinearOpMode {
 	 */
 	@Override
 	public void runOpMode() {
-		TouchSensor touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
+		touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
 		// Put initialization blocks here.
 		waitForStart();
