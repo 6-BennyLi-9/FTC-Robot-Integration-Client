@@ -16,24 +16,21 @@ public class TouchSensorTest extends LinearOpMode {
 	public TouchSensor touchSensor;
 
 	/**
-	 * This OpMode demonstrates how to use a REV Robotics Touch Sensor, REV Robotics
-	 * Magnetic Limit Switch, or other device that implements the TouchSensor interface. Any
-	 * touch sensor that connects its output to ground when pressed (known as "active low") can
-	 * be configured as a "REV Touch Sensor". This includes REV's Magnetic Limit Switch.
+	 * 此 OpMode 演示了如何使用 REV Robotics 触摸传感器 REV Robotics
+	 * 磁性限位开关，或其他实现 TouchSensor 接口的设备。任何
+	 * 按下时将其输出接地的触摸传感器（称为“低电平有效”）可以
+	 * 配置为“REV Touch Sensor”。这包括 REV 的磁性限位开关。
 	 * <p>
-	 * A REV Robotics Touch Sensor must be configured on digital port number 1, 3, 5, or 7.
-	 * A Magnetic Limit Switch can be configured on any digital port.
+	 * REV Robotics 触摸传感器必须在数字端口号 1、3、5 或 7 上配置。
+	 * 磁性限位开关可以在任何数字端口上配置。
 	 */
 	@Override
 	public void runOpMode() {
 		touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
-		// Put initialization blocks here.
 		waitForStart();
 		if (opModeIsActive()) {
-			// Put run blocks here.
 			while (opModeIsActive()) {
-				// Put loop blocks here.
 				if (touchSensor.isPressed()) {
 					telemetry.addData("Touch Sensor", "Is Pressed");
 				} else {

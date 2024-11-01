@@ -18,27 +18,20 @@ public class ColorSensorTest extends LinearOpMode {
 	public DistanceSensor colorSensor_DistanceSensor;
 
 	/**
-	 * This OpMode shows how to use a color sensor in a generic way, regardless
-	 * of which particular make or model of color sensor is used. The OpMode
-	 * assumes that the color sensor is configured with a name of "sensor_color".
+	 * 此 OpMode 展示了如何使用颜色传感器以及使用哪个特定品牌或型号的颜色传感器。
+	 * 此 OpMode 假设颜色传感器配置了 “sensor_color” 名称。
 	 * <p>
-	 * There will be some variation in the values measured depending on the specific sensor you are using.
+	 * 根据您使用的特定传感器，测量值会有一些变化。
 	 * <p>
-	 * You can increase the gain (a multiplier to make the sensor report
-	 * higher values) by holding down the A button on the gamepad,
-	 * and decrease the gain by holding down the B button on the gamepad.
+	 * 您可以增加增益（使传感器报告的乘数更高的值）通过按住游戏手柄上的 A 按钮，
+	 * 并通过按住游戏手柄上的 B 按钮来降低增益。
 	 * <p>
-	 * If the color sensor has a light which is controllable from software,
-	 * you can use the X button on the gamepad to toggle the light on and off.
-	 * The REV sensors don't support this, but instead have a physical switch on
-	 * them to turn the light on and off, beginning with REV Color Sensor V2.
+	 * 如果颜色传感器具有可通过软件控制的灯，您可以使用游戏手柄上的 X 按钮来打开和关闭灯。
+	 * REV 传感器不支持此功能，而是打开了一个物理开关它们用于打开和关闭灯（从 REV 颜色传感器 V2 开始）
 	 * <p>
-	 * If the color sensor also supports short-range distance measurements (usually via
-	 * an infrared proximity sensor), the reported distance will be written to telemetry.
-	 * As of September 2020, the only color sensors that support this are the ones from
-	 * REV Robotics. These infrared proximity sensor measurements are only useful at very
-	 * small distances, and are sensitive to ambient light and surface reflectivity.
-	 * You should use a different sensor if you need precise distance measurements.
+	 * 如果颜色传感器还支持短距离距离测量（通常通过红外接近传感器），报告的距离将被写入遥测数据。
+	 * 截至 2020 年 9 月，唯一支持此功能的色彩传感器是REV 机器人。这些红外接近传感器测量仅在非常距离小，对环境光和表面反射率敏感。
+	 * 如果您需要精确的距离测量，您应该使用不同的传感器。
 	 */
 	@Override
 	public void runOpMode() {
@@ -54,28 +47,23 @@ public class ColorSensorTest extends LinearOpMode {
 		colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
 		colorSensor_DistanceSensor = hardwareMap.get(DistanceSensor.class, "colorSensor");
 
-		// Put initialization blocks here.
-		// You can give the sensor a gain value, will be multiplied by the sensor's raw value
-		// before the normalized color values are calculated. Color sensors (especially the REV
-		// Color Sensor V3) can give very low values (depending on the lighting conditions),
-		// which only use a small part of the 0-1 range that is available for the red,
-		// green, and blue values. In brighter conditions, you should use a smaller
-		// gain than in dark conditions. If your gain is too high, all of the
-		// colors will report at or near 1, and you won't be able to determine what
-		// color you are actually looking at. For this reason, it's better to err
-		// on the side of a lower gain (but always greater than or equal to 1).
+		// 您可以为传感器提供一个增益值，该值将乘以传感器的原始值
+		// 在计算标准化颜色值之前。颜色传感器（尤其是 REV
+		// 颜色传感器 V3） 可以给出非常低的值（取决于照明条件），
+		// 它们只使用可用于红色的 0-1 范围的一小部分，
+		// green 和 blue 值。在较亮的条件下，您应该使用较小的
+		// 增益比在黑暗条件下。如果您的增益过高，则所有
+		// 颜色将报告在 1 或附近，您将无法确定是什么
+		// 您实际正在查看的颜色。因此，最好犯错
+		// 在较低增益的一侧（但始终大于或等于 1）。
 		gain = 2;
-		// xButtonPreviouslyPressed and xButtonCurrentlyPressed keep track
-		// of the previous and current state of the X button on the gamepad.
+		// xButtonPreviouslyPressed 和 xButtonCurrentlyPressed 跟踪游戏手柄上 X 按钮的先前和当前状态。
 		xButtonPreviouslyPressed = false;
-		// If supported by the sensor, turn the light on in the beginning (it
-		// might already be on anyway, we just make sure it is if we can).
+		//如果传感器支持，请先打开灯（它可能已经打开了，我们只是确保如果可以的话）。
 		colorSensor.enableLed(true);
 		waitForStart();
 		if (opModeIsActive()) {
-			// Put run blocks here.
-			// Once per loop we read the color sensor data, calculate the HSV colors
-			// (Hue, Saturation and Value), and report all these values via telemetry.
+			// 每个循环一次，我们读取颜色传感器数据，计算 HSV 颜色（色相、饱和度和值），并通过遥测报告所有这些值。
 			while (opModeIsActive()) {
 				// Put loop blocks here.
 				telemetry.addLine("Hold the A button on gamepad 1 to increase gain, or B to decrease it.");
@@ -84,48 +72,41 @@ public class ColorSensorTest extends LinearOpMode {
 				telemetry.addLine(" ");
 				telemetry.addLine("Press the X button to turn the color sensor's LED on or off (if supported).");
 				telemetry.addLine(" ");
-				// Update the gain value if either of the A or B gamepad buttons is being held
-				// A gain of less than 1 will make the values smaller, which is not helpful.
+				// 如果按住 A 或 B 游戏手柄按钮，则更新增益值小于 1 的增益将使值变小，这没有帮助。
 				if (gamepad1.a) {
-					// Only increase the gain by a small amount, since this loop will occur multiple times per second.
+					// 仅少量增加增益，因为此循环每秒将发生多次。
 					gain = (int) (gain + 0.005);
 				} else if (gamepad1.b && gain > 1) {
 					gain = (int) (gain - 0.005);
 				}
 				telemetry.addData("Gain", gain);
-				// Tell the sensor our desired gain value (normally you would do this during initialization, not during the loop)
+				// 告诉传感器我们所需的增益值（通常您会在初始化期间执行此操作，而不是在循环期间执行此操作）
 				((NormalizedColorSensor) colorSensor).setGain(gain);
 				xButtonCurrentlyPressed = gamepad1.x;
-				// If the button state is different than what it was, then act
-				// to turn the color sensor's light on or off (if supported).
+				// 如果按钮状态与原来的状态不同，则执行操作以打开或关闭颜色传感器的指示灯（如果支持）。
 				if (xButtonCurrentlyPressed != xButtonPreviouslyPressed) {
 					if (xButtonCurrentlyPressed) {
-						// If the button is (now) down, then toggle the light
+						// 如果按钮（现在）按下，则切换灯
 						colorSensor.enableLed(!((Light) colorSensor).isLightOn());
 					}
 				}
 				xButtonPreviouslyPressed = xButtonCurrentlyPressed;
-				// Save the color sensor data as a normalized color value. It's recommended
-				// to use Normalized Colors over color sensor colors is because Normalized
-				// Colors consistently gives values between 0 and 1, while the direct
-				// Color Sensor colors are dependent on the specific sensor you're using.
+				// 将颜色传感器数据保存为标准化颜色值。推荐将 Normalized Colors （标准化颜色） 用于颜色传感器颜色是因为 Normalized （标准化）
+				// Colors 始终提供介于 0 和 1 之间的值，而直接的 Color Sensor 颜色取决于您使用的特定传感器。
 				myNormalizedColors = ((NormalizedColorSensor) colorSensor).getNormalizedColors();
-				// Convert the normalized color values to an Android color value.
+				// 将标准化颜色值转换为 Android 颜色值。
 				myColor = myNormalizedColors.toColor();
-				// Use the Android color value to calculate the Hue, Saturation and Value color variables.
-				// See http://web.archive.org/web/20190311170843/https://infohost.nmt.edu/tcc/help/pubs/colortheory/web/hsv.html for an explanation of HSV color.
+				// 使用 Android 颜色值计算 Hue、Saturation 和 Value 颜色变量。
+				// 有关 HSV 颜色的说明，请参阅 http://web.archive.org/web/20190311170843/https://infohost.nmt.edu/tcc/help/pubs/colortheory/web/hsv.html。
 				hue = JavaUtil.rgbToHue(Color.red(myColor), Color.green(myColor), Color.blue(myColor));
 				saturation = JavaUtil.rgbToSaturation(Color.red(myColor), Color.green(myColor), Color.blue(myColor));
 				value = JavaUtil.rgbToValue(Color.red(myColor), Color.green(myColor), Color.blue(myColor));
-				// Use telemetry to display feedback on the driver station. We show the red,
-				// green, and blue normalized values from the sensor (in the range of 0 to
-				// 1), as well as the equivalent HSV (hue, saturation and value) values.
+				// 使用遥测技术在驾驶员工作站上显示反馈。我们展示红色，绿色和蓝色标准化传感器的值（在 0 到 1） 以及等效的 HSV（色相、饱和度和值）值。
 				telemetry.addLine("Red " + JavaUtil.formatNumber(myNormalizedColors.red, 3) + " | Green " + JavaUtil.formatNumber(myNormalizedColors.green, 3) + " | Blue " + JavaUtil.formatNumber(myNormalizedColors.blue, 3));
 				telemetry.addLine("Hue " + JavaUtil.formatNumber(hue, 3) + " | Saturation " + JavaUtil.formatNumber(saturation, 3) + " | Value " + JavaUtil.formatNumber(value, 3));
 				telemetry.addData("Alpha", Double.parseDouble(JavaUtil.formatNumber(myNormalizedColors.alpha, 3)));
-				// If this color sensor also has a distance sensor, display the measured distance.
-				// Note that the reported distance is only useful at very close
-				// range, and is impacted by ambient light and surface reflectivity.
+				// 如果此颜色传感器还具有距离传感器，则显示测量的距离。
+				// 请注意，报告的距离仅在非常近时有用范围，并受环境光和表面反射率的影响。
 				telemetry.addData("Distance (cm)", Double.parseDouble(JavaUtil.formatNumber(colorSensor_DistanceSensor.getDistance(DistanceUnit.CM), 3)));
 				telemetry.update();
 			}
