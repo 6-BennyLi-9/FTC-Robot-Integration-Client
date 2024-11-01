@@ -7,6 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Params;
 
+/**
+ * 用于测试死轮的方向
+ * <p>
+ * 取消 @Disabled 注解以运行此 OpMode
+ */
 @TeleOp(name = "DeadWheelTest (Blocks to Java)",group = Params.Configs.TuningAndTuneOpModesGroup)
 @Disabled
 public class DeadWheelTest extends LinearOpMode {

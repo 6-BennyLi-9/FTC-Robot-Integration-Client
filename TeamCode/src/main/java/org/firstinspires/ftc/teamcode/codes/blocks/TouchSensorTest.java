@@ -1,10 +1,17 @@
 package org.firstinspires.ftc.teamcode.codes.blocks;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@TeleOp(name = "TouchSensorTest (Blocks to Java)")
+import org.firstinspires.ftc.teamcode.Params;
+
+/**
+ * 测试触碰传感器
+ */
+@TeleOp(name = "TouchSensorTest (Blocks to Java)",group = Params.Configs.TuningAndTuneOpModesGroup)
+@Disabled
 public class TouchSensorTest extends LinearOpMode {
 
 	/**
