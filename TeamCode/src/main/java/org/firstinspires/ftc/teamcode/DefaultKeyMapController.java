@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.keymap.KeyMap;
 
 public class DefaultKeyMapController extends KeyMapController{
 	@Override
-	public void KeyMapOverride(@NonNull KeyMap keyMap) {
+	public void KeyMapOverride(@NonNull final KeyMap keyMap) {
 		/**/
 	}
 }

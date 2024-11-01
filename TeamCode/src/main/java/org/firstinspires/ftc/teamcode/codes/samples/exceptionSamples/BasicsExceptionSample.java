@@ -17,8 +17,10 @@ import org.firstinspires.ftc.teamcode.utils.enums.RunningMode;
 @Autonomous(name = "BasicsExceptionSample",group = Params.Configs.SampleOpModesGroup)
 public class BasicsExceptionSample extends LinearOpMode {
 	@Override
-	public void runOpMode() throws InterruptedException {
-
+	public void runOpMode() {
+		this.waitForStart();
+		this.nullPointerException1();
+		this.nullPointerException2();
 	}
 
 	/**
@@ -28,7 +30,7 @@ public class BasicsExceptionSample extends LinearOpMode {
 	 */
 	@UserRequirementFunctions
 	public void nullPointerException1(){
-		Robot robot=new Robot(hardwareMap, RunningMode.Autonomous,telemetry);
+		final Robot robot =new Robot(this.hardwareMap, RunningMode.Autonomous, this.telemetry);
 		robot.gamepad.keyMap.loadButtonContent(KeyTag.TuningButton1, KeyButtonType.A, KeyMapSettingType.RunWhenButtonPressed);
 	}
 
@@ -42,7 +44,7 @@ public class BasicsExceptionSample extends LinearOpMode {
 	 */
 	@UserRequirementFunctions
 	public void nullPointerException2(){
-		SimpleMecanumDrive drive=new SimpleMecanumDrive(new Position2d(0,0,0));
+		final SimpleMecanumDrive drive =new SimpleMecanumDrive(new Position2d(0,0,0));
 		drive.drivingCommandsBuilder().END();
 	}
 }

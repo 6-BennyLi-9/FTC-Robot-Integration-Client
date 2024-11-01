@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriverProgram;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationHardwareMap;
+import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.IntegrationHardwareMap;
 import org.firstinspires.ftc.teamcode.utils.ActionBox;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
@@ -16,7 +16,8 @@ import org.firstinspires.ftc.teamcode.utils.clients.Client;
  * <p>
  * 主要防止内存泄漏
  */
-public final class Global {
+public enum Global {
+	;
 	public static Robot                  robot;
 	public static Client                 client;
 	public static ActionBox              actionBox;
@@ -27,25 +28,25 @@ public final class Global {
 
 	@UserRequirementFunctions
 	public static void clear() {
-		robot = null;
-		client = null;
-		actionBox = null;
-		driverProgram = null;
-		integrationGamepad = null;
-		currentGamepad1 = null;
-		currentGamepad2 = null;
+		Global.robot = null;
+		Global.client = null;
+		Global.actionBox = null;
+		Global.driverProgram = null;
+		Global.integrationGamepad = null;
+		Global.currentGamepad1 = null;
+		Global.currentGamepad2 = null;
 	}
 
-	public static void setRobot(@NonNull Robot robot) {
+	public static void setRobot(@NonNull final Robot robot) {
 		Global.robot = robot;
-		Global.driverProgram = robot.drive;
-		Global.client = robot.client;
-		Global.actionBox = robot.actionBox;
-		integrationHardwareMap=robot.lazyIntegratedDevices;
-		if(robot.gamepad!= null) {
-			Global.integrationGamepad = robot.gamepad;
-			Global.currentGamepad1 = robot.gamepad.gamepad1.gamepad;
-			Global.currentGamepad2 = robot.gamepad.gamepad2.gamepad;
+		driverProgram = robot.drive;
+		client = robot.client;
+		actionBox = robot.actionBox;
+		Global.integrationHardwareMap =robot.lazyIntegratedDevices;
+		if(null != robot.gamepad) {
+			integrationGamepad = robot.gamepad;
+			currentGamepad1 = robot.gamepad.gamepad1.gamepad;
+			currentGamepad2 = robot.gamepad.gamepad2.gamepad;
 		}
 	}
 }

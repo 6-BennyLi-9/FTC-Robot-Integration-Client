@@ -79,7 +79,7 @@ import java.util.List;
  * Once you put all your sensor reads at the beginning of the control cycle, it's very easy to use
  * the bulk-read AUTO mode to streamline your cycle timing.
  */
-@TeleOp (name = "Motor Bulk Reads", group = "Tests")
+@TeleOp(name = "Motor Bulk Reads", group = "Tests")
 @Disabled
 public class ConceptMotorBulkRead extends LinearOpMode {
 
@@ -90,9 +90,9 @@ public class ConceptMotorBulkRead extends LinearOpMode {
     private double    v1, v2, v3, v4; // Velocities
 
     // Cycle Times
-    double t1 = 0;
-    double t2 = 0;
-    double t3 = 0;
+    double t1;
+    double t2;
+    double t3;
 
     @Override
     public void runOpMode() {
@@ -100,20 +100,20 @@ public class ConceptMotorBulkRead extends LinearOpMode {
         int cycles;
 
         // Important Step 1:  Make sure you use DcMotorEx when you instantiate your motors.
-        m1 = hardwareMap.get(DcMotorEx.class, "m1");  // Configure the robot to use these 4 motor names,
-        m2 = hardwareMap.get(DcMotorEx.class, "m2");  // or change these strings to match your existing Robot Configuration.
-        m3 = hardwareMap.get(DcMotorEx.class, "m3");
-        m4 = hardwareMap.get(DcMotorEx.class, "m4");
+	    this.m1 = this.hardwareMap.get(DcMotorEx.class, "m1");  // Configure the robot to use these 4 motor names,
+	    this.m2 = this.hardwareMap.get(DcMotorEx.class, "m2");  // or change these strings to match your existing Robot Configuration.
+	    this.m3 = this.hardwareMap.get(DcMotorEx.class, "m3");
+	    this.m4 = this.hardwareMap.get(DcMotorEx.class, "m4");
 
         // Important Step 2: Get access to a list of Expansion Hub Modules to enable changing caching methods.
-        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+        final List<LynxModule> allHubs = this.hardwareMap.getAll(LynxModule.class);
 
-        ElapsedTime timer = new ElapsedTime();
+        final ElapsedTime timer = new ElapsedTime();
 
-        telemetry.addData(">", "Press START to start tests");
-        telemetry.addData(">", "Test results will update for each access method.");
-        telemetry.update();
-        waitForStart();
+	    this.telemetry.addData(">", "Press START to start tests");
+	    this.telemetry.addData(">", "Test results will update for each access method.");
+	    this.telemetry.update();
+	    this.waitForStart();
 
         // --------------------------------------------------------------------------------------
         // Run control loop using legacy encoder reads
@@ -122,27 +122,27 @@ public class ConceptMotorBulkRead extends LinearOpMode {
         // This is the same as using LynxModule.BulkCachingMode.OFF
         // --------------------------------------------------------------------------------------
 
-        displayCycleTimes("Test 1 of 3 (Wait for completion)");
+	    this.displayCycleTimes("Test 1 of 3 (Wait for completion)");
 
         timer.reset();
         cycles = 0;
-        while (opModeIsActive() && (cycles++ < TEST_CYCLES)) {
-            e1 = m1.getCurrentPosition();
-            e2 = m2.getCurrentPosition();
-            e3 = m3.getCurrentPosition();
-            e4 = m4.getCurrentPosition();
+        while (this.opModeIsActive() && (TEST_CYCLES > cycles++)) {
+	        this.e1 = this.m1.getCurrentPosition();
+	        this.e2 = this.m2.getCurrentPosition();
+	        this.e3 = this.m3.getCurrentPosition();
+	        this.e4 = this.m4.getCurrentPosition();
 
-            v1 = m1.getVelocity();
-            v2 = m2.getVelocity();
-            v3 = m3.getVelocity();
-            v4 = m4.getVelocity();
+	        this.v1 = this.m1.getVelocity();
+	        this.v2 = this.m2.getVelocity();
+	        this.v3 = this.m3.getVelocity();
+	        this.v4 = this.m4.getVelocity();
 
             // Put Control loop action code here.
 
         }
         // calculate the average cycle time.
-        t1 = timer.milliseconds() / cycles;
-        displayCycleTimes("Test 2 of 3 (Wait for completion)");
+	    this.t1 = timer.milliseconds() / cycles;
+	    this.displayCycleTimes("Test 2 of 3 (Wait for completion)");
 
         // --------------------------------------------------------------------------------------
         // Run test cycles using AUTO cache mode
@@ -150,29 +150,29 @@ public class ConceptMotorBulkRead extends LinearOpMode {
         // --------------------------------------------------------------------------------------
 
         // Important Step 3: Option A. Set all Expansion hubs to use the AUTO Bulk Caching mode
-        for (LynxModule module : allHubs) {
+        for (final LynxModule module : allHubs) {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
 
         timer.reset();
         cycles = 0;
-        while (opModeIsActive() && (cycles++ < TEST_CYCLES)) {
-            e1 = m1.getCurrentPosition();  // Uses 1 bulk-read for all 4 encoder/velocity reads,
-            e2 = m2.getCurrentPosition();  // but don't do any `get` operations more than once per cycle.
-            e3 = m3.getCurrentPosition();
-            e4 = m4.getCurrentPosition();
+        while (this.opModeIsActive() && (TEST_CYCLES > cycles++)) {
+	        this.e1 = this.m1.getCurrentPosition();  // Uses 1 bulk-read for all 4 encoder/velocity reads,
+	        this.e2 = this.m2.getCurrentPosition();  // but don't do any `get` operations more than once per cycle.
+	        this.e3 = this.m3.getCurrentPosition();
+	        this.e4 = this.m4.getCurrentPosition();
 
-            v1 = m1.getVelocity();
-            v2 = m2.getVelocity();
-            v3 = m3.getVelocity();
-            v4 = m4.getVelocity();
+	        this.v1 = this.m1.getVelocity();
+	        this.v2 = this.m2.getVelocity();
+	        this.v3 = this.m3.getVelocity();
+	        this.v4 = this.m4.getVelocity();
 
             // Put Control loop action code here.
 
         }
         // calculate the average cycle time.
-        t2 = timer.milliseconds() / cycles;
-        displayCycleTimes("Test 3 of 3 (Wait for completion)");
+	    this.t2 = timer.milliseconds() / cycles;
+	    this.displayCycleTimes("Test 3 of 3 (Wait for completion)");
 
         // --------------------------------------------------------------------------------------
         // Run test cycles using MANUAL cache mode
@@ -181,47 +181,47 @@ public class ConceptMotorBulkRead extends LinearOpMode {
         // --------------------------------------------------------------------------------------
 
         // Important Step 3: Option B. Set all Expansion hubs to use the MANUAL Bulk Caching mode
-        for (LynxModule module : allHubs) {
+        for (final LynxModule module : allHubs) {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         }
 
         timer.reset();
         cycles = 0;
-        while (opModeIsActive() && (cycles++ < TEST_CYCLES)) {
+        while (this.opModeIsActive() && (TEST_CYCLES > cycles++)) {
 
             // Important Step 4: If you are using MANUAL mode, you must clear the BulkCache once per control cycle
-            for (LynxModule module : allHubs) {
+            for (final LynxModule module : allHubs) {
                 module.clearBulkCache();
             }
 
-            e1 = m1.getCurrentPosition();   // Uses 1 bulk-read to obtain ALL the motor data
-            e2 = m2.getCurrentPosition();   // There is no penalty for doing more `get` operations in this cycle,
-            e3 = m3.getCurrentPosition();   // but they will return the same data.
-            e4 = m4.getCurrentPosition();
+	        this.e1 = this.m1.getCurrentPosition();   // Uses 1 bulk-read to obtain ALL the motor data
+	        this.e2 = this.m2.getCurrentPosition();   // There is no penalty for doing more `get` operations in this cycle,
+	        this.e3 = this.m3.getCurrentPosition();   // but they will return the same data.
+	        this.e4 = this.m4.getCurrentPosition();
 
-            v1 = m1.getVelocity();
-            v2 = m2.getVelocity();
-            v3 = m3.getVelocity();
-            v4 = m4.getVelocity();
+	        this.v1 = this.m1.getVelocity();
+	        this.v2 = this.m2.getVelocity();
+	        this.v3 = this.m3.getVelocity();
+	        this.v4 = this.m4.getVelocity();
 
             // Put Control loop action code here.
 
         }
         // calculate the average cycle time.
-        t3 = timer.milliseconds() / cycles;
-        displayCycleTimes("Complete");
+	    this.t3 = timer.milliseconds() / cycles;
+	    this.displayCycleTimes("Complete");
 
         // wait until op-mode is stopped by user, before clearing display.
-        while (opModeIsActive()) ;
+        while (this.opModeIsActive()) ;
     }
 
     // Display three comparison times.
-    void displayCycleTimes(String status) {
-        telemetry.addData("Testing", status);
-        telemetry.addData("Cache = OFF",    "%5.1f mS/cycle", t1);
-        telemetry.addData("Cache = AUTO",   "%5.1f mS/cycle", t2);
-        telemetry.addData("Cache = MANUAL", "%5.1f mS/cycle", t3);
-        telemetry.update();
+    void displayCycleTimes(final String status) {
+	    this.telemetry.addData("Testing", status);
+	    this.telemetry.addData("Cache = OFF",    "%5.1f mS/cycle", this.t1);
+	    this.telemetry.addData("Cache = AUTO",   "%5.1f mS/cycle", this.t2);
+	    this.telemetry.addData("Cache = MANUAL", "%5.1f mS/cycle", this.t3);
+	    this.telemetry.update();
     }
 }
 

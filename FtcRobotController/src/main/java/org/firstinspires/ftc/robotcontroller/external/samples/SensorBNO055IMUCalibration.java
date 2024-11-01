@@ -116,60 +116,60 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
 
     @Override public void runOpMode() {
 
-        telemetry.log().setCapacity(12);
-        telemetry.log().add("");
-        telemetry.log().add("Please refer to the calibration instructions");
-        telemetry.log().add("contained in the Adafruit IMU calibration");
-        telemetry.log().add("sample OpMode.");
-        telemetry.log().add("");
-        telemetry.log().add("When sufficient calibration has been reached,");
-        telemetry.log().add("press the 'A' button to write the current");
-        telemetry.log().add("calibration data to a file.");
-        telemetry.log().add("");
+	    this.telemetry.log().setCapacity(12);
+	    this.telemetry.log().add("");
+	    this.telemetry.log().add("Please refer to the calibration instructions");
+	    this.telemetry.log().add("contained in the Adafruit IMU calibration");
+	    this.telemetry.log().add("sample OpMode.");
+	    this.telemetry.log().add("");
+	    this.telemetry.log().add("When sufficient calibration has been reached,");
+	    this.telemetry.log().add("press the 'A' button to write the current");
+	    this.telemetry.log().add("calibration data to a file.");
+	    this.telemetry.log().add("");
 
         // We are expecting the IMU to be attached to an I2C port on a Core Device Interface Module and named "imu".
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        final BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.loggingEnabled = true;
         parameters.loggingTag     = "IMU";
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+	    this.imu = this.hardwareMap.get(BNO055IMU.class, "imu");
+	    this.imu.initialize(parameters);
 
-        composeTelemetry();
-        telemetry.log().add("Waiting for start...");
+	    this.composeTelemetry();
+	    this.telemetry.log().add("Waiting for start...");
 
         // Wait until we're told to go
-        while (!isStarted()) {
-            telemetry.update();
-            idle();
+        while (! this.isStarted()) {
+	        this.telemetry.update();
+	        this.idle();
         }
 
-        telemetry.log().add("...started...");
+	    this.telemetry.log().add("...started...");
 
-        while (opModeIsActive()) {
+        while (this.opModeIsActive()) {
 
-            if (gamepad1.a) {
+            if (this.gamepad1.a) {
 
                 // Get the calibration data
-                BNO055IMU.CalibrationData calibrationData = imu.readCalibrationData();
+                final BNO055IMU.CalibrationData calibrationData = this.imu.readCalibrationData();
 
                 // Save the calibration data to a file. You can choose whatever file
                 // name you wish here, but you'll want to indicate the same file name
                 // when you initialize the IMU in an OpMode in which it is used. If you
                 // have more than one IMU on your robot, you'll of course want to use
                 // different configuration file names for each.
-                String filename = "AdafruitIMUCalibration.json";
-                File file = AppUtil.getInstance().getSettingsFile(filename);
+                final String filename = "AdafruitIMUCalibration.json";
+                final File   file     = AppUtil.getInstance().getSettingsFile(filename);
                 ReadWriteFile.writeFile(file, calibrationData.serialize());
-                telemetry.log().add("saved to '%s'", filename);
+	            this.telemetry.log().add("saved to '%s'", filename);
 
                 // Wait for the button to be released
-                while (gamepad1.a) {
-                    telemetry.update();
-                    idle();
+                while (this.gamepad1.a) {
+	                this.telemetry.update();
+	                this.idle();
                 }
             }
 
-            telemetry.update();
+	        this.telemetry.update();
         }
     }
 
@@ -177,41 +177,41 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
 
         // At the beginning of each telemetry update, grab a bunch of data
         // from the IMU that we will then display in separate lines.
-        telemetry.addAction(new Runnable() { @Override public void run()
+	    this.telemetry.addAction(new Runnable() { @Override public void run()
                 {
                 // Acquiring the angles is relatively expensive; we don't want
                 // to do that in each of the three items that need that info, as that's
                 // three times the necessary expense.
-                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+	                SensorBNO055IMUCalibration.this.angles = SensorBNO055IMUCalibration.this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 }
             });
 
-        telemetry.addLine()
+	    this.telemetry.addLine()
             .addData("status", new Func<String>() {
                 @Override public String value() {
-                    return imu.getSystemStatus().toShortString();
+                    return SensorBNO055IMUCalibration.this.imu.getSystemStatus().toShortString();
                     }
                 })
             .addData("calib", new Func<String>() {
                 @Override public String value() {
-                    return imu.getCalibrationStatus().toString();
+                    return SensorBNO055IMUCalibration.this.imu.getCalibrationStatus().toString();
                     }
                 });
 
-        telemetry.addLine()
+	    this.telemetry.addLine()
             .addData("heading", new Func<String>() {
                 @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.firstAngle);
+                    return SensorBNO055IMUCalibration.this.formatAngle(SensorBNO055IMUCalibration.this.angles.angleUnit, SensorBNO055IMUCalibration.this.angles.firstAngle);
                     }
                 })
             .addData("roll", new Func<String>() {
                 @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.secondAngle);
+                    return SensorBNO055IMUCalibration.this.formatAngle(SensorBNO055IMUCalibration.this.angles.angleUnit, SensorBNO055IMUCalibration.this.angles.secondAngle);
                     }
                 })
             .addData("pitch", new Func<String>() {
                 @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.thirdAngle);
+                    return SensorBNO055IMUCalibration.this.formatAngle(SensorBNO055IMUCalibration.this.angles.angleUnit, SensorBNO055IMUCalibration.this.angles.thirdAngle);
                     }
                 });
     }
@@ -220,11 +220,11 @@ public class SensorBNO055IMUCalibration extends LinearOpMode
     // Formatting
     //----------------------------------------------------------------------------------------------
 
-    String formatAngle(AngleUnit angleUnit, double angle) {
-        return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
+    String formatAngle(final AngleUnit angleUnit, final double angle) {
+        return this.formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
     }
 
-    String formatDegrees(double degrees){
+    String formatDegrees(final double degrees){
         return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
     }
 }

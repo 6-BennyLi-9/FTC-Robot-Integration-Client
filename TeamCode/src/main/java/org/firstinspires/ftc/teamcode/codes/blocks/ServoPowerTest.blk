@@ -1,0 +1,137 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+<block type="procedures_defnoreturn" id="WtpyD@tEu+EoY=P9iY,D" deletable="false" x="81" y="165">
+<field name="NAME">runOpMode</field>
+<comment pinned="false" h="141" w="577">This sample contains the bare minimum Blocks for any regular OpMode. The 3 blue
+Comment Blocks show where to place Initialization code (runs once, after touching the
+DS INIT button, and before touching the DS Start arrow), Run code (runs once, after
+touching Start), and Loop code (runs repeatedly while the OpMode is active, namely not
+Stopped).</comment>
+<data>{"commentPositionLeft":-20,"commentPositionTop":-169}</data>
+<statement name="STACK">
+<block type="comment" id="Lc#BFtj*NTB48YL;eBl.">
+<field name="COMMENT">Put initialization blocks here.</field>
+<next>
+<block type="linearOpMode_waitForStart" id=":`$wN_ci`O;o6P0~.(+g">
+<next>
+<block type="servo_setProperty_Direction" id="[B)jLk)5|?QKOv9VfEID">
+<field name="IDENTIFIER">leftIntakeAsServo</field>
+<field name="PROP">Direction</field>
+<data>{"IDENTIFIER":"leftIntake"}</data>
+<value name="VALUE">
+<shadow type="servo_typedEnum_direction" id="3gzE-EYU~4~hvyeb]-+B">
+<field name="DIRECTION">FORWARD</field>
+</shadow>
+</value>
+<next>
+<block type="servo_setProperty_Direction" id="nM/oO3_]d)%u:pb($!e+">
+<field name="IDENTIFIER">leftIntakeAsServo</field>
+<field name="PROP">Direction</field>
+<data>{"IDENTIFIER":"leftIntake"}</data>
+<value name="VALUE">
+<shadow type="servo_typedEnum_direction" id="T@T$J)M~i^_58*HU$eh.">
+<field name="DIRECTION">FORWARD</field>
+</shadow>
+</value>
+<next>
+<block type="controls_if" id="}Q?5mbxSO8Di;i!__6[y">
+<value name="IF0">
+<block type="linearOpMode_opModeIsActive" id=")o%YFX/#9kvv^sgXr4~5"/>
+</value>
+<statement name="DO0">
+<block type="controls_whileUntil" id="^0Kagy/e+Ea{rbZPv2G6">
+<field name="MODE">WHILE</field>
+<value name="BOOL">
+<block type="linearOpMode_opModeIsActive" id="e)cr{!2VIET83s,JWC.="/>
+</value>
+<statement name="DO">
+<block type="servo_setProperty_Number" id="=~La0|EUKW|DcZ+v$fo=">
+<field name="IDENTIFIER">rightIntakeAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"rightIntake"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="#nd~/rjs.fCG^#H`z]On">
+<field name="NUM">0.5</field>
+</shadow>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id=";rrVfWVT~Ipc5JO4Po0?">
+<value name="KEY">
+<shadow type="text" id="YfB:~mPiB+=P]`.fj$)-">
+<field name="TEXT">left</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="slO/reW2wH8`eAb1ga?Y">
+<field name="NUM">123</field>
+</shadow>
+<block type="servo_getProperty_Number" id="[[SVAP(MvT%21V{JYo!c">
+<field name="IDENTIFIER">leftIntakeAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"leftIntake"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_addNumericData_Number" id="V:r+-H/rX.+rC9MzmK0M">
+<value name="KEY">
+<shadow type="text" id="y/Uabceb+_%D#Uch`Z5V">
+<field name="TEXT">right</field>
+</shadow>
+</value>
+<value name="NUMBER">
+<shadow type="math_number" id="FbJA$IR^k`DNs:Rf)4x8">
+<field name="NUM">123</field>
+</shadow>
+<block type="servo_getProperty_Number" id="_+xt(luV,7k,~?J(gwC*">
+<field name="IDENTIFIER">rightIntakeAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"rightIntake"}</data>
+</block>
+</value>
+<next>
+<block type="telemetry_update" id="YHqhUfc1U-!f_~7.Xhfc"/>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</next>
+</block>
+</statement>
+</block>
+<block type="gamepad_getProperty_Number" id="_Hx?x|gJ.p,oRtpeJ{68" x="640" y="515">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">LeftStickY</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+<block type="gamepad_getProperty_Number" id="$3ShVk0q+fn?Z#~D5)O;" x="632" y="543">
+<field name="IDENTIFIER">gamepad1</field>
+<field name="PROP">LeftStickY</field>
+<data>{"IDENTIFIER":"gamepad1"}</data>
+</block>
+<block type="servo_setProperty_Number" id="IE^sh@!=qgk2OyYUt4f+" x="595" y="572">
+<field name="IDENTIFIER">rightIntakeAsServo</field>
+<field name="PROP">Position</field>
+<data>{"IDENTIFIER":"rightIntake"}</data>
+<value name="VALUE">
+<shadow type="math_number" id="]vt;n2EWhWl~D-OwxN%e">
+<field name="NUM">0.5</field>
+</shadow>
+</value>
+</block>
+</xml>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Extra>
+<OpModeMeta flavor="TELEOP" group="" autoTransition="" />
+<Enabled value="true" />
+</Extra>

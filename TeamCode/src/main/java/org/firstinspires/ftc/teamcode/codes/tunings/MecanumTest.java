@@ -16,17 +16,17 @@ public class MecanumTest extends TuningProgramTemplate {
 
 	@Override
 	public void whenInit() {
-		lf=hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.LeftFront);
-		lr=hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.LeftRear);
-		rf=hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.RightFront);
-		rr=hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.RightRear);
+		this.lf = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.LeftFront);
+		this.lr = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.LeftRear);
+		this.rf = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.RightFront);
+		this.rr = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.RightRear);
 	}
 
 	@Override
 	public void whileActivating() {
-		lf.setPower(-0.1f);
-		lr.setPower(+0.1f);
-		rf.setPower(+0.1f);
-		rr.setPower(-0.1f);
+		this.lf.setPower(-0.1f);
+		this.lr.setPower(+0.1f);
+		this.rf.setPower(+0.1f);
+		this.rr.setPower(-0.1f);
 	}
 }

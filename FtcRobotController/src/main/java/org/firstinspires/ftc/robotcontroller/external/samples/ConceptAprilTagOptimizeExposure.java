@@ -67,7 +67,7 @@ import java.util.concurrent.TimeUnit;
 @Disabled
 public class ConceptAprilTagOptimizeExposure extends LinearOpMode
 {
-    private VisionPortal visionPortal = null;        // Used to manage the video source.
+    private VisionPortal visionPortal;        // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private int     myExposure  ;
     private int     minExposure ;
@@ -76,80 +76,78 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode
     private int     minGain ;
     private int     maxGain ;
 
-    boolean thisExpUp = false;
-    boolean thisExpDn = false;
-    boolean thisGainUp = false;
-    boolean thisGainDn = false;
+    boolean thisExpUp;
+    boolean thisExpDn;
+    boolean thisGainUp;
+    boolean thisGainDn;
 
-    boolean lastExpUp = false;
-    boolean lastExpDn = false;
-    boolean lastGainUp = false;
-    boolean lastGainDn = false;
+    boolean lastExpUp;
+    boolean lastExpDn;
+    boolean lastGainUp;
+    boolean lastGainDn;
     @Override public void runOpMode()
     {
         // Initialize the Apriltag Detection process
-        initAprilTag();
+	    this.initAprilTag();
 
         // Establish Min and Max Gains and Exposure.  Then set a low exposure with high gain
-        getCameraSetting();
-        myExposure = Math.min(5, minExposure);
-        myGain = maxGain;
-        setManualExposure(myExposure, myGain);
+	    this.getCameraSetting();
+	    this.myExposure = Math.min(5, this.minExposure);
+	    this.myGain = this.maxGain;
+	    this.setManualExposure(this.myExposure, this.myGain);
 
         // Wait for the match to begin.
-        telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
-        telemetry.addData(">", "Touch START to start OpMode");
-        telemetry.update();
-        waitForStart();
+	    this.telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
+	    this.telemetry.addData(">", "Touch START to start OpMode");
+	    this.telemetry.update();
+	    this.waitForStart();
 
-        while (opModeIsActive())
+        while (this.opModeIsActive())
         {
-            telemetry.addLine("Find lowest Exposure that gives reliable detection.");
-            telemetry.addLine("Use Left bump/trig to adjust Exposure.");
-            telemetry.addLine("Use Right bump/trig to adjust Gain.\n");
+	        this.telemetry.addLine("Find lowest Exposure that gives reliable detection.");
+	        this.telemetry.addLine("Use Left bump/trig to adjust Exposure.");
+	        this.telemetry.addLine("Use Right bump/trig to adjust Gain.\n");
 
             // Display how many Tags Detected
-            List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-            int numTags = currentDetections.size();
-            if (numTags > 0 )
-                telemetry.addData("Tag", "####### %d Detected  ######", currentDetections.size());
-            else
-                telemetry.addData("Tag", "----------- none - ----------");
+            final List<AprilTagDetection> currentDetections = this.aprilTag.getDetections();
+            final int                     numTags           = currentDetections.size();
+            if (0 < numTags) this.telemetry.addData("Tag", "####### %d Detected  ######", currentDetections.size());
+            else this.telemetry.addData("Tag", "----------- none - ----------");
 
-            telemetry.addData("Exposure","%d  (%d - %d)", myExposure, minExposure, maxExposure);
-            telemetry.addData("Gain","%d  (%d - %d)", myGain, minGain, maxGain);
-            telemetry.update();
+	        this.telemetry.addData("Exposure","%d  (%d - %d)", this.myExposure, this.minExposure, this.maxExposure);
+	        this.telemetry.addData("Gain","%d  (%d - %d)", this.myGain, this.minGain, this.maxGain);
+	        this.telemetry.update();
 
             // check to see if we need to change exposure or gain.
-            thisExpUp = gamepad1.left_bumper;
-            thisExpDn = gamepad1.left_trigger > 0.25;
-            thisGainUp = gamepad1.right_bumper;
-            thisGainDn = gamepad1.right_trigger > 0.25;
+	        this.thisExpUp = this.gamepad1.left_bumper;
+	        this.thisExpDn = 0.25 < gamepad1.left_trigger;
+	        this.thisGainUp = this.gamepad1.right_bumper;
+	        this.thisGainDn = 0.25 < gamepad1.right_trigger;
 
             // look for clicks to change exposure
-            if (thisExpUp && !lastExpUp) {
-                myExposure = Range.clip(myExposure + 1, minExposure, maxExposure);
-                setManualExposure(myExposure, myGain);
-            } else if (thisExpDn && !lastExpDn) {
-                myExposure = Range.clip(myExposure - 1, minExposure, maxExposure);
-                setManualExposure(myExposure, myGain);
+            if (this.thisExpUp && ! this.lastExpUp) {
+	            this.myExposure = Range.clip(this.myExposure + 1, this.minExposure, this.maxExposure);
+	            this.setManualExposure(this.myExposure, this.myGain);
+            } else if (this.thisExpDn && ! this.lastExpDn) {
+	            this.myExposure = Range.clip(this.myExposure - 1, this.minExposure, this.maxExposure);
+	            this.setManualExposure(this.myExposure, this.myGain);
             }
 
             // look for clicks to change the gain
-            if (thisGainUp && !lastGainUp) {
-                myGain = Range.clip(myGain + 1, minGain, maxGain );
-                setManualExposure(myExposure, myGain);
-            } else if (thisGainDn && !lastGainDn) {
-                myGain = Range.clip(myGain - 1, minGain, maxGain );
-                setManualExposure(myExposure, myGain);
+            if (this.thisGainUp && ! this.lastGainUp) {
+	            this.myGain = Range.clip(this.myGain + 1, this.minGain, this.maxGain);
+	            this.setManualExposure(this.myExposure, this.myGain);
+            } else if (this.thisGainDn && ! this.lastGainDn) {
+	            this.myGain = Range.clip(this.myGain - 1, this.minGain, this.maxGain);
+	            this.setManualExposure(this.myExposure, this.myGain);
             }
 
-            lastExpUp = thisExpUp;
-            lastExpDn = thisExpDn;
-            lastGainUp = thisGainUp;
-            lastGainDn = thisGainDn;
+	        this.lastExpUp = this.thisExpUp;
+	        this.lastExpDn = this.thisExpDn;
+	        this.lastGainUp = this.thisGainUp;
+	        this.lastGainDn = this.thisGainDn;
 
-            sleep(20);
+	        this.sleep(20);
         }
     }
 
@@ -158,12 +156,12 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode
      */
     private void initAprilTag() {
         // Create the AprilTag processor by using a builder.
-        aprilTag = new AprilTagProcessor.Builder().build();
+	    this.aprilTag = new AprilTagProcessor.Builder().build();
 
         // Create the WEBCAM vision portal by using a builder.
-        visionPortal = new VisionPortal.Builder()
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
-                .addProcessor(aprilTag)
+	    this.visionPortal = new VisionPortal.Builder()
+                .setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"))
+                .addProcessor(this.aprilTag)
                 .build();
     }
 
@@ -172,39 +170,39 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode
         Can only be called AFTER calling initAprilTag();
         Returns true if controls are set.
      */
-    private boolean    setManualExposure(int exposureMS, int gain) {
+    private boolean    setManualExposure(final int exposureMS, final int gain) {
         // Ensure Vision Portal has been setup.
-        if (visionPortal == null) {
+        if (null == visionPortal) {
             return false;
         }
 
         // Wait for the camera to be open
-        if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
-            telemetry.addData("Camera", "Waiting");
-            telemetry.update();
-            while (!isStopRequested() && (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING)) {
-                sleep(20);
+        if (VisionPortal.CameraState.STREAMING != visionPortal.getCameraState()) {
+	        this.telemetry.addData("Camera", "Waiting");
+	        this.telemetry.update();
+            while (! this.isStopRequested() && (VisionPortal.CameraState.STREAMING != visionPortal.getCameraState())) {
+	            this.sleep(20);
             }
-            telemetry.addData("Camera", "Ready");
-            telemetry.update();
+	        this.telemetry.addData("Camera", "Ready");
+	        this.telemetry.update();
         }
 
         // Set camera controls unless we are stopping.
-        if (!isStopRequested())
+        if (! this.isStopRequested())
         {
             // Set exposure.  Make sure we are in Manual Mode for these values to take effect.
-            ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
-            if (exposureControl.getMode() != ExposureControl.Mode.Manual) {
+            final ExposureControl exposureControl = this.visionPortal.getCameraControl(ExposureControl.class);
+            if (ExposureControl.Mode.Manual != exposureControl.getMode()) {
                 exposureControl.setMode(ExposureControl.Mode.Manual);
-                sleep(50);
+	            this.sleep(50);
             }
             exposureControl.setExposure(exposureMS, TimeUnit.MILLISECONDS);
-            sleep(20);
+	        this.sleep(20);
 
             // Set Gain.
-            GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
+            final GainControl gainControl = this.visionPortal.getCameraControl(GainControl.class);
             gainControl.setGain(gain);
-            sleep(20);
+	        this.sleep(20);
             return (true);
         } else {
             return (false);
@@ -217,30 +215,30 @@ public class ConceptAprilTagOptimizeExposure extends LinearOpMode
      */
     private void getCameraSetting() {
         // Ensure Vision Portal has been setup.
-        if (visionPortal == null) {
+        if (null == visionPortal) {
             return;
         }
 
         // Wait for the camera to be open
-        if (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING) {
-            telemetry.addData("Camera", "Waiting");
-            telemetry.update();
-            while (!isStopRequested() && (visionPortal.getCameraState() != VisionPortal.CameraState.STREAMING)) {
-                sleep(20);
+        if (VisionPortal.CameraState.STREAMING != visionPortal.getCameraState()) {
+	        this.telemetry.addData("Camera", "Waiting");
+	        this.telemetry.update();
+            while (! this.isStopRequested() && (VisionPortal.CameraState.STREAMING != visionPortal.getCameraState())) {
+	            this.sleep(20);
             }
-            telemetry.addData("Camera", "Ready");
-            telemetry.update();
+	        this.telemetry.addData("Camera", "Ready");
+	        this.telemetry.update();
         }
 
         // Get camera control values unless we are stopping.
-        if (!isStopRequested()) {
-            ExposureControl exposureControl = visionPortal.getCameraControl(ExposureControl.class);
-            minExposure = (int)exposureControl.getMinExposure(TimeUnit.MILLISECONDS) + 1;
-            maxExposure = (int)exposureControl.getMaxExposure(TimeUnit.MILLISECONDS);
+        if (! this.isStopRequested()) {
+            final ExposureControl exposureControl = this.visionPortal.getCameraControl(ExposureControl.class);
+	        this.minExposure = (int)exposureControl.getMinExposure(TimeUnit.MILLISECONDS) + 1;
+	        this.maxExposure = (int)exposureControl.getMaxExposure(TimeUnit.MILLISECONDS);
 
-            GainControl gainControl = visionPortal.getCameraControl(GainControl.class);
-            minGain = gainControl.getMinGain();
-            maxGain = gainControl.getMaxGain();
+            final GainControl gainControl = this.visionPortal.getCameraControl(GainControl.class);
+	        this.minGain = gainControl.getMinGain();
+	        this.maxGain = gainControl.getMaxGain();
         }
     }
 }

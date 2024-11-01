@@ -6,8 +6,8 @@ public final class TankCommandMessage {
     public double leftPower;
     public double rightPower;
 
-    public TankCommandMessage(double voltage, double leftPower, double rightPower) {
-        this.timestamp = System.nanoTime();
+    public TankCommandMessage(final double voltage, final double leftPower, final double rightPower) {
+        timestamp = System.nanoTime();
         this.voltage = voltage;
         this.leftPower = leftPower;
         this.rightPower = rightPower;

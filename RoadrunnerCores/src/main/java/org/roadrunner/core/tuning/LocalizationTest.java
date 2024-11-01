@@ -15,56 +15,56 @@ import org.roadrunner.core.TankDrive;
 public class LocalizationTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+	    this.telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
-            MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+            final MecanumDrive drive = new MecanumDrive(this.hardwareMap, new Pose2d(0, 0, 0));
 
-            waitForStart();
+	        this.waitForStart();
 
-            while (opModeIsActive()) {
+            while (this.opModeIsActive()) {
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                -gamepad1.left_stick_y,
-                                -gamepad1.left_stick_x
+                                - this.gamepad1.left_stick_y,
+                                - this.gamepad1.left_stick_x
                         ),
-                        -gamepad1.right_stick_x
+                        - this.gamepad1.right_stick_x
                 ));
 
                 drive.updatePoseEstimate();
 
-                telemetry.addData("x", drive.pose.position.x);
-                telemetry.addData("y", drive.pose.position.y);
-                telemetry.addData("heading (deg)", Math.toDegrees(drive.pose.heading.toDouble()));
-                telemetry.update();
+	            this.telemetry.addData("x", drive.pose.position.x);
+	            this.telemetry.addData("y", drive.pose.position.y);
+	            this.telemetry.addData("heading (deg)", Math.toDegrees(drive.pose.heading.toDouble()));
+	            this.telemetry.update();
 
-                TelemetryPacket packet = new TelemetryPacket();
+                final TelemetryPacket packet = new TelemetryPacket();
                 packet.fieldOverlay().setStroke("#3F51B5");
                 Drawing.drawRobot(packet.fieldOverlay(), drive.pose);
                 FtcDashboard.getInstance().sendTelemetryPacket(packet);
             }
         } else if (TuningOpModes.DRIVE_CLASS.equals(TankDrive.class)) {
-            TankDrive drive = new TankDrive(hardwareMap, new Pose2d(0, 0, 0));
+            final TankDrive drive = new TankDrive(this.hardwareMap, new Pose2d(0, 0, 0));
 
-            waitForStart();
+	        this.waitForStart();
 
-            while (opModeIsActive()) {
+            while (this.opModeIsActive()) {
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                -gamepad1.left_stick_y,
+                                - this.gamepad1.left_stick_y,
                                 0.0
                         ),
-                        -gamepad1.right_stick_x
+                        - this.gamepad1.right_stick_x
                 ));
 
                 drive.updatePoseEstimate();
 
-                telemetry.addData("x", drive.pose.position.x);
-                telemetry.addData("y", drive.pose.position.y);
-                telemetry.addData("heading (deg)", Math.toDegrees(drive.pose.heading.toDouble()));
-                telemetry.update();
+	            this.telemetry.addData("x", drive.pose.position.x);
+	            this.telemetry.addData("y", drive.pose.position.y);
+	            this.telemetry.addData("heading (deg)", Math.toDegrees(drive.pose.heading.toDouble()));
+	            this.telemetry.update();
 
-                TelemetryPacket packet = new TelemetryPacket();
+                final TelemetryPacket packet = new TelemetryPacket();
                 packet.fieldOverlay().setStroke("#3F51B5");
                 Drawing.drawRobot(packet.fieldOverlay(), drive.pose);
                 FtcDashboard.getInstance().sendTelemetryPacket(packet);

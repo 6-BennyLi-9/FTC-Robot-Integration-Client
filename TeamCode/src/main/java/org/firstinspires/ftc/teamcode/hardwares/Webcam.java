@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.codes.samples.CameraDetection;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Camera;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Camera;
 import org.firstinspires.ftc.teamcode.utils.enums.AutonomousLocation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -23,38 +23,38 @@ public class Webcam {
 	public Camera detector;
 	public OpenCvCamera camera;
 
-	public static boolean useWebcam=false;//Webcam is useless in 2024-2025 season
+	public static boolean useWebcam;//Webcam is useless in 2024-2025 season
 
-	public Webcam(@NonNull HardwareMap hardwareMap){
-		if(!useWebcam)return;
+	public Webcam(@NonNull final HardwareMap hardwareMap){
+		if(! Webcam.useWebcam)return;
 
 		//TODO：根据需要更改名称
-		int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-		camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-		camera.setPipeline(detector);
-		Init();
+		final int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+		this.camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+		this.camera.setPipeline(this.detector);
+		this.Init();
 	}
 
 	private void Init(){
-		camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+		this.camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
 		{
 			@Override
 			public void onOpened()
 			{
-				camera.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+				Webcam.this.camera.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
 			}
 
 			@Override
-			public void onError(int errorCode) {
+			public void onError(final int errorCode) {
 				throw new RuntimeException(String.valueOf(errorCode));
 			}
 		});
 	}
 
 	public AutonomousLocation getLocation(){
-		return detector.getLocation();
+		return this.detector.getLocation();
 	}
 	public void showRoiVP(){
-		detector.showRoiVP();
+		this.detector.showRoiVP();
 	}
 }

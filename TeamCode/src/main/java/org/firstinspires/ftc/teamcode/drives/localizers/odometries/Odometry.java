@@ -15,15 +15,19 @@ public interface Odometry {
 	default void registerLineToDashBoard(){}
 	@UtilFunctions
 	void registerRobotToDashBoard(String tag);
+
+	/**
+	 * 不会发送 {@code TelemetryPacket}
+	 */
 	@UtilFunctions
-	default void registerToDashBoard(String tag){
-		registerLineToDashBoard();
-		registerRobotToDashBoard(tag+" robot");
+	default void registerToDashBoard(final String tag){
+		this.registerLineToDashBoard();
+		this.registerRobotToDashBoard(tag + " robot");
 	}
 	@UtilFunctions
-	default void drawToDashBoard(String tag){
-		registerToDashBoard(tag);
-		DashboardClient.getInstance().update();
+	default void drawToDashBoard(final String tag){
+		this.registerToDashBoard(tag);
+		DashboardClient.getInstance().sendPacket();
 	}
 	@UtilFunctions
 	Position2d getCurrentPose();

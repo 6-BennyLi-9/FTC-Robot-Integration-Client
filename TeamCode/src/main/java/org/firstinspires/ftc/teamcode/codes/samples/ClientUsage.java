@@ -17,55 +17,55 @@ public class ClientUsage extends OpMode {
 	private int time;
 
 	private void waitForXPressed(){
-		while(!gamepad1.x){
+		while(! this.gamepad1.x){
 			Actions.runBlocking(new SleepAction(0.05));
 		}
 	}
 
 	@Override
 	public void init() {
-		client=new Client(telemetry);
-		time=0;
+		this.client =new Client(this.telemetry);
+		this.time =0;
 	}
 	private void operateThroughTime(){
-		switch ( time ){
+		switch (this.time){
 			case 1:
-				client.addData("按下次数","1");
+				this.client.addData("按下次数","1");
 				break;
 			case 2:
-				client.changeData("按下次数","2");
+				this.client.changeData("按下次数","2");
 				break;
 			case 3:
-				client.addLine("第三次按下");
-				client.deleteData("按下次数");
+				this.client.addLine("第三次按下");
+				this.client.deleteData("按下次数");
 				break;
 			case 4:
-				client.deleteLine("第三次按下");
-				client.addData("按下次数","4");
+				this.client.deleteLine("第三次按下");
+				this.client.addData("按下次数","4");
 				break;
 			case 5:
-				client.addLine("第五次按下");
-				client.deleteData("按下次数");
+				this.client.addLine("第五次按下");
+				this.client.deleteData("按下次数");
 				break;
 			case 6:
-				client.changeLine("第五次按下","第六次按下");
-				client.changeData("按下次数","6");
+				this.client.changeLine("第五次按下","第六次按下");
+				this.client.changeData("按下次数","6");
 				break;
 			case 7:
-				client.clear();
-				client.addLine("演示结束");
+				this.client.clear();
+				this.client.addLine("演示结束");
 				break;
 			default:
-				client.clear();
+				this.client.clear();
 				break;
 		}
 	}
 
 	@Override
 	public void loop() {
-		++time;
-		waitForXPressed();
-		operateThroughTime();
+		++ this.time;
+		this.waitForXPressed();
+		this.operateThroughTime();
 
 		Actions.runBlocking(new SleepAction(0.5));
 	}

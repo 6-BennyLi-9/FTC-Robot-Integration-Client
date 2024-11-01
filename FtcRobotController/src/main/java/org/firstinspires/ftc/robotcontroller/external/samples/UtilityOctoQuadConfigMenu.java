@@ -22,6 +22,7 @@
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.hardware.digitalchickenlabs.OctoQuad;
+import com.qualcomm.hardware.digitalchickenlabs.OctoQuadBase;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -61,14 +62,14 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
     TelemetryMenu.EnumOption optionChannelBankConfig;
 
     TelemetryMenu.MenuElement menuEncoderDirections = new TelemetryMenu.MenuElement("Set Encoder Directions", false);
-    TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuad.NUM_ENCODERS];
+    TelemetryMenu.BooleanOption[] optionsEncoderDirections = new TelemetryMenu.BooleanOption[OctoQuadBase.NUM_ENCODERS];
 
     TelemetryMenu.MenuElement menuVelocityIntervals = new TelemetryMenu.MenuElement("Velocity Measurement Intervals", false);
-    TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+    TelemetryMenu.IntegerOption[] optionsVelocityIntervals = new TelemetryMenu.IntegerOption[OctoQuadBase.NUM_ENCODERS];
 
     TelemetryMenu.MenuElement menuAbsParams = new TelemetryMenu.MenuElement("Abs. Encoder Pulse Width Params", false);
-    TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
-    TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuad.NUM_ENCODERS];
+    TelemetryMenu.IntegerOption[] optionsAbsParamsMax = new TelemetryMenu.IntegerOption[OctoQuadBase.NUM_ENCODERS];
+    TelemetryMenu.IntegerOption[] optionsAbsParamsMin = new TelemetryMenu.IntegerOption[OctoQuadBase.NUM_ENCODERS];
 
     TelemetryMenu.OptionElement optionProgramToFlash;
     TelemetryMenu.OptionElement optionSendToRAM;
@@ -77,116 +78,108 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
     OctoQuad octoquad;
 
-    boolean error = false;
+    boolean error;
 
     @Override
     public void runOpMode()
     {
-        octoquad = hardwareMap.getAll(OctoQuad.class).get(0);
+	    this.octoquad = this.hardwareMap.getAll(OctoQuad.class).get(0);
 
-        if(octoquad.getChipId() != OctoQuad.OCTOQUAD_CHIP_ID)
+        if(OctoQuadBase.OCTOQUAD_CHIP_ID != octoquad.getChipId())
         {
-            telemetry.addLine("Error: cannot communicate with OctoQuad. Check your wiring and configuration and try again");
-            telemetry.update();
+	        this.telemetry.addLine("Error: cannot communicate with OctoQuad. Check your wiring and configuration and try again");
+	        this.telemetry.update();
 
-            error = true;
+	        this.error = true;
         }
         else
         {
-            if(octoquad.getFirmwareVersion().maj != OctoQuad.SUPPORTED_FW_VERSION_MAJ)
+            if(OctoQuadBase.SUPPORTED_FW_VERSION_MAJ != octoquad.getFirmwareVersion().maj)
             {
-                telemetry.addLine("Error: The OctoQuad is running a different major firmware version than this driver was built for. Cannot run configuration tool");
-                telemetry.update();
+	            this.telemetry.addLine("Error: The OctoQuad is running a different major firmware version than this driver was built for. Cannot run configuration tool");
+	            this.telemetry.update();
 
-                error = true;
+	            this.error = true;
             }
         }
 
-        if(error)
+        if(this.error)
         {
-            waitForStart();
+	        this.waitForStart();
             return;
         }
 
-        telemetry.addLine("Retrieving current configuration from OctoQuad");
-        telemetry.update();
+	    this.telemetry.addLine("Retrieving current configuration from OctoQuad");
+	    this.telemetry.update();
 
-        optionExit = new TelemetryMenu.StaticClickableOption("Exit configuration menu")
+	    this.optionExit = new TelemetryMenu.StaticClickableOption("Exit configuration menu")
         {
             @Override
             void onClick() // called on OpMode thread
             {
-                requestOpModeStop();
+	            UtilityOctoQuadConfigMenu.this.requestOpModeStop();
             }
         };
 
-        optionI2cResetMode = new TelemetryMenu.EnumOption("I2C Reset Mode", OctoQuad.I2cRecoveryMode.values(), octoquad.getI2cRecoveryMode());
-        optionChannelBankConfig = new TelemetryMenu.EnumOption("Channel Bank Modes", OctoQuad.ChannelBankConfig.values(), octoquad.getChannelBankConfig());
+	    this.optionI2cResetMode = new TelemetryMenu.EnumOption("I2C Reset Mode", OctoQuadBase.I2cRecoveryMode.values(), this.octoquad.getI2cRecoveryMode());
+	    this.optionChannelBankConfig = new TelemetryMenu.EnumOption("Channel Bank Modes", OctoQuadBase.ChannelBankConfig.values(), this.octoquad.getChannelBankConfig());
 
-        menuHwInfo.addChild(new TelemetryMenu.StaticItem("Board Firmware: v" + octoquad.getFirmwareVersion()));
+	    this.menuHwInfo.addChild(new TelemetryMenu.StaticItem("Board Firmware: v" + this.octoquad.getFirmwareVersion()));
         //menuHwInfo.addChild(new TelemetryMenu.StaticItem("Board unique ID: FIXME"));
 
-        for(int i = 0; i < OctoQuad.NUM_ENCODERS; i++)
+        for(int i = 0 ; OctoQuadBase.NUM_ENCODERS > i ; i++)
         {
-            optionsEncoderDirections[i] = new TelemetryMenu.BooleanOption(
-                    String.format("Encoder %d direction", i),
-                    octoquad.getSingleEncoderDirection(i) == OctoQuad.EncoderDirection.REVERSE,
+	        this.optionsEncoderDirections[i] = new TelemetryMenu.BooleanOption(
+                    String.format("Encoder %d direction", i), OctoQuadBase.EncoderDirection.REVERSE == octoquad.getSingleEncoderDirection(i),
                     "-",
                     "+");
         }
-        menuEncoderDirections.addChildren(optionsEncoderDirections);
+	    this.menuEncoderDirections.addChildren(this.optionsEncoderDirections);
 
-        for(int i = 0; i < OctoQuad.NUM_ENCODERS; i++)
+        for(int i = 0 ; OctoQuadBase.NUM_ENCODERS > i ; i++)
         {
-            optionsVelocityIntervals[i] = new TelemetryMenu.IntegerOption(
-                    String.format("Chan %d velocity intvl", i),
-                    OctoQuad.MIN_VELOCITY_MEASUREMENT_INTERVAL_MS,
-                    OctoQuad.MAX_VELOCITY_MEASUREMENT_INTERVAL_MS,
-                    octoquad.getSingleVelocitySampleInterval(i));
+	        this.optionsVelocityIntervals[i] = new TelemetryMenu.IntegerOption(
+                    String.format("Chan %d velocity intvl", i), OctoQuadBase.MIN_VELOCITY_MEASUREMENT_INTERVAL_MS, OctoQuadBase.MAX_VELOCITY_MEASUREMENT_INTERVAL_MS, this.octoquad.getSingleVelocitySampleInterval(i));
         }
-        menuVelocityIntervals.addChildren(optionsVelocityIntervals);
+	    this.menuVelocityIntervals.addChildren(this.optionsVelocityIntervals);
 
-        for(int i = 0; i < OctoQuad.NUM_ENCODERS; i++)
+        for(int i = 0 ; OctoQuadBase.NUM_ENCODERS > i ; i++)
         {
-            OctoQuad.ChannelPulseWidthParams params = octoquad.getSingleChannelPulseWidthParams(i);
+            final OctoQuad.ChannelPulseWidthParams params = this.octoquad.getSingleChannelPulseWidthParams(i);
 
-            optionsAbsParamsMax[i] = new TelemetryMenu.IntegerOption(
-                    String.format("Chan %d max pulse length", i),
-                    OctoQuad.MIN_PULSE_WIDTH_US,
-                    OctoQuad.MAX_PULSE_WIDTH_US,
+	        this.optionsAbsParamsMax[i] = new TelemetryMenu.IntegerOption(
+                    String.format("Chan %d max pulse length", i), OctoQuadBase.MIN_PULSE_WIDTH_US, OctoQuadBase.MAX_PULSE_WIDTH_US,
                     params.max_length_us);
 
-            optionsAbsParamsMin[i] = new TelemetryMenu.IntegerOption(
-                    String.format("Chan %d min pulse length", i),
-                    OctoQuad.MIN_PULSE_WIDTH_US,
-                    OctoQuad.MAX_PULSE_WIDTH_US,
+	        this.optionsAbsParamsMin[i] = new TelemetryMenu.IntegerOption(
+                    String.format("Chan %d min pulse length", i), OctoQuadBase.MIN_PULSE_WIDTH_US, OctoQuadBase.MAX_PULSE_WIDTH_US,
                     params.min_length_us);
         }
-        menuAbsParams.addChildren(optionsAbsParamsMin);
-        menuAbsParams.addChildren(optionsAbsParamsMax);
+	    this.menuAbsParams.addChildren(this.optionsAbsParamsMin);
+	    this.menuAbsParams.addChildren(this.optionsAbsParamsMax);
 
-        optionProgramToFlash = new TelemetryMenu.OptionElement()
+	    this.optionProgramToFlash = new TelemetryMenu.OptionElement()
         {
 	        final String name = "Program Settings to FLASH";
-            long lastClickTime = 0;
+            long lastClickTime;
 
             @Override
             protected String getDisplayText()
             {
-                if(lastClickTime == 0)
+                if(0 == lastClickTime)
                 {
-                    return name;
+                    return this.name;
                 }
                 else
                 {
-                    if(System.currentTimeMillis() - lastClickTime < 1000)
+                    if(1000 > System.currentTimeMillis() - lastClickTime)
                     {
-                        return name + " **OK**";
+                        return this.name + " **OK**";
                     }
                     else
                     {
-                        lastClickTime = 0;
-                        return name;
+	                    this.lastClickTime = 0;
+                        return this.name;
                     }
                 }
             }
@@ -194,34 +187,34 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             void onClick()
             {
-                sendSettingsToRam();
-                octoquad.saveParametersToFlash();
-                lastClickTime = System.currentTimeMillis();
+	            UtilityOctoQuadConfigMenu.this.sendSettingsToRam();
+	            UtilityOctoQuadConfigMenu.this.octoquad.saveParametersToFlash();
+	            this.lastClickTime = System.currentTimeMillis();
             }
         };
 
-        optionSendToRAM = new TelemetryMenu.OptionElement()
+	    this.optionSendToRAM = new TelemetryMenu.OptionElement()
         {
 	        final String name = "Send Settings to RAM";
-            long lastClickTime = 0;
+            long lastClickTime;
 
             @Override
             protected String getDisplayText()
             {
-                if(lastClickTime == 0)
+                if(0 == lastClickTime)
                 {
-                    return name;
+                    return this.name;
                 }
                 else
                 {
-                    if(System.currentTimeMillis() - lastClickTime < 1000)
+                    if(1000 > System.currentTimeMillis() - lastClickTime)
                     {
-                        return name + " **OK**";
+                        return this.name + " **OK**";
                     }
                     else
                     {
-                        lastClickTime = 0;
-                        return name;
+	                    this.lastClickTime = 0;
+                        return this.name;
                     }
                 }
             }
@@ -229,47 +222,47 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             void onClick()
             {
-                sendSettingsToRam();
-                lastClickTime = System.currentTimeMillis();
+	            UtilityOctoQuadConfigMenu.this.sendSettingsToRam();
+	            this.lastClickTime = System.currentTimeMillis();
             }
         };
 
-        rootMenu.addChild(menuHwInfo);
-        rootMenu.addChild(optionI2cResetMode);
-        rootMenu.addChild(optionChannelBankConfig);
-        rootMenu.addChild(menuEncoderDirections);
-        rootMenu.addChild(menuVelocityIntervals);
-        rootMenu.addChild(menuAbsParams);
-        rootMenu.addChild(optionProgramToFlash);
-        rootMenu.addChild(optionSendToRAM);
-        rootMenu.addChild(optionExit);
+	    this.rootMenu.addChild(this.menuHwInfo);
+	    this.rootMenu.addChild(this.optionI2cResetMode);
+	    this.rootMenu.addChild(this.optionChannelBankConfig);
+	    this.rootMenu.addChild(this.menuEncoderDirections);
+	    this.rootMenu.addChild(this.menuVelocityIntervals);
+	    this.rootMenu.addChild(this.menuAbsParams);
+	    this.rootMenu.addChild(this.optionProgramToFlash);
+	    this.rootMenu.addChild(this.optionSendToRAM);
+	    this.rootMenu.addChild(this.optionExit);
 
-        TelemetryMenu menu = new TelemetryMenu(telemetry, rootMenu);
+        final TelemetryMenu menu = new TelemetryMenu(this.telemetry, this.rootMenu);
 
-        while (!isStopRequested())
+        while (! this.isStopRequested())
         {
-            menu.loop(gamepad1);
-            telemetry.update();
-            sleep(20);
+            menu.loop(this.gamepad1);
+	        this.telemetry.update();
+	        this.sleep(20);
         }
     }
 
     void sendSettingsToRam()
     {
-        for(int i = 0; i < OctoQuad.NUM_ENCODERS; i++)
+        for(int i = 0 ; OctoQuadBase.NUM_ENCODERS > i ; i++)
         {
-            octoquad.setSingleEncoderDirection(i, optionsEncoderDirections[i].getValue() ? OctoQuad.EncoderDirection.REVERSE : OctoQuad.EncoderDirection.FORWARD);
-            octoquad.setSingleVelocitySampleInterval(i, optionsVelocityIntervals[i].getValue());
+	        this.octoquad.setSingleEncoderDirection(i, this.optionsEncoderDirections[i].getValue() ? OctoQuadBase.EncoderDirection.REVERSE : OctoQuadBase.EncoderDirection.FORWARD);
+	        this.octoquad.setSingleVelocitySampleInterval(i, this.optionsVelocityIntervals[i].getValue());
 
-            OctoQuad.ChannelPulseWidthParams params = new OctoQuad.ChannelPulseWidthParams();
-            params.max_length_us = optionsAbsParamsMax[i].getValue();
-            params.min_length_us = optionsAbsParamsMin[i].getValue();
+            final OctoQuad.ChannelPulseWidthParams params = new OctoQuad.ChannelPulseWidthParams();
+            params.max_length_us = this.optionsAbsParamsMax[i].getValue();
+            params.min_length_us = this.optionsAbsParamsMin[i].getValue();
 
-            octoquad.setSingleChannelPulseWidthParams(i, params);
+	        this.octoquad.setSingleChannelPulseWidthParams(i, params);
         }
 
-        octoquad.setI2cRecoveryMode((OctoQuad.I2cRecoveryMode) optionI2cResetMode.getValue());
-        octoquad.setChannelBankConfig((OctoQuad.ChannelBankConfig) optionChannelBankConfig.getValue());
+	    this.octoquad.setI2cRecoveryMode((OctoQuadBase.I2cRecoveryMode) this.optionI2cResetMode.getValue());
+	    this.octoquad.setChannelBankConfig((OctoQuadBase.ChannelBankConfig) this.optionChannelBankConfig.getValue());
     }
 
     /*
@@ -305,7 +298,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         private boolean xPrev;
         private boolean lbPrev;
 
-        private       int            selectedIdx      = 0;
+        private       int            selectedIdx;
         private final Stack<Integer> selectedIdxStack = new Stack<>();
 
         private final Telemetry telemetry;
@@ -315,10 +308,10 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
          * @param telemetry pass in 'telemetry' from your OpMode
          * @param root the root menu element
          */
-        public TelemetryMenu(Telemetry telemetry, MenuElement root)
+        public TelemetryMenu(final Telemetry telemetry, final MenuElement root)
         {
             this.root = root;
-            this.currentLevel = root;
+            currentLevel = root;
             this.telemetry = telemetry;
 
             telemetry.setDisplayFormat(Telemetry.DisplayFormat.HTML);
@@ -330,70 +323,70 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
          * telemetry, and process gamepad inputs for navigating the menu
          * @param gamepad the gamepad you want to use to navigate the menu
          */
-        public void loop(Gamepad gamepad)
+        public void loop(final Gamepad gamepad)
         {
             // Capture current state of the gamepad buttons we care about;
             // We can only look once or we risk a race condition
-            boolean dpadUp = gamepad.dpad_up;
-            boolean dpadDn = gamepad.dpad_down;
-            boolean dpadRight = gamepad.dpad_right;
-            boolean dpadLeft = gamepad.dpad_left;
-            boolean x = gamepad.x;
-            boolean lb = gamepad.left_bumper;
+            final boolean dpadUp = gamepad.dpad_up;
+            final boolean dpadDn = gamepad.dpad_down;
+            final boolean dpadRight = gamepad.dpad_right;
+            final boolean dpadLeft  = gamepad.dpad_left;
+            final boolean x         = gamepad.x;
+            final boolean lb       = gamepad.left_bumper;
 
             // Figure out who our children our at this level
             // and figure out which item is currently highlighted
             // with the selection pointer
-            ArrayList<Element> children = currentLevel.children();
-            Element currentSelection = children.get(selectedIdx);
+            final ArrayList<Element> children         = this.currentLevel.children();
+            final Element            currentSelection = children.get(this.selectedIdx);
 
             // Left and right are inputs to the selected item (if it's an Option)
             if (currentSelection instanceof OptionElement)
             {
-                if (dpadRight && !dpadRightPrev) // rising edge
+                if (dpadRight && ! this.dpadRightPrev) // rising edge
                 {
                     ((OptionElement) currentSelection).onRightInput();
                 }
-                else if (dpadLeft && !dpadLeftPrev) // rising edge
+                else if (dpadLeft && ! this.dpadLeftPrev) // rising edge
                 {
                     ((OptionElement) currentSelection).onLeftInput();
                 }
             }
 
             // Up and down navigate the current selection pointer
-            if (dpadUp && !dpadUpPrev) // rising edge
+            if (dpadUp && ! this.dpadUpPrev) // rising edge
             {
-                selectedIdx--; // Move selection pointer up
+	            this.selectedIdx--; // Move selection pointer up
             }
-            else if (dpadDn && !dpadDnPrev) // rising edge
+            else if (dpadDn && ! this.dpadDnPrev) // rising edge
             {
-                selectedIdx++; // Move selection pointer down
+	            this.selectedIdx++; // Move selection pointer down
             }
 
             // Make selected index sane (don't let it go out of bounds) :eyes:
-            if (selectedIdx >= children.size())
+            if (this.selectedIdx >= children.size())
             {
-                selectedIdx = children.size()-1;
+	            this.selectedIdx = children.size()-1;
             }
-            else if (selectedIdx < 0)
+            else if (0 > selectedIdx)
             {
-                selectedIdx = 0;
+	            this.selectedIdx = 0;
             }
 
             // Select: either enter submenu or input to option
-            else if (x && !xPrev) // rising edge
+            else if (x && ! this.xPrev) // rising edge
             {
                 // Select up element
                 if (currentSelection instanceof SpecialUpElement)
                 {
                     // We can only go up if we're not at the root level
-                    if (currentLevel != root)
+                    if (this.currentLevel != this.root)
                     {
                         // Restore selection pointer to where it was before
-                        selectedIdx = selectedIdxStack.pop();
+	                    this.selectedIdx = this.selectedIdxStack.pop();
 
                         // Change to the parent level
-                        currentLevel = currentLevel.parent();
+	                    this.currentLevel = this.currentLevel.parent();
                     }
                 }
                 // Input to option
@@ -406,44 +399,44 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
                 {
                     // Save our current selection pointer so we can restore it
                     // later if the user navigates back up a level
-                    selectedIdxStack.push(selectedIdx);
+	                this.selectedIdxStack.push(this.selectedIdx);
 
                     // We have no idea what's in the submenu :monkey: so best to
                     // just set the selection pointer to the first element
-                    selectedIdx = 0;
+	                this.selectedIdx = 0;
 
                     // Now the current level becomes the submenu that the selection
                     // pointer was on
-                    currentLevel = (MenuElement) currentSelection;
+	                this.currentLevel = (MenuElement) currentSelection;
                 }
             }
 
             // Go up a level
-            else if (lb && !lbPrev)
+            else if (lb && ! this.lbPrev)
             {
                 // We can only go up if we're not at the root level
-                if (currentLevel != root)
+                if (this.currentLevel != this.root)
                 {
                     // Restore selection pointer to where it was before
-                    selectedIdx = selectedIdxStack.pop();
+	                this.selectedIdx = this.selectedIdxStack.pop();
 
                     // Change to the parent level
-                    currentLevel = currentLevel.parent();
+	                this.currentLevel = this.currentLevel.parent();
                 }
             }
 
             // Save the current button states so that we can look for
             // the rising edge the next time around the loop :)
-            dpadUpPrev = dpadUp;
-            dpadDnPrev = dpadDn;
-            dpadRightPrev = dpadRight;
-            dpadLeftPrev = dpadLeft;
-            xPrev = x;
-            lbPrev = lb;
+	        this.dpadUpPrev = dpadUp;
+	        this.dpadDnPrev = dpadDn;
+	        this.dpadRightPrev = dpadRight;
+	        this.dpadLeftPrev = dpadLeft;
+	        this.xPrev = x;
+	        this.lbPrev = lb;
 
             // Start building the text display.
             // First, we add the static directions for gamepad operation
-            StringBuilder builder = new StringBuilder();
+            final StringBuilder builder = new StringBuilder();
             builder.append("<font color='#119af5' face=monospace>");
             builder.append("Navigate items.....dpad up/down\n")
                     .append("Select.............X or Square\n")
@@ -454,13 +447,13 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
             // Now actually add the menu options. We start by adding the name of the current menu level.
             builder.append("<font face=monospace>");
-            builder.append("Current Menu: ").append(currentLevel.name).append("\n");
+            builder.append("Current Menu: ").append(this.currentLevel.name).append("\n");
 
             // Now we loop through all the child elements of this level and add them
             for (int i = 0; i < children.size(); i++)
             {
                 // If the selection pointer is at this index, put a green dot in the box :)
-                if (selectedIdx == i)
+                if (this.selectedIdx == i)
                 {
                     builder.append("[<font color=green face=monospace>•</font>] ");
                 }
@@ -471,7 +464,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
                 }
 
                 // Figure out who the selection pointer is pointing at :eyes:
-                Element e = children.get(i);
+                final Element e = children.get(i);
 
                 // If it's pointing at a submenu, indicate that it's a submenu to the user
                 // by prefixing "> " to the name.
@@ -491,10 +484,10 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             builder.append("</font>");
 
             // Build the string!!!! :nerd:
-            String menu = builder.toString();
+            final String menu = builder.toString();
 
             // Add it to telemetry
-            telemetry.addLine(menu);
+	        this.telemetry.addLine(menu);
         }
 
         public static class MenuElement extends Element
@@ -507,14 +500,14 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
              * @param name the name for this menu
              * @param isRoot whether this is a root menu, or a submenu
              */
-            public MenuElement(String name, boolean isRoot)
+            public MenuElement(final String name, final boolean isRoot)
             {
                 this.name = name;
 
                 // If it's not the root menu, we add the up one level option as the first element
                 if (!isRoot)
                 {
-                    children.add(new SpecialUpElement());
+	                this.children.add(new SpecialUpElement());
                 }
             }
 
@@ -522,19 +515,19 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
              * Add a child element to this menu (may either be an Option or another menu)
              * @param child the child element to add
              */
-            public void addChild(Element child)
+            public void addChild(final Element child)
             {
                 child.setParent(this);
-                children.add(child);
+	            this.children.add(child);
             }
 
             /**
              * Add multiple child elements to this menu (may either be option, or another menu)
              * @param children the children to add
              */
-            public void addChildren(Element[] children)
+            public void addChildren(final Element[] children)
             {
-                for (Element e : children)
+                for (final Element e : children)
                 {
                     e.setParent(this);
                     this.children.add(e);
@@ -544,12 +537,12 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             protected String getDisplayText()
             {
-                return name;
+                return this.name;
             }
 
             private ArrayList<Element> children()
             {
-                return children;
+                return this.children;
             }
         }
 
@@ -573,41 +566,41 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
 
         public static class EnumOption extends OptionElement
         {
-            protected int idx = 0;
+            protected int idx;
             protected Enum[] e;
             protected String name;
 
-            public EnumOption(String name, Enum[] e)
+            public EnumOption(final String name, final Enum[] e)
             {
                 this.e = e;
                 this.name = name;
             }
 
-            public EnumOption(String name, Enum[] e, Enum def)
+            public EnumOption(final String name, final Enum[] e, final Enum def)
             {
                 this(name, e);
-                idx = def.ordinal();
+	            this.idx = def.ordinal();
             }
 
             @Override
             public void onLeftInput()
             {
-                idx++;
+	            this.idx++;
 
-                if(idx > e.length-1)
+                if(this.idx > this.e.length - 1)
                 {
-                    idx = 0;
+	                this.idx = 0;
                 }
             }
 
             @Override
             public void onRightInput()
             {
-                idx--;
+	            this.idx--;
 
-                if(idx < 0)
+                if(0 > idx)
                 {
-                    idx = e.length-1;
+	                this.idx = this.e.length - 1;
                 }
             }
 
@@ -620,12 +613,12 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             protected String getDisplayText()
             {
-                return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", name, e[idx].name());
+                return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", this.name, this.e[this.idx].name());
             }
 
             public Enum getValue()
             {
-                return e[idx];
+                return this.e[this.idx];
             }
         }
 
@@ -636,33 +629,33 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             protected int max;
             protected String name;
 
-            public IntegerOption(String name, int min, int max, int def)
+            public IntegerOption(final String name, final int min, final int max, final int def)
             {
                 this.name = name;
                 this.min = min;
                 this.max = max;
-                this.i = def;
+                i = def;
             }
 
             @Override
             public void onLeftInput()
             {
-                i--;
+	            this.i--;
 
-                if(i < min)
+                if(this.i < this.min)
                 {
-                    i = max;
+	                this.i = this.max;
                 }
             }
 
             @Override
             public void onRightInput()
             {
-                i++;
+	            this.i++;
 
-                if(i > max)
+                if(this.i > this.max)
                 {
-                    i = min;
+	                this.i = this.min;
                 }
             }
 
@@ -675,12 +668,12 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             protected String getDisplayText()
             {
-                return String.format("%s: <font color='#e37c07' face=monospace>%d</font>", name, i);
+                return String.format("%s: <font color='#e37c07' face=monospace>%d</font>", this.name, this.i);
             }
 
             public int getValue()
             {
-                return i;
+                return this.i;
             }
         }
 
@@ -692,13 +685,13 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             private String customTrue;
             private String customFalse;
 
-            BooleanOption(String name, boolean def)
+            BooleanOption(final String name, final boolean def)
             {
                 this.name = name;
-                this.val = def;
+                val = def;
             }
 
-            BooleanOption(String name, boolean def, String customTrue, String customFalse)
+            BooleanOption(final String name, final boolean def, final String customTrue, final String customFalse)
             {
                 this(name, def);
                 this.customTrue = customTrue;
@@ -708,41 +701,41 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             public void onLeftInput()
             {
-                val = !val;
+	            this.val = ! this.val;
             }
 
             @Override
             public void onRightInput()
             {
-                val = !val;
+	            this.val = ! this.val;
             }
 
             @Override
             public void onClick()
             {
-                val = !val;
+	            this.val = ! this.val;
             }
 
             @Override
             protected String getDisplayText()
             {
-                String valStr;
+                final String valStr;
 
-                if(customTrue != null && customFalse != null)
+                if(null != customTrue && null != customFalse)
                 {
-                    valStr = val ? customTrue : customFalse;
+                    valStr = this.val ? this.customTrue : this.customFalse;
                 }
                 else
                 {
-                    valStr = val ? "true" : "false";
+                    valStr = this.val ? "true" : "false";
                 }
 
-                return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", name, valStr);
+                return String.format("%s: <font color='#e37c07' face=monospace>%s</font>", this.name, valStr);
             }
 
             public boolean getValue()
             {
-                return val;
+                return this.val;
             }
         }
 
@@ -753,7 +746,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         {
             private final String name;
 
-            public StaticItem(String name)
+            public StaticItem(final String name)
             {
                 this.name = name;
             }
@@ -761,7 +754,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             protected String getDisplayText()
             {
-                return name;
+                return this.name;
             }
         }
 
@@ -769,7 +762,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         {
             private final String name;
 
-            public StaticClickableOption(String name)
+            public StaticClickableOption(final String name)
             {
                 this.name = name;
             }
@@ -779,7 +772,7 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
             @Override
             protected String getDisplayText()
             {
-                return name;
+                return this.name;
             }
         }
 
@@ -787,14 +780,14 @@ public class UtilityOctoQuadConfigMenu extends LinearOpMode
         {
             private MenuElement parent;
 
-            protected void setParent(MenuElement parent)
+            protected void setParent(final MenuElement parent)
             {
                 this.parent = parent;
             }
 
             protected MenuElement parent()
             {
-                return parent;
+                return this.parent;
             }
 
             protected abstract String getDisplayText();

@@ -75,59 +75,57 @@ public class ConceptSoundsASJava extends LinearOpMode {
     private boolean goldFound;      // Sound file present flags
     private boolean silverFound;
 
-    private boolean isX = false;    // Gamepad button state variables
-    private boolean isB = false;
+    private boolean isX;    // Gamepad button state variables
+    private boolean isB;
 
-    private boolean wasX = false;   // Gamepad button history variables
-    private boolean WasB = false;
+    private boolean wasX;   // Gamepad button history variables
+    private boolean WasB;
 
     @Override
     public void runOpMode() {
 
         // Determine Resource IDs for sounds built into the RC application.
-        int silverSoundID = hardwareMap.appContext.getResources().getIdentifier("silver", "raw", hardwareMap.appContext.getPackageName());
-        int goldSoundID   = hardwareMap.appContext.getResources().getIdentifier("gold",   "raw", hardwareMap.appContext.getPackageName());
+        final int silverSoundID = this.hardwareMap.appContext.getResources().getIdentifier("silver", "raw", this.hardwareMap.appContext.getPackageName());
+        final int goldSoundID   = this.hardwareMap.appContext.getResources().getIdentifier("gold",   "raw", this.hardwareMap.appContext.getPackageName());
 
         // Determine if sound resources are found.
         // Note: Preloading is NOT required, but it's a good way to verify all your sounds are available before you run.
-        if (goldSoundID != 0)
-            goldFound   = SoundPlayer.getInstance().preload(hardwareMap.appContext, goldSoundID);
+        if (0 != goldSoundID) this.goldFound = SoundPlayer.getInstance().preload(this.hardwareMap.appContext, goldSoundID);
 
-        if (silverSoundID != 0)
-            silverFound = SoundPlayer.getInstance().preload(hardwareMap.appContext, silverSoundID);
+        if (0 != silverSoundID) this.silverFound = SoundPlayer.getInstance().preload(this.hardwareMap.appContext, silverSoundID);
 
         // Display sound status
-        telemetry.addData("gold resource",   goldFound ?   "Found" : "NOT found\n Add gold.wav to /src/main/res/raw" );
-        telemetry.addData("silver resource", silverFound ? "Found" : "Not found\n Add silver.wav to /src/main/res/raw" );
+	    this.telemetry.addData("gold resource", this.goldFound ? "Found" : "NOT found\n Add gold.wav to /src/main/res/raw" );
+	    this.telemetry.addData("silver resource", this.silverFound ? "Found" : "Not found\n Add silver.wav to /src/main/res/raw" );
 
         // Wait for the game to start (driver presses START)
-        telemetry.addData(">", "Press Start to continue");
-        telemetry.update();
-        waitForStart();
+	    this.telemetry.addData(">", "Press Start to continue");
+	    this.telemetry.update();
+	    this.waitForStart();
 
-        telemetry.addData(">", "Press X, B to play sounds.");
-        telemetry.update();
+	    this.telemetry.addData(">", "Press X, B to play sounds.");
+	    this.telemetry.update();
 
         // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+        while (this.opModeIsActive()) {
 
             // say Silver each time gamepad X is pressed (This sound is a resource)
-            if (silverFound && (isX = gamepad1.x) && !wasX) {
-                SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, silverSoundID);
-                telemetry.addData("Playing", "Resource Silver");
-                telemetry.update();
+            if (this.silverFound && (this.isX = this.gamepad1.x) && ! this.wasX) {
+                SoundPlayer.getInstance().startPlaying(this.hardwareMap.appContext, silverSoundID);
+	            this.telemetry.addData("Playing", "Resource Silver");
+	            this.telemetry.update();
             }
 
             // say Gold each time gamepad B is pressed  (This sound is a resource)
-            if (goldFound && (isB = gamepad1.b) && !WasB) {
-                SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, goldSoundID);
-                telemetry.addData("Playing", "Resource Gold");
-                telemetry.update();
+            if (this.goldFound && (this.isB = this.gamepad1.b) && ! this.WasB) {
+                SoundPlayer.getInstance().startPlaying(this.hardwareMap.appContext, goldSoundID);
+	            this.telemetry.addData("Playing", "Resource Gold");
+	            this.telemetry.update();
             }
 
             // Save last button states
-            wasX = isX;
-            WasB = isB;
+	        this.wasX = this.isX;
+	        this.WasB = this.isB;
         }
     }
 }

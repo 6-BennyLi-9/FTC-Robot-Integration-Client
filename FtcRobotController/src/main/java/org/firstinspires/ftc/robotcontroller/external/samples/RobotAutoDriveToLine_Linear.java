@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
@@ -65,8 +66,8 @@ import com.qualcomm.robotcore.hardware.SwitchableLight;
 public class RobotAutoDriveToLine_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor         leftDrive   = null;
-    private DcMotor         rightDrive  = null;
+    private DcMotor         leftDrive;
+    private DcMotor         rightDrive;
 
     /** The variable to store a reference to our color sensor hardware object */
     NormalizedColorSensor colorSensor;
@@ -78,14 +79,14 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize the drive system variables.
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+	    this.leftDrive = this.hardwareMap.get(DcMotor.class, "left_drive");
+	    this.rightDrive = this.hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -94,48 +95,48 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
         // Get a reference to our sensor object. It's recommended to use NormalizedColorSensor over
         // ColorSensor, because NormalizedColorSensor consistently gives values between 0 and 1, while
         // the values you get from ColorSensor are dependent on the specific sensor you're using.
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+	    this.colorSensor = this.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
 
         // If necessary, turn ON the white LED (if there is no LED switch on the sensor)
-        if (colorSensor instanceof SwitchableLight) {
-            ((SwitchableLight)colorSensor).enableLight(true);
+        if (this.colorSensor instanceof SwitchableLight) {
+            ((SwitchableLight) this.colorSensor).enableLight(true);
         }
 
         // Some sensors allow you to set your light sensor gain for optimal sensitivity...
         // See the SensorColor sample in this folder for how to determine the optimal gain.
         // A gain of 15 causes a Rev Color Sensor V2 to produce an Alpha value of 1.0 at about 1.5" above the floor.
-        colorSensor.setGain(15);
+	    this.colorSensor.setGain(15);
 
         // Wait for driver to press START)
         // Abort this loop is started or stopped.
-        while (opModeInInit()) {
+        while (this.opModeInInit()) {
 
             // Send telemetry message to signify robot waiting;
-            telemetry.addData("Status", "Ready to drive to white line.");    //
+	        this.telemetry.addData("Status", "Ready to drive to white line.");    //
 
             // Display the light level while we are waiting to start
-            getBrightness();
+	        this.getBrightness();
         }
 
         // Start the robot moving forward, and then begin looking for a white line.
-        leftDrive.setPower(APPROACH_SPEED);
-        rightDrive.setPower(APPROACH_SPEED);
+	    this.leftDrive.setPower(RobotAutoDriveToLine_Linear.APPROACH_SPEED);
+	    this.rightDrive.setPower(RobotAutoDriveToLine_Linear.APPROACH_SPEED);
 
         // run until the white line is seen OR the driver presses STOP;
-        while (opModeIsActive() && (getBrightness() < WHITE_THRESHOLD)) {
-            sleep(5);
+        while (this.opModeIsActive() && (WHITE_THRESHOLD > getBrightness())) {
+	        this.sleep(5);
         }
 
         // Stop all motors
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+	    this.leftDrive.setPower(0);
+	    this.rightDrive.setPower(0);
     }
 
     // to obtain reflected light, read the normalized values from the color sensor.  Return the Alpha channel.
     double getBrightness() {
-        NormalizedRGBA colors = colorSensor.getNormalizedColors();
-        telemetry.addData("Light Level (0 to 1)",  "%4.2f", colors.alpha);
-        telemetry.update();
+        final NormalizedRGBA colors = this.colorSensor.getNormalizedColors();
+	    this.telemetry.addData("Light Level (0 to 1)",  "%4.2f", colors.alpha);
+	    this.telemetry.update();
 
         return colors.alpha;
     }

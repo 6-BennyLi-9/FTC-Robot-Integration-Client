@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.hardwares.integration;
 
 public abstract class IntegrationDevice implements Integrations{
 	public final String name;
-	protected String pidTag=null;
-	public boolean updated=false;
+	protected String pidTag;
+	public boolean updated;
 
-	public IntegrationDevice(String name){
+	public IntegrationDevice(final String name){
 		this.name=name;
 	}
 

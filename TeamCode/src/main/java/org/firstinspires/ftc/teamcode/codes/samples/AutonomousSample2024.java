@@ -23,31 +23,31 @@ public class AutonomousSample2024 extends AutonomousProgramTemplate {
 	@Override
 	public void runOpMode() {
 		Webcam.useWebcam=true;
-		Init(new Position2d(0,0,0));
-		robot.addData("Position","WAITING FOR REQUEST");
+		this.Init(new Position2d(0,0,0));
+		this.robot.addData("Position","WAITING FOR REQUEST");
 		AutonomousLocation location = AutonomousLocation.failed;
-		while (opModeIsNotActive()) {
-			location=robot.webcam.getLocation();
-			robot.changeData("Position",location.name());
-			sleep(50);
+		while (this.opModeIsNotActive()) {
+			location= this.robot.webcam.getLocation();
+			this.robot.changeData("Position",location.name());
+			this.sleep(50);
 		}
 
-		if(WaitForStartRequest())return;
+		if(this.WaitForStartRequest())return;
 
-		robot.deleteData("Position");
+		this.robot.deleteData("Position");
 		switch (location){
 			case left:
-				robot.strafeTo(robot.pose().plus(new Vector2d(0,24)));
-				robot.turnAngle(90);
-				robot.strafeTo(new Vector2d(24,0));
+				this.robot.strafeTo(this.robot.pose().plus(new Vector2d(0,24)));
+				this.robot.turnAngle(90);
+				this.robot.strafeTo(new Vector2d(24,0));
 				break;
 			case centre:
-				DriveCommandPackage command=drive.drivingCommandsBuilder()
-						.StrafeTo(robot.pose().plus(new Vector2d(0,24)))
+				final DriveCommandPackage command= this.drive.drivingCommandsBuilder()
+						.StrafeTo(this.robot.pose().plus(new Vector2d(0,24)))
 						.TurnAngle(90)
-						.StrafeInDistance(Math.toRadians(-90),Math.sqrt(1152))
+						.StrafeInDistance(- 1.5707963267948966, 33.94112549695428)
 						.END();
-				drive.runOrderPackage(command);
+				this.drive.runOrderPackage(command);
 				break;
 			case right:
 				break;
@@ -55,6 +55,6 @@ public class AutonomousSample2024 extends AutonomousProgramTemplate {
 				return;
 		}
 
-		sleep(1145141919);
+		this.sleep(1145141919);
 	}
 }

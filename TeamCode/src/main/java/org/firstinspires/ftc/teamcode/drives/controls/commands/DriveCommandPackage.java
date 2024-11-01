@@ -12,13 +12,13 @@ public class DriveCommandPackage implements DriveOrderPackage {
 	public LinkedList<DriveCommand> commands;
 
 	public DriveCommandPackage() {
-		commands = new LinkedList<>();
+		this.commands = new LinkedList<>();
 	}
 
 	@Override
 	public LinkedList<DriveOrder> getOrder() {
-		LinkedList<DriveOrder> res=new LinkedList<>();
-		for (DriveOrder order : commands) {
+		final LinkedList<DriveOrder> res =new LinkedList<>();
+		for (final DriveOrder order : this.commands) {
 			res.push(order);
 		}
 		return res;

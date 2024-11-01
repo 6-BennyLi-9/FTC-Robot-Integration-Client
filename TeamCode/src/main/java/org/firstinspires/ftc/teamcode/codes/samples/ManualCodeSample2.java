@@ -11,13 +11,13 @@ import org.firstinspires.ftc.teamcode.codes.templates.TeleopProgramTemplate;
 public class ManualCodeSample2 extends TeleopProgramTemplate {
 	@Override
 	public void whileActivating() {
-		robot.operateThroughGamePad();
-		robot.update();
+		this.robot.operateThroughGamePad();
+		this.robot.update();
 	}
 
 	@Override
 	public void whenInit() {
-		robot.registerGamepad(gamepad1,gamepad2);
+		this.robot.registerGamepad(this.gamepad1, this.gamepad2);
 //		robot.setKeyMapController(...);
 //		robot.setParamsOverride(...);
 	}

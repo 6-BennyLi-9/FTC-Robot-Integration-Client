@@ -9,71 +9,69 @@ import org.firstinspires.ftc.teamcode.utils.annotations.OdometerPrograms;
 import java.util.Vector;
 
 @OdometerPrograms
-public class IntegralOrganizedOdometer extends ClassicOdometer implements Odometry{
-	public double distanceTraveled=0;
+public class IntegralOrganizedOdometer extends ClassicOdometer {
+	public double distanceTraveled;
 	protected ConstantAccelMath processor;
 	protected Timer timer;
 	protected Vector<Position2d> relHistory;
 
 	public IntegralOrganizedOdometer() {
-		super();
-		timer=new Timer();
-		timer.stopAndRestart();
+		this.timer =new Timer();
+		this.timer.stopAndRestart();
 
-		processor=new ConstantAccelMath();
-		relHistory=new Vector<>();
-		relHistory.add(new Position2d(0,0,0));
-		timer.pushMileageTimeTag("updateTime");
+		this.processor =new ConstantAccelMath();
+		this.relHistory =new Vector<>();
+		this.relHistory.add(new Position2d(0,0,0));
+		this.timer.pushMileageTimeTag("updateTime");
 	}
 
 	@Override
-	public void update(double relDeltaX, double relDeltaY, double relDeltaTheta) {
-		double loopTime=timer.restartAndGetDeltaTime();
+	public void update(final double relDeltaX, final double relDeltaY, final double relDeltaTheta) {
+		final double loopTime = this.timer.restartAndGetDeltaTime();
 
-		distanceTraveled += Functions.distance(relDeltaX, relDeltaY);
-		Position2d relDelta=new Position2d(relDeltaX,relDeltaY,relDeltaTheta);
-		Position2d curr=LastPose();
-		processor.calculate(loopTime,relDelta,curr);
+		this.distanceTraveled += Functions.distance(relDeltaX, relDeltaY);
+		final Position2d relDelta =new Position2d(relDeltaX,relDeltaY,relDeltaTheta);
+		final Position2d curr     = this.LastPose();
+		this.processor.calculate(loopTime,relDelta,curr);
 
-		AddDelta(curr.x,curr.y,curr.heading);
+		this.AddDelta(curr.x,curr.y,curr.heading);
 
-		relHistory.add(0,relDelta);
-		timer.pushMileageTimeTag("updateTime");
+		this.relHistory.add(0,relDelta);
+		this.timer.pushMileageTimeTag("updateTime");
 
-		updateVelocity();
+		this.updateVelocity();
 	}
 
 	Position2d relCurrentVel,currentVel;
 
 	public void updateVelocity(){
-		double targetVelTimeEstimate=0.2;
-		double actualVelTime=0,relDeltaXTotal=0,relDeltaYTotal=0,totalTime;
-		int lastIndex=0;
-		Vector<Double> times=timer.getMileageTimeTag("updateTime");
-		double startTime=times.isEmpty()? 0:times.lastElement();
+		final double targetVelTimeEstimate =0.2;
+		double       actualVelTime         =0, relDeltaXTotal =0, relDeltaYTotal =0, totalTime;
+		int                  lastIndex =0;
+		final Vector<Double> times     = this.timer.getMileageTimeTag("updateTime");
+		final double         startTime = times.isEmpty() ? 0 : times.lastElement();
 
-		for(int i=relHistory.size()-1;i>=0;--i){
+		for(int i = this.relHistory.size() - 1 ; 0 <= i ; --i){
 			totalTime= startTime - times.get(i);
 			if(totalTime<=targetVelTimeEstimate){
 				actualVelTime=totalTime;
-				relDeltaXTotal+=relHistory.get(i).x;
-				relDeltaYTotal+=relHistory.get(i).y;
+				relDeltaXTotal+= this.relHistory.get(i).x;
+				relDeltaYTotal+= this.relHistory.get(i).y;
 				lastIndex=i;
 			}
 		}
 
-		if(actualVelTime!=0){
-			relCurrentVel =new Position2d(
+		if(0 != actualVelTime){
+			this.relCurrentVel =new Position2d(
 				relDeltaXTotal/actualVelTime,
-					relDeltaYTotal/actualVelTime,
-					LastPose().heading-relHistory.get(lastIndex).heading/actualVelTime
+					relDeltaYTotal/actualVelTime, this.LastPose().heading - this.relHistory.get(lastIndex).heading / actualVelTime
 			);
-			currentVel=Functions.Alignment2d(relCurrentVel);
+			this.currentVel =Functions.Alignment2d(this.relCurrentVel);
 		}
 
 		//pop
-		while (lastIndex>=0){
-			relHistory.remove(0);
+		while (0 <= lastIndex){
+			this.relHistory.remove(0);
 			--lastIndex;
 		}
 	}

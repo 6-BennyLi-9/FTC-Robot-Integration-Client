@@ -16,27 +16,27 @@ public class ActionBox {
 	protected List<Action> actions;
 
 	public ActionBox(){
-		actions=new ArrayList<>();
+		this.actions =new ArrayList<>();
 	}
 
 	@UserRequirementFunctions
-	public void pushAction(Action action){
-		actions.add(action);
+	public void pushAction(final Action action){
+		this.actions.add(action);
 	}
 
 	@ExtractedInterfaces
 	@UserRequirementFunctions
 	public ParallelAction output(){
-		ParallelAction res=new ParallelAction(actions);
-		actions.clear();
+		final ParallelAction res =new ParallelAction(this.actions);
+		this.actions.clear();
 		return res;
 	}
 
 	@ExtractedInterfaces
 	@Beta
 	public ParallelAction step(){
-		List<Action> output=new ArrayList<>();
-		for(Action action:actions){
+		final List<Action> output =new ArrayList<>();
+		for(final Action action: this.actions){
 			output.add(new InstantAction(()->action.run(new TelemetryPacket())));
 		}
 		return new ParallelAction(output);

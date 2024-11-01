@@ -10,11 +10,11 @@ public abstract class KeyMapContent {
 	public final KeyTag            tag;
 	public final KeyMapSettingType setting;
 
-	public KeyMapContent(KeyTag tag, KeyMapSettingType setting) {
+	public KeyMapContent(final KeyTag tag, final KeyMapSettingType setting) {
 		this(tag, setting, true);
 	}
 
-	public KeyMapContent(KeyTag tag, KeyMapSettingType setting, boolean IsControlledByGamePad1) {
+	public KeyMapContent(final KeyTag tag, final KeyMapSettingType setting, final boolean IsControlledByGamePad1) {
 		this.tag = tag;
 		this.setting = setting;
 		this.IsControlledByGamePad1 = IsControlledByGamePad1;
@@ -23,6 +23,6 @@ public abstract class KeyMapContent {
 	@NonNull
 	@Override
 	public String toString() {
-		return tag+"-"+setting+"-"+IsControlledByGamePad1;
+		return this.tag + "-" + this.setting + "-" + this.IsControlledByGamePad1;
 	}
 }

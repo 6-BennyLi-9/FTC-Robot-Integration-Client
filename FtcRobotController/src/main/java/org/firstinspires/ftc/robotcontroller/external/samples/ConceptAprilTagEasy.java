@@ -80,36 +80,36 @@ public class ConceptAprilTagEasy extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        initAprilTag();
+	    this.initAprilTag();
 
         // Wait for the DS start button to be touched.
-        telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
-        telemetry.addData(">", "Touch START to start OpMode");
-        telemetry.update();
-        waitForStart();
+	    this.telemetry.addData("DS preview on/off", "3 dots, Camera Stream");
+	    this.telemetry.addData(">", "Touch START to start OpMode");
+	    this.telemetry.update();
+	    this.waitForStart();
 
-        if (opModeIsActive()) {
-            while (opModeIsActive()) {
+        if (this.opModeIsActive()) {
+            while (this.opModeIsActive()) {
 
-                telemetryAprilTag();
+	            this.telemetryAprilTag();
 
                 // Push telemetry to the Driver Station.
-                telemetry.update();
+	            this.telemetry.update();
 
                 // Save CPU resources; can resume streaming when needed.
-                if (gamepad1.dpad_down) {
-                    visionPortal.stopStreaming();
-                } else if (gamepad1.dpad_up) {
-                    visionPortal.resumeStreaming();
+                if (this.gamepad1.dpad_down) {
+	                this.visionPortal.stopStreaming();
+                } else if (this.gamepad1.dpad_up) {
+	                this.visionPortal.resumeStreaming();
                 }
 
                 // Share the CPU.
-                sleep(20);
+	            this.sleep(20);
             }
         }
 
         // Save more CPU resources when camera is no longer needed.
-        visionPortal.close();
+	    this.visionPortal.close();
 
     }   // end method runOpMode()
 
@@ -119,15 +119,14 @@ public class ConceptAprilTagEasy extends LinearOpMode {
     private void initAprilTag() {
 
         // Create the AprilTag processor the easy way.
-        aprilTag = AprilTagProcessor.easyCreateWithDefaults();
+	    this.aprilTag = AprilTagProcessor.easyCreateWithDefaults();
 
         // Create the vision portal the easy way.
-        if (USE_WEBCAM) {
-            visionPortal = VisionPortal.easyCreateWithDefaults(
-                hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
+        if (ConceptAprilTagEasy.USE_WEBCAM) {
+	        this.visionPortal = VisionPortal.easyCreateWithDefaults(this.hardwareMap.get(WebcamName.class, "Webcam 1"), this.aprilTag);
         } else {
-            visionPortal = VisionPortal.easyCreateWithDefaults(
-                BuiltinCameraDirection.BACK, aprilTag);
+	        this.visionPortal = VisionPortal.easyCreateWithDefaults(
+                BuiltinCameraDirection.BACK, this.aprilTag);
         }
 
     }   // end method initAprilTag()
@@ -137,26 +136,26 @@ public class ConceptAprilTagEasy extends LinearOpMode {
      */
     private void telemetryAprilTag() {
 
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        telemetry.addData("# AprilTags Detected", currentDetections.size());
+        final List<AprilTagDetection> currentDetections = this.aprilTag.getDetections();
+	    this.telemetry.addData("# AprilTags Detected", currentDetections.size());
 
         // Step through the list of detections and display info for each one.
-        for (AprilTagDetection detection : currentDetections) {
-            if (detection.metadata != null) {
-                telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
-                telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
-                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
-                telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
+        for (final AprilTagDetection detection : currentDetections) {
+            if (null != detection.metadata) {
+	            this.telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
+	            this.telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
+	            this.telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+	            this.telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
             } else {
-                telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
-                telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
+	            this.telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
+	            this.telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
             }
         }   // end for() loop
 
         // Add "key" information to telemetry
-        telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
-        telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
-        telemetry.addLine("RBE = Range, Bearing & Elevation");
+	    this.telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
+	    this.telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
+	    this.telemetry.addLine("RBE = Range, Bearing & Elevation");
 
     }   // end method telemetryAprilTag()
 

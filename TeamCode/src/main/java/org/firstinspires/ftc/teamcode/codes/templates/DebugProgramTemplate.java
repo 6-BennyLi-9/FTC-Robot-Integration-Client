@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.codes.templates;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Global;
+import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.Templates;
 import org.firstinspires.ftc.teamcode.utils.clients.Client;
-import org.firstinspires.ftc.teamcode.utils.Timer;
 
 @Templates
 public abstract class DebugProgramTemplate extends OpMode {
@@ -15,21 +15,21 @@ public abstract class DebugProgramTemplate extends OpMode {
 	@Override
 	public void init() {
 		Global.clear();
-		client=new Client(telemetry);
-		timer=new Timer();
-		whenInit();
+		this.client =new Client(this.telemetry);
+		this.timer =new Timer();
+		this.whenInit();
 	}
 
 	@Override
 	public void start() {
-		timer.stopAndRestart();
+		this.timer.stopAndRestart();
 	}
 
 	@Override
 	public void loop() {
-		client.changeData("TPS", timer.restartAndGetDeltaTime() /1000);
+		this.client.changeData("TPS", this.timer.restartAndGetDeltaTime() / 1000);
 
-		whileActivating();
+		this.whileActivating();
 	}
 
 	public abstract void whileActivating();

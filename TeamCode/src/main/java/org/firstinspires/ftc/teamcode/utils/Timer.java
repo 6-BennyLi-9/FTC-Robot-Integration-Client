@@ -18,10 +18,10 @@ public class Timer {
     public final Map<String, Vector<Double>> MileageTags;
 
     public Timer(){
-        StartTime=Functions.getCurrentTimeMills();
-        Tags=new HashMap<>();
-        TagMeaning=new HashMap<>();
-        MileageTags=new HashMap<>();
+	    this.StartTime =Functions.getCurrentTimeMills();
+	    this.Tags =new HashMap<>();
+	    this.TagMeaning =new HashMap<>();
+	    this.MileageTags =new HashMap<>();
     }
     @UserRequirementFunctions
     @ExtractedInterfaces
@@ -29,58 +29,58 @@ public class Timer {
         return Functions.getCurrentTimeMills();
     }
 
-    /**重新定义<code>StartTime</code>*/
+    /**重新定义{@code StartTime}*/
     @UserRequirementFunctions
     public final void restart(){
-        StartTime=getCurrentTime();
+	    this.StartTime = Timer.getCurrentTime();
     }
-    /**定义<code>EndTime</code>*/
+    /**定义{@code EndTime}*/
     @UserRequirementFunctions
     public final void stop(){
-        EndTime=getCurrentTime();
+	    this.EndTime = Timer.getCurrentTime();
     }
-    /**获取<code>EndTime-StartTime</code>*/
+    /**获取{@code EndTime-StartTime}*/
     @UserRequirementFunctions
     public final double getDeltaTime(){
-        return EndTime-StartTime;
+        return this.EndTime - this.StartTime;
     }
-    /**定义<code>EndTime</code>并获取<code>EndTime-StartTime</code>*/
+    /**定义{@code EndTime}并获取<code>EndTime-StartTime</code>*/
     @UserRequirementFunctions
     public final double stopAndGetDeltaTime(){
-        stop();
-        return getDeltaTime();
+	    this.stop();
+        return this.getDeltaTime();
     }
-    /**定义<code>EndTime</code>并获取<code>EndTime-StartTime</code>并重新定义<code>StartTime</code>*/
+    /**定义<code>EndTime</code>并获取{@code EndTime-StartTime}并重新定义<code>StartTime</code>*/
     @UserRequirementFunctions
     public final double restartAndGetDeltaTime(){
-        double res=stopAndGetDeltaTime();
-        restart();
+        final double res = this.stopAndGetDeltaTime();
+	    this.restart();
         return res;
     }
-    /**重新定义<code>StartTime</code>并定义<code>EndTime</code>*/
+    /**重新定义<code>StartTime</code>并定义{@code EndTime}*/
     @UserRequirementFunctions
     public final void stopAndRestart(){
-        stop();
-        restart();
+	    this.stop();
+	    this.restart();
     }
 
     /**自动覆写如果存在相同的tag*/
     @UserRequirementFunctions
-    public final void pushTimeTag(String tag){
-        if(Tags.containsKey(tag)){
-            Tags.replace(tag,getCurrentTime());
+    public final void pushTimeTag(final String tag){
+        if(this.Tags.containsKey(tag)){
+	        this.Tags.replace(tag, Timer.getCurrentTime());
         }else {
-	        Tags.put(tag,getCurrentTime());
+	        this.Tags.put(tag, Timer.getCurrentTime());
         }
     }
     /**自动覆写如果存在相同的tag*/
     @UserRequirementFunctions
-    public final void pushObjectionTimeTag(String tag,Object objection){
-        pushTimeTag(tag);
-        if(Tags.containsKey(tag)){
-            TagMeaning.replace(tag,objection);
+    public final void pushObjectionTimeTag(final String tag, final Object objection){
+	    this.pushTimeTag(tag);
+        if(this.Tags.containsKey(tag)){
+	        this.TagMeaning.replace(tag,objection);
         }else {
-            TagMeaning.put(tag,objection);
+	        this.TagMeaning.put(tag,objection);
         }
     }
 
@@ -88,32 +88,32 @@ public class Timer {
      * @return 未申明時返回0
      */
     @UserRequirementFunctions
-    public double getTimeTag(String tag){
-        Double v = Tags.get(tag);
-        return v == null ? 0 : v;
+    public double getTimeTag(final String tag){
+        final Double v = this.Tags.get(tag);
+        return null == v ? 0 : v;
     }
     /**
      * @return 未申明時返回0
      */
     @UserRequirementFunctions
-    public Object getTimeTagObjection(String tag){
-        Object v = TagMeaning.get(tag);
-        return v == null ? 0 : v;
+    public Object getTimeTagObjection(final String tag){
+        final Object v = this.TagMeaning.get(tag);
+        return null == v ? 0 : v;
     }
 
     @UserRequirementFunctions
-    public void pushMileageTimeTag(String tag){
-        pushTimeTag(tag);
-        if (MileageTags.containsKey(tag)){
-            Objects.requireNonNull(MileageTags.get(tag)).add(getCurrentTime());
+    public void pushMileageTimeTag(final String tag){
+	    this.pushTimeTag(tag);
+        if (this.MileageTags.containsKey(tag)){
+            Objects.requireNonNull(this.MileageTags.get(tag)).add(Timer.getCurrentTime());
         }else{
-            Vector<Double> cache=new Vector<>();
-            cache.add(getCurrentTime());
-            MileageTags.put(tag,cache);
+            final Vector<Double> cache =new Vector<>();
+            cache.add(Timer.getCurrentTime());
+	        this.MileageTags.put(tag,cache);
         }
     }
     @UserRequirementFunctions
-    public Vector<Double> getMileageTimeTag(String tag){
-        return MileageTags.get(tag);
+    public Vector<Double> getMileageTimeTag(final String tag){
+        return this.MileageTags.get(tag);
     }
 }
