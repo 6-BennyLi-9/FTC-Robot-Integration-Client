@@ -33,9 +33,7 @@ dependencies {
     implementation project(':FtcRobotController')
     implementation project(':RoadrunnerCores')
 
-    implementation ('com.acmerobotics.dashboard:dashboard:0.4.16'){
-        exclude group: 'org.firstinspires.ftc'
-    }
+    implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
     implementation 'com.acmerobotics.roadrunner:actions:1.0.0'
     implementation 'com.acmerobotics.roadrunner:ftc:0.1.14'
     implementation 'org.openftc:easyopencv:1.7.3'

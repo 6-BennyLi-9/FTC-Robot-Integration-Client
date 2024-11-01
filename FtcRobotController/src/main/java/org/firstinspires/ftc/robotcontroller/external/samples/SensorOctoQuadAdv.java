@@ -86,43 +86,43 @@ public class SensorOctoQuadAdv extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         // Connect to the OctoQuad by looking up its name in the hardwareMap.
-        OctoQuad octoquad = hardwareMap.get(OctoQuad.class, "octoquad");
+        final OctoQuad octoquad = this.hardwareMap.get(OctoQuad.class, "octoquad");
 
         // Create the interface for the Swerve Drive Encoders
-        OctoSwerveDrive octoSwerveDrive = new OctoSwerveDrive(octoquad);
+        final OctoSwerveDrive octoSwerveDrive = new OctoSwerveDrive(octoquad);
 
         // Display the OctoQuad firmware revision
-        telemetry.addLine("OctoQuad Firmware v" + octoquad.getFirmwareVersion());
-        telemetry.addLine("\nPress START to read encoder values");
-        telemetry.update();
+	    this.telemetry.addLine("OctoQuad Firmware v" + octoquad.getFirmwareVersion());
+	    this.telemetry.addLine("\nPress START to read encoder values");
+	    this.telemetry.update();
 
-        waitForStart();
+	    this.waitForStart();
 
         // Configure the telemetry for optimal display of data.
-        telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
-        telemetry.setMsTransmissionInterval(50);
+	    this.telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
+	    this.telemetry.setMsTransmissionInterval(50);
 
         // Run stats to determine cycle times.
-        MovingStatistics avgTime = new MovingStatistics(100);
-        ElapsedTime elapsedTime = new ElapsedTime();
+        final MovingStatistics avgTime     = new MovingStatistics(100);
+        final ElapsedTime      elapsedTime = new ElapsedTime();
 
-        while (opModeIsActive()) {
-            telemetry.addData(">", "Press X to Reset Encoders\n");
+        while (this.opModeIsActive()) {
+	        this.telemetry.addData(">", "Press X to Reset Encoders\n");
 
-            if(gamepad1.x) {
+            if(this.gamepad1.x) {
                 octoquad.resetAllPositions();
             }
 
             // read all the swerve drive encoders and update positions and velocities.
             octoSwerveDrive.updateModules();
-            octoSwerveDrive.show(telemetry);
+            octoSwerveDrive.show(this.telemetry);
 
             // Update cycle time stats
             avgTime.add(elapsedTime.nanoseconds());
             elapsedTime.reset();
 
-            telemetry.addData("Loop time", "%.1f mS", avgTime.getMean()/1000000);
-            telemetry.update();
+	        this.telemetry.addData("Loop time", "%.1f mS", avgTime.getMean() / 1000000);
+	        this.telemetry.update();
         }
     }
 }
@@ -150,14 +150,14 @@ class OctoSwerveDrive {
     // Prepare an object to hold an entire OctoQuad encoder readable register bank (pos and vel)
     private final OctoQuad.EncoderDataBlock encoderDataBlock = new OctoQuad.EncoderDataBlock();
 
-    public OctoSwerveDrive(OctoQuad octoquad) {
+    public OctoSwerveDrive(final OctoQuad octoquad) {
         this.octoquad = octoquad;
 
         // Clear out all prior settings and encoder data before setting up desired configuration
         octoquad.resetEverything();
 
         // Assume first 4 channels are relative encoders and the next 4 are absolute encoders
-        octoquad.setChannelBankConfig(OctoQuad.ChannelBankConfig.BANK1_QUADRATURE_BANK2_PULSE_WIDTH);
+        octoquad.setChannelBankConfig(OctoQuadBase.ChannelBankConfig.BANK1_QUADRATURE_BANK2_PULSE_WIDTH);
 
         // Create the four OctoSwerveModules, and add them to a 'list' for easier reference.
 
@@ -173,10 +173,10 @@ class OctoSwerveDrive {
         // Rebuild and deploy the new code.  Verify that the telemetry now indicates 0 degrees when the wheels are facing forward.
         // Also verify that the correct module values change appropriately when you manually spin (drive) and rotate (steer) a wheel.
 
-        allModules.add(LeftFront  = new OctoSwerveModule(octoquad, "LF ",0,0));//  Drive = 0, Steer = 4
-        allModules.add(RightFront = new OctoSwerveModule(octoquad, "RF ",1,0));//  Drive = 1, Steer = 5
-        allModules.add(LeftBack   = new OctoSwerveModule(octoquad, "LB ",2,0));//  Drive = 2, Steer = 6
-        allModules.add(RightBack  = new OctoSwerveModule(octoquad, "RB ",3,0));//  Drive = 3, Steer = 7
+	    this.allModules.add(this.LeftFront = new OctoSwerveModule(octoquad, "LF ",0,0));//  Drive = 0, Steer = 4
+	    this.allModules.add(this.RightFront = new OctoSwerveModule(octoquad, "RF ",1,0));//  Drive = 1, Steer = 5
+	    this.allModules.add(this.LeftBack = new OctoSwerveModule(octoquad, "LB ",2,0));//  Drive = 2, Steer = 6
+	    this.allModules.add(this.RightBack = new OctoSwerveModule(octoquad, "RB ",3,0));//  Drive = 3, Steer = 7
 
         // now make sure the settings persist through any power glitches.
         octoquad.saveParametersToFlash();
@@ -187,9 +187,9 @@ class OctoSwerveDrive {
      */
     public void updateModules() {
         // Read full OctoQuad data block and then pass DataBlock to each swerve module to update themselves.
-        octoquad.readAllEncoderData(encoderDataBlock);
-        for (OctoSwerveModule module : allModules) {
-            module.updateModule(encoderDataBlock);
+	    this.octoquad.readAllEncoderData(this.encoderDataBlock);
+        for (final OctoSwerveModule module : this.allModules) {
+            module.updateModule(this.encoderDataBlock);
         }
     }
 
@@ -197,10 +197,10 @@ class OctoSwerveDrive {
      * Generate telemetry data for all modules.
      * @param telemetry OpMode Telemetry object
      */
-    public void show(Telemetry telemetry) {
+    public void show(final Telemetry telemetry) {
         //  create general header block and then have each module add its own telemetry
         telemetry.addData("pos", "   Count     CPS  Degree    DPS");
-        for (OctoSwerveModule module : allModules) {
+        for (final OctoSwerveModule module : this.allModules) {
             module.show(telemetry);
         }
     }
@@ -223,7 +223,7 @@ class OctoSwerveModule {
 
     private static final int    VELOCITY_SAMPLE_INTERVAL_MS = 25;   // To provide 40 updates per second.
     private static final double DEGREES_PER_US = (360.0 / 1024.0);  // based on REV Through Bore Encoder
-    private static final double VELOCITY_SAMPLES_PER_S = (1000.0 / VELOCITY_SAMPLE_INTERVAL_MS);
+    private static final double VELOCITY_SAMPLES_PER_S = (1000.0 / OctoSwerveModule.VELOCITY_SAMPLE_INTERVAL_MS);
 
     // The correct drive and turn directions must be set for the Swerve Module based on the specific hardware geometry.
     // Forward motion must generate an increasing drive count.
@@ -237,42 +237,42 @@ class OctoSwerveModule {
      * @param quadChannel Quadrature encoder channel.  Pulse Width channel is this + 4
      * @param angleOffset Angle to subtract from absolute encoder to calibrate zero position. (see comments above)
      */
-    public OctoSwerveModule (OctoQuad octoquad, String name, int quadChannel, double angleOffset) {
+    public OctoSwerveModule (final OctoQuad octoquad, final String name, final int quadChannel, final double angleOffset) {
         this.name = name;
-        this.channel = quadChannel;
+        channel = quadChannel;
         this.angleOffset = angleOffset;
-        this.steerDirMult = INVERT_STEER_ENCODER  ? -1 : 1 ;  // create a multiplier to flip the steer angle.
+        steerDirMult = OctoSwerveModule.INVERT_STEER_ENCODER ? -1 : 1 ;  // create a multiplier to flip the steer angle.
 
         // Set the drive encoder direction.  Note the absolute encoder does not have built-in direction inversion.
-        octoquad.setSingleEncoderDirection(channel, INVERT_DRIVE_ENCODER ? OctoQuad.EncoderDirection.REVERSE : OctoQuad.EncoderDirection.FORWARD);
+        octoquad.setSingleEncoderDirection(this.channel, OctoSwerveModule.INVERT_DRIVE_ENCODER ? OctoQuadBase.EncoderDirection.REVERSE : OctoQuadBase.EncoderDirection.FORWARD);
 
         // Set the velocity sample interval on both encoders
-        octoquad.setSingleVelocitySampleInterval(channel, VELOCITY_SAMPLE_INTERVAL_MS);
-        octoquad.setSingleVelocitySampleInterval(channel + 4, VELOCITY_SAMPLE_INTERVAL_MS);
+        octoquad.setSingleVelocitySampleInterval(this.channel, OctoSwerveModule.VELOCITY_SAMPLE_INTERVAL_MS);
+        octoquad.setSingleVelocitySampleInterval(this.channel + 4, OctoSwerveModule.VELOCITY_SAMPLE_INTERVAL_MS);
 
         // Setup Absolute encoder pulse range to match REV Through Bore encoder.
-        octoquad.setSingleChannelPulseWidthParams (channel + 4, new OctoQuad.ChannelPulseWidthParams(1,1024));
+        octoquad.setSingleChannelPulseWidthParams (this.channel + 4, new OctoQuad.ChannelPulseWidthParams(1,1024));
     }
 
     /***
      * Calculate the Swerve module's position and velocity values
      * @param encoderDataBlock  most recent full data block read from OctoQuad.
      */
-    public void updateModule(OctoQuad.EncoderDataBlock encoderDataBlock) {
-        driveCounts = encoderDataBlock.positions[channel];  // get Counts.
-        driveCountsPerSec = encoderDataBlock.velocities[channel] * VELOCITY_SAMPLES_PER_S; // convert counts/interval to counts/sec
+    public void updateModule(final OctoQuad.EncoderDataBlock encoderDataBlock) {
+	    this.driveCounts = encoderDataBlock.positions[this.channel];  // get Counts.
+	    this.driveCountsPerSec = encoderDataBlock.velocities[this.channel] * OctoSwerveModule.VELOCITY_SAMPLES_PER_S; // convert counts/interval to counts/sec
 
         // convert uS to degrees.  Add in any possible direction flip.
-        steerDegrees = AngleUnit.normalizeDegrees((encoderDataBlock.positions[channel+ 4] * DEGREES_PER_US * steerDirMult) - angleOffset);
+	    this.steerDegrees = AngleUnit.normalizeDegrees((encoderDataBlock.positions[this.channel + 4] * OctoSwerveModule.DEGREES_PER_US * this.steerDirMult) - this.angleOffset);
         // convert uS/interval to deg per sec.  Add in any possible direction flip.
-        steerDegreesPerSec = encoderDataBlock.velocities[channel + 4] * DEGREES_PER_US * steerDirMult * VELOCITY_SAMPLES_PER_S;
+	    this.steerDegreesPerSec = encoderDataBlock.velocities[this.channel + 4] * OctoSwerveModule.DEGREES_PER_US * this.steerDirMult * OctoSwerveModule.VELOCITY_SAMPLES_PER_S;
     }
 
     /**
      * Display the Swerve module's state as telemetry
      * @param telemetry OpMode Telemetry object
      */
-    public void show(Telemetry telemetry) {
-        telemetry.addData(name, "%8.0f %7.0f %7.0f %6.0f", driveCounts, driveCountsPerSec, steerDegrees, steerDegreesPerSec);
+    public void show(final Telemetry telemetry) {
+        telemetry.addData(this.name, "%8.0f %7.0f %7.0f %6.0f", this.driveCounts, this.driveCountsPerSec, this.steerDegrees, this.steerDegreesPerSec);
     }
 }

@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.utils;
 
 import androidx.annotation.NonNull;
 
-public class Vector2d {
+public final class Vector2d {
 	public double x,y;
-	public Vector2d(double x, double y){
+	public Vector2d(final double x, final double y){
 		this.x=x;
 		this.y=y;
 	}
@@ -12,6 +12,6 @@ public class Vector2d {
 	@NonNull
 	@Override
 	public String toString() {
-		return "("+x+","+"y"+")";
+		return "(" + this.x + "," + "y" + ")";
 	}
 }

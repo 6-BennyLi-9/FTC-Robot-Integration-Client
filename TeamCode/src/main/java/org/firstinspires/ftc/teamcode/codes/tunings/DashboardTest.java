@@ -7,25 +7,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.codes.templates.TuningProgramTemplate;
 import org.firstinspires.ftc.teamcode.utils.Functions;
+import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.Timer;
 
 @Autonomous(name = "DashboardTest" , group = Params.Configs.TuningAndTuneOpModesGroup)
 public class DashboardTest extends TuningProgramTemplate {
 	public TelemetryPacket packet;
-	public FtcDashboard dashboard;
 
 	@Override
 	public void whenInit() {
-		packet=new TelemetryPacket();
-		dashboard=FtcDashboard.getInstance();
+		this.packet =new TelemetryPacket(true);
+		FtcDashboard.getInstance().sendTelemetryPacket(this.packet);
 	}
 
 	@Override
 	public void whileActivating() {
-		packet.fieldOverlay().strokeLine(
-				0,0,
-				Functions.roundClip(Timer.getCurrentTime(),10),Functions.roundClip(Timer.getCurrentTime(),10)
+		this.packet =new TelemetryPacket(true);
+		this.packet.fieldOverlay().strokeLine(
+				0,0, Mathematics.roundClip(Timer.getCurrentTime(), 10), Mathematics.roundClip(Timer.getCurrentTime(), 10)
 		);
-		dashboard.sendTelemetryPacket(packet);
+		FtcDashboard.getInstance().sendTelemetryPacket(this.packet);
 	}
 }

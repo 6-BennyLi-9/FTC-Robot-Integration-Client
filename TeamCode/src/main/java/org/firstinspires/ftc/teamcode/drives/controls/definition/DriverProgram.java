@@ -9,8 +9,8 @@ import java.util.LinkedList;
 
 public interface DriverProgram {
 	void update();
-	default void runOrderPackage(@NonNull DriveOrderPackage orderPackage){}
-	default void runOrderPackage(@NonNull LinkedList<DriveOrder> orders){}
+	default void runOrderPackage(@NonNull final DriveOrderPackage orderPackage){}
+	default void runOrderPackage(@NonNull final LinkedList<DriveOrder> orders){}
 	Chassis getClassic();
 	Position2d getCurrentPose();
 }

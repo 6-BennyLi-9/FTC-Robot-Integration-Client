@@ -9,13 +9,13 @@ public class DriveActionPackage implements DriveOrderPackage {
 	public LinkedList<DriveAction> actions;
 
 	DriveActionPackage(){
-		actions=new LinkedList<>();
+		this.actions =new LinkedList<>();
 	}
 
 	@Override
 	public LinkedList<DriveOrder> getOrder() {
-		LinkedList<DriveOrder> res=new LinkedList<>();
-		for (DriveOrder order : actions) {
+		final LinkedList<DriveOrder> res =new LinkedList<>();
+		for (final DriveOrder order : this.actions) {
 			res.push(order);
 		}
 		return res;

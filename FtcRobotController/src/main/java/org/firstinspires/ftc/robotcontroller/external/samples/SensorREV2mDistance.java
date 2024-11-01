@@ -58,29 +58,29 @@ public class SensorREV2mDistance extends LinearOpMode {
     @Override
     public void runOpMode() {
         // you can use this as a regular DistanceSensor.
-        sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_distance");
+	    this.sensorDistance = this.hardwareMap.get(DistanceSensor.class, "sensor_distance");
 
         // you can also cast this to a Rev2mDistanceSensor if you want to use added
         // methods associated with the Rev2mDistanceSensor class.
-        Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) sensorDistance;
+        final Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor) this.sensorDistance;
 
-        telemetry.addData(">>", "Press start to continue");
-        telemetry.update();
+	    this.telemetry.addData(">>", "Press start to continue");
+	    this.telemetry.update();
 
-        waitForStart();
-        while(opModeIsActive()) {
+	    this.waitForStart();
+        while(this.opModeIsActive()) {
             // generic DistanceSensor methods.
-            telemetry.addData("deviceName", sensorDistance.getDeviceName() );
-            telemetry.addData("range", String.format("%.01f mm", sensorDistance.getDistance(DistanceUnit.MM)));
-            telemetry.addData("range", String.format("%.01f cm", sensorDistance.getDistance(DistanceUnit.CM)));
-            telemetry.addData("range", String.format("%.01f m", sensorDistance.getDistance(DistanceUnit.METER)));
-            telemetry.addData("range", String.format("%.01f in", sensorDistance.getDistance(DistanceUnit.INCH)));
+	        this.telemetry.addData("deviceName", this.sensorDistance.getDeviceName() );
+	        this.telemetry.addData("range", String.format("%.01f mm", this.sensorDistance.getDistance(DistanceUnit.MM)));
+	        this.telemetry.addData("range", String.format("%.01f cm", this.sensorDistance.getDistance(DistanceUnit.CM)));
+	        this.telemetry.addData("range", String.format("%.01f m", this.sensorDistance.getDistance(DistanceUnit.METER)));
+	        this.telemetry.addData("range", String.format("%.01f in", this.sensorDistance.getDistance(DistanceUnit.INCH)));
 
             // Rev2mDistanceSensor specific methods.
-            telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
-            telemetry.addData("did time out", Boolean.toString(sensorTimeOfFlight.didTimeoutOccur()));
+	        this.telemetry.addData("ID", String.format("%x", sensorTimeOfFlight.getModelID()));
+	        this.telemetry.addData("did time out", Boolean.toString(sensorTimeOfFlight.didTimeoutOccur()));
 
-            telemetry.update();
+	        this.telemetry.update();
         }
     }
 

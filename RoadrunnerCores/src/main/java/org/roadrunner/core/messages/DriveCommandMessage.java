@@ -12,13 +12,13 @@ public final class DriveCommandMessage {
     public double angularVelocity;
     public double angularAcceleration;
 
-    public DriveCommandMessage(PoseVelocity2dDual<Time> poseVelocity) {
-        this.timestamp = System.nanoTime();
-        this.forwardVelocity = poseVelocity.linearVel.x.get(0);
-        this.forwardAcceleration = poseVelocity.linearVel.x.get(1);
-        this.lateralVelocity = poseVelocity.linearVel.y.get(0);
-        this.lateralAcceleration = poseVelocity.linearVel.y.get(1);
-        this.angularVelocity = poseVelocity.angVel.get(0);
-        this.angularAcceleration = poseVelocity.angVel.get(1);
+    public DriveCommandMessage(final PoseVelocity2dDual<Time> poseVelocity) {
+        timestamp = System.nanoTime();
+        forwardVelocity = poseVelocity.linearVel.x.get(0);
+        forwardAcceleration = poseVelocity.linearVel.x.get(1);
+        lateralVelocity = poseVelocity.linearVel.y.get(0);
+        lateralAcceleration = poseVelocity.linearVel.y.get(1);
+        angularVelocity = poseVelocity.angVel.get(0);
+        angularAcceleration = poseVelocity.angVel.get(1);
     }
 }

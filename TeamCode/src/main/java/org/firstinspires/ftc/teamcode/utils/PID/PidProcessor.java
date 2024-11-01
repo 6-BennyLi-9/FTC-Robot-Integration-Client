@@ -12,11 +12,11 @@ public class PidProcessor {
 	private final PidContentPackage contents;
 
 	public PidProcessor(){
-		contents=new PidContentPackage();
+		this.contents =new PidContentPackage();
 	}
 
-	private void RationalizeI(@NonNull PidContent content){
-		if(contents.TagIsAngleBasedContent(content.tag)){
+	private void RationalizeI(@NonNull final PidContent content){
+		if(this.contents.TagIsAngleBasedContent(content.tag)){
 			content.I= Mathematics.roundClip(content.I,content.MAX_I);
 		}else{
 			content.I=Mathematics.intervalClip(content.I,-content.MAX_I,content.MAX_I);
@@ -27,11 +27,11 @@ public class PidProcessor {
 	 * 不要更改，不要更改，不要更改
 	 * @param content 要调用那一个数据
 	 */
-	public void ModifyPID(@NonNull PidContent content){
+	public void ModifyPID(@NonNull final PidContent content){
 		content.P=content.inaccuracies*content.getKp();
 		content.I+=content.inaccuracies * content.getKi() * content.timer.getDeltaTime();
 
-		RationalizeI(content);
+		this.RationalizeI(content);
 
 		content.D=(content.inaccuracies-content.lastInaccuracies)* content.getKd()/ content.timer.getDeltaTime();
 		content.lastInaccuracies=content.inaccuracies;
@@ -44,11 +44,11 @@ public class PidProcessor {
 	 */
 	public void update(){
 		PidContent content;
-		for (Map.Entry<String, PidContent> entry : contents.coreContents.entrySet()) {
+		for (final Map.Entry<String, PidContent> entry : this.contents.coreContents.entrySet()) {
 			content = entry.getValue();
 			content.timer.stopAndRestart();
 
-			ModifyPID(content);
+			this.ModifyPID(content);
 		}
 	}
 
@@ -56,8 +56,8 @@ public class PidProcessor {
 	 * @param content 将要加入的content
 	 */
 	@UtilFunctions
-	public void loadContent(PidContent content){
-		contents.register(content);
+	public void loadContent(final PidContent content){
+		this.contents.register(content);
 	}
 
 	/**
@@ -65,31 +65,31 @@ public class PidProcessor {
 	 * @param tag Content tag
 	 * @param inaccuracies 登记的误差，不会自动update()
 	 */
-	public void registerInaccuracies(String tag,double inaccuracies){
+	public void registerInaccuracies(final String tag, final double inaccuracies){
 		try {
-			contents.getTag(tag).inaccuracies=inaccuracies;
-		} catch (ClassNotFoundException ignored) {}
+			this.contents.getTag(tag).inaccuracies=inaccuracies;
+		} catch (final ClassNotFoundException ignored) {}
 	}
 
 	/**
 	 * 自动抑制可能报出的错误
 	 * @return 如果发生错误，则返回0
 	 */
-	public double getFulfillment(String Tag){
+	public double getFulfillment(final String Tag){
 		try {
-			return contents.getTag(Tag).fulfillment;
-		} catch (ClassNotFoundException ignored) {}
+			return this.contents.getTag(Tag).fulfillment;
+		} catch (final ClassNotFoundException ignored) {}
 		return 0;
 	}
-	public void ModifyPidByTag(String tag){
+	public void ModifyPidByTag(final String tag){
 		try {
-			ModifyPID(contents.getTag(tag));
-		} catch (ClassNotFoundException ignored) {}
+			this.ModifyPID(this.contents.getTag(tag));
+		} catch (final ClassNotFoundException ignored) {}
 	}
 
 	@NonNull
 	@Override
 	public String toString() {
-		return contents.toString();
+		return this.contents.toString();
 	}
 }

@@ -58,21 +58,21 @@ public class ConceptRevLED extends OpMode {
 
     @Override
     public void init() {
-        frontLED_green = hardwareMap.get(LED.class, "front_led_green");
-        frontLED_red = hardwareMap.get(LED.class, "front_led_red");
+	    this.frontLED_green = this.hardwareMap.get(LED.class, "front_led_green");
+	    this.frontLED_red = this.hardwareMap.get(LED.class, "front_led_red");
     }
 
     @Override
     public void loop() {
-        if (gamepad1.a) {
-            frontLED_red.on();
+        if (this.gamepad1.a) {
+	        this.frontLED_red.on();
         } else {
-            frontLED_red.off();
+	        this.frontLED_red.off();
         }
-        if (gamepad1.b) {
-            frontLED_green.on();
+        if (this.gamepad1.b) {
+	        this.frontLED_green.on();
         } else {
-            frontLED_green.off();
+	        this.frontLED_green.off();
         }
     }
 }

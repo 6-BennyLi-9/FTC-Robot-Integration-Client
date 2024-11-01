@@ -8,11 +8,11 @@ public final class PoseMessage {
     public double y;
     public double heading;
 
-    public PoseMessage(Pose2d pose) {
-        this.timestamp = System.nanoTime();
-        this.x = pose.position.x;
-        this.y = pose.position.y;
-        this.heading = pose.heading.toDouble();
+    public PoseMessage(final Pose2d pose) {
+        timestamp = System.nanoTime();
+        x = pose.position.x;
+        y = pose.position.y;
+        heading = pose.heading.toDouble();
     }
 }
 

@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.drives.localizers.plugins;
 
-import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.drives.localizers.definition.PositionLocalizerPlugin;
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.ArcOrganizedOdometer;
 import org.firstinspires.ftc.teamcode.drives.localizers.odometries.Odometry;
-import org.firstinspires.ftc.teamcode.hardwares.basic.Sensors;
+import org.firstinspires.ftc.teamcode.hardwares.controllers.Sensors;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.annotations.LocalizationPlugin;
 
@@ -14,21 +13,25 @@ public class DeadWheelLocalizer implements PositionLocalizerPlugin {
 	protected final Sensors sensors;
 	public Position2d robotPosition;
 
-	public DeadWheelLocalizer(Sensors sensors){
-		odometry=new ArcOrganizedOdometer();
+	public DeadWheelLocalizer(final Sensors sensors){
+		this.odometry =new ArcOrganizedOdometer();
 		this.sensors=sensors;
 	}
 
 	@Override
 	public void update() {
-		sensors.updateEncoders();//防止mspt过高
-		odometry.update(sensors.getDeltaL()* Params.LateralInchPerTick ,sensors.getDeltaA() * Params.AxialInchPerTick,
-				sensors.getDeltaT() * Params.TurningDegPerTick);
-		robotPosition=odometry.getCurrentPose();
+		this.sensors.updateEncoders();//防止 mspt 过高
+		this.odometry.update(this.sensors.getDeltaLateralInch(), this.sensors.getDeltaAxialInch(), this.sensors.getDeltaTurningDeg());
+		this.robotPosition = this.odometry.getCurrentPose();
 	}
 
 	@Override
 	public Position2d getCurrentPose() {
-		return robotPosition;
+		return this.robotPosition;
+	}
+
+	@Override
+	public void drawRobotWithoutSendingPacket() {
+		this.odometry.registerToDashBoard(getClass().getSimpleName());
 	}
 }

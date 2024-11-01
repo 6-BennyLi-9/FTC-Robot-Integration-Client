@@ -51,20 +51,20 @@ public class SensorMROpticalDistance extends LinearOpMode {
   public void runOpMode() {
 
     // get a reference to our Light Sensor object.
-    odsSensor = hardwareMap.get(OpticalDistanceSensor.class, "sensor_ods");
+	  this.odsSensor = this.hardwareMap.get(OpticalDistanceSensor.class, "sensor_ods");
 
     // wait for the start button to be pressed.
-    waitForStart();
+	  this.waitForStart();
 
     // while the OpMode is active, loop and read the light levels.
     // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
-    while (opModeIsActive()) {
+    while (this.opModeIsActive()) {
 
       // send the info back to driver station using telemetry function.
-      telemetry.addData("Raw",    odsSensor.getRawLightDetected());
-      telemetry.addData("Normal", odsSensor.getLightDetected());
+	    this.telemetry.addData("Raw", this.odsSensor.getRawLightDetected());
+	    this.telemetry.addData("Normal", this.odsSensor.getLightDetected());
 
-      telemetry.update();
+	    this.telemetry.update();
     }
   }
 }

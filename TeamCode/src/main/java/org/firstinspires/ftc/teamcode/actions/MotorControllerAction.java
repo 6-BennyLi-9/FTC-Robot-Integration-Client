@@ -11,20 +11,20 @@ public class MotorControllerAction implements Action {
 	private final PositionalIntegrationMotor motor;
 	private final int targetPose;
 
-	public MotorControllerAction(PositionalIntegrationMotor motor,int pose){
+	public MotorControllerAction(final PositionalIntegrationMotor motor, final int pose){
 		this.motor=motor;
-		targetPose=pose;
+		this.targetPose =pose;
 	}
 
-	private boolean optionPushed = false;
+	private boolean optionPushed;
 
 	@Override
-	public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-		if(!optionPushed){
-			optionPushed=true;
-			motor.setTargetPosition(targetPose);
+	public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		if(! this.optionPushed){
+			this.optionPushed =true;
+			this.motor.setTargetPosition(this.targetPose);
 		}
-		motor.update();
-		return !motor.inPlace();
+		this.motor.update();
+		return ! this.motor.inPlace();
 	}
 }

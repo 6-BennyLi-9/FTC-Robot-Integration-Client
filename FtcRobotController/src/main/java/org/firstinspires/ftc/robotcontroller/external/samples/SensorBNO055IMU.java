@@ -80,7 +80,7 @@ public class SensorBNO055IMU extends LinearOpMode
         // Set up the parameters with which we will use our IMU. Note that integration
         // algorithm here just reports accelerations to the logcat log; it doesn't actually
         // provide positional information.
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        final BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample OpMode
@@ -91,21 +91,21 @@ public class SensorBNO055IMU extends LinearOpMode
         // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
         // and named "imu".
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+	    this.imu = this.hardwareMap.get(BNO055IMU.class, "imu");
+	    this.imu.initialize(parameters);
 
         // Set up our telemetry dashboard
-        composeTelemetry();
+	    this.composeTelemetry();
 
         // Wait until we're told to go
-        waitForStart();
+	    this.waitForStart();
 
         // Start the logging of measured acceleration
-        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+	    this.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // Loop and update the dashboard
-        while (opModeIsActive()) {
-            telemetry.update();
+        while (this.opModeIsActive()) {
+	        this.telemetry.update();
         }
     }
 
@@ -117,57 +117,57 @@ public class SensorBNO055IMU extends LinearOpMode
 
         // At the beginning of each telemetry update, grab a bunch of data
         // from the IMU that we will then display in separate lines.
-        telemetry.addAction(new Runnable() { @Override public void run()
+	    this.telemetry.addAction(new Runnable() { @Override public void run()
                 {
                 // Acquiring the angles is relatively expensive; we don't want
                 // to do that in each of the three items that need that info, as that's
                 // three times the necessary expense.
-                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                gravity  = imu.getGravity();
+	                SensorBNO055IMU.this.angles = SensorBNO055IMU.this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+	                SensorBNO055IMU.this.gravity = SensorBNO055IMU.this.imu.getGravity();
                 }
             });
 
-        telemetry.addLine()
+	    this.telemetry.addLine()
             .addData("status", new Func<String>() {
                 @Override public String value() {
-                    return imu.getSystemStatus().toShortString();
+                    return SensorBNO055IMU.this.imu.getSystemStatus().toShortString();
                     }
                 })
             .addData("calib", new Func<String>() {
                 @Override public String value() {
-                    return imu.getCalibrationStatus().toString();
+                    return SensorBNO055IMU.this.imu.getCalibrationStatus().toString();
                     }
                 });
 
-        telemetry.addLine()
+	    this.telemetry.addLine()
             .addData("heading", new Func<String>() {
                 @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.firstAngle);
+                    return SensorBNO055IMU.this.formatAngle(SensorBNO055IMU.this.angles.angleUnit, SensorBNO055IMU.this.angles.firstAngle);
                     }
                 })
             .addData("roll", new Func<String>() {
                 @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.secondAngle);
+                    return SensorBNO055IMU.this.formatAngle(SensorBNO055IMU.this.angles.angleUnit, SensorBNO055IMU.this.angles.secondAngle);
                     }
                 })
             .addData("pitch", new Func<String>() {
                 @Override public String value() {
-                    return formatAngle(angles.angleUnit, angles.thirdAngle);
+                    return SensorBNO055IMU.this.formatAngle(SensorBNO055IMU.this.angles.angleUnit, SensorBNO055IMU.this.angles.thirdAngle);
                     }
                 });
 
-        telemetry.addLine()
+	    this.telemetry.addLine()
             .addData("grvty", new Func<String>() {
                 @Override public String value() {
-                    return gravity.toString();
+                    return SensorBNO055IMU.this.gravity.toString();
                     }
                 })
             .addData("mag", new Func<String>() {
                 @Override public String value() {
                     return String.format(Locale.getDefault(), "%.3f",
-                            Math.sqrt(gravity.xAccel*gravity.xAccel
-                                    + gravity.yAccel*gravity.yAccel
-                                    + gravity.zAccel*gravity.zAccel));
+                            Math.sqrt(SensorBNO055IMU.this.gravity.xAccel * SensorBNO055IMU.this.gravity.xAccel
+                                      + SensorBNO055IMU.this.gravity.yAccel * SensorBNO055IMU.this.gravity.yAccel
+                                      + SensorBNO055IMU.this.gravity.zAccel * SensorBNO055IMU.this.gravity.zAccel));
                     }
                 });
     }
@@ -176,11 +176,11 @@ public class SensorBNO055IMU extends LinearOpMode
     // Formatting
     //----------------------------------------------------------------------------------------------
 
-    String formatAngle(AngleUnit angleUnit, double angle) {
-        return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
+    String formatAngle(final AngleUnit angleUnit, final double angle) {
+        return this.formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
     }
 
-    String formatDegrees(double degrees){
+    String formatDegrees(final double degrees){
         return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
     }
 }
