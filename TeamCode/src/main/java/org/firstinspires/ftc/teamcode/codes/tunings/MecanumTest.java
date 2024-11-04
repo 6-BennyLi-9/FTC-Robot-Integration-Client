@@ -16,10 +16,10 @@ public class MecanumTest extends TuningProgramTemplate {
 
 	@Override
 	public void whenInit() {
-		this.lf = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.LeftFront);
-		this.lr = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.LeftRear);
-		this.rf = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.RightFront);
-		this.rr = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.RightRear);
+		this.lf = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.leftFront);
+		this.lr = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.leftRear);
+		this.rf = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.rightFront);
+		this.rr = this.hardwareMap.get(DcMotorEx.class, Params.HardwareNamespace.rightRear);
 	}
 
 	@Override
