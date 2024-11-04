@@ -53,7 +53,7 @@ public class IntegralOrganizedOdometer extends ClassicOdometer {
 
 		for(int i = this.relHistory.size() - 1 ; 0 <= i ; --i){
 			totalTime= startTime - times.get(i);
-			if(totalTime<=targetVelTimeEstimate){
+			if(targetVelTimeEstimate >= totalTime){
 				actualVelTime=totalTime;
 				relDeltaXTotal+= this.relHistory.get(i).x;
 				relDeltaYTotal+= this.relHistory.get(i).y;

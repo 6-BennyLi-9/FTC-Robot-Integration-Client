@@ -21,12 +21,11 @@ public class TelemetryClient {
 	public TelemetryClient(final Telemetry telemetry){
 		this.telemetry=telemetry;
 		this.data = new HashMap<>();
-//		update();
-		TelemetryClient.instanceTelemetryClient =this;
+		instanceTelemetryClient =this;
 	}
 
 	public static TelemetryClient getInstance(){
-		return TelemetryClient.instanceTelemetryClient;
+		return instanceTelemetryClient;
 	}
 
 	public void clear(){

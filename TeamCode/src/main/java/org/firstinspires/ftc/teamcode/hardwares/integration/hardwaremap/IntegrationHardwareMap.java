@@ -93,9 +93,9 @@ public final class IntegrationHardwareMap {
 			final DcMotorEx motor = this.lazyHardwareMap.get(DcMotorEx.class,device.deviceName);
 			if (this.IsIntegrationMotor.contains(device)){
 				if(Reversed == device.config.direction){
-					motor.setDirection(DcMotorSimple.Direction.REVERSE);
+					motor.setDirection(Direction.REVERSE);
 				}else{
-					motor.setDirection(DcMotorSimple.Direction.FORWARD);
+					motor.setDirection(Direction.FORWARD);
 				}
 				this.devices.put(device,new IntegrationMotor(motor,device, this.lazyProcessor));
 			}else if(this.IsDeadWheel.contains(device)){
@@ -103,13 +103,13 @@ public final class IntegrationHardwareMap {
 				motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 				final IntegrationEncoders encoders =new IntegrationEncoders(motor);
-				encoders.sensor.setDirection(DcMotorSimple.Direction.REVERSE);
+				encoders.sensor.setDirection(Direction.REVERSE);
 				this.devices.put(device,encoders);
 			}else {
 				if(Reversed == device.config.direction){
-					motor.setDirection(DcMotorSimple.Direction.REVERSE);
+					motor.setDirection(Direction.REVERSE);
 				}else{
-					motor.setDirection(DcMotorSimple.Direction.FORWARD);
+					motor.setDirection(Direction.FORWARD);
 				}
 				this.devices.put(device,new PositionalIntegrationMotor(motor,device, this.lazyProcessor));
 			}
@@ -157,7 +157,7 @@ public final class IntegrationHardwareMap {
 		}
 	}
 	@ExtractedInterfaces
-	public void setDirection(@NonNull final HardwareDeviceTypes hardwareDeviceTypes, final DcMotorSimple.Direction direction){
+	public void setDirection(@NonNull final HardwareDeviceTypes hardwareDeviceTypes, final Direction direction){
 		if(HardwareState.Disabled == hardwareDeviceTypes.config.state) {
 			throw new DeviceDisabledException(hardwareDeviceTypes.name());
 		}

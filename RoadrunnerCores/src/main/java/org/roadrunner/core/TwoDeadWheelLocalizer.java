@@ -56,7 +56,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
 
         this.inPerTick = inPerTick;
 
-        FlightRecorder.write("TWO_DEAD_WHEEL_PARAMS", TwoDeadWheelLocalizer.PARAMS);
+        FlightRecorder.write("TWO_DEAD_WHEEL_PARAMS", PARAMS);
     }
 
     public Twist2dDual<Time> update() {
@@ -106,12 +106,12 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         final Twist2dDual<Time> twist = new Twist2dDual<>(
                 new Vector2dDual<>(
                         new DualNum<Time>(new double[] {
-		                        parPosDelta - TwoDeadWheelLocalizer.PARAMS.parYTicks * headingDelta,
-                                parPosVel.velocity - TwoDeadWheelLocalizer.PARAMS.parYTicks * headingVel,
+		                        parPosDelta - PARAMS.parYTicks * headingDelta,
+                                parPosVel.velocity - PARAMS.parYTicks * headingVel,
                         }).times(this.inPerTick),
                         new DualNum<Time>(new double[] {
-		                        perpPosDelta - TwoDeadWheelLocalizer.PARAMS.perpXTicks * headingDelta,
-                                perpPosVel.velocity - TwoDeadWheelLocalizer.PARAMS.perpXTicks * headingVel,
+		                        perpPosDelta - PARAMS.perpXTicks * headingDelta,
+                                perpPosVel.velocity - PARAMS.perpXTicks * headingVel,
                         }).times(this.inPerTick)
                 ),
                 new DualNum<>(new double[] {

@@ -181,7 +181,7 @@ public class ConceptAprilTagLocalization extends LinearOpMode {
         final VisionPortal.Builder builder = new VisionPortal.Builder();
 
         // Set the camera (webcam vs. built-in RC phone camera).
-        if (ConceptAprilTagLocalization.USE_WEBCAM) {
+        if (USE_WEBCAM) {
             builder.setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"));
         } else {
             builder.setCamera(BuiltinCameraDirection.BACK);

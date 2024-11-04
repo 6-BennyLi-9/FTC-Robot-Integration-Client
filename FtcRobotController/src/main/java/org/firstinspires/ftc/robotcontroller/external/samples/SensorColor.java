@@ -123,7 +123,7 @@ public class SensorColor extends LinearOpMode {
     // hue, the second element (1) will contain the saturation, and the third element (2) will
     // contain the value. See http://web.archive.org/web/20190311170843/https://infohost.nmt.edu/tcc/help/pubs/colortheory/web/hsv.html
     // for an explanation of HSV color.
-    float[] hsvValues = new float[3];
+    final float[] hsvValues = new float[3];
 
     // xButtonPreviouslyPressed and xButtonCurrentlyPressed keep track of the previous and current
     // state of the X button on the gamepad

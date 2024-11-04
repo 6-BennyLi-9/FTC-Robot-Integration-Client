@@ -58,7 +58,7 @@ public class PermissionValidatorWrapper extends PermissionValidatorActivity {
 
     private final static Class startApplication = FtcRobotControllerActivity.class;
 
-    public String mapPermissionToExplanation(String permission) {
+    public String mapPermissionToExplanation(final String permission) {
         if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             return Misc.formatForUser(R.string.permRcWriteExternalStorageExplain);
         } else if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -86,6 +86,6 @@ public class PermissionValidatorWrapper extends PermissionValidatorActivity {
     protected Class onStartApplication()
     {
         FtcRobotControllerActivity.setPermissionsValidated();
-        return PermissionValidatorWrapper.startApplication;
+        return startApplication;
     }
 }

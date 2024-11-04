@@ -223,7 +223,7 @@ class OctoSwerveModule {
 
     private static final int    VELOCITY_SAMPLE_INTERVAL_MS = 25;   // To provide 40 updates per second.
     private static final double DEGREES_PER_US = (360.0 / 1024.0);  // based on REV Through Bore Encoder
-    private static final double VELOCITY_SAMPLES_PER_S = (1000.0 / OctoSwerveModule.VELOCITY_SAMPLE_INTERVAL_MS);
+    private static final double VELOCITY_SAMPLES_PER_S = (1000.0 / VELOCITY_SAMPLE_INTERVAL_MS);
 
     // The correct drive and turn directions must be set for the Swerve Module based on the specific hardware geometry.
     // Forward motion must generate an increasing drive count.
@@ -241,14 +241,14 @@ class OctoSwerveModule {
         this.name = name;
         channel = quadChannel;
         this.angleOffset = angleOffset;
-        steerDirMult = OctoSwerveModule.INVERT_STEER_ENCODER ? -1 : 1 ;  // create a multiplier to flip the steer angle.
+        steerDirMult = INVERT_STEER_ENCODER ? -1 : 1 ;  // create a multiplier to flip the steer angle.
 
         // Set the drive encoder direction.  Note the absolute encoder does not have built-in direction inversion.
-        octoquad.setSingleEncoderDirection(this.channel, OctoSwerveModule.INVERT_DRIVE_ENCODER ? OctoQuadBase.EncoderDirection.REVERSE : OctoQuadBase.EncoderDirection.FORWARD);
+        octoquad.setSingleEncoderDirection(this.channel, INVERT_DRIVE_ENCODER ? OctoQuadBase.EncoderDirection.REVERSE : OctoQuadBase.EncoderDirection.FORWARD);
 
         // Set the velocity sample interval on both encoders
-        octoquad.setSingleVelocitySampleInterval(this.channel, OctoSwerveModule.VELOCITY_SAMPLE_INTERVAL_MS);
-        octoquad.setSingleVelocitySampleInterval(this.channel + 4, OctoSwerveModule.VELOCITY_SAMPLE_INTERVAL_MS);
+        octoquad.setSingleVelocitySampleInterval(this.channel, VELOCITY_SAMPLE_INTERVAL_MS);
+        octoquad.setSingleVelocitySampleInterval(this.channel + 4, VELOCITY_SAMPLE_INTERVAL_MS);
 
         // Setup Absolute encoder pulse range to match REV Through Bore encoder.
         octoquad.setSingleChannelPulseWidthParams (this.channel + 4, new OctoQuad.ChannelPulseWidthParams(1,1024));
@@ -260,12 +260,12 @@ class OctoSwerveModule {
      */
     public void updateModule(final OctoQuad.EncoderDataBlock encoderDataBlock) {
 	    this.driveCounts = encoderDataBlock.positions[this.channel];  // get Counts.
-	    this.driveCountsPerSec = encoderDataBlock.velocities[this.channel] * OctoSwerveModule.VELOCITY_SAMPLES_PER_S; // convert counts/interval to counts/sec
+	    this.driveCountsPerSec = encoderDataBlock.velocities[this.channel] * VELOCITY_SAMPLES_PER_S; // convert counts/interval to counts/sec
 
         // convert uS to degrees.  Add in any possible direction flip.
-	    this.steerDegrees = AngleUnit.normalizeDegrees((encoderDataBlock.positions[this.channel + 4] * OctoSwerveModule.DEGREES_PER_US * this.steerDirMult) - this.angleOffset);
+	    this.steerDegrees = AngleUnit.normalizeDegrees((encoderDataBlock.positions[this.channel + 4] * DEGREES_PER_US * this.steerDirMult) - this.angleOffset);
         // convert uS/interval to deg per sec.  Add in any possible direction flip.
-	    this.steerDegreesPerSec = encoderDataBlock.velocities[this.channel + 4] * OctoSwerveModule.DEGREES_PER_US * this.steerDirMult * OctoSwerveModule.VELOCITY_SAMPLES_PER_S;
+	    this.steerDegreesPerSec = encoderDataBlock.velocities[this.channel + 4] * DEGREES_PER_US * this.steerDirMult * VELOCITY_SAMPLES_PER_S;
     }
 
     /**

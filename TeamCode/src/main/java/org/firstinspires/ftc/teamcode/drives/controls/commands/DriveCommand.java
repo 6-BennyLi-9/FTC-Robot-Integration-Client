@@ -7,7 +7,6 @@ import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Vector2d;
@@ -33,7 +32,7 @@ public class DriveCommand implements DriveOrder {
 	 */
 	public TrajectoryType trajectoryType;
 
-	public DriveCommand(Chassis chassis, final double BufPower, final Position2d pose) {
+	public DriveCommand(final Chassis chassis, final double BufPower, final Position2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
 		this.chassis = chassis;

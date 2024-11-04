@@ -52,7 +52,7 @@ public class DashboardClient {
 		 */
 		@UtilFunctions
 		public static void drawRobotUsingPacket(@NonNull final Position2d pose, @NonNull final TelemetryPacket packet){
-			Drawing.drawRobotUsingPacket(pose,packet, DashboardClient.Blue);
+			drawRobotUsingPacket(pose,packet, Blue);
 		}
 		/**
 		 * @param pose 机器位置
@@ -61,7 +61,7 @@ public class DashboardClient {
 		@UtilFunctions
 		public static void drawRobotUsingPacket(@NonNull final Position2d pose, @NonNull final TelemetryPacket packet, @NonNull final String color){
 			packet.fieldOverlay().setStroke(color);
-			Drawing.drawRobot(packet.fieldOverlay(),pose.toPose2d());
+			drawRobot(packet.fieldOverlay(),pose.toPose2d());
 		}
 	}
 	public TelemetryPacket recentPacket;
@@ -69,15 +69,11 @@ public class DashboardClient {
 	public DashboardClient(){
 		this.recentPacket =new TelemetryPacket();
 		this.data =new HashMap <>();
-//		if(instanceDashboardClient!=null){
-		DashboardClient.instanceDashboardClient = this;
-//		}else{
-//			throw new RuntimeException("DashboardClient had already been created!");
-//		}
+		instanceDashboardClient = this;
 	}
 
 	public static DashboardClient getInstance(){
-		return DashboardClient.instanceDashboardClient;
+		return instanceDashboardClient;
 	}
 
 	/**
@@ -100,12 +96,12 @@ public class DashboardClient {
 	 */
 	@UtilFunctions
 	public void drawLine(@NonNull final Object start, @NonNull final Object end){
-		this.drawLine(start,end, DashboardClient.Blue);
+		this.drawLine(start,end, Blue);
 	}
 	public void drawLine(@NonNull final Object start, @NonNull final Object end, final String color){
 		final double sx;
-		double       sy;
-		double       ex;
+		final double       sy;
+		final double       ex;
 		final double ey;
 		sx= Functions.getX(start);
 		sy= Functions.getY(start);

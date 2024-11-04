@@ -52,21 +52,21 @@ public class Camera extends OpenCvPipeline {
 		Core.inRange(this.mat, redLowHSV, redHighHSV, this.matRed);
 		Core.inRange(this.mat, blueLowHSV, blueHighHSV, this.matBlue);
 
-		this.leftRed = this.matRed.submat(Camera.LEFT_ROI);
-		this.middleRed = this.matRed.submat(Camera.MIDDLE_ROI);
-		this.rightRed = this.matRed.submat(Camera.RIGHT_ROI);
+		this.leftRed = this.matRed.submat(LEFT_ROI);
+		this.middleRed = this.matRed.submat(MIDDLE_ROI);
+		this.rightRed = this.matRed.submat(RIGHT_ROI);
 
-		this.leftBlue = this.matBlue.submat(Camera.LEFT_ROI);
-		this.middleBlue = this.matBlue.submat(Camera.MIDDLE_ROI);
-		this.rightBlue = this.matBlue.submat(Camera.RIGHT_ROI);
+		this.leftBlue = this.matBlue.submat(LEFT_ROI);
+		this.middleBlue = this.matBlue.submat(MIDDLE_ROI);
+		this.rightBlue = this.matBlue.submat(RIGHT_ROI);
 
-		this.left_red_Value = Core.sumElems(this.leftRed).val[0] / Camera.LEFT_ROI.area() / 255;
-		this.middle_red_Value = Core.sumElems(this.middleRed).val[0] / Camera.MIDDLE_ROI.area() / 255;
-		this.right_red_Value = Core.sumElems(this.rightRed).val[0] / Camera.RIGHT_ROI.area() / 255;
+		this.left_red_Value = Core.sumElems(this.leftRed).val[0] / LEFT_ROI.area() / 255;
+		this.middle_red_Value = Core.sumElems(this.middleRed).val[0] / MIDDLE_ROI.area() / 255;
+		this.right_red_Value = Core.sumElems(this.rightRed).val[0] / RIGHT_ROI.area() / 255;
 
-		this.left_blue_Value = Core.sumElems(this.leftBlue).val[0] / Camera.LEFT_ROI.area() / 255;
-		this.middle_blue_Value = Core.sumElems(this.middleBlue).val[0] / Camera.MIDDLE_ROI.area() / 255;
-		this.right_blue_Value = Core.sumElems(this.rightBlue).val[0] / Camera.RIGHT_ROI.area() / 255;
+		this.left_blue_Value = Core.sumElems(this.leftBlue).val[0] / LEFT_ROI.area() / 255;
+		this.middle_blue_Value = Core.sumElems(this.middleBlue).val[0] / MIDDLE_ROI.area() / 255;
+		this.right_blue_Value = Core.sumElems(this.rightBlue).val[0] / RIGHT_ROI.area() / 255;
 
 
 		this.leftRed.release();
@@ -78,13 +78,13 @@ public class Camera extends OpenCvPipeline {
 		this.rightBlue.release();
 
 		//输出roi范围内的概率
-		final boolean LeftRed   = this.left_red_Value > Camera.PERCENT_COLOR_THRESHOLD;
-		final boolean MiddleRed = this.middle_red_Value > Camera.PERCENT_COLOR_THRESHOLD;
-		final boolean RightRed  = this.right_red_Value > Camera.PERCENT_COLOR_THRESHOLD;
+		final boolean LeftRed   = this.left_red_Value > PERCENT_COLOR_THRESHOLD;
+		final boolean MiddleRed = this.middle_red_Value > PERCENT_COLOR_THRESHOLD;
+		final boolean RightRed  = this.right_red_Value > PERCENT_COLOR_THRESHOLD;
 
-		final boolean LeftBlue   = this.left_blue_Value > Camera.PERCENT_COLOR_THRESHOLD;
-		final boolean MiddleBlue = this.middle_blue_Value > Camera.PERCENT_COLOR_THRESHOLD;
-		final boolean RightBlue  = this.right_blue_Value > Camera.PERCENT_COLOR_THRESHOLD;
+		final boolean LeftBlue   = this.left_blue_Value > PERCENT_COLOR_THRESHOLD;
+		final boolean MiddleBlue = this.middle_blue_Value > PERCENT_COLOR_THRESHOLD;
+		final boolean RightBlue  = this.right_blue_Value > PERCENT_COLOR_THRESHOLD;
 
 
 		if (LeftRed) {
@@ -104,9 +104,9 @@ public class Camera extends OpenCvPipeline {
 		//Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
 		final Scalar color = new Scalar(255, 0, 0);
-		Imgproc.rectangle(this.mat, Camera.LEFT_ROI, color);
-		Imgproc.rectangle(this.mat, Camera.MIDDLE_ROI, color);
-		Imgproc.rectangle(this.mat, Camera.RIGHT_ROI, color);
+		Imgproc.rectangle(this.mat, LEFT_ROI, color);
+		Imgproc.rectangle(this.mat, MIDDLE_ROI, color);
+		Imgproc.rectangle(this.mat, RIGHT_ROI, color);
 		return this.mat;
 	}
 

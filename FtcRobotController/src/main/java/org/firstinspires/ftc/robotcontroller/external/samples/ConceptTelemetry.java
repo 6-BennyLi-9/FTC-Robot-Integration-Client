@@ -129,7 +129,7 @@ public class ConceptTelemetry extends LinearOpMode  {
         while (this.opModeIsActive()) {
 
             // Emit poetry if it's been a while
-            if (this.poemElapsed.seconds() > sPoemInterval) {
+            if (sPoemInterval < this.poemElapsed.seconds()) {
 	            this.emitPoemLine();
             }
 
@@ -158,8 +158,8 @@ public class ConceptTelemetry extends LinearOpMode  {
 
     // emits a line of poetry to the telemetry log
     void emitPoemLine() {
-	    this.telemetry.log().add(ConceptTelemetry.poem[this.poemLine]);
-	    this.poemLine = (this.poemLine + 1) % ConceptTelemetry.poem.length;
+	    this.telemetry.log().add(poem[this.poemLine]);
+	    this.poemLine = (this.poemLine + 1) % poem.length;
 	    this.poemElapsed.reset();
     }
 

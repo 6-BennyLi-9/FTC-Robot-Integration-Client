@@ -97,31 +97,31 @@ public class SimpleMecanumDrive implements DriverProgram {
 			BufPower= singleCommand.BufPower;
 			final double dY = Math.abs(PoseList[i + 1].y - PoseList[i].y);
 			final double dX = Math.abs(PoseList[i + 1].x - PoseList[i].x);
-			double       distance =Math.sqrt(dX * dX + dY * dY);
-			double estimatedTime=distance/(Params.secPowerPerInch /(1.0f / this.BufPower));
+			final double       distance =Math.sqrt(dX * dX + dY * dY);
+			final double estimatedTime=distance/(Params.secPowerPerInch /(1.0f / this.BufPower));
 			this.client.changeData("distance",distance);
 			this.client.changeData("estimatedTime",estimatedTime);
 			this.client.changeData("progress","0%");
 			this.client.changeData("DELTA",singleCommand.getDeltaTrajectory().toString());
 
 			timer.restart();
-			while ((Math.abs(this.RobotPosition.x - PoseList[i + 1].x) > pem)
-					&& (Math.abs(this.RobotPosition.y - PoseList[i + 1].y) > pem)
-					&& (Math.abs(this.RobotPosition.heading - singleCommand.nextPose().heading) > aem)) {
+			while ((pem < Math.abs(this.RobotPosition.x - PoseList[i + 1].x))
+					&& (pem < Math.abs(this.RobotPosition.y - PoseList[i + 1].y))
+					&& (aem < Math.abs(this.RobotPosition.heading - singleCommand.nextPose().heading))) {
 				final double progress = (timer.stopAndGetDeltaTime() / 1000.0) / estimatedTime * 100;
 				this.client.changeData("progress", progress + "%");
 				final Position2d aim = Functions.getAimPositionThroughTrajectory(singleCommand, this.RobotPosition, progress);
 
 				if (timer.getDeltaTime() > estimatedTime + timeOutProtectionMills && Params.Configs.useOutTimeProtection) {//保护机制
-					SimpleMecanumDrive.robotState = RobotState.BrakeDown;
+					robotState = RobotState.BrakeDown;
 					this.motors.updateDriveOptions();
 					break;
 				}
 
 				if (Params.Configs.usePIDToDriveInAutonomous) {
-					if (Math.abs(aim.x - this.RobotPosition.x) > pem
-							|| Math.abs(aim.y - this.RobotPosition.y) > pem
-							|| Math.abs(aim.heading - this.RobotPosition.heading) > aem
+					if (pem < Math.abs(aim.x - this.RobotPosition.x)
+							|| pem < Math.abs(aim.y - this.RobotPosition.y)
+							|| aem < Math.abs(aim.heading - this.RobotPosition.heading)
 							|| Params.Configs.alwaysRunPIDInAutonomous) {
 						//间断地调用pid可能会导致pid的效果不佳
 						this.pidProcessor.registerInaccuracies(this.ContentTags[0], aim.x - this.RobotPosition.x);
@@ -135,9 +135,9 @@ public class SimpleMecanumDrive implements DriverProgram {
 						this.motors.headingPower+= this.pidProcessor.getFulfillment(this.ContentTags[2]);
 					}
 				} else {
-					if (Math.abs(aim.x - this.RobotPosition.x) > pem
-							|| Math.abs(aim.y - this.RobotPosition.y) > pem
-							|| Math.abs(aim.heading - this.RobotPosition.heading) > aem) {
+					if (pem < Math.abs(aim.x - this.RobotPosition.x)
+							|| pem < Math.abs(aim.y - this.RobotPosition.y)
+							|| aem < Math.abs(aim.heading - this.RobotPosition.heading)) {
 						final double[] fulfillment = {
 								(aim.x - this.RobotPosition.x) * (Params.secPowerPerInch) * this.BufPower / 2,
 								(aim.y - this.RobotPosition.y) * (Params.secPowerPerInch) * this.BufPower / 2,
@@ -153,7 +153,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 				this.motors.updateDriveOptions(this.RobotPosition.heading);
 			}
 
-			SimpleMecanumDrive.robotState = RobotState.WaitingAtPoint;
+			robotState = RobotState.WaitingAtPoint;
 		}
 		this.client.deleteData("distance");
 		this.client.deleteData("estimatedTime");
@@ -161,7 +161,7 @@ public class SimpleMecanumDrive implements DriverProgram {
 		this.client.deleteData("DELTA");
 
 		this.chassis.STOP();
-		SimpleMecanumDrive.robotState = RobotState.IDLE;
+		robotState = RobotState.IDLE;
 	}
 
 	@Override

@@ -119,8 +119,8 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
         }
 
         // Start the robot moving forward, and then begin looking for a white line.
-	    this.leftDrive.setPower(RobotAutoDriveToLine_Linear.APPROACH_SPEED);
-	    this.rightDrive.setPower(RobotAutoDriveToLine_Linear.APPROACH_SPEED);
+	    this.leftDrive.setPower(APPROACH_SPEED);
+	    this.rightDrive.setPower(APPROACH_SPEED);
 
         // run until the white line is seen OR the driver presses STOP;
         while (this.opModeIsActive() && (WHITE_THRESHOLD > getBrightness())) {

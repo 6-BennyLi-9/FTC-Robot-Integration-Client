@@ -131,7 +131,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
 	    this.leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
 	    this.rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        if (RobotAutoDriveToAprilTagTank.USE_WEBCAM) this.setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
+        if (USE_WEBCAM) this.setManualExposure(6, 250);  // Use low exposure time to reduce motion blur
 
         // Wait for the driver to press Start
 	    this.telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
@@ -150,7 +150,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
                 // Look to see if we have size info on this tag.
                 if (null != detection.metadata) {
                     //  Check to see if we want to track towards this tag.
-                    if ((RobotAutoDriveToAprilTagTank.DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == AprilTagDetection.detection.id)) {
+	                if ((DESIRED_TAG_ID < 0) || (DESIRED_TAG_ID == detection.id)) {
                         // Yes, we want to use this tag.
                         targetFound = true;
 	                    this.desiredTag = detection;
@@ -243,7 +243,7 @@ public class RobotAutoDriveToAprilTagTank extends LinearOpMode
 	    this.aprilTag.setDecimation(2);
 
         // Create the vision portal by using a builder.
-        if (RobotAutoDriveToAprilTagTank.USE_WEBCAM) {
+        if (USE_WEBCAM) {
 	        this.visionPortal = new VisionPortal.Builder()
                     .setCamera(this.hardwareMap.get(WebcamName.class, "Webcam 1"))
                     .addProcessor(this.aprilTag)

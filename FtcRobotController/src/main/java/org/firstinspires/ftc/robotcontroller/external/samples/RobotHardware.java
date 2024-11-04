@@ -102,8 +102,8 @@ public class RobotHardware {
         // Define and initialize ALL installed servos.
 	    this.leftHand = this.myOpMode.hardwareMap.get(Servo.class, "left_hand");
 	    this.rightHand = this.myOpMode.hardwareMap.get(Servo.class, "right_hand");
-	    this.leftHand.setPosition(RobotHardware.MID_SERVO);
-	    this.rightHand.setPosition(RobotHardware.MID_SERVO);
+	    this.leftHand.setPosition(MID_SERVO);
+	    this.rightHand.setPosition(MID_SERVO);
 
 	    this.myOpMode.telemetry.addData(">", "Hardware Initialized");
 	    this.myOpMode.telemetry.update();
@@ -162,7 +162,7 @@ public class RobotHardware {
      */
     public void setHandPositions(double offset) {
         offset = Range.clip(offset, -0.5, 0.5);
-	    this.leftHand.setPosition(RobotHardware.MID_SERVO + offset);
-	    this.rightHand.setPosition(RobotHardware.MID_SERVO - offset);
+	    this.leftHand.setPosition(MID_SERVO + offset);
+	    this.rightHand.setPosition(MID_SERVO - offset);
     }
 }

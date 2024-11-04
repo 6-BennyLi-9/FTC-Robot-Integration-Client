@@ -97,15 +97,15 @@ public final class TankDrive {
 
     public static Params PARAMS = new Params();
 
-    public final TankKinematics kinematics = new TankKinematics(TankDrive.PARAMS.inPerTick * TankDrive.PARAMS.trackWidthTicks);
+    public final TankKinematics kinematics = new TankKinematics(PARAMS.inPerTick * PARAMS.trackWidthTicks);
 
-    public final TurnConstraints defaultTurnConstraints = new TurnConstraints(TankDrive.PARAMS.maxAngVel, - TankDrive.PARAMS.maxAngVel, TankDrive.PARAMS.maxAngAccel);
+    public final TurnConstraints defaultTurnConstraints = new TurnConstraints(PARAMS.maxAngVel, - PARAMS.maxAngVel, PARAMS.maxAngAccel);
     public final VelConstraint defaultVelConstraint =
-            new MinVelConstraint(Arrays.asList(this.kinematics.new WheelVelConstraint(TankDrive.PARAMS.maxWheelVel),
-                    new AngularVelConstraint(TankDrive.PARAMS.maxAngVel)
+            new MinVelConstraint(Arrays.asList(this.kinematics.new WheelVelConstraint(PARAMS.maxWheelVel),
+                    new AngularVelConstraint(PARAMS.maxAngVel)
             ));
     public final AccelConstraint defaultAccelConstraint =
-            new ProfileAccelConstraint(TankDrive.PARAMS.minProfileAccel, TankDrive.PARAMS.maxProfileAccel);
+            new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
     public final List<DcMotorEx> leftMotors, rightMotors;
 
@@ -196,11 +196,11 @@ public final class TankDrive {
                     new DualNum<Time>(new double[] {
 		                    meanLeftPos - this.lastLeftPos,
                             meanLeftVel
-                    }).times(TankDrive.PARAMS.inPerTick),
+                    }).times(PARAMS.inPerTick),
                     new DualNum<Time>(new double[] {
 		                    meanRightPos - this.lastRightPos,
                             meanRightVel,
-                    }).times(TankDrive.PARAMS.inPerTick)
+                    }).times(PARAMS.inPerTick)
             );
 
 	        this.lastLeftPos = meanLeftPos;
@@ -237,13 +237,13 @@ public final class TankDrive {
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-	    this.lazyImu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot(TankDrive.PARAMS.logoFacingDirection, TankDrive.PARAMS.usbFacingDirection));
+	    this.lazyImu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot(PARAMS.logoFacingDirection, PARAMS.usbFacingDirection));
 
 	    this.voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
 	    this.localizer = new TankDrive.DriveLocalizer();
 
-        FlightRecorder.write("TANK_PARAMS", TankDrive.PARAMS);
+        FlightRecorder.write("TANK_PARAMS", PARAMS);
     }
 
     public void setDrivePowers(final PoseVelocity2d powers) {
@@ -312,13 +312,13 @@ public final class TankDrive {
 
 	        TankDrive.this.updatePoseEstimate();
 
-            final PoseVelocity2dDual<Time> command = new RamseteController(TankDrive.this.kinematics.trackWidth, TankDrive.PARAMS.ramseteZeta, TankDrive.PARAMS.ramseteBBar)
+            final PoseVelocity2dDual<Time> command = new RamseteController(TankDrive.this.kinematics.trackWidth, PARAMS.ramseteZeta, PARAMS.ramseteBBar)
                     .compute(x, txWorldTarget, TankDrive.this.pose);
 	        TankDrive.this.driveCommandWriter.write(new DriveCommandMessage(command));
 
             final TankKinematics.WheelVelocities<Time> wheelVels = TankDrive.this.kinematics.inverse(command);
             final double                               voltage   = TankDrive.this.voltageSensor.getVoltage();
-            MotorFeedforward                     feedforward = new MotorFeedforward(TankDrive.PARAMS.kS, TankDrive.PARAMS.kV / TankDrive.PARAMS.inPerTick, TankDrive.PARAMS.kA / TankDrive.PARAMS.inPerTick);
+            final MotorFeedforward                     feedforward = new MotorFeedforward(PARAMS.kS, PARAMS.kV / PARAMS.inPerTick, PARAMS.kA / PARAMS.inPerTick);
             final double leftPower  = feedforward.compute(wheelVels.left) / voltage;
             final double rightPower = feedforward.compute(wheelVels.right) / voltage;
 	        TankDrive.this.tankCommandWriter.write(new TankCommandMessage(voltage, leftPower, rightPower));
@@ -401,14 +401,14 @@ public final class TankDrive {
 
             final PoseVelocity2dDual<Time> command = new PoseVelocity2dDual<>(
                     Vector2dDual.constant(new Vector2d(0, 0), 3),
-                    txWorldTarget.heading.velocity().plus(TankDrive.PARAMS.turnGain * TankDrive.this.pose.heading.minus(txWorldTarget.heading.value()) + TankDrive.PARAMS.turnVelGain * (robotVelRobot.angVel - txWorldTarget.heading.velocity().value())
+                    txWorldTarget.heading.velocity().plus(PARAMS.turnGain * TankDrive.this.pose.heading.minus(txWorldTarget.heading.value()) + PARAMS.turnVelGain * (robotVelRobot.angVel - txWorldTarget.heading.velocity().value())
                     )
             );
 	        TankDrive.this.driveCommandWriter.write(new DriveCommandMessage(command));
 
             final TankKinematics.WheelVelocities<Time> wheelVels = TankDrive.this.kinematics.inverse(command);
             final double                               voltage   = TankDrive.this.voltageSensor.getVoltage();
-            MotorFeedforward                     feedforward = new MotorFeedforward(TankDrive.PARAMS.kS, TankDrive.PARAMS.kV / TankDrive.PARAMS.inPerTick, TankDrive.PARAMS.kA / TankDrive.PARAMS.inPerTick);
+            final MotorFeedforward                     feedforward = new MotorFeedforward(PARAMS.kS, PARAMS.kV / PARAMS.inPerTick, PARAMS.kA / PARAMS.inPerTick);
             final double leftPower  = feedforward.compute(wheelVels.left) / voltage;
             final double rightPower = feedforward.compute(wheelVels.right) / voltage;
 	        TankDrive.this.tankCommandWriter.write(new TankCommandMessage(voltage, leftPower, rightPower));

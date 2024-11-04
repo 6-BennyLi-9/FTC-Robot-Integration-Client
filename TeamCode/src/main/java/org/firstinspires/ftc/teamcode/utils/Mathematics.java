@@ -24,7 +24,7 @@ public enum Mathematics {
 	 * @return 合理化的angle,使其保证在[-180,180]的范围内，存在180与-180同义的问题（自动转为正数）
 	 */
 	public static double angleRationalize(final double angle){
-		return Mathematics.roundClip(angle,360);
+		return roundClip(angle,360);
 	}
 
 	/**
@@ -32,6 +32,6 @@ public enum Mathematics {
 	 * @return 合理化的radians,使其保证在[-PI,PI]的范围内，存在PI与-PI同义的问题（自动转为正数）
 	 */
 	public static double radiansRationalize(final double radians){
-		return Mathematics.roundClip(radians,Math.PI);
+		return roundClip(radians,Math.PI);
 	}
 }

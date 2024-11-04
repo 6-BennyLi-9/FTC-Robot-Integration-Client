@@ -28,8 +28,8 @@ public class ConstantAccelMath {
 		final IntegralAutoCorrection xQuadrature = new IntegralAutoCorrection(new double[] {vrx, 2 * arx},new double[] {currPose.heading, vrh, arh});
 		final IntegralAutoCorrection yQuadrature = new IntegralAutoCorrection(new double[] {vry, 2 * ary},new double[] {currPose.heading, vrh, arh});
 
-		currPose.x += xQuadrature.evaluateCos(ConstantAccelMath.FIDELITY, 0, loopTime, 0) - yQuadrature.evaluateSin(ConstantAccelMath.FIDELITY, 0, loopTime, 0);
-		currPose.y += yQuadrature.evaluateCos(ConstantAccelMath.FIDELITY, 0, loopTime, 0) + xQuadrature.evaluateSin(ConstantAccelMath.FIDELITY, 0, loopTime, 0);
+		currPose.x += xQuadrature.evaluateCos(FIDELITY, 0, loopTime, 0) - yQuadrature.evaluateSin(FIDELITY, 0, loopTime, 0);
+		currPose.y += yQuadrature.evaluateCos(FIDELITY, 0, loopTime, 0) + xQuadrature.evaluateSin(FIDELITY, 0, loopTime, 0);
 		currPose.heading += deltaHeading;
 
 		this.lastRelativeDelta = relDelta;

@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.utils.enums.RunningMode.*;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -108,7 +110,7 @@ public class Robot {
 				throw new UnKnownErrorsException("Unexpected runningState value:"+state.name());
 		}
 
-		Robot.runningState = state;
+		runningState = state;
 		this.actionBox = new ActionBox();
 		this.timer =new Timer();
 		client.addData("RobotState","UnKnow");
@@ -133,7 +135,7 @@ public class Robot {
 	 */
 	public DriverProgram InitMecanumDrive(final Position2d RobotPosition){
 		this.drive =new SimpleMecanumDrive(RobotPosition);
-		if(RunningMode.RunningMode.Autonomous != runningState) {
+		if(Autonomous != runningState) {
 			Log.w("Robot.java","Initialized Driving Program in Manual Driving RobotState.");
 		}
 		return this.drive;
@@ -141,12 +143,12 @@ public class Robot {
 
 	private void InitInAutonomous(){
 		this.structure.clipOption(ClipPosition.Close);
-		Robot.robotState = RobotState.IDLE;
+		robotState = RobotState.IDLE;
 		this.SetGlobalBufPower(0.9f);
 	}
 	private void InitInManualDrive(){
 		this.structure.clipOption(ClipPosition.Open);
-		Robot.robotState = RobotState.ManualDriving;
+		robotState = RobotState.ManualDriving;
 		this.SetGlobalBufPower(0.9f);
 	}
 
@@ -197,14 +199,14 @@ public class Robot {
 	 * @see ActionBox#output()
 	 */
 	public void update()  {
-		if(90000 <= timer.stopAndGetDeltaTime() && RunningMode.RunningMode.ManualDrive == runningState){
-			Robot.robotState = RobotState.FinalState;
+		if(90000 <= timer.stopAndGetDeltaTime() && ManualDrive == runningState){
+			robotState = RobotState.FinalState;
 		}
 
 		this.updateHardwares();
 
 		Actions.runBlocking(this.actionBox.output());
-		this.client.changeData("RobotState", Robot.robotState.name());
+		this.client.changeData("RobotState", robotState.name());
 
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && this.servos.inPlace()){
 			this.servos.update();
@@ -236,11 +238,11 @@ public class Robot {
 	 * @param angle 要转的角度[-180,180)
 	 */
 	public void turnAngle(final double angle){
-		if(RunningMode.RunningMode.ManualDrive == runningState)return;
+		if(ManualDrive == runningState)return;
 		this.drive.runOrderPackage(this.DrivingOrderBuilder().TurnAngle(angle).END());
 	}
 	public void strafeTo(final Vector2d pose){
-		if(RunningMode.RunningMode.ManualDrive == runningState)return;
+		if(ManualDrive == runningState)return;
 		this.drive.runOrderPackage(this.DrivingOrderBuilder().StrafeTo(pose).END());
 	}
 
