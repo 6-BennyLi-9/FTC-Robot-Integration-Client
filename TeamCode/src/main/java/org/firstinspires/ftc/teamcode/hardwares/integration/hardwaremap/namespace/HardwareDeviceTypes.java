@@ -19,18 +19,18 @@ import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions
  * @see Params.HardwareNamespace
  */
 public enum HardwareDeviceTypes {
-	LeftFront       (utilTeamTag, leftFront, DcMotorEx.class, Reversed),
-	RightFront      (utilTeamTag, rightFront, DcMotorEx.class),
-	LeftRear        (utilTeamTag, leftRear, DcMotorEx.class, Reversed),
-	RightRear       (utilTeamTag, rightRear, DcMotorEx.class),
-	PlacementArm    (utilTeamTag, placementArm, DcMotorEx.class, Disabled),
-	Intake          (utilTeamTag, intake, DcMotorEx.class, Disabled),
-	FrontClip       (utilTeamTag, frontClip, Servo.class, Disabled),
-	RearClip        (utilTeamTag, rearClip, Servo.class, Disabled),
-	SuspensionArm   (utilTeamTag, suspensionArm, DcMotorEx.class, Disabled),
-	LeftDeadWheel   (utilTeamTag, LeftRear.deviceName, DcMotorEx.class, Reversed),
-	MiddleDeadWheel (utilTeamTag, LeftFront.deviceName,DcMotorEx.class, Reversed),
-	RightDeadWheel  (utilTeamTag, RightFront.deviceName, DcMotorEx.class, Reversed),
+	LeftFront       (utilTeamTag, leftFront,                DcMotorEx.class,    Reversed),
+	RightFront      (utilTeamTag, rightFront,               DcMotorEx.class),
+	LeftRear        (utilTeamTag, leftRear,                 DcMotorEx.class,    Reversed),
+	RightRear       (utilTeamTag, rightRear,                DcMotorEx.class),
+	PlacementArm    (utilTeamTag, placementArm,             DcMotorEx.class,    Disabled),
+	Intake          (utilTeamTag, intake,                   DcMotorEx.class,    Disabled),
+	FrontClip       (utilTeamTag, frontClip,                Servo.class,        Disabled),
+	RearClip        (utilTeamTag, rearClip,                 Servo.class,        Disabled),
+	SuspensionArm   (utilTeamTag, suspensionArm,            DcMotorEx.class,    Disabled),
+	LeftDeadWheel   (utilTeamTag, LeftRear.deviceName,      DcMotorEx.class,    Reversed),
+	MiddleDeadWheel (utilTeamTag, LeftFront.deviceName,     DcMotorEx.class,    Reversed),
+	RightDeadWheel  (utilTeamTag, RightFront.deviceName,    DcMotorEx.class,    Reversed),
 	imu             (utilTeamTag, Params.HardwareNamespace.imu, BNO055IMU.class, NotAvailable);
 	public final String deviceName;
 	public final Class<?> classType;
