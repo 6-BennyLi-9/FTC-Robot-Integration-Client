@@ -15,10 +15,10 @@ import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions
  * @see Params.HardwareNamespace
  */
 public enum HardwareDeviceTypes {
-	LeftFront       (-1, Params.HardwareNamespace.LeftFront, DcMotorEx.class,DeviceConfigPackage.Direction.Reversed),
-	RightFront      (-1, Params.HardwareNamespace.RightFront, DcMotorEx.class),
-	LeftRear        (-1, Params.HardwareNamespace.LeftRear, DcMotorEx.class,DeviceConfigPackage.Direction.Reversed),
-	RightRear       (-1, Params.HardwareNamespace.RightRear, DcMotorEx.class),
+	LeftFront       (-1, Params.HardwareNamespace.LeftFront, DcMotorEx.class),
+	RightFront      (-1, Params.HardwareNamespace.RightFront, DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
+	LeftRear        (-1, Params.HardwareNamespace.LeftRear, DcMotorEx.class),
+	RightRear       (-1, Params.HardwareNamespace.RightRear, DcMotorEx.class, DeviceConfigPackage.Direction.Reversed),
 	PlacementArm    (-1, Params.HardwareNamespace.PlacementArm, DcMotorEx.class, Disabled),
 	Intake          (-1, Params.HardwareNamespace.Intake, DcMotorEx.class, Disabled),
 	FrontClip       (-1, Params.HardwareNamespace.FrontClip, Servo.class, Disabled),
