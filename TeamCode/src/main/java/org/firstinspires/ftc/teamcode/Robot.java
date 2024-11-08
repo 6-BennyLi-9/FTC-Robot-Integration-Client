@@ -6,13 +6,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.SleepAction;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.actions.Actions;
+import org.firstinspires.ftc.teamcode.actions.utils.SleepingAction;
 import org.firstinspires.ftc.teamcode.drives.controls.MecanumDrive;
 import org.firstinspires.ftc.teamcode.drives.controls.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderBuilder;
@@ -205,13 +205,13 @@ public class Robot {
 
 		this.updateHardwares();
 
-		Actions.runBlocking(this.actionBox.output());
+		Actions.runAction(this.actionBox.output());
 		this.client.changeData("RobotState", robotState.name());
 
 		while(Params.Configs.waitForServoUntilThePositionIsInPlace && this.servos.inPlace()){
 			this.servos.update();
 			//当前最方便的Sleep方案
-			Actions.runBlocking(new SleepAction(0.1));
+			Actions.runAction(new SleepingAction(100));
 		}
 	}
 

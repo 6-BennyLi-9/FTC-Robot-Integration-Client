@@ -10,6 +10,9 @@ import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
 public enum Functions{
 	;
 
+    /**
+     * @return 单位：毫秒
+     */
 	@UtilFunctions
     public static double getCurrentTimeMills(){
         return System.nanoTime()/1.0E06;

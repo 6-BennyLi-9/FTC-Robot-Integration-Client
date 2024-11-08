@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.utils;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.InstantAction;
-import com.acmerobotics.roadrunner.ParallelAction;
-
+import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.actions.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.utils.annotations.Beta;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
@@ -26,19 +23,19 @@ public class ActionBox {
 
 	@ExtractedInterfaces
 	@UserRequirementFunctions
-	public ParallelAction output(){
-		final ParallelAction res =new ParallelAction(this.actions);
+	public ThreadedAction output(){
+		final ThreadedAction res =new ThreadedAction(this.actions);
 		this.actions.clear();
 		return res;
 	}
 
 	@ExtractedInterfaces
 	@Beta
-	public ParallelAction step(){
+	public ThreadedAction step(){
 		final List<Action> output =new ArrayList<>();
 		for(final Action action: this.actions){
-			output.add(new InstantAction(()->action.run(new TelemetryPacket())));
+			output.add(new ThreadedAction(action));
 		}
-		return new ParallelAction(output);
+		return new ThreadedAction(output);
 	}
 }

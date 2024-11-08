@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.Action;
 
-import org.firstinspires.ftc.teamcode.actions.MotorControllerAction;
-import org.firstinspires.ftc.teamcode.actions.StructureActions;
+import org.firstinspires.ftc.teamcode.actions.ric.MotorControllerAction;
+import org.firstinspires.ftc.teamcode.actions.ric.StructureActions;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.ClipPosition;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Servos;
