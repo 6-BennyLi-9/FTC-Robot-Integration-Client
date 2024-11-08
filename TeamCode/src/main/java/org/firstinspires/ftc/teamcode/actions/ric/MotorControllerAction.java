@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode.actions.ric;
 
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-
+import org.firstinspires.ftc.teamcode.actions.Action;
 import org.firstinspires.ftc.teamcode.hardwares.integration.PositionalIntegrationMotor;
 
 public class MotorControllerAction implements Action {
@@ -19,7 +15,7 @@ public class MotorControllerAction implements Action {
 	private boolean optionPushed;
 
 	@Override
-	public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+	public boolean run() {
 		if(! this.optionPushed){
 			this.optionPushed =true;
 			this.motor.setTargetPosition(this.targetPose);

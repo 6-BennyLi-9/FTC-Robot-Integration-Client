@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import org.firstinspires.ftc.teamcode.utils.Timer;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
-import org.jetbrains.annotations.Contract;
 
 public enum Actions {
 	;
@@ -49,7 +48,7 @@ public enum Actions {
 	}
 
 	@NonNull
-	@Contract("_, _ -> new")
+	@UserRequirementFunctions
 	public static Action connectBlocking(final Action previous, final Action next){
 		return new Action() {
 			@Override

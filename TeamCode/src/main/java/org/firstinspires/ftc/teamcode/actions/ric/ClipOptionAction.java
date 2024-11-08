@@ -2,13 +2,11 @@ package org.firstinspires.ftc.teamcode.actions.ric;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-
+import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.actions.Action;
 import org.firstinspires.ftc.teamcode.hardwares.Structure;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.ClipPosition;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Servos;
-import org.firstinspires.ftc.teamcode.Params;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 
 @Deprecated
@@ -30,7 +28,7 @@ public class ClipOptionAction implements Action {
 
 	private boolean OptionPushed;
 	@Override
-	public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+	public boolean run() {
 		if (! this.OptionPushed) {
 			this.OptionPushed =true;
 			if(null != structure){
