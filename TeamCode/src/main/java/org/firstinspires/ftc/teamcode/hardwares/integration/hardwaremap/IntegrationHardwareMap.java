@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
-import static org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DeviceConfigPackage.Direction.Reversed;
+import static org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DeviceDirection.Reversed;
 
 import androidx.annotation.NonNull;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;

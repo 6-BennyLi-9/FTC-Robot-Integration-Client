@@ -81,16 +81,16 @@ public enum Params {
 	@Config
 	public enum HardwareNamespace {
 		;
-		public static final String LeftFront="leftFront";
-		public static final String RightFront="rightFront";
-		public static final String LeftRear="leftBack";
-		public static final String RightRear="rightBack";
-		public static final String PlacementArm="rightLift";
-		public static final String Intake="intake";
-		public static final String FrontClip="frontClip";
-		public static final String RearClip="rearClip";
-		public static final String SuspensionArm="rack";
-		public static final String Imu="imu";
+		public static final String leftFront ="leftFront";
+		public static final String rightFront ="rightFront";
+		public static final String leftRear ="leftBack";
+		public static final String rightRear ="rightBack";
+		public static final String placementArm ="rightLift";
+		public static final String intake ="intake";
+		public static final String frontClip ="frontClip";
+		public static final String rearClip ="rearClip";
+		public static final String suspensionArm ="rack";
+		public static final String imu ="imu";
 	}
 	@Config
 	public enum ServoConfigs{
