@@ -23,6 +23,10 @@ public class Timer {
 	    this.TagMeaning =new HashMap<>();
 	    this.MileageTags =new HashMap<>();
     }
+
+    /**
+     * @see Functions#getCurrentTimeMills()
+     */
     @UserRequirementFunctions
     @ExtractedInterfaces
     public static double getCurrentTime(){

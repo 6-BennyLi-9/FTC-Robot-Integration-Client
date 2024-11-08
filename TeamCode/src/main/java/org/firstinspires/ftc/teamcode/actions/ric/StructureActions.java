@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode.actions;
+package org.firstinspires.ftc.teamcode.actions.ric;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
-
+import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.actions.utils.ThreadedAction;
 import org.firstinspires.ftc.teamcode.hardwares.Structure;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationServo;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
@@ -19,7 +17,7 @@ public class StructureActions {
 
 	protected class OpenFrontClip implements Action {
 		@Override
-		public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		public boolean run() {
 			StructureActions.this.controller.openFrontClip();
 			StructureActions.this.controller.servos.update();
 			return StructureActions.this.controller.servos.inPlace();
@@ -27,7 +25,7 @@ public class StructureActions {
 	}
 	protected class CloseFrontClip implements Action {
 		@Override
-		public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		public boolean run() {
 			StructureActions.this.controller.closeFrontClip();
 			StructureActions.this.controller.servos.update();
 			return StructureActions.this.controller.servos.inPlace();
@@ -35,7 +33,7 @@ public class StructureActions {
 	}
 	protected class OpenRearClip implements Action {
 		@Override
-		public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		public boolean run() {
 			StructureActions.this.controller.openRearClip();
 			StructureActions.this.controller.servos.update();
 			return StructureActions.this.controller.servos.inPlace();
@@ -43,7 +41,7 @@ public class StructureActions {
 	}
 	protected class CloseRearClip implements Action {
 		@Override
-		public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		public boolean run() {
 			StructureActions.this.controller.closeRearClip();
 			StructureActions.this.controller.servos.update();
 			return StructureActions.this.controller.servos.inPlace();
@@ -61,7 +59,7 @@ public class StructureActions {
 		}
 
 		@Override
-		public boolean run(@NonNull final TelemetryPacket telemetryPacket) {
+		public boolean run() {
 			this.servo.update();
 			return this.servo.smoothMode;
 		}
@@ -78,9 +76,9 @@ public class StructureActions {
 
 
 	@UserRequirementFunctions
-	public Action openClips(){return new ParallelAction(this.openFrontClip(), this.openRearClip());}
+	public Action openClips(){return new ThreadedAction(this.openFrontClip(), this.openRearClip());}
 	@UserRequirementFunctions
-	public Action closeClips(){return new ParallelAction(this.closeFrontClip(), this.closeRearClip());}
+	public Action closeClips(){return new ThreadedAction(this.closeFrontClip(), this.closeRearClip());}
 
 	@UserRequirementFunctions
 	public Action servoToPlace(@NonNull final IntegrationServo servo, final double pose, final double time){return new ServoToPlace(servo, pose, time);}

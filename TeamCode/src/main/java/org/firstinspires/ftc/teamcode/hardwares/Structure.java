@@ -8,16 +8,15 @@ import static org.firstinspires.ftc.teamcode.Params.factorSuspensionArmPower;
 
 import androidx.annotation.NonNull;
 
-import com.acmerobotics.roadrunner.Action;
-
-import org.firstinspires.ftc.teamcode.actions.MotorControllerAction;
-import org.firstinspires.ftc.teamcode.actions.StructureActions;
+import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.actions.Action;
+import org.firstinspires.ftc.teamcode.actions.ric.MotorControllerAction;
+import org.firstinspires.ftc.teamcode.actions.ric.StructureActions;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.ClipPosition;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Motors;
 import org.firstinspires.ftc.teamcode.hardwares.controllers.Servos;
-import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.hardwares.integration.IntegrationGamepad;
-import org.firstinspires.ftc.teamcode.Params;
+import org.firstinspires.ftc.teamcode.hardwares.integration.gamepads.KeyTag;
 import org.firstinspires.ftc.teamcode.utils.annotations.ExtractedInterfaces;
 import org.firstinspires.ftc.teamcode.utils.annotations.UserRequirementFunctions;
 import org.firstinspires.ftc.teamcode.utils.exceptions.UnKnownErrorsException;
