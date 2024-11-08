@@ -26,7 +26,7 @@ public class Webcam {
 	public static boolean useWebcam;//Webcam is useless in 2024-2025 season
 
 	public Webcam(@NonNull final HardwareMap hardwareMap){
-		if(! Webcam.useWebcam)return;
+		if(! useWebcam)return;
 
 		//TODO：根据需要更改名称
 		final int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

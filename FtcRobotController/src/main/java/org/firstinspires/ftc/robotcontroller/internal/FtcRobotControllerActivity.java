@@ -53,6 +53,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageButton;
@@ -135,7 +136,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FtcRobotControllerActivity extends Activity
   {
   public static final String TAG = "RCActivity";
-  public String getTag() { return FtcRobotControllerActivity.TAG; }
+  public String getTag() { return TAG; }
 
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
   private static final int NUM_GAMEPADS = 2;
@@ -159,7 +160,7 @@ public class FtcRobotControllerActivity extends Activity
   protected TextView textDeviceName;
   protected TextView textNetworkConnectionStatus;
   protected TextView textRobotStatus;
-  protected TextView[] textGamepad = new TextView[FtcRobotControllerActivity.NUM_GAMEPADS];
+  protected TextView[] textGamepad = new TextView[NUM_GAMEPADS];
   protected TextView textOpMode;
   protected TextView textErrorMessage;
   protected ImmersiveMode immersion;
@@ -193,13 +194,13 @@ public class FtcRobotControllerActivity extends Activity
   protected ServiceConnection connection = new ServiceConnection() {
     @Override
     public void onServiceConnected(final ComponentName name, final IBinder service) {
-      FtcRobotControllerService.FtcRobotControllerBinder binder = (FtcRobotControllerService.FtcRobotControllerBinder) service;
+      final FtcRobotControllerService.FtcRobotControllerBinder binder = (FtcRobotControllerService.FtcRobotControllerBinder) service;
 	    FtcRobotControllerActivity.this.onServiceBind(binder.getService());
     }
 
     @Override
     public void onServiceDisconnected(final ComponentName name) {
-      RobotLog.vv(FtcRobotControllerService.TAG, "%s.controllerService=null", FtcRobotControllerActivity.TAG);
+      RobotLog.vv(FtcRobotControllerService.TAG, "%s.controllerService=null", TAG);
 	    FtcRobotControllerActivity.this.controllerService = null;
     }
   };
@@ -210,7 +211,7 @@ public class FtcRobotControllerActivity extends Activity
 
     if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(intent.getAction())) {
       final UsbDevice usbDevice = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-      RobotLog.vv(FtcRobotControllerActivity.TAG, "ACTION_USB_DEVICE_ATTACHED: %s", usbDevice.getDeviceName());
+      RobotLog.vv(TAG, "ACTION_USB_DEVICE_ATTACHED: %s", usbDevice.getDeviceName());
 
       if (null != usbDevice) {  // paranoia
         // We might get attachment notifications before the event loop is set up, so
@@ -247,20 +248,20 @@ public class FtcRobotControllerActivity extends Activity
    * the device back to the permission validator activity.
    */
   protected boolean enforcePermissionValidator() {
-    if (! FtcRobotControllerActivity.permissionsValidated) {
-      RobotLog.vv(FtcRobotControllerActivity.TAG, "Redirecting to permission validator");
+    if (! permissionsValidated) {
+      RobotLog.vv(TAG, "Redirecting to permission validator");
       final Intent permissionValidatorIntent = new Intent(AppUtil.getDefContext(), PermissionValidatorWrapper.class);
 	    this.startActivity(permissionValidatorIntent);
 	    this.finish();
       return true;
     } else {
-      RobotLog.vv(FtcRobotControllerActivity.TAG, "Permissions validated already");
+      RobotLog.vv(TAG, "Permissions validated already");
       return false;
     }
   }
 
   public static void setPermissionsValidated() {
-	  FtcRobotControllerActivity.permissionsValidated = true;
+	  permissionsValidated = true;
   }
 
   @Override
@@ -272,12 +273,12 @@ public class FtcRobotControllerActivity extends Activity
     }
 
     RobotLog.onApplicationStart();  // robustify against onCreate() following onDestroy() but using the same app instance, which apparently does happen
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "onCreate()");
+    RobotLog.vv(TAG, "onCreate()");
     ThemedActivity.appAppThemeToActivity(TAG, this); // do this way instead of inherit to help AppInventor
 
     // Oddly, sometimes after a crash & restart the root activity will be something unexpected, like from the before crash? We don't yet understand
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "rootActivity is of class %s", AppUtil.getInstance().getRootActivity().getClass().getSimpleName());
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "launchActivity is of class %s", FtcRobotControllerWatchdogService.launchActivity());
+    RobotLog.vv(TAG, "rootActivity is of class %s", AppUtil.getInstance().getRootActivity().getClass().getSimpleName());
+    RobotLog.vv(TAG, "launchActivity is of class %s", FtcRobotControllerWatchdogService.launchActivity());
     Assert.assertTrue(FtcRobotControllerWatchdogService.isLaunchActivity(AppUtil.getInstance().getRootActivity()));
     Assert.assertTrue(AppUtil.getInstance().isRobotController());
 
@@ -300,7 +301,7 @@ public class FtcRobotControllerActivity extends Activity
 
 	  this.setContentView(R.layout.activity_ftc_controller);
 
-	  this.preferencesHelper = new PreferencesHelper(FtcRobotControllerActivity.TAG, this.context);
+	  this.preferencesHelper = new PreferencesHelper(TAG, this.context);
 	  this.preferencesHelper.writeBooleanPrefIfDifferent(this.context.getString(R.string.pref_rc_connected), true);
 	  this.preferencesHelper.getSharedPreferences().registerOnSharedPreferenceChangeListener(this.sharedPreferencesListener);
 
@@ -348,7 +349,7 @@ public class FtcRobotControllerActivity extends Activity
      * the onCreate() call for the activity and then we crash here because we don't
      * have permissions. So...
      */
-    if (FtcRobotControllerActivity.permissionsValidated) {
+    if (permissionsValidated) {
       ClassManager.getInstance().setOnBotJavaClassHelper(this.onBotJavaHelper);
       ClassManagerFactory.registerFilters();
       ClassManagerFactory.processAllClasses();
@@ -426,7 +427,7 @@ public class FtcRobotControllerActivity extends Activity
   @Override
   protected void onStart() {
     super.onStart();
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "onStart()");
+    RobotLog.vv(TAG, "onStart()");
 
 	  this.entireScreenLayout.setOnTouchListener(new View.OnTouchListener() {
       @Override
@@ -440,7 +441,7 @@ public class FtcRobotControllerActivity extends Activity
   @Override
   protected void onResume() {
     super.onResume();
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "onResume()");
+    RobotLog.vv(TAG, "onResume()");
 
     // In case the user just got back from fixing their clock, refresh ClockWarningSource
     ClockWarningSource.getInstance().onPossibleRcClockUpdate();
@@ -449,7 +450,7 @@ public class FtcRobotControllerActivity extends Activity
   @Override
   protected void onPause() {
     super.onPause();
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "onPause()");
+    RobotLog.vv(TAG, "onPause()");
   }
 
   @Override
@@ -457,13 +458,13 @@ public class FtcRobotControllerActivity extends Activity
     // Note: this gets called even when the configuration editor is launched. That is, it gets
     // called surprisingly often. So, we don't actually do much here.
     super.onStop();
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "onStop()");
+    RobotLog.vv(TAG, "onStop()");
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    RobotLog.vv(FtcRobotControllerActivity.TAG, "onDestroy()");
+    RobotLog.vv(TAG, "onDestroy()");
 
 	  this.shutdownRobot();  // Ensure the robot is put away to bed
     if (null != callback) this.callback.close();
@@ -573,12 +574,12 @@ public class FtcRobotControllerActivity extends Activity
     }
     else if (id == R.id.action_settings) {
 	  // historical: this once erroneously used FTC_CONFIGURE_REQUEST_CODE_ROBOT_CONTROLLER
-      Intent settingsIntent = new Intent(AppUtil.getDefContext(), FtcRobotControllerSettingsActivity.class);
+      final Intent settingsIntent = new Intent(AppUtil.getDefContext(), FtcRobotControllerSettingsActivity.class);
       startActivityForResult(settingsIntent, LaunchActivityConstantsList.RequestCode.SETTINGS_ROBOT_CONTROLLER.ordinal());
       return true;
     }
     else if (id == R.id.action_about) {
-      Intent intent = new Intent(AppUtil.getDefContext(), FtcAboutActivity.class);
+      final Intent intent = new Intent(AppUtil.getDefContext(), FtcAboutActivity.class);
       startActivity(intent);
       return true;
     }
@@ -590,11 +591,11 @@ public class FtcRobotControllerActivity extends Activity
       finishAffinity();
 
       //For lollipop and up, we can clear ourselves from the recents list too
-      if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        List<ActivityManager.AppTask> tasks = manager.getAppTasks();
+      if (android.os.Build.VERSION_CODES.LOLLIPOP <= android.os.Build.VERSION.SDK_INT) {
+        final ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        final List<ActivityManager.AppTask> tasks = manager.getAppTasks();
 
-        for (ActivityManager.AppTask task : tasks) {
+        for (final ActivityManager.AppTask task : tasks) {
           task.finishAndRemoveTask();
         }
       }
@@ -612,7 +613,7 @@ public class FtcRobotControllerActivity extends Activity
   }
 
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
+  public void onConfigurationChanged(final Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     // don't destroy assets on screen rotation
     updateMonitorLayout(newConfig);
@@ -622,30 +623,30 @@ public class FtcRobotControllerActivity extends Activity
    * Updates the orientation of monitorContainer (which contains cameraMonitorView)
    * based on the given configuration. Makes the children split the space.
    */
-  private void updateMonitorLayout(Configuration configuration) {
-    LinearLayout monitorContainer = findViewById(R.id.monitorContainer);
-    if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+  private void updateMonitorLayout(final Configuration configuration) {
+    final LinearLayout monitorContainer = findViewById(R.id.monitorContainer);
+    if (Configuration.ORIENTATION_LANDSCAPE == configuration.orientation) {
       // When the phone is landscape, lay out the monitor views horizontally.
       monitorContainer.setOrientation(LinearLayout.HORIZONTAL);
       for (int i = 0; i < monitorContainer.getChildCount(); i++) {
-        View view = monitorContainer.getChildAt(i);
-        view.setLayoutParams(new LayoutParams(0, LayoutParams.MATCH_PARENT, 1 /* weight */));
+        final View view = monitorContainer.getChildAt(i);
+        view.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1 /* weight */));
       }
     } else {
       // When the phone is portrait, lay out the monitor views vertically.
       monitorContainer.setOrientation(LinearLayout.VERTICAL);
       for (int i = 0; i < monitorContainer.getChildCount(); i++) {
-        View view = monitorContainer.getChildAt(i);
-        view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 0, 1 /* weight */));
+        final View view = monitorContainer.getChildAt(i);
+        view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1 /* weight */));
       }
     }
     monitorContainer.requestLayout();
   }
 
   @Override
-  protected void onActivityResult(int request, int result, Intent intent) {
-    if (request == REQUEST_CONFIG_WIFI_CHANNEL) {
-      if (result == RESULT_OK) {
+  protected void onActivityResult(final int request, final int result, final Intent intent) {
+    if (REQUEST_CONFIG_WIFI_CHANNEL == request) {
+      if (RESULT_OK == result) {
         AppUtil.getInstance().showToast(UILocation.BOTH, context.getString(R.string.toastWifiConfigurationComplete));
       }
     }
@@ -658,8 +659,8 @@ public class FtcRobotControllerActivity extends Activity
     }
   }
 
-  public void onServiceBind(FtcRobotControllerService service) {
-    RobotLog.vv(FtcRobotControllerService.TAG, "%s.controllerService=bound", FtcRobotControllerActivity.TAG);
+  public void onServiceBind(final FtcRobotControllerService service) {
+    RobotLog.vv(FtcRobotControllerService.TAG, "%s.controllerService=bound", TAG);
 	  this.controllerService = service;
 	  this.updateUI.setControllerService(this.controllerService);
 
@@ -712,13 +713,13 @@ public class FtcRobotControllerActivity extends Activity
     try {
       hardwareFactory.setXmlPullParser(file.getXml());
     } catch (final FileNotFoundException | XmlPullParserException e) {
-      RobotLog.ww(FtcRobotControllerActivity.TAG, e, "Unable to set configuration file %s. Falling back on noConfig.", file.getName());
+      RobotLog.ww(TAG, e, "Unable to set configuration file %s. Falling back on noConfig.", file.getName());
       file = RobotConfigFile.noConfig(this.cfgFileMgr);
       try {
         hardwareFactory.setXmlPullParser(file.getXml());
 	      this.cfgFileMgr.setActiveConfigAndUpdateUI(false, file);
       } catch (final FileNotFoundException | XmlPullParserException e1) {
-        RobotLog.ee(FtcRobotControllerActivity.TAG, e1, "Failed to fall back on noConfig");
+        RobotLog.ee(TAG, e1, "Failed to fall back on noConfig");
       }
     }
 
@@ -766,13 +767,13 @@ public class FtcRobotControllerActivity extends Activity
       int prefChannel = this.preferencesHelper.readInt(this.getString(com.qualcomm.ftccommon.R.string.pref_wifip2p_channel), -1);
       if (- 1 == prefChannel) {
         prefChannel = 0;
-        RobotLog.vv(FtcRobotControllerActivity.TAG, "pref_wifip2p_channel: No preferred channel defined. Will use a default value of %d", prefChannel);
+        RobotLog.vv(TAG, "pref_wifip2p_channel: No preferred channel defined. Will use a default value of %d", prefChannel);
       } else {
-        RobotLog.vv(FtcRobotControllerActivity.TAG, "pref_wifip2p_channel: Found existing preferred channel (%d).", prefChannel);
+        RobotLog.vv(TAG, "pref_wifip2p_channel: Found existing preferred channel (%d).", prefChannel);
       }
 
       // attempt to set the preferred channel.
-      RobotLog.vv(FtcRobotControllerActivity.TAG, "pref_wifip2p_channel: attempting to set preferred channel...");
+      RobotLog.vv(TAG, "pref_wifip2p_channel: attempting to set preferred channel...");
 	    this.wifiDirectChannelChanger = new WifiDirectChannelChanger();
 	    this.wifiDirectChannelChanger.changeToChannel(prefChannel);
     }

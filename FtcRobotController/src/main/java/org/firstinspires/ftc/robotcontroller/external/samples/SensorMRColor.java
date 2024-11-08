@@ -64,12 +64,12 @@ public class SensorMRColor extends LinearOpMode {
     final float[] hsvValues = {0.0F, 0.0F, 0.0F};
 
     // values is a reference to the hsvValues array.
-    float[] values = hsvValues;
+    final float[] values = hsvValues;
 
     // get a reference to the RelativeLayout so we can change the background
     // color of the Robot Controller app to match the hue detected by the RGB sensor.
     final int relativeLayoutId = this.hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", this.hardwareMap.appContext.getPackageName());
-    View      relativeLayout   = ((Activity) this.hardwareMap.appContext).findViewById(relativeLayoutId);
+    final View      relativeLayout   = ((Activity) this.hardwareMap.appContext).findViewById(relativeLayoutId);
 
     // bPrevState and bCurrState represent the previous and current state of the button.
     boolean bPrevState = false;

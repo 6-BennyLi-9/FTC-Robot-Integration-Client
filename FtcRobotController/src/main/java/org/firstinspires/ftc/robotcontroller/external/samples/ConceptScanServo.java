@@ -59,7 +59,7 @@ public class ConceptScanServo extends LinearOpMode {
 
     // Define class members
     Servo   servo;
-    double  position = (ConceptScanServo.MAX_POS - ConceptScanServo.MIN_POS) / 2; // Start at halfway position
+    double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
     boolean rampUp = true;
 
 
@@ -82,17 +82,17 @@ public class ConceptScanServo extends LinearOpMode {
             // slew the servo, according to the rampUp (direction) variable.
             if (this.rampUp) {
                 // Keep stepping up until we hit the max value.
-	            this.position += ConceptScanServo.INCREMENT;
-                if (MAX_POS <= ConceptScanServo.position) {
-	                this.position = ConceptScanServo.MAX_POS;
+	            this.position += INCREMENT;
+                if (MAX_POS <= position) {
+	                this.position = MAX_POS;
 	                this.rampUp = ! this.rampUp;   // Switch ramp direction
                 }
             }
             else {
                 // Keep stepping down until we hit the min value.
-	            this.position -= ConceptScanServo.INCREMENT;
-                if (MIN_POS >= ConceptScanServo.position) {
-	                this.position = ConceptScanServo.MIN_POS;
+	            this.position -= INCREMENT;
+                if (MIN_POS >= position) {
+	                this.position = MIN_POS;
 	                this.rampUp = ! this.rampUp;  // Switch ramp direction
                 }
             }
@@ -104,7 +104,7 @@ public class ConceptScanServo extends LinearOpMode {
 
             // Set the servo to the new position and pause;
 	        this.servo.setPosition(this.position);
-	        this.sleep(ConceptScanServo.CYCLE_MS);
+	        this.sleep(CYCLE_MS);
 	        this.idle();
         }
 

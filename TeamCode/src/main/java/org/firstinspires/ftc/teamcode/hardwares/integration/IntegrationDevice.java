@@ -5,7 +5,7 @@ public abstract class IntegrationDevice implements Integrations{
 	protected String pidTag;
 	public boolean updated;
 
-	public IntegrationDevice(final String name){
+	protected IntegrationDevice(final String name){
 		this.name=name;
 	}
 

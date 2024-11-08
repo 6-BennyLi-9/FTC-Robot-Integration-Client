@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrderPacka
 import org.firstinspires.ftc.teamcode.hardwares.Chassis;
 import org.firstinspires.ftc.teamcode.hardwares.integration.hardwaremap.namespace.DriveDirection;
 import org.firstinspires.ftc.teamcode.utils.Complex;
-import org.firstinspires.ftc.teamcode.utils.Functions;
 import org.firstinspires.ftc.teamcode.utils.Mathematics;
 import org.firstinspires.ftc.teamcode.utils.Position2d;
 import org.firstinspires.ftc.teamcode.utils.Vector2d;
@@ -37,7 +36,7 @@ public class DriveAction implements DriveOrder {
 	 */
 	public TrajectoryType trajectoryType;
 
-	DriveAction(Chassis chassis, final double BufPower, final Position2d pose) {
+	DriveAction(final Chassis chassis, final double BufPower, final Position2d pose) {
 		this.BufPower = BufPower;
 		this.pose = pose;
 		this.chassis = chassis;

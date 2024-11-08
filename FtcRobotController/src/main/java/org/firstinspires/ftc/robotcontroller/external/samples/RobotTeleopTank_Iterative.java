@@ -91,8 +91,8 @@ public class RobotTeleopTank_Iterative extends OpMode{
         // Define and initialize ALL installed servos.
 	    this.leftClaw = this.hardwareMap.get(Servo.class, "left_hand");
 	    this.rightClaw = this.hardwareMap.get(Servo.class, "right_hand");
-	    this.leftClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO);
-	    this.rightClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO);
+	    this.leftClaw.setPosition(MID_SERVO);
+	    this.rightClaw.setPosition(MID_SERVO);
 
         // Send telemetry message to signify robot waiting;
 	    this.telemetry.addData(">", "Robot Ready.  Press START.");    //
@@ -128,17 +128,17 @@ public class RobotTeleopTank_Iterative extends OpMode{
 	    this.rightDrive.setPower(right);
 
         // Use gamepad left & right Bumpers to open and close the claw
-        if (this.gamepad1.right_bumper) this.clawOffset += RobotTeleopTank_Iterative.CLAW_SPEED;
-        else if (this.gamepad1.left_bumper) this.clawOffset -= RobotTeleopTank_Iterative.CLAW_SPEED;
+        if (this.gamepad1.right_bumper) this.clawOffset += CLAW_SPEED;
+        else if (this.gamepad1.left_bumper) this.clawOffset -= CLAW_SPEED;
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
 	    this.clawOffset = Range.clip(this.clawOffset, -0.5, 0.5);
-	    this.leftClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO + this.clawOffset);
-	    this.rightClaw.setPosition(RobotTeleopTank_Iterative.MID_SERVO - this.clawOffset);
+	    this.leftClaw.setPosition(MID_SERVO + this.clawOffset);
+	    this.rightClaw.setPosition(MID_SERVO - this.clawOffset);
 
         // Use gamepad buttons to move the arm up (Y) and down (A)
-        if (this.gamepad1.y) this.leftArm.setPower(RobotTeleopTank_Iterative.ARM_UP_POWER);
-        else if (this.gamepad1.a) this.leftArm.setPower(RobotTeleopTank_Iterative.ARM_DOWN_POWER);
+        if (this.gamepad1.y) this.leftArm.setPower(ARM_UP_POWER);
+        else if (this.gamepad1.a) this.leftArm.setPower(ARM_DOWN_POWER);
         else this.leftArm.setPower(0.0);
 
         // Send telemetry message to signify robot running;

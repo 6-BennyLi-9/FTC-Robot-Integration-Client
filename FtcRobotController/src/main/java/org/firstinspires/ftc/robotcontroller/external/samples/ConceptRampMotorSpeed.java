@@ -79,17 +79,17 @@ public class ConceptRampMotorSpeed extends LinearOpMode {
             // Ramp the motors, according to the rampUp variable.
             if (this.rampUp) {
                 // Keep stepping up until we hit the max value.
-	            this.power += ConceptRampMotorSpeed.INCREMENT;
-                if (MAX_FWD <= ConceptRampMotorSpeed.power) {
-	                this.power = ConceptRampMotorSpeed.MAX_FWD;
+	            this.power += INCREMENT;
+                if (MAX_FWD <= power) {
+	                this.power = MAX_FWD;
 	                this.rampUp = ! this.rampUp;   // Switch ramp direction
                 }
             }
             else {
                 // Keep stepping down until we hit the min value.
-	            this.power -= ConceptRampMotorSpeed.INCREMENT;
-                if (MAX_REV >= ConceptRampMotorSpeed.power) {
-	                this.power = ConceptRampMotorSpeed.MAX_REV;
+	            this.power -= INCREMENT;
+                if (MAX_REV >= power) {
+	                this.power = MAX_REV;
 	                this.rampUp = ! this.rampUp;  // Switch ramp direction
                 }
             }
@@ -101,7 +101,7 @@ public class ConceptRampMotorSpeed extends LinearOpMode {
 
             // Set the motor to the new power and pause;
 	        this.motor.setPower(this.power);
-	        this.sleep(ConceptRampMotorSpeed.CYCLE_MS);
+	        this.sleep(CYCLE_MS);
 	        this.idle();
         }
 

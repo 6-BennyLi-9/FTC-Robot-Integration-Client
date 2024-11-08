@@ -122,7 +122,7 @@ public class ConceptAprilTagEasy extends LinearOpMode {
 	    this.aprilTag = AprilTagProcessor.easyCreateWithDefaults();
 
         // Create the vision portal the easy way.
-        if (ConceptAprilTagEasy.USE_WEBCAM) {
+        if (USE_WEBCAM) {
 	        this.visionPortal = VisionPortal.easyCreateWithDefaults(this.hardwareMap.get(WebcamName.class, "Webcam 1"), this.aprilTag);
         } else {
 	        this.visionPortal = VisionPortal.easyCreateWithDefaults(

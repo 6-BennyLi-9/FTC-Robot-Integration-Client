@@ -67,7 +67,7 @@ public class Motors {
 	public void updateDriveOptions(double headingDeg){
 		if( Params.Configs.driverUsingAxisPowerInsteadOfCurrentPower ){
 			final double currentXPower;
-			double       currentYPower;
+			final double       currentYPower;
 			final double currentHeadingPower = this.headingPower;
 			headingDeg= Mathematics.angleRationalize(headingDeg);//防止有问题
 			Complex       aim              =new Complex(new Vector2d(this.xAxisPower, this.yAxisPower));

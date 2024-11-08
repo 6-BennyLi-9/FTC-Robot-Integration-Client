@@ -7,8 +7,10 @@ import org.firstinspires.ftc.teamcode.drives.controls.definition.DriveOrder;
 import org.firstinspires.ftc.teamcode.utils.annotations.UtilFunctions;
 import org.firstinspires.ftc.teamcode.utils.enums.RobotState;
 
-public final class Functions extends Mathematics{
-    @UtilFunctions
+public enum Functions{
+	;
+
+	@UtilFunctions
     public static double getCurrentTimeMills(){
         return System.nanoTime()/1.0E06;
     }
@@ -48,7 +50,7 @@ public final class Functions extends Mathematics{
             case LinerWithTurn:
             case TurnOnly:
                 SimpleMecanumDrive.robotState = RobotState.StrafeToPoint;
-                return Functions.getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.nextPose(), RobotPosition , progress);
+                return getAimPositionThroughTrajectory(driveOrder.getPose(), driveOrder.nextPose(), RobotPosition , progress);
             case Spline://TODO:功能仍在开发中
                 SimpleMecanumDrive.robotState = RobotState.FollowSpline;
                 break;
@@ -73,7 +75,7 @@ public final class Functions extends Mathematics{
     @NonNull
     @UtilFunctions
     public static Position2d Alignment2d(@NonNull final Position2d pose){
-        return Functions.Alignment2d(pose.x,pose.y,pose.heading);
+        return Alignment2d(pose.x,pose.y,pose.heading);
     }
 
 	@UtilFunctions

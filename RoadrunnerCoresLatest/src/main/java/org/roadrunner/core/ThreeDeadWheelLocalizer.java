@@ -46,7 +46,7 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
 
         this.inPerTick = inPerTick;
 
-        FlightRecorder.write("THREE_DEAD_WHEEL_PARAMS", ThreeDeadWheelLocalizer.PARAMS);
+        FlightRecorder.write("THREE_DEAD_WHEEL_PARAMS", PARAMS);
     }
 
     public Twist2dDual<Time> update() {
@@ -76,17 +76,17 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         final Twist2dDual<Time> twist = new Twist2dDual<>(
                 new Vector2dDual<>(
                         new DualNum<Time>(new double[] {
-		                        (ThreeDeadWheelLocalizer.PARAMS.par0YTicks * par1PosDelta - ThreeDeadWheelLocalizer.PARAMS.par1YTicks * par0PosDelta) / (ThreeDeadWheelLocalizer.PARAMS.par0YTicks - ThreeDeadWheelLocalizer.PARAMS.par1YTicks),
-                                (ThreeDeadWheelLocalizer.PARAMS.par0YTicks * par1PosVel.velocity - ThreeDeadWheelLocalizer.PARAMS.par1YTicks * par0PosVel.velocity) / (ThreeDeadWheelLocalizer.PARAMS.par0YTicks - ThreeDeadWheelLocalizer.PARAMS.par1YTicks),
+		                        (PARAMS.par0YTicks * par1PosDelta - PARAMS.par1YTicks * par0PosDelta) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
+                                (PARAMS.par0YTicks * par1PosVel.velocity - PARAMS.par1YTicks * par0PosVel.velocity) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
                         }).times(this.inPerTick),
                         new DualNum<Time>(new double[] {
-                                (ThreeDeadWheelLocalizer.PARAMS.perpXTicks / (ThreeDeadWheelLocalizer.PARAMS.par0YTicks - ThreeDeadWheelLocalizer.PARAMS.par1YTicks) * (par1PosDelta - par0PosDelta) + perpPosDelta),
-                                (ThreeDeadWheelLocalizer.PARAMS.perpXTicks / (ThreeDeadWheelLocalizer.PARAMS.par0YTicks - ThreeDeadWheelLocalizer.PARAMS.par1YTicks) * (par1PosVel.velocity - par0PosVel.velocity) + perpPosVel.velocity),
+                                (PARAMS.perpXTicks / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosDelta - par0PosDelta) + perpPosDelta),
+                                (PARAMS.perpXTicks / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosVel.velocity - par0PosVel.velocity) + perpPosVel.velocity),
                         }).times(this.inPerTick)
                 ),
                 new DualNum<>(new double[] {
-                        (par0PosDelta - par1PosDelta) / (ThreeDeadWheelLocalizer.PARAMS.par0YTicks - ThreeDeadWheelLocalizer.PARAMS.par1YTicks),
-                        (par0PosVel.velocity - par1PosVel.velocity) / (ThreeDeadWheelLocalizer.PARAMS.par0YTicks - ThreeDeadWheelLocalizer.PARAMS.par1YTicks),
+                        (par0PosDelta - par1PosDelta) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
+                        (par0PosVel.velocity - par1PosVel.velocity) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
                 })
         );
 

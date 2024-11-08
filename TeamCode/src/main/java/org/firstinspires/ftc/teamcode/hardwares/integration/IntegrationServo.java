@@ -65,7 +65,7 @@ public class IntegrationServo extends IntegrationDevice{
 			this.targetVelocity = this.speed;
 		}
 		Log.w("W","建议提供 speed");
-		Integrations.timer.pushObjectionTimeTag("InTimeStartTag",TimeMills);
+		timer.pushObjectionTimeTag("InTimeStartTag",TimeMills);
 
 		if(Params.Configs.runUpdateWhenAnyNewOptionsAdded){
 			this.update();
@@ -80,7 +80,7 @@ public class IntegrationServo extends IntegrationDevice{
 	@Override
 	public void update() {
 		if(this.smoothMode){
-			if((double) Integrations.timer.getTimeTagObjection("InTimeStartTag") + Integrations.timer.getTimeTag("InTimeStartTag") > Timer.getCurrentTime()){
+			if((double) timer.getTimeTagObjection("InTimeStartTag") + timer.getTimeTag("InTimeStartTag") > Timer.getCurrentTime()){
 				if(0.05f < targetPose - servo.getPosition()){
 					this.servo.setPosition(this.targetPose);
 				}else{
@@ -88,13 +88,13 @@ public class IntegrationServo extends IntegrationDevice{
 					//done
 				}
 			}else{
-				final double delta = this.targetVelocity * (Timer.getCurrentTime() - Integrations.timer.getTimeTag("LastUpdateTime"));
+				final double delta = this.targetVelocity * (Timer.getCurrentTime() - timer.getTimeTag("LastUpdateTime"));
 				this.servo.setPosition(this.servo.getPosition() + delta);
 			}
 		}else {
 			this.servo.setPosition(this.targetPose);
 		}
-		Integrations.timer.pushTimeTag("LastUpdateTime");
+		timer.pushTimeTag("LastUpdateTime");
 		this.updated =true;
 	}
 

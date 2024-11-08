@@ -92,8 +92,8 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         // Step through each leg of the path, ensuring that the OpMode has not been stopped along the way.
 
         // Step 1:  Drive forward for 3 seconds
-	    this.leftDrive.setPower(RobotAutoDriveByTime_Linear.FORWARD_SPEED);
-	    this.rightDrive.setPower(RobotAutoDriveByTime_Linear.FORWARD_SPEED);
+	    this.leftDrive.setPower(FORWARD_SPEED);
+	    this.rightDrive.setPower(FORWARD_SPEED);
 	    this.runtime.reset();
         while (this.opModeIsActive() && (3.0 > runtime.seconds())) {
 	        this.telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", this.runtime.seconds());
@@ -101,8 +101,8 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         }
 
         // Step 2:  Spin right for 1.3 seconds
-	    this.leftDrive.setPower(RobotAutoDriveByTime_Linear.TURN_SPEED);
-	    this.rightDrive.setPower(- RobotAutoDriveByTime_Linear.TURN_SPEED);
+	    this.leftDrive.setPower(TURN_SPEED);
+	    this.rightDrive.setPower(- TURN_SPEED);
 	    this.runtime.reset();
         while (this.opModeIsActive() && (1.3 > runtime.seconds())) {
 	        this.telemetry.addData("Path", "Leg 2: %4.1f S Elapsed", this.runtime.seconds());
@@ -110,8 +110,8 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         }
 
         // Step 3:  Drive Backward for 1 Second
-	    this.leftDrive.setPower(- RobotAutoDriveByTime_Linear.FORWARD_SPEED);
-	    this.rightDrive.setPower(- RobotAutoDriveByTime_Linear.FORWARD_SPEED);
+	    this.leftDrive.setPower(- FORWARD_SPEED);
+	    this.rightDrive.setPower(- FORWARD_SPEED);
 	    this.runtime.reset();
         while (this.opModeIsActive() && (1.0 > runtime.seconds())) {
 	        this.telemetry.addData("Path", "Leg 3: %4.1f S Elapsed", this.runtime.seconds());

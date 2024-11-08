@@ -50,7 +50,7 @@ public class MultiOdometriesTest extends TuningProgramTemplate {
 		this.robot.motors.clearDriveOptions();
 
 		final double l = this.robot.sensors.getDeltaLateralInch();
-		double       a =robot.sensors.getDeltaAxialInch();
+		final double       a =robot.sensors.getDeltaAxialInch();
 		final double t = this.robot.sensors.getDeltaTurningDeg();
 
 		this.arc.update(l,a,t);
