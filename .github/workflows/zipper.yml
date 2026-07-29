@@ -2,6 +2,7 @@ name: Zipper
 on:
   push:
     branches: ["master"]
+  workflow_call: 
 jobs:
   zip:
     permissions:
